@@ -79,4 +79,15 @@ public class TempSceneRoot : MonoBehaviour
 
         Debug.Log("Successfully loaded dependencies", this);
     }
+
+    /*
+    /// <summary>
+    /// TODO: modding configuration for the scenes - dependency injection lite
+    /// </summary>
+    /// <returns></returns>
+    public SceneConfiguration GetSceneConfig()
+    {
+
+    }
+    */
 }
