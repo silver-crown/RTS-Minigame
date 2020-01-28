@@ -15,7 +15,7 @@ public class GatherResources : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        GatherResource();
     }
 
     void GatherResource()

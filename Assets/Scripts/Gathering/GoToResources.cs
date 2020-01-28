@@ -47,6 +47,8 @@ public class GoToResources : MonoBehaviour
             //Currently gathering crystals
             case (MaterialCurrentlyGathering.Crystal):
                 {
+                    //Recalculate _crystals cause one might disappear at some point
+                    _crystals = GameObject.FindGameObjectsWithTag("Crystal");
                     foreach (GameObject crystal in _crystals)
                     {
                         float distance = Vector3.Distance(crystal.transform.position, currentPos);
@@ -56,11 +58,14 @@ public class GoToResources : MonoBehaviour
                             minDistance = distance;
                         }
                     }
+                    _crystals = GameObject.FindGameObjectsWithTag("Crystal");
                     return closest;
                 }
             //Currently gathering metals
             case (MaterialCurrentlyGathering.Metal):
                 {
+                    //Recalculate _metals cause one might disappear at some point
+                    _metals = GameObject.FindGameObjectsWithTag("Metal");
                     foreach (GameObject metal in _metals)
                     {
                         float distance = Vector3.Distance(metal.transform.position, currentPos);
