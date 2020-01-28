@@ -32,6 +32,7 @@ public class GoToResources : MonoBehaviour
     void Update()
     {
         GoToResource(FindClosestResource());
+        //tag the resource 
     }
 
     //find the closest resource currently available
