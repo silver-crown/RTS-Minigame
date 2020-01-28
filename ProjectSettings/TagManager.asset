@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - Crystal
   - Metal
+  - Base
   layers:
   - Default
   - TransparentFX
