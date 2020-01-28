@@ -20,6 +20,10 @@ public class GatherResources : MonoBehaviour
 
     void GatherResource()
     {
-        _Resource.GetComponent<ResourceMaterial>().DecreaseQuantity();
+        //Don't gather if there's nothing left
+        if(_Resource.GetComponent<ResourceMaterial>().GetQuantity() > 0)
+        {
+            _Resource.GetComponent<ResourceMaterial>().DecreaseQuantity();
+        }
     }
 }
