@@ -15,11 +15,15 @@ public class GatherResources : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        GatherResource();
     }
 
     void GatherResource()
     {
-        _Resource.GetComponent<ResourceMaterial>().DecreaseQuantity();
+        //Don't gather if there's nothing left
+        if(_Resource.GetComponent<ResourceMaterial>().GetQuantity() > 0)
+        {
+            _Resource.GetComponent<ResourceMaterial>().DecreaseQuantity();
+        }
     }
 }
