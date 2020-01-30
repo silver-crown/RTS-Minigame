@@ -26,43 +26,52 @@ public class EnoughResources : MonoBehaviour
         //Drones aren't made here, we're only checking that we can make them with the functions below
     }
 
-    //A scout takes 4 crystal and 4 metal
-    public bool CanIMakeScout()
+
+    public bool CanIMake(string s)
     {
-        _req = _requirements.BuildCostScout();
-        if(_req["Crystal"] == 4 && _req["Metal"] == 4)
+        s = s.ToLower();
+        switch (s)
         {
-            return true;
-        }
-        return false;
-    }
-    //A scanner takes 6 crystals and 2 metals
-    public bool CanIMakeScanner()
-    {
-        _req = _requirements.BuildCostScanner();
-        if (_req["Crystal"] == 6 && _req["Metal"] == 2)
-        {
-            return true;
-        }
-        return false;
-    }
-    //The tank takes 4 crystals and 8 metals
-    public bool CanIMakeTank()
-    {
-        _req = _requirements.BuildCostTank();
-        if (_req["Crystal"] == 4 && _req["Metal"] == 8)
-        {
-            return true;
-        }
-        return false;
-    }
-    //The camel takes 6 crystals and 6 metals
-    public bool CanIMakeCamel()
-    {
-        _req = _requirements.BuildCostTank();
-        if (_req["Crystal"] == 4 && _req["Metal"] == 8)
-        {
-            return true;
+            //A scout takes 4 crystal and 4 metal
+            case ("scout"):
+                {
+                    _req = _requirements.BuildCostScout();
+                    if (_req["Crystal"] == 4 && _req["Metal"] == 4)
+                    {
+                        return true;
+                    }
+                    break;
+                }
+            //A scanner takes 6 crystals and 2 metals
+            case ("scanner"):
+                {
+                    _req = _requirements.BuildCostScanner();
+                    if (_req["Crystal"] == 6 && _req["Metal"] == 2)
+                    {
+                        return true;
+                    }
+                    break;
+                }
+            //A tank takes 4 crystals and 8 metals
+            case ("tank"):
+                {
+                    _req = _requirements.BuildCostTank();
+                    if (_req["Crystal"] == 4 && _req["Metal"] == 8)
+                    {
+                        return true;
+                    }
+                    break;
+                }
+            //The camel takes 6 crystals and 6 metals
+            case ("camel"):
+                {
+                    _req = _requirements.BuildCostTank();
+                    if (_req["Crystal"] == 4 && _req["Metal"] == 8)
+                    {
+                        return true;
+                    }
+                    break;
+                }
         }
         return false;
     }
