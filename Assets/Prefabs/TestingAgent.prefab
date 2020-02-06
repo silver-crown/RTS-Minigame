@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 5370290105834860243}
   - component: {fileID: 8765678427788144727}
   - component: {fileID: 248782947056489552}
-  - component: {fileID: 5229128079279785038}
   - component: {fileID: 5370290105834860201}
   m_Layer: 0
   m_Name: TestingAgent
@@ -163,18 +162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Stats: {fileID: 8765678427788144727}
   isFull: 0
---- !u!114 &5229128079279785038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5370290105834860242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ae5fae018f3334cb9e83b83b887aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5370290105834860201
 MonoBehaviour:
   m_ObjectHideFlags: 0
