@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class Decorator : Behavior
 {
-    protected List<Behavior> _behaviorChildNodes;
+    protected Behavior _childNode;
 
-    // TODO: Make constructor
+    public Decorator(Behavior child)
+    {
+        _childNode = child;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

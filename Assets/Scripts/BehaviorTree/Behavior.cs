@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Refactor this
 public enum Status
 {
     INVALID,
@@ -10,64 +9,89 @@ public enum Status
     FAILURE,
     RUNNING,
     SUSPENDED,
+    ABORTED
 }
 
-public abstract class Behavior : MonoBehaviour
+public class Behavior : MonoBehaviour
 {
     private Status _status;
 
-    // Constructor needs to be public so we can make subclasses of Behavior
     public Behavior()
     {
         _status = Status.INVALID;
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        tick();   
-    }
-
-    // Tick funciton updates the treee
     public Status tick()
     {
+
         if (_status != Status.RUNNING)
         {
-            onInitialize();
+            OnInitialize();
         }
 
+        // update selve behavior interface callet
         _status = UpdateBehavior();
 
-        if(_status != Status.RUNNING)
+        if (_status != Status.RUNNING)
         {
-            onTerminate(_status);
+            OnTerminate(_status);
         }
 
         return _status;
     }
 
-    // Called once before we call the update function of the behavior
-    protected virtual void onInitialize()
+    /* The onInitialize() method is called once, immediately before the first call to
+       the behavior’s update method. */
+    protected virtual void OnInitialize()
     {
 
     }
 
-    // called once each time the behavior tree is updated
+    /* The update() method is called exactly once each time the behavior tree is
+       updated, until it signals it has terminated thanks to its return status. */
     protected virtual Status UpdateBehavior()
-    {   
+    {
         return 0;
     }
 
-    // The onTerminate() method is called once, immediately after the previous
-    // update signals it’s no longer running.
-    protected virtual void onTerminate(Status s)
+    /* The onTerminate() method is called once, immediately after the previous
+       update signals it’s no longer running. */
+    protected virtual void OnTerminate(Status s)
     {
 
+    }
+
+    // Utility functions
+    public void Reset()
+    {
+        _status = Status.INVALID;
+    }
+
+    public void Abort()
+    {
+        OnTerminate(Status.ABORTED);
+        _status = Status.ABORTED;
+    }
+
+    public bool IsTerminated()
+    {
+        return _status == Status.SUCCESS || _status == Status.FAILURE;
+    }
+
+    public bool IsRunning()
+    {
+        return _status == Status.RUNNING;
+    }
+
+    public Status GetStatus()
+    {
+        return _status;
     }
 }

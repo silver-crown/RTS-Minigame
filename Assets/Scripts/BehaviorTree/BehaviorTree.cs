@@ -2,30 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class BehaviorTree : MonoBehaviour
 {
-    // 
-    List<Behavior> _behaviors;
-
+    Behavior _rootNode;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Update every 5Hz
     }
 
-    // we might just Update instread of tick.
-    // no need to update the tree evry frame.
-    // Every tick is basically a tree traversal.
+    // traverse the tree, but we have the update function
     public void tick()
-    {    
-
+    {
+        // Update this 5hz
     }
 }
