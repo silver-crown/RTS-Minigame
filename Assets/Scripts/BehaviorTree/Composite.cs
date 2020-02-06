@@ -4,34 +4,32 @@ using UnityEngine;
 
 public class Composite : Behavior
 {
-    List<Behavior> _behaviors;
+    protected List<Behavior> _children = new List<Behavior>();
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    // Composite methods
+    public void AddChild(Behavior _child)
     {
-        
+        _children.Add(_child);
     }
 
-    // Functions related to composite behavior
-    public void addChild(Behavior _behavior)
-    {
-
-    }
-
-    public void removeChild(Behavior behavior)
+    public void RemoveChild(Behavior _child)
     {
 
     }
 
-    void clearChildren()
+    public void ClearChildren()
     {
 
     }
+
+
 
 }

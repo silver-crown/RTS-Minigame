@@ -14,7 +14,7 @@ public enum Status
 
 public class Behavior : MonoBehaviour
 {
-    private Status _status;
+    private Status _status { get; set; }
 
     public Behavior()
     {

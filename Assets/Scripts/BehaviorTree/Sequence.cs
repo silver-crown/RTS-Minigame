@@ -7,12 +7,28 @@ public class Sequence : Composite
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    override
+    protected Status UpdateBehavior()
     {
-        
+        for (int i = 0; i < _children.Count; i++)
+        {
+
+            Status childStatus = _children[i].tick();
+
+            if (childStatus == Status.RUNNING)
+            {
+                return Status.RUNNING;
+            }
+            else if (childStatus == Status.FAILURE)
+            {
+                return Status.FAILURE;
+            }
+        }
+
+        return Status.SUCCESS;
     }
+
 }
