@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BehaviorTree : MonoBehaviour
 {
-    Behavior _rootNode;
+    Behavior _rootNode; // root of the tree
 
     // Start is called before the first frame update
     void Start()
