@@ -7,7 +7,7 @@ public class Selector : Composite
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     override
@@ -23,7 +23,7 @@ public class Selector : Composite
                 Status childStatus = _children[i].tick();
 
                 // If the child is currecntly running or succseeds do it again.
-                if(childStatus != Status.FAILURE)
+                if (childStatus != Status.FAILURE)
                 {
                     return childStatus;
                 }
