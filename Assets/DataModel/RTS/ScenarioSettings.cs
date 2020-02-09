@@ -11,6 +11,7 @@ namespace RTS.DataModel
     public class ScenarioDefinition
     {
         public string Name;
+        public CIStrategy Strategy;
     }
 
     [System.Serializable]
@@ -25,6 +26,9 @@ namespace RTS.DataModel
     {
         [SerializeField]
         public string Name;
+
+        [SerializeField]
+        public CIStrategy Strategy;
 
         public override string GetSaveData()
         {
