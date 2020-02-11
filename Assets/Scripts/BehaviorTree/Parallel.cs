@@ -67,8 +67,8 @@ public class Parallel : Composite
             return Status.SUCCESS;
         }
 
-        // Not sure what status to return here yet.
-        return Status.INVALID;
+
+        return Status.RUNNING;
     }
 
 
@@ -83,7 +83,7 @@ public class Parallel : Composite
             {
                 _children[i].Abort();
             }
-        }s
+        }
     }
 }
 
