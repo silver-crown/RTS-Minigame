@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sequence : Composite
+public class Sequencer : Composite
 {
     // Start is called before the first frame update
     void Start()
     {
 
     }
+
 
     override
     protected Status UpdateBehavior()
