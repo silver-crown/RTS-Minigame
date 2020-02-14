@@ -5,7 +5,7 @@ using UnityEngine;
 /*
    You can also easily create Boolean combinations of conditions to add to the filter, as a
    testimony to the power of core BT nodes like sequences (AND) and selectors (OR)             */
-public class Filter : Sequence
+public class Filter : Sequencer
 {
     // might need a variable to keep track of how many conditions we have
     // The BT needs to make sure the conditions is first in the list so they are checked first.

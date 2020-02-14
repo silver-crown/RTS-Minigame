@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Repeat : Decorator
+public class RepeatUntilFailure : Decorator
 {
     protected int _limit;
     protected int _counter;
 
 
-    public Repeat(Behavior child) : base(child)
+    public RepeatUntilFailure(Behavior child) : base(child)
     {
 
     }
@@ -23,19 +23,14 @@ public class Repeat : Decorator
     override
     protected Status UpdateBehavior()
     {
-        _childNode.tick();
+        Status childStatus = _childNode.tick();
 
-        if (_childNode.GetStatus() == Status.RUNNING)
+        if (childStatus == Status.RUNNING)
         {
             // not sure if this if test is needed.
         }
 
-        if (_childNode.GetStatus() == Status.FAILURE)
-        {
-            return Status.FAILURE;
-        }
-
-        if (_counter == _limit)
+        if (childStatus == Status.FAILURE || _counter == _limit)
         {
             return Status.SUCCESS;
         }

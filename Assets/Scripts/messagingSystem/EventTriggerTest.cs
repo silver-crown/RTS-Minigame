@@ -22,7 +22,7 @@ public class EventTriggerTest : MonoBehaviour
         }
         if (Input.GetKeyDown("x"))
         {
-            EventManager.TriggerEvent("Junk"));
+            EventManager.TriggerEvent("Junk");
         }
     }
 }
