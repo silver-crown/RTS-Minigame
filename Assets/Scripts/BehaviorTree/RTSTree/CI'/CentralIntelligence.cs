@@ -6,6 +6,9 @@ public class CentralIntelligence : MonoBehaviour
 {
     // List of drone types
     BehaviorTree _behaviorTree = new BehaviorTree();
+
+    // Need a counter for how many drones are doing what type of actions (Logging this could aslo help for
+    // adding learning to the AI later).
  
     // Start is called before the first frame update
     void Start()
@@ -20,20 +23,27 @@ public class CentralIntelligence : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Creates a behavior tree for the Centreal Intelligence base on a pre defined code
+    /// </summary>
     public void SetUpTreeFromCode()
     {
         Selector rootNode = new Selector();  // 1. the root node will be a selector
+
+        // To start of with the Selector will be able to chose from three paths
+
+        // 1. collect resources
+        // First the CI need to check if it has workers available
         // rootNode.AddChild();
-
+        
         _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree
-
 
     }
 
 
-    // Return values:
-    // False: syntax erros etc in file
-    // True: Succsesfully made a behavior tree from the file. 
+    /// <summary>
+    /// Creates a behavior tree from a file.
+    /// </summary>
     public bool SetUpBehaviorTreeFromFile()
     {
         return false;
