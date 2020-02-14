@@ -67,4 +67,10 @@ public class BehaviorTree : MonoBehaviour
         aTimer.Dispose();
 
     }
+
+    public void SetRootNode(Behavior in_rootNode)
+    {
+        _rootNode = in_rootNode;
+    }
+
 }
