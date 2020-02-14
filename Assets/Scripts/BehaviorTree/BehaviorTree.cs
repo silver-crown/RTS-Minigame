@@ -8,7 +8,7 @@ using System.Timers;
 
 public class BehaviorTree : MonoBehaviour
 {
-    Behavior _rootNode; // root of the tree
+    public Behavior _rootNode; // root of the tree
     private  System.Timers.Timer aTimer;
 
     private  int _updateFrequency = 200; // milliseconds

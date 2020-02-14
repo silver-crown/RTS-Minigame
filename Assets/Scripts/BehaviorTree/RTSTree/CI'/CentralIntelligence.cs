@@ -22,7 +22,12 @@ public class CentralIntelligence : MonoBehaviour
 
     public void SetUpTreeFromCode()
     {
-        _behaviorTree.SetRootNode(new Selector());
+        Selector rootNode = new Selector();  // 1. the root node will be a selector
+        // rootNode.AddChild();
+
+        _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree
+
+
     }
 
 
