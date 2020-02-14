@@ -9,17 +9,17 @@ using System.Timers;
 public class BehaviorTree : MonoBehaviour
 {
     Behavior _rootNode; // root of the tree
-    private static System.Timers.Timer aTimer;
+    private  System.Timers.Timer aTimer;
 
-    private static int _updateFrequency = 200; // milliseconds
+    private  int _updateFrequency = 200; // milliseconds
 
 
-    void Awake()
+    /*void Awake()
     {
         SetTimer();
-    }
+    }*/
 
-    private static void SetTimer()
+    public void SetTimer()
     {
         // Create a timer with a two second interval.
         aTimer = new System.Timers.Timer(_updateFrequency);
@@ -46,7 +46,7 @@ public class BehaviorTree : MonoBehaviour
     }
 
     // Update this 5hz
-    private static void Tick(System.Object source, ElapsedEventArgs e)
+    private void Tick(System.Object source, ElapsedEventArgs e)
     {
         // Console.WriteLine("The Elapsed event was raised at {0:HH:mm:ss.fff}",
         //                  e.SignalTime);

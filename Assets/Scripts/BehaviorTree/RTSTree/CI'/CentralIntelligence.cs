@@ -5,12 +5,13 @@ using UnityEngine;
 public class CentralIntelligence : MonoBehaviour
 {
     // List of drone types
-    BehaviorTree _CIBehaviorTree;
+    BehaviorTree _behaviorTree = new BehaviorTree();
  
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetUpTreeFromCode();
+        _behaviorTree.SetTimer();
     }
 
     // Update is called once per frame
@@ -21,9 +22,8 @@ public class CentralIntelligence : MonoBehaviour
 
     public void SetUpTreeFromCode()
     {
-        _CIBehaviorTree.SetRootNode(new Selector());
+        _behaviorTree.SetRootNode(new Selector());
     }
-
 
 
     // Return values:
