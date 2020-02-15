@@ -36,7 +36,6 @@ public class CentralIntelligence : MonoBehaviour
 
     }
 
-
     /// <summary>
     /// Creates a behavior tree from a file.
     /// </summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomForMoreResources : MonoBehaviour
+public class RoomForMoreResources : Behavior
 {
     // [SerializeField] DroneStats _Stats;
     public bool isFull;
