@@ -28,14 +28,9 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     public void SetUpTreeFromCode()
     {
-        Selector rootNode = new Selector();  // 1. the root node will be a selector
+        Selector rootNode = new Selector();
 
-        // To start of with the Selector will be able to chose from three paths
-
-        // 1. collect resources
-        // First the CI need to check if it has workers available
-        // rootNode.AddChild();
-        
+        // rootNode.AddChild();        
         _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree
 
     }
