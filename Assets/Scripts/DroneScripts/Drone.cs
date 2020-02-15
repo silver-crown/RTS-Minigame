@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Drone : MonoBehaviour
 {
     BehaviorTree behaviorTree;
+
+    public GameObject _target;
+    NavMeshAgent _navMeshAgent;
 
     [SerializeField]
     private int _health;
@@ -28,6 +33,8 @@ public class Drone : MonoBehaviour
 
     private void Awake()
     {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+
         // Set stats with LUA
 
         // 1. Read in LUA file
@@ -57,6 +64,6 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        _navMeshAgent.SetDestination(_target.transform.position);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomForMoreResources : MonoBehaviour
 {
-    [SerializeField] DroneStats _Stats;
+    // [SerializeField] DroneStats _Stats;
     public bool isFull;
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class RoomForMoreResources : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_Stats.GetResources() < _Stats.GetResourceLimit())
+       // if(_Stats.GetResources() < _Stats.GetResourceLimit())
         {
             isFull = true;
         }
