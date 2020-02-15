@@ -83,7 +83,8 @@ public class GoToResources : MonoBehaviour
                 }
         }
     }
-    //Self explanatory
+    
+
     void GoToResource(Transform resource)
     {
         agent.SetDestination(resource.position);

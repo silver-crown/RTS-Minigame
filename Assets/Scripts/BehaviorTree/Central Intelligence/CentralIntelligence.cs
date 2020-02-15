@@ -29,8 +29,9 @@ public class CentralIntelligence : MonoBehaviour
     public void SetUpTreeFromCode()
     {
         Selector rootNode = new Selector();
-
-        // rootNode.AddChild();        
+        CollectResources collectResources = new CollectResources();
+        rootNode.AddChild(collectResources);
+        
         _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree
 
     }

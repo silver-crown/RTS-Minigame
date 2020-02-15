@@ -5,9 +5,27 @@ using UnityEngine;
 public class DroneStats : MonoBehaviour
 {
     //A script keeping track of a drone's health and statistics 
-    [SerializeField] float _health;
-    [SerializeField] int _resources;
-    [SerializeField] int _maxResources;
+
+    [SerializeField]
+    private int _health;
+    public int Health { get => _health;  set { _health = value;  } } 
+
+
+    [SerializeField] private int _resources;
+    public int Resources
+    {
+        get { return _resources; }
+        set { _resources = value; }
+    } 
+
+    [SerializeField] private int _maxResources;
+    public int MaxResources
+    {
+        get { return _maxResources; }
+        set { _maxResources = value; }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +42,7 @@ public class DroneStats : MonoBehaviour
             _maxResources = 6;
         }
     }
+
 
     // Update is called once per frame
     void Update()
