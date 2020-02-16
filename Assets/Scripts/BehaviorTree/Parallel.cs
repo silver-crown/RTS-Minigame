@@ -32,7 +32,7 @@ public class Parallel : Composite
 
             if (!_children[i].IsTerminated())
             {
-               childStatus = _children[i].tick();
+               childStatus = _children[i].Tick();
 
                 if (childStatus == Status.SUCCESS)
                 {

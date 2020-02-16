@@ -10,39 +10,41 @@ using MoonSharp.Interpreter;
 /// </summary>
 public class Drone : MonoBehaviour
 {
-    BehaviorTree behaviorTree;
-    public GameObject _target;
+    /// <summary>
+    /// Behavior Tree used by the drone for micro world behaviors
+    /// </summary>
+    BehaviorTree _behaviorTree;
+
+    // Navigation
     NavMeshAgent _navMeshAgent;
+    public GameObject _target;
 
-    [SerializeField]
-    private int _health;
-    public int Health { get => _health; set { _health = value; } }
+    /// <summary>
+    /// Current Health Points the drone has
+    /// </summary>
+    public int Heatlh { get; protected set; }
 
-    [SerializeField] private int _resources;
-    public int Resources   { get { return _resources; } set { _resources = value; }}
 
-    [SerializeField] private int _maxResources; public int MaxResources {  get { return _maxResources; }
-        set { _maxResources = value; }
-    }
+    /// <summary>
+    /// How much Metall the drone is currecntly carrying
+    /// </summary>
+    public int AmountMetall{ get; protected set; }
+    
+    /// <summary>
+    /// The max amount of resources a drone can carry
+    /// </summary>
+    public int MaxResources{ get; protected set; }
+
+    /// <summary>
+    /// Keeps track if the drone has room for more resrouces or is full.
+    /// </summary>
+    public bool IsInventoryFull { get; protected set; }
+
 
     // we should probbly init drones with LUA or Scriptable objects
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
-
-        _health = 20;
-        if (_health == 0)
-        {
-            _health = 20;
-        }
-        if (_resources == 0)
-        {
-            _resources = 0;
-        }
-        if (_maxResources == 0)
-        {
-            _maxResources = 6;
-        }
     }
 
     /// <summary>
@@ -76,6 +78,6 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _navMeshAgent.SetDestination(_target.transform.position);
+       // _navMeshAgent.SetDestination(_target.transform.position);       
     }
 }

@@ -28,9 +28,9 @@ public class Behavior : MonoBehaviour
 
     }
 
-    public Status tick()
+    public Status Tick()
     {
-
+       
         if (_status != Status.RUNNING)
         {
             OnInitialize();

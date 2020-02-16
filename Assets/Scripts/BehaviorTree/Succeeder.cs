@@ -19,7 +19,7 @@ public class Succeeder : Decorator
     protected override Status UpdateBehavior()
     {
         //Returns Success for states Success/Failure, but will return RUNNING or the error states if necessary
-        Status childStatus = _childNode.tick();
+        Status childStatus = _childNode.Tick();
         if (childStatus == Status.FAILURE)
         {
             return Status.SUCCESS;

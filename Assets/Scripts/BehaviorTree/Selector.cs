@@ -13,6 +13,7 @@ public class Selector : Composite
     override
     protected Status UpdateBehavior()
     {
+        Debug.Log("Selector ticked with status: ");
 
         // loop over children. until one returns RUNNING or SUCCESS
         // if none of the children excutes it returns failure.
@@ -20,7 +21,7 @@ public class Selector : Composite
         {
             for (int i = 0; i < _children.Count; i++)
             {
-                Status childStatus = _children[i].tick();
+                Status childStatus = _children[i].Tick();
 
                 // If the child is currecntly running or succseeds do it again.
                 if (childStatus != Status.FAILURE)
