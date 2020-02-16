@@ -18,7 +18,7 @@ public class Inverter : Decorator
 
     protected override Status UpdateBehavior()
     {
-        Status childStatus = _childNode.tick();
+        Status childStatus = _childNode.Tick();
 
         if (childStatus == Status.SUCCESS)
         {

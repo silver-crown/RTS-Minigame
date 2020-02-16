@@ -17,7 +17,7 @@ public class Sequencer : Composite
         for (int i = 0; i < _children.Count; i++)
         {
 
-            Status childStatus = _children[i].tick();
+            Status childStatus = _children[i].Tick();
 
             if (childStatus == Status.RUNNING)
             {

@@ -23,7 +23,7 @@ public class RepeatUntilFailure : Decorator
     override
     protected Status UpdateBehavior()
     {
-        Status childStatus = _childNode.tick();
+        Status childStatus = _childNode.Tick();
 
         if (childStatus == Status.RUNNING)
         {

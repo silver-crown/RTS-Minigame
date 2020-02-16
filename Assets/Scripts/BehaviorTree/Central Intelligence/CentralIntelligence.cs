@@ -32,10 +32,8 @@ public class CentralIntelligence : MonoBehaviour
         CollectResources collectResources = new CollectResources();
         rootNode.AddChild(collectResources);
         
-        _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree
-
+        _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree 
     }
-
 
     /// <summary>
     /// Creates a behavior tree from a file.
