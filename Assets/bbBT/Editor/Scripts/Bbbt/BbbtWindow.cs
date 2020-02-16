@@ -17,6 +17,12 @@ namespace Bbbt
         /// Used to avoid loading a new tree in the middle of processing events.
         /// </summary>
         public BbbtBehaviourTree TreeToLoad = null;
+        
+        /// <summary>
+        /// Used to tell the editor to remove a tab.
+        /// Used to avoid removing a tab in the middle of processing events.
+        /// </summary>
+        public BbbtWindowTab TabToRemove = null;
 
         /// <summary>
         /// Tabs currently loaded into the BbbtWindow.
@@ -27,6 +33,12 @@ namespace Bbbt
         /// The currently selected tab.
         /// </summary>
         private BbbtWindowTab _currentTab = null;
+
+        /// <summary>
+        /// The currently open prompt if any.
+        /// If this is not null all other input should be blocked until the prompt is dealt with.
+        /// </summary>
+        private BbbtPrompt _prompt = null;
 
         /// <summary>
         /// The texture for the editor window's background.
@@ -197,14 +209,27 @@ namespace Bbbt
             DrawGrid(20, 0.15f, Color.grey);
             DrawGrid(100, 0.3f, Color.grey);
 
-            DrawTopBar();
-            DrawTabs();
-
             DrawNodes();
             DrawConnections();
 
-            ProcessNodeEvents(Event.current);
-            ProcessEvents(Event.current);
+            // Block input if we have an open prompt.
+            if (_prompt == null)
+            {
+                ProcessNodeEvents(Event.current);
+                ProcessTabEvents(Event.current);
+                ProcessEvents(Event.current);
+            }
+
+            DrawTopBar();
+            DrawTabs();
+
+            
+            // Draw the prompt if there is one and check if it was handled.
+            if (_prompt != null && _prompt.Draw())
+            {
+                // The prompt was handled, so we can get rid of it.
+                _prompt = null;
+            }
 
             if (GUI.changed)
             {
@@ -214,6 +239,12 @@ namespace Bbbt
             if (TreeToLoad != null)
             {
                 LoadTree(TreeToLoad);
+            }
+
+            if (TabToRemove != null)
+            {
+                CloseTab(TabToRemove);
+                TabToRemove = null;
             }
         }
 
@@ -283,6 +314,8 @@ namespace Bbbt
         /// </summary>
         private void DrawTopBar()
         {
+
+            _topBarRect.width = position.width;
             GUI.Box(_topBarRect, "", _topBarStyle);
         }
 
@@ -293,7 +326,51 @@ namespace Bbbt
         {
             for (int i = 0; i < _tabs.Count; i++)
             {
-                _tabs[i].Draw(_tabs, i);
+                if (_tabs[i] == _currentTab)
+                {
+                    // Highlight current tab
+                    _tabs[i].Draw(_tabs, true);
+                }
+                else
+                {
+                    _tabs[i].Draw(_tabs, false);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Closes a tab.
+        /// </summary>
+        /// <param name="tab">The tab to close.</param>
+        /// <param name="force">Whether the tab should be forced to close (i.e. no unsaved changes prompt).</param>
+        private void CloseTab(BbbtWindowTab tab, bool force = false)
+        {
+            // Check if the tab has unsaved changes, if so we want to prompt the user to save the contents of the tab.
+            if (tab.IsUnsaved && !force)
+            {
+                _prompt = new BbbtPrompt(
+                    tab.Tree.name + " has unsaved changes. Do you want to save the changes before closing the tab?",
+                    new List<BbbtPromptOption>()
+                    {
+                        new BbbtPromptOption("Save", () => { SaveTab(tab); CloseTab(tab); }),
+                        new BbbtPromptOption("Don't Save", () => CloseTab(tab, true)),
+                        new BbbtPromptOption("Cancel", () => { })
+                    }
+                );
+            }
+            else
+            {
+                // No unsaved changes (or forced to close), close the tab.
+                int index = _tabs.IndexOf(tab);
+                _tabs.Remove(tab);
+                if (_tabs.Count == 0)
+                {
+                    _currentTab = null;
+                }
+                else if (tab == _currentTab)
+                {
+                    _currentTab = _tabs[Mathf.Clamp(index, 0, _tabs.Count - 1)];
+                }
             }
         }
 
@@ -362,7 +439,7 @@ namespace Bbbt
                         _currentTab.WindowOffset += _drag;
                         _currentTab.Nodes?.ForEach((node) => { node.Drag(e.delta); });
                         GUI.changed = true;
-                        SetUnsavedChangesTabTitle();
+                        SetUnsavedChangesTabTitle(_currentTab);
                     }
                     break;
                 // Started pressing a key.
@@ -436,7 +513,27 @@ namespace Bbbt
                 // Select the node.
                 _nodeToOpenInInspector = usedNode;
 
-                SetUnsavedChangesTabTitle();
+                SetUnsavedChangesTabTitle(_currentTab);
+            }
+        }
+
+        /// <summary>
+        /// Processes node events.
+        /// </summary>
+        /// <param name="e">The events to be handled.</param>
+        private void ProcessTabEvents(Event e)
+        {
+            if (_currentTab == null) return;
+
+            for (int i = 0; i < _tabs.Count; i++)
+            {
+                if (_tabs[i].ProcessEvents(e))
+                {
+                    // This tab either moved or was clicked on. Select the tab.
+                    _currentTab = _tabs[i];
+                    GUI.changed = true;
+                    break;
+                }
             }
         }
 
@@ -483,7 +580,7 @@ namespace Bbbt
                 isSelected
             );
 
-            SetUnsavedChangesTabTitle();
+            SetUnsavedChangesTabTitle(_currentTab);
         }
 
         /// <summary>
@@ -520,7 +617,7 @@ namespace Bbbt
                 isSelected
             );
 
-            SetUnsavedChangesTabTitle();
+            SetUnsavedChangesTabTitle(_currentTab);
         }
         
         /// <summary>
@@ -607,10 +704,10 @@ namespace Bbbt
             _currentTab.Connections?.Add(new BbbtConnection(
                 _selectedInPoint,
                 _selectedOutPoint,
-                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(); }
+                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(_currentTab); }
             ));
 
-            SetUnsavedChangesTabTitle();
+            SetUnsavedChangesTabTitle(_currentTab);
         }
 
         /// <summary>
@@ -621,11 +718,11 @@ namespace Bbbt
             _currentTab.Connections?.Add(new BbbtConnection(
                 to.InPoint,
                 from.OutPoint,
-                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(); }
+                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(_currentTab); }
             ));
 
 
-            SetUnsavedChangesTabTitle();
+            SetUnsavedChangesTabTitle(_currentTab);
         }
 
         /// <summary>
@@ -715,7 +812,7 @@ namespace Bbbt
             // Remove node.
             _currentTab.Nodes.Remove(node);
 
-            SetUnsavedChangesTabTitle();
+            SetUnsavedChangesTabTitle(_currentTab);
         }
 
         /// <summary>
@@ -738,44 +835,85 @@ namespace Bbbt
         /// <summary>
         /// Adds an asterisk to the window title.
         /// </summary>
-        public void SetUnsavedChangesTabTitle()
+        /// <param name="tab">The tab whose unsaved state should change.</param>
+        /// <param name="isUnsaved">Whether the tree is now unsaved.</param>
+        public void SetUnsavedChangesTabTitle(BbbtWindowTab tab, bool isUnsaved = true)
         {
-            var window = GetWindow<BbbtWindow>();
-            window.titleContent = new GUIContent("*bbBT - " + _currentTab.Tree.name);
+            tab.IsUnsaved = isUnsaved;
+            GUI.changed = true;
         }
 
         /// <summary>
-        /// Saves the behaviour tree to a file.
+        /// Decrements the index of <paramref name="tab"/> in the tab list if possible.
+        /// This has the effect of moving it to the left in the top bar.
+        /// </summary>
+        /// <param name="tab">The tab whose index should be decremented.</param>
+        public void DecrementTabIndex(BbbtWindowTab tab)
+        {
+            int index = _tabs.IndexOf(tab);
+            if (index > 0)
+            {
+                _tabs.Remove(tab);
+                _tabs.Insert(index - 1, tab);
+            }
+        }
+
+        /// <summary>
+        /// Increments the index of <paramref name="tab"/> in the tab list if possible.
+        /// This has the effect of moving it to the right in the top bar.
+        /// </summary>
+        /// <param name="tab">The tab whose index should be incremented.</param>
+        public void IncrementTabIndex(BbbtWindowTab tab)
+        {
+            int index = _tabs.IndexOf(tab);
+            if (index < _tabs.Count - 1)
+            {
+                _tabs.Remove(tab);
+                _tabs.Insert(index + 1, tab);
+            }
+        }
+
+
+        /// <summary>
+        /// Saves the behaviour tree in the current tab to a file.
         /// </summary>
         private void SaveTree()
         {
             // Store all the nodes.
-            var nodeSaveData = new BbbtNodeSaveData[_currentTab.Nodes.Count];
-            for (int i = 0; i < _currentTab.Nodes.Count; i++)
+            SaveTab(_currentTab);
+        }
+
+        /// <summary>
+        /// Saves the contents of a tab.
+        /// </summary>
+        /// <param name="tab">The tab whose contents to save.</param>
+        private void SaveTab(BbbtWindowTab tab)
+        {
+            var nodeSaveData = new BbbtNodeSaveData[tab.Nodes.Count];
+            for (int i = 0; i < tab.Nodes.Count; i++)
             {
-                nodeSaveData[i] = _currentTab.Nodes[i].ToSaveData();
+                nodeSaveData[i] = tab.Nodes[i].ToSaveData();
             }
 
             // Store connections.
-            var connectionSaveData = new BbbtConnectionSaveData[_currentTab.Connections.Count];
-            for (int i = 0; i < _currentTab.Connections.Count; i++)
+            var connectionSaveData = new BbbtConnectionSaveData[tab.Connections.Count];
+            for (int i = 0; i < tab.Connections.Count; i++)
             {
-                connectionSaveData[i] = _currentTab.Connections[i].ToSaveData();
+                connectionSaveData[i] = tab.Connections[i].ToSaveData();
             }
 
             // Create the behaviour tree save data.
             var behaviourTreeSaveData = new BbbtBehaviourTreeSaveData(
                 nodeSaveData,
                 connectionSaveData,
-                _currentTab.WindowOffset.x,
-                _currentTab.WindowOffset.y
+                tab.WindowOffset.x,
+                tab.WindowOffset.y
             );
 
             // Save the data to the loaded scriptable object.
-            _currentTab.Tree.SaveData(behaviourTreeSaveData);
+            tab.Tree.SaveData(behaviourTreeSaveData);
 
-            var window = GetWindow<BbbtWindow>();
-            window.titleContent = new GUIContent("bbBT - " + _currentTab.Tree.name);
+            SetUnsavedChangesTabTitle(tab, false);
         }
 
         /// <summary>
@@ -829,9 +967,6 @@ namespace Bbbt
                             _currentTab.Nodes.Find((node) => node.Id == connectionSaveData.InNodeId)
                         );
                     }
-
-                    var window = GetWindow<BbbtWindow>();
-                    window.titleContent = new GUIContent("bbBT - " + _currentTab.Tree.name);
                 }
             }
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Bbbt
 {
     /// <summary>
-    /// Custom editor for editing behaviour tree nodes.
+    /// Custom editor for editing individual behaviour tree nodes.
     /// </summary>
     [CustomEditor(typeof(BbbtNode))]
     public class BbbtNodeEditor : Editor
