@@ -554,6 +554,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8765678427788144727, guid: 91b75c3b8bdf8d24baf30f7b44904c9a, type: 3}
     - {fileID: 5370290105834860201, guid: 91b75c3b8bdf8d24baf30f7b44904c9a, type: 3}
+    - {fileID: 248782947056489552, guid: 91b75c3b8bdf8d24baf30f7b44904c9a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 91b75c3b8bdf8d24baf30f7b44904c9a, type: 3}
 --- !u!1001 &1585511815
 PrefabInstance:
@@ -667,6 +668,7 @@ GameObject:
   - component: {fileID: 1867327583}
   - component: {fileID: 1867327582}
   - component: {fileID: 1867327581}
+  - component: {fileID: 1867327585}
   m_Layer: 0
   m_Name: DroneWorker
   m_TagString: Untagged
@@ -741,12 +743,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867327580}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -237.66, y: 298.25, z: 219.96}
+  m_LocalPosition: {x: -243.41, y: 298.25, z: 211.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1867327585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867327580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccadf3efc7cc6ca4daa76d2618ef4b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _health: 0
+  _resources: 0
+  _maxResources: 0
 --- !u!1 &1950335478
 GameObject:
   m_ObjectHideFlags: 0

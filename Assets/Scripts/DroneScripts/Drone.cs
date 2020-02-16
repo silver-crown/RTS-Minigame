@@ -3,11 +3,14 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.AI;
+using MoonSharp.Interpreter;
 
+/// <summary>
+/// Drones are used by the enemy AI to interact in the world
+/// </summary>
 public class Drone : MonoBehaviour
 {
     BehaviorTree behaviorTree;
-
     public GameObject _target;
     NavMeshAgent _navMeshAgent;
 
@@ -15,30 +18,17 @@ public class Drone : MonoBehaviour
     private int _health;
     public int Health { get => _health; set { _health = value; } }
 
-
     [SerializeField] private int _resources;
-    public int Resources
-    {
-        get { return _resources; }
-        set { _resources = value; }
-    }
+    public int Resources   { get { return _resources; } set { _resources = value; }}
 
-    [SerializeField] private int _maxResources;
-    public int MaxResources
-    {
-        get { return _maxResources; }
+    [SerializeField] private int _maxResources; public int MaxResources {  get { return _maxResources; }
         set { _maxResources = value; }
     }
 
-
+    // we should probbly init drones with LUA or Scriptable objects
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
-
-        // Set stats with LUA
-
-        // 1. Read in LUA file
-        // 2. set vars based on LUA
 
         _health = 20;
         if (_health == 0)
@@ -53,6 +43,28 @@ public class Drone : MonoBehaviour
         {
             _maxResources = 6;
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void MoonSharpReadStats()
+    {/*
+        string luaCode = @"    
+		-- defines a factorial function
+		function fact (n)
+			if (n == 0) then
+				return 1
+			else
+				return n*fact(n - 1)
+			end
+		end
+
+		return fact(mynumber)";
+
+
+        Script luaScript = new Script();
+        DynValue result = luaScript.DoString(luaCode); */
     }
 
     // Start is called before the first frame update
