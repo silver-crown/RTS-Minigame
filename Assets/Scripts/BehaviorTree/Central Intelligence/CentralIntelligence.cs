@@ -42,7 +42,6 @@ public class CentralIntelligence : MonoBehaviour
     {
         return false;
     }
-
 }
 
 
