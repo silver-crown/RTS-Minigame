@@ -22,7 +22,7 @@ public class Drone : MonoBehaviour
     /// <summary>
     /// Current Health Points the drone has
     /// </summary>
-    public int Heatlh { get; protected set; }
+    public int Health { get; protected set; }
 
 
     /// <summary>
@@ -45,28 +45,18 @@ public class Drone : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        ReadStatsFromFile();
     }
 
     /// <summary>
-    /// 
+    /// Reads the drone's stats from lua.
     /// </summary>
-    public void MoonSharpReadStats()
-    {/*
-        string luaCode = @"    
-		-- defines a factorial function
-		function fact (n)
-			if (n == 0) then
-				return 1
-			else
-				return n*fact(n - 1)
-			end
-		end
-
-		return fact(mynumber)";
-
-
-        Script luaScript = new Script();
-        DynValue result = luaScript.DoString(luaCode); */
+    public void ReadStatsFromFile()
+    {
+        Script script = new Script();
+        script.DoFile("drone.lua");
+        Health = (int)script.Globals.Get("health").Number;
+        Debug.Log(Health);
     }
 
     // Start is called before the first frame update

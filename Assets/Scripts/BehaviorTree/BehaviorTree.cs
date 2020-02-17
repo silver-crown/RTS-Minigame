@@ -50,8 +50,8 @@ public class BehaviorTree : MonoBehaviour
     private void Tick(System.Object source, ElapsedEventArgs e)
     {
         var sigTime = e.SignalTime.ToString();
-        Debug.Log("Centreal Intelligence BT has ticked");
-        Debug.Log(sigTime);
+        //Debug.Log("Centreal Intelligence BT has ticked");
+        //Debug.Log(sigTime);
 
         _rootNode.Tick();
     }
