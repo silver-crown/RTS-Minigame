@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourcesAvailable : MonoBehaviour
+public class ResourceAvailabilityChecker : MonoBehaviour
 {
-    [SerializeField]int _crystals, _metals;
+    [SerializeField] int _crystals, _metals;
     // Start is called before the first frame update
     void Start()
     {

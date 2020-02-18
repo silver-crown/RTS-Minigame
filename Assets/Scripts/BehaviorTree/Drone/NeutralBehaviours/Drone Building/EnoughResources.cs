@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnoughResources : MonoBehaviour
 {
     [SerializeField] ResourceRequirements _requirements;
-    [SerializeField] ResourcesAvailable _myResources;
+    [SerializeField] ResourceAvailabilityChecker _myResources;
     //used for temporarily storing the requirements
     Dictionary<string, int> _req;
     //Central Intelligence has AT LEAST 4 Crystal and 4 Metal

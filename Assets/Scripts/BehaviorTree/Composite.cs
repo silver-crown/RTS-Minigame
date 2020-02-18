@@ -7,13 +7,6 @@ public class Composite : Behavior
     protected List<Behavior> _children = new List<Behavior>();
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
     // Composite methods
     public void AddChild(Behavior _child)
     {
