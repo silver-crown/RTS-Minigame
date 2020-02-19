@@ -6,6 +6,11 @@ using UnityEngine;
 public class CentralIntelligence : MonoBehaviour
 {
     /// <summary>
+    /// The prefab to use when instatiating new drones.
+    /// </summary>
+    [SerializeField] GameObject _dronePrefab = null;
+
+    /// <summary>
     /// CentralIntelligene's behavior tree 
     /// </summary>
     private BehaviorTree _behaviorTree;
@@ -81,30 +86,13 @@ public class CentralIntelligence : MonoBehaviour
     ///<summary>
     ///CI makes drones and gives them a unique ID
     /// </summary>
-    void BuildDrone(DroneType drone)
+    void BuildDrone(DroneType droneType)
     {
         if(_droneCount > MAXDRONES)
         {
-            Drone d;
-            switch (drone)
-            {
-                case (DroneType.Worker):
-                    //Create a new drone, and insert it into the list of drones
-                    Instantiate(d = new Drone(_droneID++));
-                    _drones.Insert(d.ID, d);
-                    Debug.Log("Created drone with ID " + _droneID);
-                    break;
-                case (DroneType.Scout):
-                    Instantiate(d = new Drone(_droneID++));
-                    _drones.Insert(d.ID, d);
-                    Debug.Log("Created drone with ID " + _droneID);
-                    break;
-                case (DroneType.Tank):
-                    Instantiate(d = new Drone(_droneID++));
-                    _drones.Insert(d.ID, d);
-                    Debug.Log("Created drone with ID " + _droneID);
-                    break;
-            }
+            Drone drone = Instantiate(_dronePrefab).GetComponent<Drone>();
+            _drones.Insert(drone.ID, drone);
+            Debug.Log("Created drone with ID " + _droneID);
             _droneCount++;
         }
     }

@@ -12,6 +12,11 @@ using MoonSharp.Interpreter;
 public class Drone : MonoBehaviour
 {
     /// <summary>
+    /// The last used drone id.
+    /// </summary>
+    private static int _lastUsedId = 0;
+
+    /// <summary>
     /// Each channel needs to store their own messages on dictionaries
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
@@ -25,11 +30,6 @@ public class Drone : MonoBehaviour
     // Navigation
     NavMeshAgent _navMeshAgent;
     public GameObject _target;
-
-    public Drone(int id)
-    {
-        ID = id; 
-    }
 
     /// <summary>
     /// Unique ID of the drone
@@ -65,7 +65,9 @@ public class Drone : MonoBehaviour
         //add the channel to the channel list
         EventManager.AddPrivateChannel(_personalChannelDictionary);
         //iterate through the number of other drones, and set the ID number of the drone.
+        ID = ++_lastUsedId;
     }
+
 
     /// <summary>
     /// Reads the drone's stats from lua.
