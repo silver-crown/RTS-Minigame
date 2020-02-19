@@ -24,7 +24,6 @@ public class Drone : MonoBehaviour
     /// </summary>
     public int Health { get; protected set; }
 
-
     /// <summary>
     /// How much Metall the drone is currecntly carrying
     /// </summary>
@@ -57,6 +56,10 @@ public class Drone : MonoBehaviour
         script.DoFile("drone.lua");
         Health = (int)script.Globals.Get("health").Number;
         Debug.Log(Health);
+
+        MaxResources = (int)script.Globals.Get("maxResources").Number;
+        Debug.Log(MaxResources);
+
     }
 
     // Start is called before the first frame update

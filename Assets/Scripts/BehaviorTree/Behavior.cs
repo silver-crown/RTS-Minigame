@@ -12,21 +12,9 @@ public enum Status
     ABORTED
 }
 
-public class Behavior : MonoBehaviour
+public class Behavior
 {
     private Status _status { get; set; }
-
-    public Behavior()
-    {
-        _status = Status.INVALID;
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     public Status Tick()
     {
