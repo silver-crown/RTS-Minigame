@@ -29,23 +29,34 @@ public class SendMessageToDronesBehavior : Behavior
         return Status.RUNNING;
     }
     /// <summary>
-    ///It sends a message from here to IDLE drones. The drone then goes and gathers the resource ordered.
+    ///It sends a message from here to drones listening to the relevant channel
+    ///It can also send personal messages to individual drones
     /// </summary>
     /// <param name="myMessage"></param>
     /// <param name="channel"></param>
-    public void SendMessageToDrones(MessageType m, EventManager.MessageChannel channel)
+    /// <param name="droneID"></param>
+    public void SendMessageToDrones(MessageType m, EventManager.MessageChannel channel, int[] droneID = null)
     {
-        //for every X Drone, trigger 
         //Drones that are listening for the message will do the rest
-        ////tanks
-        /////scounts
-        ///
         switch (channel)
         {
             case (EventManager.MessageChannel.globalChannel):
                 break;
             case (EventManager.MessageChannel.workerChannel):
                 //Check which resource is most desirable atm, and send them to go get that
+                //if an ID is present, send to _privateChannelList[ID]
+                if (m == MessageType.GatherMetal)
+                {
+                    GatherMetal();
+                }
+                if (m == MessageType.GatherCrystal)
+                {
+                    GatherCrystal();
+                }
+                if (m == MessageType.Gather)
+                {
+                    Gather();
+                }
                 break;
             case (EventManager.MessageChannel.scoutChannel):
                 break;
@@ -57,7 +68,7 @@ public class SendMessageToDronesBehavior : Behavior
     /// <summary>
     /// Tells the drone to collect metall on the worker channel
     /// </summary>
-    public void CollectMetall()
+    public void GatherMetal()
     {
         EventManager.TriggerEvent(MessageType.GatherMetal.ToString(), EventManager.MessageChannel.workerChannel);
     }
@@ -65,7 +76,7 @@ public class SendMessageToDronesBehavior : Behavior
     /// <summary>
     /// Tells the drone to collect crystal on the worker channel
     /// </summary>
-    public void CollectCrystal()
+    public void GatherCrystal()
     {
         EventManager.TriggerEvent(MessageType.GatherCrystal.ToString(), EventManager.MessageChannel.workerChannel);
     }

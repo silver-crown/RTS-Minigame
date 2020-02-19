@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using MoonSharp.Interpreter;
 
 /// <summary>
@@ -11,6 +12,12 @@ using MoonSharp.Interpreter;
 public class Drone : MonoBehaviour
 {
     /// <summary>
+    /// Each channel needs to store their own messages on dictionaries
+    /// </summary>
+    private Dictionary<string, UnityEvent> _personalChannelDictionary;
+
+
+    /// <summary>
     /// Behavior Tree used by the drone for micro world behaviors
     /// </summary>
     BehaviorTree _behaviorTree;
@@ -18,6 +25,16 @@ public class Drone : MonoBehaviour
     // Navigation
     NavMeshAgent _navMeshAgent;
     public GameObject _target;
+
+    public Drone(int id)
+    {
+        ID = id; 
+    }
+
+    /// <summary>
+    /// Unique ID of the drone
+    /// </summary>
+    public int ID { get; protected set; }
 
     /// <summary>
     /// Current Health Points the drone has
@@ -45,6 +62,9 @@ public class Drone : MonoBehaviour
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         ReadStatsFromFile();
+        //add the channel to the channel list
+        EventManager.AddPrivateChannel(_personalChannelDictionary);
+        //iterate through the number of other drones, and set the ID number of the drone.
     }
 
     /// <summary>
@@ -62,15 +82,16 @@ public class Drone : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
        // _navMeshAgent.SetDestination(_target.transform.position);       
+    }
+    /// <summary>
+    /// example on use of message listening
+    /// </summary>
+    void listenToSHit()
+    {
+       // EventManager.StartListening("get metal", FunctionThatGetsMetal, EventManager.MessageChannel.workerChannel);
     }
 }

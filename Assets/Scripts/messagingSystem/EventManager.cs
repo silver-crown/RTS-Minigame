@@ -7,11 +7,13 @@ public class EventManager : MonoBehaviour
 {
     /// <summary>
     /// Each channel needs to store their own messages on dictionaries
+    /// Personal channels for the drones are located in Drone.cs
     /// </summary>
     private Dictionary<string, UnityEvent> _globalChannelDictionary;
     private Dictionary<string, UnityEvent> _workerChannelDictionary;
     private Dictionary<string, UnityEvent> _scoutChannelDictionary;
     private Dictionary<string, UnityEvent> _tankChannelDictionary;
+    private static List<Dictionary<string, UnityEvent>> _privateChannelList = new List<Dictionary<string,UnityEvent>>();
     private static EventManager _eventManager;
 
     /// <summary>
@@ -53,6 +55,18 @@ public class EventManager : MonoBehaviour
         if(_globalChannelDictionary == null)
         {
             _globalChannelDictionary = new Dictionary<string, UnityEvent>();
+        }
+        if (_workerChannelDictionary == null)
+        {
+            _workerChannelDictionary = new Dictionary<string, UnityEvent>();
+        }
+        if (_scoutChannelDictionary == null)
+        {
+            _scoutChannelDictionary = new Dictionary<string, UnityEvent>();
+        }
+        if (_tankChannelDictionary == null)
+        {
+            _tankChannelDictionary = new Dictionary<string, UnityEvent>();
         }
     }
 
@@ -215,5 +229,22 @@ public class EventManager : MonoBehaviour
                 }
                 break;
         }
+    }
+    /// <summary>
+    /// Add a private channel to the list of Private Channels
+    /// </summary>
+    /// <param name="channel"></param>
+    public static void AddPrivateChannel(Dictionary<string, UnityEvent> channel)
+    {
+        _privateChannelList.Add(channel);
+    }
+
+    /// <summary>
+    /// Remove a private channel from the Private Channel list
+    /// </summary>
+    /// <param name="channel"></param>
+    public static void RemovePrivateChannel(Dictionary<string, UnityEvent> channel)
+    {
+        _privateChannelList.Remove(channel);
     }
 }
