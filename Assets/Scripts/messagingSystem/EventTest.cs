@@ -15,16 +15,16 @@ public class EventTest : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.StartListening("test", someListener);
-        EventManager.StartListening("Spawn", SomeOtherFunction);
-        EventManager.StartListening("Destroy", SomeThirdFunction);
+        EventManager.StartListening("test", someListener, EventManager.MessageChannel.globalChannel);
+        EventManager.StartListening("Spawn", SomeOtherFunction, EventManager.MessageChannel.scoutChannel);
+        EventManager.StartListening("Destroy", SomeThirdFunction, EventManager.MessageChannel.tankChannel);
     }
 
     private void OnDisable()
     {
-        EventManager.StopListening("test", someListener);
-        EventManager.StopListening("Spawn", SomeOtherFunction);
-        EventManager.StopListening("Destroy", SomeThirdFunction);
+        EventManager.StopListening("test", someListener, EventManager.MessageChannel.globalChannel);
+        EventManager.StopListening("Spawn", SomeOtherFunction, EventManager.MessageChannel.scoutChannel);
+        EventManager.StopListening("Destroy", SomeThirdFunction, EventManager.MessageChannel.tankChannel);
     }
 
     void SomeFunction()

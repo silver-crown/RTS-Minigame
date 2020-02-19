@@ -23,12 +23,6 @@ public class SendMessageToDronesBehavior : Behavior
 
     MessageType MyMessage = MessageType.GatherCrystal;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        SendMessageToDrones(CheckResourceRequirements());
-    }
-
     override
     protected Status UpdateBehavior()
     {
@@ -38,48 +32,57 @@ public class SendMessageToDronesBehavior : Behavior
     ///It sends a message from here to IDLE drones. The drone then goes and gathers the resource ordered.
     /// </summary>
     /// <param name="myMessage"></param>
-    public virtual void SendMessageToDrones(MessageType m)
+    /// <param name="channel"></param>
+    public void SendMessageToDrones(MessageType m, EventManager.MessageChannel channel)
     {
-        //for every Worker Drone
-        EventManager.TriggerEvent(m.ToString());
+        //for every X Drone, trigger 
         //Drones that are listening for the message will do the rest
-
         ////tanks
         /////scounts
         ///
+        switch (channel)
+        {
+            case (EventManager.MessageChannel.globalChannel):
+                break;
+            case (EventManager.MessageChannel.workerChannel):
+                //Check which resource is most desirable atm, and send them to go get that
+                break;
+            case (EventManager.MessageChannel.scoutChannel):
+                break;
+            case (EventManager.MessageChannel.tankChannel):
+                break;
+        }
     }
 
     /// <summary>
-    /// Tells the drone to collect metall
+    /// Tells the drone to collect metall on the worker channel
     /// </summary>
     public void CollectMetall()
     {
-        EventManager.TriggerEvent(MessageType.GatherMetal.ToString());
+        EventManager.TriggerEvent(MessageType.GatherMetal.ToString(), EventManager.MessageChannel.workerChannel);
     }
 
     /// <summary>
-    /// Tells the drone to collect crystal
+    /// Tells the drone to collect crystal on the worker channel
     /// </summary>
     public void CollectCrystal()
     {
-        EventManager.TriggerEvent(MessageType.GatherCrystal.ToString());
+        EventManager.TriggerEvent(MessageType.GatherCrystal.ToString(), EventManager.MessageChannel.workerChannel);
     }
 
     /// <summary>
-    ///  Telles the drone to collect resoruces
+    ///  Tells the drone to collect resoruces
     /// </summary>
     public void Gather()
     {
-        EventManager.TriggerEvent(MessageType.Gather.ToString());
+        EventManager.TriggerEvent(MessageType.Gather.ToString(), EventManager.MessageChannel.workerChannel);
     }
    
-
     ///<summary>
     ///Check what resources you have the least of, and return which one it is you need.
     /// </summary>
-    private MessageType CheckResourceRequirements()
+    private void CheckResourceRequirements()
     {
         //MyMessage = (myResources.GetCrystal() > myResources.GetMetals()) ? MessageType.GatherMetal : MessageType.GatherCrystal;
-        return MyMessage;
     }
 }
