@@ -105,8 +105,8 @@ public class CentralIntelligence : MonoBehaviour
         if(_droneCount < MAXDRONES)
         {
             Drone drone = Instantiate(_dronePrefab).GetComponent<Drone>();
-            _drones.Insert(drone.ID, drone);
-            Debug.Log("Created drone with ID " + _droneID);
+            _drones.Add(drone);
+            Debug.Log("Created drone with ID " + drone.ID);
             _droneCount++;
         }
     }
