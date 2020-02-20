@@ -13,9 +13,10 @@ public class EventManager : MonoBehaviour
     private Dictionary<string, UnityEvent> _workerChannelDictionary;
     private Dictionary<string, UnityEvent> _scoutChannelDictionary;
     private Dictionary<string, UnityEvent> _tankChannelDictionary;
-    private static List<Dictionary<string, UnityEvent>> _privateChannelList = new List<Dictionary<string,UnityEvent>>();
+    private List<Dictionary<string, UnityEvent>> _privateChannelList;
     private static EventManager _eventManager;
 
+    //the channels start at 0, c# hates me and refuses to let me set an int as NULL
     const int noID = -1;
     /// <summary>
     /// The actual channel being listened to 
@@ -70,6 +71,10 @@ public class EventManager : MonoBehaviour
         {
             _tankChannelDictionary = new Dictionary<string, UnityEvent>();
         }
+        if(_privateChannelList == null)
+        {
+            _privateChannelList = new List<Dictionary<string, UnityEvent>>();
+        }
     }
 
     //Make the listener start listening
@@ -107,8 +112,9 @@ public class EventManager : MonoBehaviour
                 //the channels start at 0, c# hates me and refuses to let me set an int as NULL
                 if (droneID > noID)
                 {
+
                     //If there's an event like this in the dictionary, add the listener
-                    if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (instance._privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.AddListener(listener);
                     }
@@ -117,7 +123,7 @@ public class EventManager : MonoBehaviour
                     {
                         thisEvent = new UnityEvent();
                         thisEvent.AddListener(listener);
-                        _privateChannelList[droneID].Add(eventName, thisEvent);
+                        instance._privateChannelList[droneID].Add(eventName, thisEvent);
                     }
                 }
                 else
@@ -202,7 +208,7 @@ public class EventManager : MonoBehaviour
                 if(droneID > noID)
                 {
                     //if there's an event like this in the dictionary, remove the listener
-                    if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (instance._privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.RemoveListener(listener);
                     }
@@ -236,7 +242,7 @@ public class EventManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// Trigger the event on the specified channel
+    /// Trigger the event on the specified channel, actually sending the message to the listeners.
     /// </summary>
     /// <param name="eventName"></param>
     /// <param name="channel"></param>
@@ -255,7 +261,7 @@ public class EventManager : MonoBehaviour
             case (MessageChannel.privateChannel):
                 if (droneID >= noID)
                 {
-                    if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (instance._privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.Invoke();
                     }
@@ -287,7 +293,8 @@ public class EventManager : MonoBehaviour
     /// <param name="channel"></param>
     public static void AddPrivateChannel(Dictionary<string, UnityEvent> channel)
     {
-        _privateChannelList.Add(channel);
+        Debug.Log("adding a private channel to the list");
+        instance._privateChannelList.Add(channel);
     }
 
     /// <summary>
@@ -296,6 +303,7 @@ public class EventManager : MonoBehaviour
     /// <param name="channel"></param>
     public static void RemovePrivateChannel(Dictionary<string, UnityEvent> channel)
     {
-        _privateChannelList.Remove(channel);
+        Debug.Log("removing a private channel to the list");
+        instance._privateChannelList.Remove(channel);
     }
 }

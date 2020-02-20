@@ -60,6 +60,10 @@ public class Drone : MonoBehaviour
     // we should probbly init drones with LUA or Scriptable objects
     private void Awake()
     {
+        if(_personalChannelDictionary == null)
+        {
+           _personalChannelDictionary = new Dictionary<string, UnityEvent>();
+        }
         _navMeshAgent = GetComponent<NavMeshAgent>();
         ReadStatsFromFile();
         //add the channel to the private channel list, it's connected to the ID number of the drone
@@ -87,7 +91,8 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // _navMeshAgent.SetDestination(_target.transform.position);       
+        // _navMeshAgent.SetDestination(_target.transform.position);       
+        listenToSHit();
     }
     /// <summary>
     /// example on use of message listening 
@@ -95,9 +100,17 @@ public class Drone : MonoBehaviour
     void listenToSHit()
     {
         //listening on a public channel
-        // EventManager.StartListening("get metal", FunctionThatGetsMetal, EventManager.MessageChannel.workerChannel);
+         EventManager.StartListening("Testing Worker Channel", WorkerChannelTest, EventManager.MessageChannel.workerChannel);
         
         //Listening on a private channel requires an id number, the Drone's own id should be provided here
-        //EventManager.StartListening("get crystal", functionThatGetsCrystal, EventManager.MessageChannel.privateChannel, ID);
+        EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
+    }
+    void WorkerChannelTest()
+    {
+        Debug.Log("Drone " + ID + " received a message in the Worker Channel!");
+    }
+    void PrivateChannelTest()
+    {
+        Debug.Log("Drone " + ID + " received a message in the Private Channel!");
     }
 }

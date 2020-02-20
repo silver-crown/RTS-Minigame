@@ -48,14 +48,28 @@ public class CentralIntelligence : MonoBehaviour
         if(_droneCount != 0)
             _droneCount = 0;
         _behaviorTree = GetComponent<BehaviorTree>();
-        SetUpTreeFromCode();
-        _behaviorTree.SetTimer();
+       // SetUpTreeFromCode();
+        //_behaviorTree.SetTimer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //build a drone
+        if (Input.GetKeyDown("b"))
+        {
+            BuildDrone(drone);
+        }
+        //test the worker channel
+        if (Input.GetKeyDown("w"))
+        {
+            EventManager.TriggerEvent("Testing Worker Channel", EventManager.MessageChannel.workerChannel);
+        }
+        //test the private channel
+        if (Input.GetKeyDown("p"))
+        {
+            EventManager.TriggerEvent("Testing Private Channel", EventManager.MessageChannel.privateChannel, 0);
+        }
     }
 
     /// <summary>
@@ -88,7 +102,7 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     void BuildDrone(DroneType droneType)
     {
-        if(_droneCount > MAXDRONES)
+        if(_droneCount < MAXDRONES)
         {
             Drone drone = Instantiate(_dronePrefab).GetComponent<Drone>();
             _drones.Insert(drone.ID, drone);
