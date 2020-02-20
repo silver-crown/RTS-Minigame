@@ -62,10 +62,10 @@ public class Drone : MonoBehaviour
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         ReadStatsFromFile();
-        //add the channel to the channel list
-        EventManager.AddPrivateChannel(_personalChannelDictionary);
-        //iterate through the number of other drones, and set the ID number of the drone.
-        ID = ++_lastUsedId;
+        //add the channel to the private channel list, it's connected to the ID number of the drone
+        //Private channel 0 corresponds to Drone ID 0
+        EventManager.AddPrivateChannel(_personalChannelDictionary); 
+        ID = _lastUsedId++;
     }
 
 
@@ -90,10 +90,14 @@ public class Drone : MonoBehaviour
        // _navMeshAgent.SetDestination(_target.transform.position);       
     }
     /// <summary>
-    /// example on use of message listening
+    /// example on use of message listening 
     /// </summary>
     void listenToSHit()
     {
-       // EventManager.StartListening("get metal", FunctionThatGetsMetal, EventManager.MessageChannel.workerChannel);
+        //listening on a public channel
+        // EventManager.StartListening("get metal", FunctionThatGetsMetal, EventManager.MessageChannel.workerChannel);
+        
+        //Listening on a private channel requires an id number, the Drone's own id should be provided here
+        //EventManager.StartListening("get crystal", functionThatGetsCrystal, EventManager.MessageChannel.privateChannel, ID);
     }
 }

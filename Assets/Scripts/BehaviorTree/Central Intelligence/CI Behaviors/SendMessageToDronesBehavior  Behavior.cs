@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class SendMessageToDronesBehavior : Behavior
 {
+
+    const int noID = -1;
     /// <summary>
     /// Types of messages that the drone needs
     /// </summary>
@@ -29,13 +31,11 @@ public class SendMessageToDronesBehavior : Behavior
         return Status.RUNNING;
     }
     /// <summary>
-    ///It sends a message from here to drones listening to the relevant channel
-    ///It can also send personal messages to individual drones
+    ///It sends a message to drones listening to the relevant channel
     /// </summary>
     /// <param name="myMessage"></param>
     /// <param name="channel"></param>
-    /// <param name="droneID"></param>
-    public void SendMessageToDrones(MessageType m, EventManager.MessageChannel channel, int[] droneID = null)
+    public void SendMessageToDrones(MessageType m, EventManager.MessageChannel channel)
     {
         //Drones that are listening for the message will do the rest
         switch (channel)
@@ -64,29 +64,93 @@ public class SendMessageToDronesBehavior : Behavior
                 break;
         }
     }
+    /// <summary>
+    ///Sends a PRIVATE message from to drones listening in
+    /// </summary>
+    /// <param name="myMessage"></param>
+    /// <param name="channel"></param>
+    /// <param name="droneID"></param>
+    public void SendPrivateMessageToDrones(MessageType m, EventManager.MessageChannel channel, int droneID = noID)
+    {
+        //Drones that are listening for the message will do the rest
+        switch (channel)
+        {
+            case (EventManager.MessageChannel.privateChannel):
+                //Make sure there's a legal ID
+                if(droneID >= noID)
+                {
+                    if (m == MessageType.GatherMetal)
+                    {
+                        GatherMetal(droneID);
+                    }
+                    if (m == MessageType.GatherCrystal)
+                    {
+                        GatherCrystal(droneID);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Trying to send message to an invalid Drone ID!");
+                }
+                break;
+        }
+    }
+
 
     /// <summary>
     /// Tells the drone to collect metall on the worker channel
     /// </summary>
-    public void GatherMetal()
+    /// <param name="droneID"></param>
+    public void GatherMetal(int droneID = noID)
     {
-        EventManager.TriggerEvent(MessageType.GatherMetal.ToString(), EventManager.MessageChannel.workerChannel);
+        //A specific order to a specific individual
+        if(droneID != noID)
+        {
+            EventManager.TriggerEvent(MessageType.GatherMetal.ToString(), EventManager.MessageChannel.privateChannel, droneID);
+        }
+        //the general one
+        else
+        {
+            EventManager.TriggerEvent(MessageType.GatherMetal.ToString(), EventManager.MessageChannel.workerChannel);
+        }
+
     }
 
     /// <summary>
     /// Tells the drone to collect crystal on the worker channel
     /// </summary>
-    public void GatherCrystal()
+    /// <param name="droneID"></param>
+    public void GatherCrystal(int droneID = noID)
     {
-        EventManager.TriggerEvent(MessageType.GatherCrystal.ToString(), EventManager.MessageChannel.workerChannel);
+        //a specific order to a specific individual
+        if(droneID != noID)
+        {
+            EventManager.TriggerEvent(MessageType.GatherMetal.ToString(), EventManager.MessageChannel.privateChannel, droneID);
+        }
+        //An order to everyone listening in on the worker channel
+        else
+        {
+            EventManager.TriggerEvent(MessageType.GatherCrystal.ToString(), EventManager.MessageChannel.workerChannel);
+        }
+       
     }
 
     /// <summary>
     ///  Tells the drone to collect resoruces
     /// </summary>
-    public void Gather()
+    /// <param name="droneID"></param>
+    public void Gather(int droneID = noID)
     {
-        EventManager.TriggerEvent(MessageType.Gather.ToString(), EventManager.MessageChannel.workerChannel);
+        //a specific order to a specific individual
+        if (droneID != noID)
+        {
+            EventManager.TriggerEvent(MessageType.Gather.ToString(), EventManager.MessageChannel.privateChannel, droneID);
+        }
+        //An order to everyone listening in on the worker channel
+        else
+        {
+            EventManager.TriggerEvent(MessageType.Gather.ToString(), EventManager.MessageChannel.workerChannel);
+        }
     }
    
     ///<summary>
