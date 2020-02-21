@@ -25,11 +25,12 @@ public class Drone : MonoBehaviour
     /// <summary>
     /// Behavior Tree used by the drone for micro world behaviors
     /// </summary>
-    BehaviorTree _behaviorTree;
+    protected BehaviorTree _behaviorTree;
 
-    // Navigation
-    NavMeshAgent _navMeshAgent;
-    public GameObject _target;
+    /// <summary>
+    /// How far the drone can look
+    /// </summary>
+    public float LineOfSight = 1000.0f;
 
     /// <summary>
     /// Unique ID of the drone
@@ -64,7 +65,7 @@ public class Drone : MonoBehaviour
         {
            _personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+
         ReadStatsFromFile();
         //add the channel to the private channel list, it's connected to the ID number of the drone
         //Private channel 0 corresponds to Drone ID 0
@@ -90,14 +91,13 @@ public class Drone : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        // _navMeshAgent.SetDestination(_target.transform.position);       
-        listenToSHit();
+    {   
+        listenToChannels();
     }
     /// <summary>
     /// example on use of message listening 
     /// </summary>
-    void listenToSHit()
+    void listenToChannels()
     {
         //listening on a public channel
          EventManager.StartListening("Testing Worker Channel", WorkerChannelTest, EventManager.MessageChannel.workerChannel);
