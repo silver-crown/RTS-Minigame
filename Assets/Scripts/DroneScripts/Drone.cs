@@ -31,11 +31,12 @@ public class Drone : MonoBehaviour
     /// <summary>
     /// Behavior Tree used by the drone for micro world behaviors
     /// </summary>
-    BehaviorTree _behaviorTree;
+    protected BehaviorTree _behaviorTree;
 
-    // Navigation
-    NavMeshAgent _navMeshAgent;
-    public GameObject _target;
+    /// <summary>
+    /// How far the drone can look
+    /// </summary>
+    public float LineOfSight = 1000.0f;
 
     /// <summary>
     /// Unique ID of the drone
@@ -66,13 +67,19 @@ public class Drone : MonoBehaviour
     // we should probbly init drones with LUA or Scriptable objects
     private void Awake()
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+        //_navMeshAgent = GetComponent<NavMeshAgent>();
         _behaviorTree = GetComponent<BehaviorTree>();
+
+        if(_personalChannelDictionary == null)
+        {
+           _personalChannelDictionary = new Dictionary<string, UnityEvent>();
+        }
+
         ReadStatsFromFile();
-        //add the channel to the channel list
-        EventManager.AddPrivateChannel(_personalChannelDictionary);
-        //iterate through the number of other drones, and set the ID number of the drone.
-        ID = ++_lastUsedId;
+        //add the channel to the private channel list, it's connected to the ID number of the drone
+        //Private channel 0 corresponds to Drone ID 0
+        EventManager.AddPrivateChannel(_personalChannelDictionary); 
+        ID = _lastUsedId++;
     }
 
 
@@ -93,14 +100,26 @@ public class Drone : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-       // _navMeshAgent.SetDestination(_target.transform.position);       
+    {   
+        listenToChannels();
     }
     /// <summary>
-    /// example on use of message listening
+    /// example on use of message listening 
     /// </summary>
-    void listenToSHit()
+    void listenToChannels()
     {
-       // EventManager.StartListening("get metal", FunctionThatGetsMetal, EventManager.MessageChannel.workerChannel);
+        //listening on a public channel
+         EventManager.StartListening("Testing Worker Channel", WorkerChannelTest, EventManager.MessageChannel.workerChannel);
+        
+        //Listening on a private channel requires an id number, the Drone's own id should be provided here
+        EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
+    }
+    void WorkerChannelTest()
+    {
+        Debug.Log("Drone " + ID + " received a message in the Worker Channel!");
+    }
+    void PrivateChannelTest()
+    {
+        Debug.Log("Drone " + ID + " received a message in the Private Channel!");
     }
 }

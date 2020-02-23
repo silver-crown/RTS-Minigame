@@ -17,12 +17,12 @@ public class Filter : Sequencer
         
     }
 
-    public void AddCondition(BbbtBehaviour condition)
+    public void AddCondition(Behavior condition)
     {
 
     }
 
-    public void AddAction(BbbtBehaviour action)
+    public void AddAction(Behavior action)
     {
 
     }

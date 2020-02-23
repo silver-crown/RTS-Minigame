@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inverter : Decorator
 {
 
-    public Inverter(BbbtBehaviour child) : base(child)
+    public Inverter(Behavior child) : base(child)
     {
 
     }

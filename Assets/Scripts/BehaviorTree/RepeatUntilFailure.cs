@@ -8,7 +8,7 @@ public class RepeatUntilFailure : Decorator
     protected int _counter;
 
 
-    public RepeatUntilFailure(BbbtBehaviour child) : base(child)
+    public RepeatUntilFailure(Behavior child) : base(child)
     {
 
     }

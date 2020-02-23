@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Central intelligence behavior node for gathering resrouces
 /// </summary>
-public class GatherrResources : BbbtBehaviour
+public class GatherrResources : Behavior
 { 
 
     // Start is called before the first frame update
