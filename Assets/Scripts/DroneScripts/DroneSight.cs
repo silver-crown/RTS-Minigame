@@ -11,11 +11,10 @@ public class DroneSight : MonoBehaviour
     #region variables
 
     [Header("vision settings")]
-
     /// <summary>
-    /// the view radius of the drone.
+    /// the view radius of the charcter
     /// </summary>
-    [Tooltip("How big the drone's view circle is")]
+    [Tooltip("How big the character's view circle is")]
     [SerializeField]
     public float viewRadius = 30f;
 
