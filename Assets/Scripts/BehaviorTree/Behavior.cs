@@ -12,7 +12,7 @@ public enum Status
     ABORTED
 }
 
-public class Behavior
+public class BbbtBehaviour
 {
     private Status _status { get; set; }
 

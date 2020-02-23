@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Composite : Behavior
+public class Composite : BbbtBehaviour
 {
-    protected List<Behavior> _children = new List<Behavior>();
+    protected List<BbbtBehaviour> _children = new List<BbbtBehaviour>();
 
 
     // Composite methods
-    public void AddChild(Behavior _child)
+    public void AddChild(BbbtBehaviour _child)
     {
         _children.Add(_child);
     }
 
-    public void RemoveChild(Behavior _child)
+    public void RemoveChild(BbbtBehaviour _child)
     {
 
     }

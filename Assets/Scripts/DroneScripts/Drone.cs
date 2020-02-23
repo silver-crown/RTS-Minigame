@@ -5,12 +5,18 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using MoonSharp.Interpreter;
+using Bbbt;
 
 /// <summary>
 /// Drones are used by the enemy AI to interact in the world
 /// </summary>
 public class Drone : MonoBehaviour
 {
+    /// <summary>
+    /// The behaviour to use for this drone.
+    /// </summary>
+    [SerializeField] BbbtBehaviourTree _behavior = null;
+
     /// <summary>
     /// The last used drone id.
     /// </summary>
@@ -61,6 +67,7 @@ public class Drone : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _behaviorTree = GetComponent<BehaviorTree>();
         ReadStatsFromFile();
         //add the channel to the channel list
         EventManager.AddPrivateChannel(_personalChannelDictionary);

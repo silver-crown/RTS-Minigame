@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Decorator : Behavior
+public class Decorator : BbbtBehaviour
 {
-    protected Behavior _childNode;
+    protected BbbtBehaviour _childNode;
 
-    public Decorator(Behavior child)
+    public Decorator(BbbtBehaviour child)
     {
         _childNode = child;
     }

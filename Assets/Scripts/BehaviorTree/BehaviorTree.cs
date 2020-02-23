@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Timers;
 using UnityEngine;
-
-using System;
-using System.Timers;
-
 
 public class BehaviorTree : MonoBehaviour
 {
-    public Behavior _rootNode; // root of the tree
-    private  System.Timers.Timer _timer;
+    public BbbtBehaviour _rootNode; // root of the tree
+    private Timer _timer;
 
     private  int _updateFrequency = 200; // milliseconds
 
@@ -22,7 +17,7 @@ public class BehaviorTree : MonoBehaviour
     public void SetTimer()
     {
         // Create a timer with a two second interval.
-        _timer = new System.Timers.Timer(_updateFrequency);
+        _timer = new Timer(_updateFrequency);
         // Hook up the Elapsed event for the timer. 
         _timer.Elapsed += Tick;
         _timer.AutoReset = true;
@@ -63,9 +58,8 @@ public class BehaviorTree : MonoBehaviour
         _timer.Dispose();
     }
 
-    public void SetRootNode(Behavior in_rootNode)
+    public void SetRootNode(BbbtBehaviour in_rootNode)
     {
         _rootNode = in_rootNode;
     }
-
 }

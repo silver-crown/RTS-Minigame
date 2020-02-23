@@ -5,7 +5,7 @@ using UnityEngine;
 public class Succeeder : Decorator
 {
 
-    public Succeeder(Behavior child) : base(child)
+    public Succeeder(BbbtBehaviour child) : base(child)
     {
 
     }

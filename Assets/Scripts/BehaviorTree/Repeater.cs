@@ -8,7 +8,7 @@ public class Repeater : Decorator
     protected int _counter;
 
 
-    public Repeater(Behavior child) : base(child)
+    public Repeater(BbbtBehaviour child) : base(child)
     {
 
     }

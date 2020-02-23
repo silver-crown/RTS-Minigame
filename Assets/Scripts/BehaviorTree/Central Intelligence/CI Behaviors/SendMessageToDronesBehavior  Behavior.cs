@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Behaviour tree task which sends a message to other drones.
 /// </summary>
-public class SendMessageToDronesBehavior : Behavior
+public class SendMessageToDronesBehavior : BbbtBehaviour
 {
     /// <summary>
     /// Types of messages that the drone needs

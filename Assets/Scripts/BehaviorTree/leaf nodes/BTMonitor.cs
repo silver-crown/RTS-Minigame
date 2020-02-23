@@ -22,12 +22,12 @@ public class BTMonitor : Parallel
 
     }
 
-    public void AddCondition(Behavior condition)
+    public void AddCondition(BbbtBehaviour condition)
     {
 
     }
 
-    public void AddAction(Behavior action)
+    public void AddAction(BbbtBehaviour action)
     {
 
     }
