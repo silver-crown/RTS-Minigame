@@ -16,8 +16,8 @@ public class CombatDrone : Drone
         Sequencer sequencer = new Sequencer();
 
         // First thing the combat drone checks is the findplayer behavior
-        FindPlayer findPlayer = new FindPlayer();
-        sequencer.AddChild(findPlayer);
+        CanSeeEnemy canSeeEnemy = new CanSeeEnemy();
+        sequencer.AddChild(canSeeEnemy);
 
         // Creates the behavior treee
         _behaviorTree = GetComponent<BehaviorTree>();
