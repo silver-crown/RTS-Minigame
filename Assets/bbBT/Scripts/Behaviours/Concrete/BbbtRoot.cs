@@ -12,7 +12,7 @@ namespace Bbbt
         /// <summary>
         /// The node that the BbbtRoot points to as the real root of the behaviour tree.
         /// </summary>
-        public BbbtBehaviour Child { get; set; }
+        public BbbtBehaviour Child { get; protected set; }
 
         /// <summary>
         /// BbbtRoot doesn't have any initialisation logic.
@@ -27,7 +27,7 @@ namespace Bbbt
         /// BbbtRoot doesn't have any termination logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override void OnTerminate(BbbtBehaviorStatus status)
+        protected override void OnTerminate(BbbtBehaviourStatus status)
         {
             throw new System.NotImplementedException();
         }
@@ -36,19 +36,18 @@ namespace Bbbt
         /// BbbtRoot doesn't have any update logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override BbbtBehaviorStatus UpdateBehavior()
+        protected override BbbtBehaviourStatus UpdateBehavior()
         {
             throw new System.NotImplementedException();
         }
 
         /// <summary>
         /// Converts the behaviour to save data.
-        /// Root nodes don't have save data, so the conversion doesn't do anything useful.
         /// </summary>
-        /// <returns>Null.</returns>
+        /// <returns>The save data object.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {
-            return null;
+            return new BbbtRootSaveData(Child != null ? Child.ToSaveData() : null);
         }
 
         /// <summary>
@@ -57,6 +56,35 @@ namespace Bbbt
         /// <param name="saveData">The save data to use for setting up the behaviour.</param>
         public override void LoadSaveData(BbbtBehaviourSaveData saveData)
         {
+            var castSaveData = saveData as BbbtRootSaveData;
+            if (castSaveData != null)
+            {
+                if (castSaveData.ChildSaveData != null)
+                {
+                    Child = castSaveData.ChildSaveData.Deserialize();
+                }
+            }
+            else
+            {
+                Debug.LogError("Save data passed to BbbtRoot was not BbbtBehaviourSaveData.");
+            }
+        }
+
+        /// <summary>
+        /// Adds a child to the node.
+        /// </summary>
+        /// <param name="child">The child to add.</param>
+        public override void AddChild(BbbtBehaviour child)
+        {
+            Child = child;
+        }
+        
+        /// <summary>
+         /// Removes all of the behaviour's children.
+         /// </summary>
+        public override void RemoveChildren()
+        {
+            Child = null;
         }
     }
 }

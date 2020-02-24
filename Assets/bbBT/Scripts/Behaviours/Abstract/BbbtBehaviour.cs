@@ -7,7 +7,7 @@ namespace Bbbt
     /// <summary>
     /// The return statuses possible from a behaviour's execution.
     /// </summary>
-    public enum BbbtBehaviorStatus
+    public enum BbbtBehaviourStatus
     {
         /// <summary>
         /// The behaviour could not be run?
@@ -43,16 +43,16 @@ namespace Bbbt
         /// <summary>
         /// The current status of the behaviour.
         /// </summary>
-        public BbbtBehaviorStatus Status { get; protected set; } = BbbtBehaviorStatus.Invalid;
+        public BbbtBehaviourStatus Status { get; protected set; } = BbbtBehaviourStatus.Invalid;
 
 
         /// <summary>
         /// Tick gets called every time the behaviour tree reaches the node containing this behaviour.
         /// </summary>
         /// <returns>The status of the behaviour tree.</returns>
-        public BbbtBehaviorStatus Tick()
+        public BbbtBehaviourStatus Tick()
         {
-            if (Status != BbbtBehaviorStatus.Running)
+            if (Status != BbbtBehaviourStatus.Running)
             {
                 // Behaviour hasn't started running.
                 OnInitialize();
@@ -60,7 +60,7 @@ namespace Bbbt
 
             Status = UpdateBehavior();
 
-            if (Status != BbbtBehaviorStatus.Running)
+            if (Status != BbbtBehaviourStatus.Running)
             {
                 // Behaviour finished running.
                 OnTerminate(Status);
@@ -79,13 +79,13 @@ namespace Bbbt
         /// until it signals it has terminated thanks to its return status
         /// </summary>
         /// <returns>The status of the behaviour.</returns>
-        protected abstract BbbtBehaviorStatus UpdateBehavior();
+        protected abstract BbbtBehaviourStatus UpdateBehavior();
 
         /// <summary>
         /// OnTerminate is called once, immediately after the previous update signals it’s no longer running.
         /// </summary>
         /// <param name="status">The behaviour's status upoin termination.</param>
-        protected abstract void OnTerminate(BbbtBehaviorStatus status);
+        protected abstract void OnTerminate(BbbtBehaviourStatus status);
 
         /// <summary>
         /// Converts the behaviour to save data.
@@ -100,11 +100,22 @@ namespace Bbbt
         public abstract void LoadSaveData(BbbtBehaviourSaveData saveData);
 
         /// <summary>
+        /// Adds a child to the node.
+        /// </summary>
+        /// <param name="child">The child to add.</param>
+        public abstract void AddChild(BbbtBehaviour child);
+
+        /// <summary>
+        /// Removes all of the behaviour's children.
+        /// </summary>
+        public abstract void RemoveChildren();
+
+        /// <summary>
         /// Resets the behaviour to its initial state.
         /// </summary>
         public void Reset()
         {
-            Status = BbbtBehaviorStatus.Invalid;
+            Status = BbbtBehaviourStatus.Invalid;
         }
 
         /// <summary>
@@ -112,8 +123,8 @@ namespace Bbbt
         /// </summary>
         public void Abort()
         {
-            OnTerminate(BbbtBehaviorStatus.Aborted);
-            Status = BbbtBehaviorStatus.Aborted;
+            OnTerminate(BbbtBehaviourStatus.Aborted);
+            Status = BbbtBehaviourStatus.Aborted;
         }
 
         /// <summary>
@@ -122,7 +133,7 @@ namespace Bbbt
         /// <returns>True if the behaviour is terminated, false otherwise.</returns>
         public bool IsTerminated()
         {
-            return Status == BbbtBehaviorStatus.Success || Status == BbbtBehaviorStatus.Failure;
+            return Status == BbbtBehaviourStatus.Success || Status == BbbtBehaviourStatus.Failure;
         }
 
         /// <summary>

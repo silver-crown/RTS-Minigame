@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine;
 
 namespace Bbbt
 {
@@ -17,6 +17,7 @@ namespace Bbbt
         /// </summary>
         public string Message { get; protected set; }
 
+
         /// <summary>
         /// Constructs a new BbbtDebugLogBehaviourSaveData object.
         /// </summary>
@@ -24,6 +25,17 @@ namespace Bbbt
         public BbbtDebugLogBehaviourSaveData(string message)
         {
             Message = message;
+        }
+
+        /// <summary>
+        /// Deserializes the save data.
+        /// </summary>
+        /// <returns>The object represented by the save data.</returns>
+        public override BbbtBehaviour Deserialize()
+        {
+            var behaviour = ScriptableObject.CreateInstance<BbbtDebugLogBehaviour>();
+            behaviour.LoadSaveData(this);
+            return behaviour;
         }
     }
 }

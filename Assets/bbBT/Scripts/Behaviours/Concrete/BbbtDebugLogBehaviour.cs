@@ -3,8 +3,7 @@
 namespace Bbbt
 {
     /// <summary>
-    /// Marks the entry point of a behaviour tree. Inherits from BbbtBehaviour for convenience but isn't actually
-    /// included in a behaviour tree, and is used in the editor to point to the real root node.
+    /// Leaf node which prints a message to the Unity console.
     /// </summary>
     [CreateAssetMenu(fileName = "Debug Logger", menuName = "bbBT/Behaviour/Leaf/Debug Logger", order = 0)]
     public class BbbtDebugLogBehaviour : BbbtLeafBehaviour
@@ -25,17 +24,17 @@ namespace Bbbt
         /// <summary>
         /// BbbtRoot doesn't have any termination logic.
         /// </summary>
-        protected override void OnTerminate(BbbtBehaviorStatus status)
+        protected override void OnTerminate(BbbtBehaviourStatus status)
         {
         }
 
         /// <summary>
         /// Prints the message the debug logger is supposed to print.
         /// </summary>
-        protected override BbbtBehaviorStatus UpdateBehavior()
+        protected override BbbtBehaviourStatus UpdateBehavior()
         {
             Debug.Log(_message);
-            return BbbtBehaviorStatus.Success;
+            return BbbtBehaviourStatus.Success;
         }
 
         /// <summary>

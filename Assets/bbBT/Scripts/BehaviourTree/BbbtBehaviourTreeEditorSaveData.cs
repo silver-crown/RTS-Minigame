@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains data needed to save and load a bbBT behaviour tree.
     /// </summary>
-    public class BbbtBehaviourTreeSaveData
+    public class BbbtBehaviourTreeEditorSaveData
     {
         /// <summary>
         /// The save data for the nodes belonging to the behaviour tree.
@@ -39,7 +39,7 @@
         /// <param name="windowOffsetY">
         /// The amount by which the behaviour tree has been offset from the centre of the editor window in the y axis.
         /// </param>
-        public BbbtBehaviourTreeSaveData(
+        public BbbtBehaviourTreeEditorSaveData(
             BbbtNodeSaveData[] nodes,
             BbbtConnectionSaveData[] connections,
             float windowOffsetX,

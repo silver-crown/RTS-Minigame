@@ -880,11 +880,32 @@ namespace Bbbt
         /// <param name="tab">The tab whose contents to save.</param>
         private void SaveTab(BbbtWindowTab tab)
         {
+            // Clear all behaviour's children
+            foreach (var node in tab.Nodes)
+                {
+                    node.Behaviour.RemoveChildren();
+                }
+            // Set up the nodes' children.
+            foreach (var connection in tab.Connections)
+            {
+                var parent = connection.OutPoint.Node.Behaviour;
+                var child = connection.InPoint.Node.Behaviour;
+                Debug.Log(parent.name + ">" + child.name);
+                parent.AddChild(child);
+            }
+
             // Store nodes.
             var nodeSaveData = new BbbtNodeSaveData[tab.Nodes.Count];
+            BbbtRoot rootBehaviour = null;
+            var behaviours = new List<BbbtBehaviour>();
             for (int i = 0; i < tab.Nodes.Count; i++)
             {
                 nodeSaveData[i] = tab.Nodes[i].ToSaveData();
+                behaviours.Add(tab.Nodes[i].Behaviour);
+                if (tab.Nodes[i].Behaviour as BbbtRoot != null)
+                {
+                    rootBehaviour = (BbbtRoot)tab.Nodes[i].Behaviour;
+                }
             }
 
             // Store connections.
@@ -895,17 +916,46 @@ namespace Bbbt
             }
 
             // Create the behaviour tree save data.
-            var behaviourTreeSaveData = new BbbtBehaviourTreeSaveData(
+            var behaviourTreeSaveData = new BbbtBehaviourTreeEditorSaveData(
                 nodeSaveData,
                 connectionSaveData,
                 tab.WindowOffset.x,
                 tab.WindowOffset.y
             );
 
-            // Save the data to the loaded scriptable object.
-            tab.Tree.SaveData(behaviourTreeSaveData);
-
+            // Save editor data
+            tab.Tree.Save(behaviourTreeSaveData, null);
             SetUnsavedChangesTabTitle(tab, false);
+
+            // Save functional save data if the tree is valid.
+            if (rootBehaviour != null)
+            {
+                bool isValid = true;
+                foreach (var behaviour in behaviours)
+                {
+                    if (behaviour as BbbtRoot != null &&
+                        (behaviour as BbbtRoot).Child == null)
+                    {
+                        isValid = false;
+                    }
+                    if (behaviour as BbbtCompositeBehaviour != null &&
+                        (behaviour as BbbtCompositeBehaviour).Children == null)
+                    {
+                        isValid = false;
+                    }
+                    if (behaviour as BbbtDecoratorBehaviour != null &&
+                        (behaviour as BbbtDecoratorBehaviour).Child == null)
+                    {
+                        isValid = false;
+                    }
+                }
+
+                if (isValid)
+                {
+                    var saveData = new BbbtBehaviourTreeSaveData((BbbtRootSaveData)rootBehaviour.ToSaveData());
+                    tab.Tree.Save(null, saveData);
+                }
+            }
         }
 
         /// <summary>
@@ -933,10 +983,10 @@ namespace Bbbt
                 _tabs.Add(new BbbtWindowTab(tree, _tabStyle));
                 _currentTab = _tabs[_tabs.Count - 1];
 
-                if (tree.Data != null)
+                if (tree.EditorSaveData != null)
                 {
                     // Add nodes
-                    foreach (var nodeSaveData in tree.Data.Nodes)
+                    foreach (var nodeSaveData in tree.EditorSaveData.Nodes)
                     {
                         // Get the behaviour instance from the save data's string and check if it's valid.
                         var baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
@@ -967,7 +1017,7 @@ namespace Bbbt
                     }
 
                     // Load connections.
-                    foreach (var connectionSaveData in tree.Data.Connections)
+                    foreach (var connectionSaveData in tree.EditorSaveData.Connections)
                     {
                         CreateConnection(
                             _currentTab.Nodes.Find((node) => node.Id == connectionSaveData.OutNodeId),

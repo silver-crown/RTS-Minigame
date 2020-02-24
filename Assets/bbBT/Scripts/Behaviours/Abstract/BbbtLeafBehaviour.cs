@@ -7,5 +7,19 @@
     /// </summary>
     public abstract class BbbtLeafBehaviour : BbbtBehaviour
     {
+        /// <summary>
+        /// Adds a child to the node.
+        /// </summary>
+        /// <param name="child">The child to add.</param>
+        public override void AddChild(BbbtBehaviour child)
+        {
+        }
+
+        /// <summary>
+        /// Removes all of the behaviour's children.
+        /// </summary>
+        public override void RemoveChildren()
+        {
+        }
     }
 }

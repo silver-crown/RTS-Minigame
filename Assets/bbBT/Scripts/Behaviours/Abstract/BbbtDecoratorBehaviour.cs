@@ -10,6 +10,24 @@ namespace Bbbt
         /// <summary>
         /// The decorator's child behaviour.
         /// </summary>
-        public BbbtBehaviour Child { get; set; }
+        public BbbtBehaviour Child { get; protected set; } = null;
+
+
+        /// <summary>
+        /// Adds a child to the node.
+        /// </summary>
+        /// <param name="child">The child to add.</param>
+        public override void AddChild(BbbtBehaviour child)
+        {
+            Child = child;
+        }
+
+        /// <summary>
+        /// Removes all of the behaviour's children.
+        /// </summary>
+        public override void RemoveChildren()
+        {
+            Child = null;
+        }
     }
 }
