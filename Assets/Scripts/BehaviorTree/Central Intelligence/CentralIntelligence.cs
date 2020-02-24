@@ -59,7 +59,7 @@ public class CentralIntelligence : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates a behavior tree for the Centreal Intelligence base on a pre defined code
+    /// Creates a behavior tree for the Central Intelligence base on a predefined code
     /// </summary>
     public void SetUpTreeFromCode()
     {
@@ -96,6 +96,8 @@ public class CentralIntelligence : MonoBehaviour
             _droneCount++;
         }
     }
+
+
 }
 
 
