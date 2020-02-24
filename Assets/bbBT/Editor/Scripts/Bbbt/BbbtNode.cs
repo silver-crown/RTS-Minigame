@@ -6,11 +6,6 @@ using UnityEngine;
 namespace Bbbt
 {
     /// <summary>
-    /// The type of a BbbtNode.
-    /// </summary>
-    public enum BbbtNodeType { Root, Repeater, Selector, Sequence, Leaf }
-
-    /// <summary>
     /// A node for use in the bbBT behaviour tree editor.
     /// </summary>
     public class BbbtNode : ScriptableObject
@@ -21,9 +16,14 @@ namespace Bbbt
         public int Id { get; protected set; }
 
         /// <summary>
-        /// The type of the node.
+        /// The behaviour used as a base for the node's behaviour.
         /// </summary>
-        public BbbtNodeType Type { get; protected set; }
+        public BbbtBehaviour BaseBehaviour { get; protected set; }
+
+        /// <summary>
+        /// The behaviour instance specific to this node.
+        /// </summary>
+        public BbbtBehaviour Behaviour { get; protected set; }
 
         /// <summary>
         /// The node's rect.
@@ -81,12 +81,6 @@ namespace Bbbt
         private Action<BbbtNode> _onClickRemoveNode;
 
         /// <summary>
-        /// PLACEHOLDER: An action attached to the node. Just other behaviour trees now for testing.
-        /// Maybe turn this into a generic object and query its type?
-        /// </summary>
-        public BbbtBehaviourTree AttachedAction;
-
-        /// <summary>
         /// The label attached to the node's rect indicating the attached action.
         /// </summary>
         private string _actionLabel;
@@ -106,7 +100,7 @@ namespace Bbbt
         /// Sets up a new BbbtNode.
         /// </summary>
         /// <param name="id">The node's id.</param>
-        /// <param name="type">The type of the node.</param>
+        /// <param name="behaviour">The behaviour to use as a template for the node's exported behaviour.</param>
         /// <param name="position">The position of the node.</param>
         /// <param name="width">The width of the node.</param>
         /// <param name="height">The height of the node.</param>
@@ -121,11 +115,13 @@ namespace Bbbt
         /// Callback method invoked when the attached outgoing connection point is clicked.
         /// </param>
         /// <param name="onClickRemoveNode">Action invoked when the node is removed.</param>
-        /// <param name="actionLabel">The label used to identify the action attached to the node.</param>
         /// <param name="isSelected">Whether the node should start out selected.</param>
+        /// <param name="behaviourSaveData">
+        /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
+        /// </param>
         public void Setup(
             int id,
-            BbbtNodeType type,
+            BbbtBehaviour behaviour,
             Vector2 position,
             float width,
             float height,
@@ -136,18 +132,28 @@ namespace Bbbt
             Action<BbbtConnectionPoint> inPointOnClick,
             Action<BbbtConnectionPoint> outPointOnClick,
             Action<BbbtNode> onClickRemoveNode,
-            string actionLabel,
-            bool isSelected = false)
+            bool isSelected = false,
+            BbbtBehaviourSaveData behaviourSaveData = null)
         {
             Id = id;
-            Type = type;
+            _style = style;
+            _selectedStyle = selectedStyle;
+            BaseBehaviour = behaviour;
+
+            // Create a copy of the provided behaviour so that we don't write changes to it.
+            Behaviour = Instantiate(behaviour);
+            if (behaviourSaveData != null)
+            {
+                Behaviour.LoadSaveData(behaviourSaveData);
+            }
+
             _rect = new Rect(position.x, position.y, width, height);
 
+
             // Set up the node type icon
-            // Create style
             _typeIconStyle = new GUIStyle();
             _typeIconStyle.normal.background = AssetDatabase.LoadAssetAtPath<Texture2D>(
-                Path.Combine("Assets", "bbBT", "Editor", "Textures", type.ToString().ToLower() + ".png")
+                Path.Combine("Assets", "bbBT", "Editor", "Textures", BaseBehaviour.name + ".png")
             );
 
             // Create the rects, make them some reasonable size.
@@ -161,21 +167,19 @@ namespace Bbbt
                 new Vector2(_rect.width - 10.0f * 2.0f, 30.0f)
             );
 
-            _style = style;
-            _selectedStyle = selectedStyle;
-
-            if (Type != BbbtNodeType.Root)
+            // Create connectors.
+            // Make the InPoint (but not for root).
+            if (BaseBehaviour as BbbtRoot == null)
             {
                 InPoint = new BbbtConnectionPoint(this, BbbtConnectionPointType.In, inPointStyle, inPointOnClick);
             }
-
-            if (Type != BbbtNodeType.Leaf)
+            // Make the InPoint (but not for leaves).
+            if (BaseBehaviour as BbbtLeafBehaviour == null)
             {
                 OutPoint = new BbbtConnectionPoint(this, BbbtConnectionPointType.Out, outPointStyle, outPointOnClick);
             }
 
             _onClickRemoveNode = onClickRemoveNode;
-            _actionLabel = actionLabel;
             IsSelected = isSelected;
         }
 
@@ -203,12 +207,6 @@ namespace Bbbt
             GUIStyle currentStyle = IsSelected ? _selectedStyle : _style;
             GUI.Box(_rect, "", currentStyle);
             GUI.Box(_typeIconRect, "", _typeIconStyle);
-
-
-            if (Type == BbbtNodeType.Leaf)
-            {
-                GUI.Label(_labelRect, _actionLabel, currentStyle);
-            }
         }
 
         /// <summary>
@@ -233,6 +231,7 @@ namespace Bbbt
                             IsSelected = true;
 
                             // Check if we double clicked the node (only leaf nodes for now).
+                            /*
                             if (Type == BbbtNodeType.Leaf &&
                                 EditorApplication.timeSinceStartup - _lastClickTime < _doubleClickMaxTime)
                             {
@@ -250,6 +249,7 @@ namespace Bbbt
                                     return false;
                                 }
                             }
+                            */
 
                             _lastClickTime = EditorApplication.timeSinceStartup;
                             return true;
@@ -285,46 +285,10 @@ namespace Bbbt
                         return true;
                     }
                     break;
-                // Something dropped into the editor window.
-                case EventType.DragExited:
-                    // Check that it's dropped into this node.
-                    if (_rect.Contains(e.mousePosition))
-                    {
-                        // Check that this is a leaf node.
-                        if (Type == BbbtNodeType.Leaf)
-                        {
-                            // Check if the asset being dropped is a tree.
-                            var droppedTree = DragAndDrop.objectReferences[0] as BbbtBehaviourTree;
-
-                            if (droppedTree != null)
-                            {
-                                GUI.changed = true;
-                                IsSelected = true;
-                                AttachBehaviourTree(droppedTree);
-                                _actionLabel = droppedTree.name;
-                                return true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        IsSelected = false;
-                        GUI.changed = true;
-                    }
-                    break;
             }
 
             // GUI did not change.
             return false;
-        }
-
-        /// <summary>
-        /// Attached a behaviour tree to the leaf node.
-        /// </summary>
-        /// <param name="tree"></param>
-        private void AttachBehaviourTree(BbbtBehaviourTree tree)
-        {
-            AttachedAction = tree;
         }
 
         /// <summary>
@@ -351,7 +315,14 @@ namespace Bbbt
         /// <returns>The node's save data.</returns>
         public BbbtNodeSaveData ToSaveData()
         {
-            return new BbbtNodeSaveData(Id, Type.ToString(), _rect.x, _rect.y, IsSelected, _actionLabel);
+            return new BbbtNodeSaveData(
+                Id,
+                BaseBehaviour.name,
+                Behaviour.ToSaveData(),
+                _rect.x,
+                _rect.y,
+                IsSelected
+            );
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEditor;
-using UnityEngine;
 
 namespace Bbbt
 {
@@ -11,23 +10,17 @@ namespace Bbbt
     {
         public override void OnInspectorGUI()
         {
-            //base.OnInspectorGUI();
+            base.OnInspectorGUI();
             var node = (BbbtNode)target;
 
             // Basic info
             EditorGUILayout.LabelField("Id", node.Id.ToString());
-            EditorGUILayout.LabelField("Type", node.Type.ToString());
+            //EditorGUILayout.LabelField("Type", node.BaseBehaviour.name);
 
-            // Allow attaching action if leaf node.
-            if (node.Type == BbbtNodeType.Leaf)
-            {
-                node.AttachedAction = EditorGUILayout.ObjectField(
-                    "Attached Behaviour Tree",
-                    node.AttachedAction,
-                    typeof(BbbtBehaviourTree),
-                    false
-                ) as BbbtBehaviourTree;
-            }
+            // Display the editable properties of the node's behaviour.
+            EditorGUILayout.Separator();
+            var behaviourEditor = CreateEditor(node.Behaviour);
+            behaviourEditor.OnInspectorGUI();
         }
     }
 }

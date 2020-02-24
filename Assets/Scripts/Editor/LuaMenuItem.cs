@@ -35,7 +35,7 @@ public class LuaMenuItem
         string filePath = Path.Combine(folderPath, fileName);
 
         // Add the lua script.
-        File.Create(filePath);
+        File.Create(filePath).Close();
         AssetDatabase.ImportAsset(filePath, ImportAssetOptions.ForceSynchronousImport);
     }
 }

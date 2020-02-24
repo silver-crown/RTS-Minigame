@@ -75,7 +75,7 @@ public class Parallel : Composite
     // Makes sure the other behaviors that are running are terminated after the
     // Paralell has fufilled one of it's policy's.
     override
-    protected  void OnTerminate(Status s)
+    protected void OnTerminate(Status s)
     {
         for(int i = 0; i < _children.Count; i++)
         {

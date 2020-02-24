@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Sequencer : Composite
 {
-    // Start is called before the first frame update
-    void Start()
+    public Sequencer()
+    {
+        Debug.Log("Sequencer created");
+    }
+
+// Start is called before the first frame update
+void Start()
     {
 
     }

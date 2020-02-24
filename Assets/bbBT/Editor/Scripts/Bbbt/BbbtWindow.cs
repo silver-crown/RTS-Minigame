@@ -379,7 +379,7 @@ namespace Bbbt
         /// </summary>
         private void DrawNodes()
         {
-            if (_currentTab != null)
+            if (_currentTab != null && _currentTab.Nodes != null)
             {
                 _currentTab.Nodes.ForEach((node) => node.Draw());
             }
@@ -412,6 +412,7 @@ namespace Bbbt
             if (_currentTab == null) return;
 
             _drag = Vector3.zero;
+            BbbtBehaviour draggedBehavior = null;
 
             switch (e.type)
             {
@@ -467,15 +468,25 @@ namespace Bbbt
                     }
                     break;
                 // Something dragged into the editor window.
-                // i.e. a behaviour tree dragged in to be attached to a leaf node.
                 case EventType.DragUpdated:
                     // Check if we're dragging a valid object into the editor
                     // and update visuals to reflect the fact that it's valid if it is.
-                    var draggedTree = DragAndDrop.objectReferences[0] as BbbtBehaviourTree;
+                    draggedBehavior = DragAndDrop.objectReferences[0] as BbbtBehaviour;
 
-                    if (draggedTree != null)
+                    if (draggedBehavior != null)
                     {
                         DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                    }
+                    break;
+                // We stopped dragging whatever we were dragging.
+                case EventType.DragExited:
+                    // Check if we dragged a valid object into the editor
+                    draggedBehavior = DragAndDrop.objectReferences[0] as BbbtBehaviour;
+
+                    if (draggedBehavior != null)
+                    {
+                        // A behaviour was dropped into the editor, instantiate a node with the behaviour attached.
+                        AddNode(++_currentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
                     }
                     break;
             }
@@ -543,6 +554,7 @@ namespace Bbbt
         /// <param name="position">The positioni of the context menu.</param>
         private void CreateContextMenu(Vector2 position)
         {
+            /*
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent("Add Root"), false, () => AddNode(BbbtNodeType.Root, position));
             menu.AddItem(new GUIContent("Add Selector"), false, () => AddNode(BbbtNodeType.Selector, position));
@@ -550,59 +562,31 @@ namespace Bbbt
             menu.AddItem(new GUIContent("Add Repeater"), false, () => AddNode(BbbtNodeType.Repeater, position));
             menu.AddItem(new GUIContent("Add Leaf"), false, () => AddNode(BbbtNodeType.Leaf, position));
             menu.ShowAsContext();
-        }
-
-        /// <summary>
-        /// Adds a new node to the behaviour tree.
-        /// </summary>
-        /// <param name="type">The type of the node to create.</param>
-        /// <param name="position">The position of the node.</param>
-        /// <param name="actionLabel">The label used to identify the action attached to the node.</param>
-        /// <param name="isSelected">Whether the node should be selected.</param>
-        private void AddNode(BbbtNodeType type, Vector2 position, string actionLabel = "", bool isSelected = false)
-        {
-            var node = CreateInstance<BbbtNode>();
-            _currentTab.Nodes.Add(node);
-            node.Setup(
-                ++_currentTab.LastNodeID,
-                type,
-                position,
-                96,
-                96,
-                _nodeStyle,
-                _selectedNodeStyle,
-                _inPointStyle,
-                _outPointStyle,
-                OnClickInPoint,
-                OnClickOutPoint,
-                RemoveNode,
-                actionLabel,
-                isSelected
-            );
-
-            SetUnsavedChangesTabTitle(_currentTab);
+            */
         }
 
         /// <summary>
         /// Adds a new node to the behaviour tree.
         /// </summary>
         /// <param name="id">The id of the node.</param>
-        /// <param name="type">The type of the node to create.</param>
+        /// <param name="baseBehaviour">The behaviour attached to the node.</param>
         /// <param name="position">The position of the node.</param>
-        /// <param name="actionLabel">The label used to identify the action attached to the node.</param>
         /// <param name="isSelected">Whether the node should be selected.</param>
+        /// <param name="behaviourSaveData">
+        /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
+        /// </param>
         private void AddNode(
             int id,
-            BbbtNodeType type,
+            BbbtBehaviour baseBehaviour,
             Vector2 position,
-            string actionLabel = "",
-            bool isSelected = false)
+            bool isSelected = false,
+            BbbtBehaviourSaveData behaviourSaveData = null)
         {
             var node = CreateInstance<BbbtNode>();
             _currentTab.Nodes.Add(node);
             node.Setup(
                 id,
-                type,
+                baseBehaviour,
                 position,
                 96,
                 96,
@@ -613,8 +597,8 @@ namespace Bbbt
                 OnClickInPoint,
                 OnClickOutPoint,
                 RemoveNode,
-                actionLabel,
-                isSelected
+                isSelected,
+                behaviourSaveData
             );
 
             SetUnsavedChangesTabTitle(_currentTab);
@@ -764,27 +748,34 @@ namespace Bbbt
             switch (point.Type)
             {
                 case BbbtConnectionPointType.In:
-                    switch (point.Node.Type)
+                    // Root nodes have no InPoint, so it should always be considered at max capacity.
+                    // Though, this should never be called for a root node if everything is done correctly.
+                    if (point.Node.BaseBehaviour as BbbtRoot != null)
                     {
-                        case BbbtNodeType.Root:
-                            return true;
-                        default:
-                            return FindConnectionToPoint(point) != null;
+                        return true;
+                    }
+                    // All other InPoints take a single parent so just check if it already has one.
+                    else
+                    {
+                        return FindConnectionToPoint(point) != null;
                     }
                 case BbbtConnectionPointType.Out:
-                    switch (point.Node.Type)
+                    // TODO: Leaf nodes are always considered at max OutPoint capacity.
+                    // Root nodes and (TODO: decorators) can only have one outgoing connection.
+                    if (point.Node.BaseBehaviour as BbbtRoot != null)
                     {
-                        case BbbtNodeType.Leaf:
-                            return true;
-                        case BbbtNodeType.Repeater:
-                        case BbbtNodeType.Root:
-                            return FindConnectionToPoint(point) != null;
-                        default:
-                            return false;
+                        return FindConnectionToPoint(point) != null;
                     }
+                    // Composite nodes are never at max capacity.
+                    else if (point.Node.BaseBehaviour as BbbtCompositeBehaviour != null)
+                    {
+                        return false;
+                    }
+                    break;
                 default:
                     return true;
             }
+            return false;
         }
 
         /// <summary>
@@ -889,10 +880,32 @@ namespace Bbbt
         /// <param name="tab">The tab whose contents to save.</param>
         private void SaveTab(BbbtWindowTab tab)
         {
+            // Clear all behaviour's children
+            foreach (var node in tab.Nodes)
+                {
+                    node.Behaviour.RemoveChildren();
+                }
+            // Set up the nodes' children.
+            foreach (var connection in tab.Connections)
+            {
+                var parent = connection.OutPoint.Node.Behaviour;
+                var child = connection.InPoint.Node.Behaviour;
+                Debug.Log(parent.name + ">" + child.name);
+                parent.AddChild(child);
+            }
+
+            // Store nodes.
             var nodeSaveData = new BbbtNodeSaveData[tab.Nodes.Count];
+            BbbtRoot rootBehaviour = null;
+            var behaviours = new List<BbbtBehaviour>();
             for (int i = 0; i < tab.Nodes.Count; i++)
             {
                 nodeSaveData[i] = tab.Nodes[i].ToSaveData();
+                behaviours.Add(tab.Nodes[i].Behaviour);
+                if (tab.Nodes[i].Behaviour as BbbtRoot != null)
+                {
+                    rootBehaviour = (BbbtRoot)tab.Nodes[i].Behaviour;
+                }
             }
 
             // Store connections.
@@ -903,17 +916,46 @@ namespace Bbbt
             }
 
             // Create the behaviour tree save data.
-            var behaviourTreeSaveData = new BbbtBehaviourTreeSaveData(
+            var behaviourTreeSaveData = new BbbtBehaviourTreeEditorSaveData(
                 nodeSaveData,
                 connectionSaveData,
                 tab.WindowOffset.x,
                 tab.WindowOffset.y
             );
 
-            // Save the data to the loaded scriptable object.
-            tab.Tree.SaveData(behaviourTreeSaveData);
-
+            // Save editor data
+            tab.Tree.Save(behaviourTreeSaveData, null);
             SetUnsavedChangesTabTitle(tab, false);
+
+            // Save functional save data if the tree is valid.
+            if (rootBehaviour != null)
+            {
+                bool isValid = true;
+                foreach (var behaviour in behaviours)
+                {
+                    if (behaviour as BbbtRoot != null &&
+                        (behaviour as BbbtRoot).Child == null)
+                    {
+                        isValid = false;
+                    }
+                    if (behaviour as BbbtCompositeBehaviour != null &&
+                        (behaviour as BbbtCompositeBehaviour).Children == null)
+                    {
+                        isValid = false;
+                    }
+                    if (behaviour as BbbtDecoratorBehaviour != null &&
+                        (behaviour as BbbtDecoratorBehaviour).Child == null)
+                    {
+                        isValid = false;
+                    }
+                }
+
+                if (isValid)
+                {
+                    var saveData = new BbbtBehaviourTreeSaveData((BbbtRootSaveData)rootBehaviour.ToSaveData());
+                    tab.Tree.Save(null, saveData);
+                }
+            }
         }
 
         /// <summary>
@@ -941,26 +983,41 @@ namespace Bbbt
                 _tabs.Add(new BbbtWindowTab(tree, _tabStyle));
                 _currentTab = _tabs[_tabs.Count - 1];
 
-                if (tree.Data != null)
+                if (tree.EditorSaveData != null)
                 {
                     // Add nodes
-                    foreach (var nodeSaveData in tree.Data.Nodes)
+                    foreach (var nodeSaveData in tree.EditorSaveData.Nodes)
                     {
-                        AddNode(
-                            nodeSaveData.Id,
-                            (BbbtNodeType)Enum.Parse(typeof(BbbtNodeType), nodeSaveData.Type),
-                            new Vector2(nodeSaveData.X, nodeSaveData.Y),
-                            nodeSaveData.ActionLabel,
-                            nodeSaveData.IsSelected
-                        );
-                        if (_currentTab.LastNodeID < nodeSaveData.Id)
+                        // Get the behaviour instance from the save data's string and check if it's valid.
+                        var baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
+                        var behaviourSaveData = nodeSaveData.BehaviourSaveData;
+
+                        if (baseBehaviour != null)
                         {
-                            _currentTab.LastNodeID = nodeSaveData.Id;
+                            AddNode(
+                                nodeSaveData.Id,
+                                baseBehaviour,
+                                new Vector2(nodeSaveData.X, nodeSaveData.Y),
+                                nodeSaveData.IsSelected,
+                                behaviourSaveData
+                            );
+                            if (_currentTab.LastNodeID < nodeSaveData.Id)
+                            {
+                                _currentTab.LastNodeID = nodeSaveData.Id;
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogError(
+                                _currentTab.Tree.name +
+                                ": Couldn't load behaviour '" +
+                                nodeSaveData.BaseBehaviour +
+                                "'.");
                         }
                     }
 
                     // Load connections.
-                    foreach (var connectionSaveData in tree.Data.Connections)
+                    foreach (var connectionSaveData in tree.EditorSaveData.Connections)
                     {
                         CreateConnection(
                             _currentTab.Nodes.Find((node) => node.Id == connectionSaveData.OutNodeId),
