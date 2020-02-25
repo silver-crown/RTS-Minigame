@@ -27,6 +27,11 @@ namespace Bbbt
         /// </summary>
         public BbbtBehaviour RootBehaviour { get; protected set; }
 
+        /// <summary>
+        /// A list of all the behaviours in the tree.
+        /// </summary>
+        public List<BbbtBehaviour> Behaviours { get; protected set; }
+
 
         /// <summary>
         /// Saves the behaviour tree's data to a json file of the same name as the tree.
@@ -109,6 +114,29 @@ namespace Bbbt
         private void BuildTree()
         {
             RootBehaviour = SaveData.RootSaveData.Deserialize();
+
+            // Populate the behaviour list.
+            Behaviours = new List<BbbtBehaviour>();
+            Behaviours.Add(RootBehaviour);
+            var behavioursToVisit = new Queue<BbbtBehaviour>();
+            behavioursToVisit.Enqueue((RootBehaviour as BbbtRoot).Child);
+            while (behavioursToVisit.Count != 0)
+            {
+                var behaviour = (behavioursToVisit.Dequeue());
+                Behaviours.Add(behaviour);
+                if (behaviour as BbbtCompositeBehaviour != null)
+                {
+                    foreach (var child in (behaviour as BbbtCompositeBehaviour).Children)
+                    {
+                        behavioursToVisit.Enqueue(child);
+                    }
+                }
+                else if (behaviour as BbbtDecoratorBehaviour != null)
+                {
+                    behavioursToVisit.Enqueue((behaviour as BbbtDecoratorBehaviour).Child);
+                }
+            }
+            
         }
         
         /// <summary>

@@ -20,9 +20,11 @@ namespace Bbbt
         /// <summary>
         /// Constructs a new BbbtRootSaveData object.
         /// </summary>
+        /// <param name="nodeId">The id of the node the behaviour belongs to in the editor.</param>
         /// <param name="childSaveData">The root behaviour's child.</param>
-        public BbbtRootSaveData(BbbtBehaviourSaveData childSaveData)
+        public BbbtRootSaveData(int nodeId, BbbtBehaviourSaveData childSaveData)
         {
+            NodeId = nodeId;
             ChildSaveData = childSaveData;
         }
 

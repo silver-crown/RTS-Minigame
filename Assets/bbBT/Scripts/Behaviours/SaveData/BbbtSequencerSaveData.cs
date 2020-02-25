@@ -20,9 +20,11 @@ namespace Bbbt
         /// <summary>
         /// Constructs a new BbbtSequencerSaveData object.
         /// </summary>
+        /// <param name="nodeId">The id of the node the behaviour belongs to in the editor.</param>
         /// <param name="childSaveData">The behaviour's children.</param>
-        public BbbtSequencerSaveData(BbbtBehaviourSaveData[] childSaveData)
+        public BbbtSequencerSaveData(int nodeId, BbbtBehaviourSaveData[] childSaveData)
         {
+            NodeId = nodeId;
             ChildSaveData = childSaveData;
         }
 

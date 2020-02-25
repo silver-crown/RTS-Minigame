@@ -23,7 +23,7 @@ namespace Bbbt
         /// <summary>
         /// The behaviour instance specific to this node.
         /// </summary>
-        public BbbtBehaviour Behaviour { get; protected set; }
+        public BbbtBehaviour Behaviour { get; set; }
 
         /// <summary>
         /// The node's rect.
@@ -140,11 +140,14 @@ namespace Bbbt
             _selectedStyle = selectedStyle;
             BaseBehaviour = behaviour;
 
-            // Create a copy of the provided behaviour so that we don't write changes to it.
-            Behaviour = Instantiate(behaviour);
-            if (behaviourSaveData != null)
+            // Create a copy of the provided behaviour so that we don't write changes to it if we are not playing
+            if (!Application.isPlaying)
             {
-                Behaviour.LoadSaveData(behaviourSaveData);
+                Behaviour = Instantiate(behaviour);
+                if (behaviourSaveData != null)
+                {
+                    Behaviour.LoadSaveData(behaviourSaveData);
+                }
             }
 
             _rect = new Rect(position.x, position.y, width, height);
@@ -264,8 +267,11 @@ namespace Bbbt
 
                     if (e.button == 1 && IsSelected && _rect.Contains(e.mousePosition))
                     {
-                        CreateContextMenu();
-                        e.Use();
+                        if (!Application.isPlaying)
+                        {
+                            CreateContextMenu();
+                            e.Use();
+                        }
                     }
                     break;
 
