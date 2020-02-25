@@ -55,7 +55,8 @@ namespace Bbbt
             {
                 childSaveData[i] = Children[i].ToSaveData();
             }
-            return new BbbtSelectorSaveData(childSaveData);
+            
+            return new BbbtSelectorSaveData(NodeId, childSaveData);
         }
 
         /// <summary>
@@ -64,6 +65,7 @@ namespace Bbbt
         /// <param name="saveData">The save data to use for setting up the behaviour.</param>
         public override void LoadSaveData(BbbtBehaviourSaveData saveData)
         {
+            base.LoadSaveData(saveData);
             Children = null;
             var castSaveData = saveData as BbbtSelectorSaveData;
             if (castSaveData != null)

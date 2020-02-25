@@ -46,6 +46,12 @@ namespace Bbbt
         /// </summary>
         public BbbtBehaviourStatus Status { get; protected set; } = BbbtBehaviourStatus.Invalid;
 
+        /// <summary>
+        /// The id of the node that contains the behaviour in the editor.
+        /// We need this to get direct behaviour references when opening behaviour trees in the editor in debug mode.
+        /// </summary>
+        public int NodeId { get; set; }
+
 
         /// <summary>
         /// Tick gets called every time the behaviour tree reaches the node containing this behaviour.
@@ -98,7 +104,10 @@ namespace Bbbt
         /// Sets up the behaviour from save data.
         /// </summary>
         /// <param name="saveData">The save data to use for setting up the behaviour.</param>
-        public abstract void LoadSaveData(BbbtBehaviourSaveData saveData);
+        public virtual void LoadSaveData(BbbtBehaviourSaveData saveData)
+        {
+            NodeId = saveData.NodeId;
+        }
 
         /// <summary>
         /// Adds a child to the node.

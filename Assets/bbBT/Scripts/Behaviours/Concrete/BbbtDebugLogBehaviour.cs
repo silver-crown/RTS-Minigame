@@ -65,7 +65,7 @@ namespace Bbbt
         /// <returns>The generated save data.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {
-            return new BbbtDebugLogBehaviourSaveData(_message, _logType);
+            return new BbbtDebugLogBehaviourSaveData(NodeId, _message, _logType);
         }
 
         /// <summary>
@@ -74,6 +74,7 @@ namespace Bbbt
         /// <param name="saveData">The save data to use for setting up the behaviour.</param>
         public override void LoadSaveData(BbbtBehaviourSaveData saveData)
         {
+            base.LoadSaveData(saveData);
             var castSaveData = saveData as BbbtDebugLogBehaviourSaveData;
             if (castSaveData != null)
             {

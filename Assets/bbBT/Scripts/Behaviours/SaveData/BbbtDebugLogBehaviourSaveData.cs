@@ -26,10 +26,12 @@ namespace Bbbt
         /// <summary>
         /// Constructs a new BbbtDebugLogBehaviourSaveData object.
         /// </summary>
+        /// <param name="nodeId">The id of the node the behaviour belongs to in the editor.</param>
         /// <param name="message">The message to be displayed by the behaviour.</param>
         /// <param name="logType">The type of message to log.</param>
-        public BbbtDebugLogBehaviourSaveData(string message, LogType logType)
+        public BbbtDebugLogBehaviourSaveData(int nodeId, string message, LogType logType)
         {
+            NodeId = nodeId;
             Message = message;
             LogType = logType;
         }

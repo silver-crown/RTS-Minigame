@@ -9,15 +9,14 @@ namespace Bbbt
     public class BbbtBehaviourTreeComponent : MonoBehaviour
     {
         /// <summary>
-        /// The tree to use as a source for building this tree.
-        /// This is also the tree that will be opened in the editor when debugging.
+        /// The unique tree belonging to this component.
         /// </summary>
-        private BbbtBehaviourTree _sourceTree = null;
+        public BbbtBehaviourTree Tree = null;
 
         /// <summary>
         /// The entry point of the behaviour tree.
         /// </summary>
-        public BbbtBehaviour RootNode { get; set; } = null;
+        private BbbtBehaviour _rootNode = null;
 
         /// <summary>
         /// Timer used to keep the behaviour tree ticking.
@@ -38,10 +37,11 @@ namespace Bbbt
             _timer.Enabled = true;
 
             // Build the tree.
-            _sourceTree = BbbtBehaviourTree.FindBehaviourTreeWithName(treeName);
-            var _tree = Instantiate(_sourceTree);
-            _tree.LoadSaveData(_sourceTree);
-            RootNode = (_tree.RootBehaviour as BbbtRoot).Child;
+            var sourceTree = BbbtBehaviourTree.FindBehaviourTreeWithName(treeName);
+            Tree = Instantiate(sourceTree);
+            Tree.LoadSaveData(sourceTree);
+            Tree.name = sourceTree.name + " (" + name + ")";
+            _rootNode = (Tree.RootBehaviour as BbbtRoot).Child;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Bbbt
         /// </summary>
         private void Tick(object source, ElapsedEventArgs e)
         {
-            RootNode.Tick();
+            _rootNode.Tick();
         }
 
         /// <summary>

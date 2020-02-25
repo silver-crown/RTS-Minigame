@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -21,6 +22,12 @@ namespace Bbbt
             EditorGUILayout.Separator();
             var behaviourEditor = CreateEditor(node.Behaviour);
             behaviourEditor.OnInspectorGUI();
+
+            // Show status of node's behaviour
+            if (Application.isPlaying)
+            {
+                EditorGUILayout.EnumFlagsField(node.Behaviour.Status);
+            }
         }
     }
 }

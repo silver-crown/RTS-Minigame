@@ -47,7 +47,7 @@ namespace Bbbt
         /// <returns>The save data object.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {
-            return new BbbtRootSaveData(Child != null ? Child.ToSaveData() : null);
+            return new BbbtRootSaveData(NodeId, Child != null ? Child.ToSaveData() : null);
         }
 
         /// <summary>
@@ -56,6 +56,7 @@ namespace Bbbt
         /// <param name="saveData">The save data to use for setting up the behaviour.</param>
         public override void LoadSaveData(BbbtBehaviourSaveData saveData)
         {
+            base.LoadSaveData(saveData);
             var castSaveData = saveData as BbbtRootSaveData;
             if (castSaveData != null)
             {
