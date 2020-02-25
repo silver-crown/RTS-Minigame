@@ -10,7 +10,7 @@ using Bbbt;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
-public class Drone : Actor
+public class Drone : Actor 
 {
     /// <summary>
     /// The last used drone id.

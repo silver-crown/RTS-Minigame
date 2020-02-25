@@ -42,6 +42,11 @@ public abstract class Actor : MonoBehaviour
     /// </summary>
     public BehaviorTree _behaviorTree;
 
+    /// <summary>
+    /// Add this script to the game object in unity
+    /// </summary>
+    public BbbtBehaviourTreeComponent MyBbbtBehaviourTreeComponent;
+
     #endregion AI
 
     #region Vision
@@ -73,7 +78,7 @@ public abstract class Actor : MonoBehaviour
     /// <summary>
     /// The faction the actor is alligned with
     /// </summary>
-    private Faction _faction;
+    public Factions Faction;
 
     #endregion
 

@@ -7,23 +7,16 @@ using UnityEngine;
 /// </summary>
 public class CanSeeEnemy : Behavior
 {
-    /// <summary>
-    /// Refrence to Sight script
-    /// </summary>
-    
- 
+    Actor _actor;
 
     public CanSeeEnemy()
     {
 
     }
 
-    // Start is called before the first frame update
-    void Start()
+    protected virtual void OnInitialize()
     {
-        
+       
     }
-
-
 
 }

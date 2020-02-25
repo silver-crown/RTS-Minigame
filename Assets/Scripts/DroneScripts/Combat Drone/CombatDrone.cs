@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Bbbt;
+
 /// <summary>
 /// Specialiced type of drone that specelises on combat
 /// </summary>
@@ -12,7 +14,11 @@ public class CombatDrone : Drone
     /// </summary>
     public void SetUpCombatBT()
     {
-        // adds the root node
+        MyBbbtBehaviourTreeComponent = GetComponent<BbbtBehaviourTreeComponent>();
+        MyBbbtBehaviourTreeComponent.SetBehaviourTree("CombatDroneBT");
+
+
+       /* // adds the root node
         Sequencer sequencer = new Sequencer();
 
         // First thing the combat drone checks is the findplayer behavior
@@ -21,8 +27,9 @@ public class CombatDrone : Drone
 
         // Creates the behavior treee
         _behaviorTree = GetComponent<BehaviorTree>();
-        _behaviorTree.SetRootNode(sequencer);
+        _behaviorTree.SetRootNode(sequencer);*/
 
+       
     }
 
     private void Awake()

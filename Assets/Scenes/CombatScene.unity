@@ -235,6 +235,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 468509881}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &524477017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524477019}
+  - component: {fileID: 524477018}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &524477018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524477017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c844179d05c21848bd9a8772ef00389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &524477019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524477017}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.988009, y: 1.2057858, z: -19.995495}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &767627778
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +293,7 @@ GameObject:
   - component: {fileID: 767627785}
   - component: {fileID: 767627786}
   - component: {fileID: 767627783}
+  - component: {fileID: 767627784}
   m_Layer: 0
   m_Name: CombatDrone
   m_TagString: Untagged
@@ -340,14 +384,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 767627778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccadf3efc7cc6ca4daa76d2618ef4b18, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bbb92005043ba649a929da68339a191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _behavior: {fileID: 0}
+  _behavior: {fileID: 11400000, guid: 3bbb1a2c0e211f0478f59e6439ff3b8d, type: 2}
   _behaviorTree: {fileID: 0}
+  MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
   Waypoints: []
   TargetDestination: {fileID: 0}
+  Faction: 0
+--- !u!114 &767627784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767627778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713b0c92dc71faa4ba60eb3cba4da9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tree: {fileID: 0}
 --- !u!195 &767627785
 NavMeshAgent:
   m_ObjectHideFlags: 0
