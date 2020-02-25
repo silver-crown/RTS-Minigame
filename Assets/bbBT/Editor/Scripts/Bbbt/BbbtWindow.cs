@@ -486,7 +486,8 @@ namespace Bbbt
                     if (draggedBehavior != null)
                     {
                         // A behaviour was dropped into the editor, instantiate a node with the behaviour attached.
-                        AddNode(++_currentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
+                        var node = AddNode(++_currentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
+                        SelectNode(node);
                     }
                     break;
             }
@@ -517,14 +518,16 @@ namespace Bbbt
             // Check if usedNode isn't null, i.e. a node was interacted with.
             if (usedNode != null)
             {
-                // Put the node that was interacted with on top.
-                _currentTab.Nodes.Remove(usedNode);
-                _currentTab.Nodes.Add(usedNode);
-
-                // Select the node.
-                _nodeToOpenInInspector = usedNode;
-
-                SetUnsavedChangesTabTitle(_currentTab);
+                if (usedNode.IsSelected)
+                {
+                    SelectNode(usedNode);
+                }
+                else
+                {
+                    // Put the node on top.
+                    _currentTab.Nodes.Remove(usedNode);
+                    _currentTab.Nodes.Add(usedNode);
+                }
             }
         }
 
@@ -549,20 +552,98 @@ namespace Bbbt
         }
 
         /// <summary>
+        /// Selects a node.
+        /// </summary>
+        /// <param name="node">The node to select.</param>
+        private void SelectNode(BbbtNode node)
+        {
+            // Deselect the selected node.
+            var selectedNode = FindSelectedNode();
+            if (selectedNode != null)
+            {
+                selectedNode.IsSelected = false;
+            }
+
+            // Select the node and open in inspector.
+            node.IsSelected = true;
+            _nodeToOpenInInspector = node;
+
+            // Put the node on top.
+            _currentTab.Nodes.Remove(node);
+            _currentTab.Nodes.Add(node);
+
+            SetUnsavedChangesTabTitle(_currentTab);
+        }
+
+        /// <summary>
         /// Creates a context menu.
         /// </summary>
         /// <param name="position">The positioni of the context menu.</param>
         private void CreateContextMenu(Vector2 position)
         {
-            /*
+            // Show an entry for all types of behaviours.
             var menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Add Root"), false, () => AddNode(BbbtNodeType.Root, position));
-            menu.AddItem(new GUIContent("Add Selector"), false, () => AddNode(BbbtNodeType.Selector, position));
-            menu.AddItem(new GUIContent("Add Sequence"), false, () => AddNode(BbbtNodeType.Sequence, position));
-            menu.AddItem(new GUIContent("Add Repeater"), false, () => AddNode(BbbtNodeType.Repeater, position));
-            menu.AddItem(new GUIContent("Add Leaf"), false, () => AddNode(BbbtNodeType.Leaf, position));
+
+            // Root
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtRoot>())
+            {
+                // Check if a root node exists
+                bool rootExists = false;
+                foreach (var node in _currentTab.Nodes)
+                {
+                    if (node.Behaviour as BbbtRoot != null)
+                    {
+                        rootExists = true;
+                    }
+                }
+
+                if (!rootExists)
+                {
+                    // Add root node to menu
+                    menu.AddItem(
+                        new GUIContent("Add " + behaviour.name),
+                        false,
+                        () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                    );
+                }
+                else
+                {
+                    // Add disabled root node to menu
+                    menu.AddDisabledItem(new GUIContent("Add " + behaviour.name));
+                }
+            }
+
+            // Composite
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtCompositeBehaviour>())
+            {
+                menu.AddItem(
+                       new GUIContent("Composite/Add " + behaviour.name),
+                       false,
+                       () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                   );
+            }
+
+            // Decorator
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtDecoratorBehaviour>())
+            {
+                menu.AddItem(
+                       new GUIContent("Decorator/Add " + behaviour.name),
+                       false,
+                       () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                   );
+            }
+
+            // Leaf
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtLeafBehaviour>())
+            {
+                menu.AddItem(
+                       new GUIContent("Leaf/Add " + behaviour.name),
+                       false,
+                       () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                   );
+            }
+
             menu.ShowAsContext();
-            */
         }
 
         /// <summary>
@@ -575,7 +656,7 @@ namespace Bbbt
         /// <param name="behaviourSaveData">
         /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
         /// </param>
-        private void AddNode(
+        private BbbtNode AddNode(
             int id,
             BbbtBehaviour baseBehaviour,
             Vector2 position,
@@ -602,6 +683,8 @@ namespace Bbbt
             );
 
             SetUnsavedChangesTabTitle(_currentTab);
+
+            return node;
         }
         
         /// <summary>
@@ -802,6 +885,7 @@ namespace Bbbt
 
             // Remove node.
             _currentTab.Nodes.Remove(node);
+            DestroyImmediate(node);
 
             SetUnsavedChangesTabTitle(_currentTab);
         }
@@ -890,7 +974,6 @@ namespace Bbbt
             {
                 var parent = connection.OutPoint.Node.Behaviour;
                 var child = connection.InPoint.Node.Behaviour;
-                Debug.Log(parent.name + ">" + child.name);
                 parent.AddChild(child);
             }
 

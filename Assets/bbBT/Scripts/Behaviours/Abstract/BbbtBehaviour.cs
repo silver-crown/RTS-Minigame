@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -165,6 +166,25 @@ namespace Bbbt
 
             // No behaviour found with name matching the query.
             return null;
+        }
+
+        /// <summary>
+        /// Get all instances of a type of BbbtBehaviour.
+        /// </summary>
+        /// <typeparam name="T">The type of BbbtBehaviour to find all instancec of.</typeparam>
+        /// <returns>The found instances</returns>
+        public static List<T> GetAllInstances<T>() where T : BbbtBehaviour
+        {
+            var behaviours = new List<T>();
+            var guids = AssetDatabase.FindAssets("t:" + typeof(T).Name);
+
+            foreach (var guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                behaviours.Add(AssetDatabase.LoadAssetAtPath<T>(path));
+            }
+
+            return behaviours;
         }
     }
 }

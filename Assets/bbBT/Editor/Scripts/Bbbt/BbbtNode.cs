@@ -73,7 +73,7 @@ namespace Bbbt
         /// <summary>
         /// Whether the node is currently selected.
         /// </summary>
-        public bool IsSelected { get; protected set; } = false;
+        public bool IsSelected { get; set; } = false;
 
         /// <summary>
         /// Action invoked when the node is removed.
