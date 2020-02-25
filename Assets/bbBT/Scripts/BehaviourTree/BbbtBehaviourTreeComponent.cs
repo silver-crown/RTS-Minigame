@@ -12,7 +12,7 @@ namespace Bbbt
         /// The tree to use as a source for building this tree.
         /// This is also the tree that will be opened in the editor when debugging.
         /// </summary>
-        [SerializeField] private BbbtBehaviourTree _sourceTree = null;
+        private BbbtBehaviourTree _sourceTree = null;
 
         /// <summary>
         /// The entry point of the behaviour tree.
@@ -28,7 +28,8 @@ namespace Bbbt
         /// <summary>
         /// Awake is called before Start.
         /// </summary>
-        private void Awake()
+        /// <param name="treeName">The name of the tree to use.</param>
+        public void SetBehaviourTree(string treeName)
         {
             // Start the timer.
             _timer = new Timer(200);
@@ -37,6 +38,7 @@ namespace Bbbt
             _timer.Enabled = true;
 
             // Build the tree.
+            _sourceTree = BbbtBehaviourTree.FindBehaviourTreeWithName(treeName);
             var _tree = Instantiate(_sourceTree);
             _tree.LoadSaveData(_sourceTree);
             RootNode = (_tree.RootBehaviour as BbbtRoot).Child;
@@ -55,9 +57,12 @@ namespace Bbbt
         /// </summary>
         private void OnDestroy()
         {
-            // Stop timer upon destroying the tree so it doesn't keep ticking.
-            _timer.Stop();
-            _timer.Dispose();
+            if (_timer != null)
+            {
+                // Stop timer upon destroying the tree so it doesn't keep ticking.
+                _timer.Stop();
+                _timer.Dispose();
+            }
         }
     }
 }

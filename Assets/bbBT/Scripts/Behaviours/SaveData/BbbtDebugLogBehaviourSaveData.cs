@@ -17,14 +17,21 @@ namespace Bbbt
         /// </summary>
         public string Message { get; protected set; }
 
+        /// <summary>
+        /// The type of message to log.
+        /// </summary>
+        public LogType LogType { get; protected set; }
+
 
         /// <summary>
         /// Constructs a new BbbtDebugLogBehaviourSaveData object.
         /// </summary>
         /// <param name="message">The message to be displayed by the behaviour.</param>
-        public BbbtDebugLogBehaviourSaveData(string message)
+        /// <param name="logType">The type of message to log.</param>
+        public BbbtDebugLogBehaviourSaveData(string message, LogType logType)
         {
             Message = message;
+            LogType = logType;
         }
 
         /// <summary>

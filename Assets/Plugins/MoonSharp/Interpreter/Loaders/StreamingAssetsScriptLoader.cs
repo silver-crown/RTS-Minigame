@@ -33,8 +33,15 @@ namespace MoonSharp.Interpreter.Loaders
 		/// </returns>
 		public override object LoadFile(string path, Table globalContext)
 		{
+			// Get the full path.
 			string fullPath = Path.Combine(Application.streamingAssetsPath, "Lua", path);
-			Debug.Log(fullPath);
+
+			// Append with .lua if not provided.
+			if (!fullPath.EndsWith(".lua"))
+			{
+				fullPath += ".lua";
+			}
+
 			return new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 		}
 	}
