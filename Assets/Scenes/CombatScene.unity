@@ -247,10 +247,9 @@ GameObject:
   - component: {fileID: 767627781}
   - component: {fileID: 767627780}
   - component: {fileID: 767627779}
-  - component: {fileID: 767627784}
-  - component: {fileID: 767627783}
   - component: {fileID: 767627785}
   - component: {fileID: 767627786}
+  - component: {fileID: 767627783}
   m_Layer: 0
   m_Name: CombatDrone
   m_TagString: Untagged
@@ -341,25 +340,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 767627778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d19ce501045c2e74bbae8f5cf4a83300, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Waypoints: []
-  TargetDestination: {fileID: 1632345764}
---- !u!114 &767627784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767627778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccadf3efc7cc6ca4daa76d2618ef4b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _behavior: {fileID: 0}
-  LineOfSight: 1000
+  _behaviorTree: {fileID: 0}
+  LineOfSight: 30
+  Waypoints: []
+  TargetDestination: {fileID: 0}
 --- !u!195 &767627785
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -460,19 +448,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1418541962}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1418541964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418541963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dafe67480d9b3254ba1c8b71d113b606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myFaction: 1
 --- !u!1 &1484295748
 GameObject:
   m_ObjectHideFlags: 0

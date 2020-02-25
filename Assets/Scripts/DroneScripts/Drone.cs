@@ -8,15 +8,10 @@ using MoonSharp.Interpreter;
 using Bbbt;
 
 /// <summary>
-/// Drones are used by the enemy AI to interact in the world
+/// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
-public class Drone : MonoBehaviour
+public class Drone : Actor
 {
-    /// <summary>
-    /// The behaviour to use for this drone.
-    /// </summary>
-    [SerializeField] BbbtBehaviourTree _behavior = null;
-
     /// <summary>
     /// The last used drone id.
     /// </summary>
@@ -27,49 +22,15 @@ public class Drone : MonoBehaviour
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
 
-
-    /// <summary>
-    /// Behavior Tree used by the drone for micro world behaviors
-    /// </summary>
-    protected BehaviorTree _behaviorTree;
-
-    /// <summary>
-    /// How far the drone can look
-    /// </summary>
-    public float LineOfSight = 1000.0f;
-
     /// <summary>
     /// Unique ID of the drone
     /// </summary>
     public int ID { get; protected set; }
 
-    /// <summary>
-    /// Current Health Points the drone has
-    /// </summary>
-    public int Health { get; protected set; }
-
-    /// <summary>
-    /// How much Metall the drone is currecntly carrying
-    /// </summary>
-    public int AmountMetall{ get; protected set; }
-    
-    /// <summary>
-    /// The max amount of resources a drone can carry
-    /// </summary>
-    public int MaxResources{ get; protected set; }
-
-    /// <summary>
-    /// Keeps track if the drone has room for more resrouces or is full.
-    /// </summary>
-    public bool IsInventoryFull { get; protected set; }
-
 
     // we should probbly init drones with LUA or Scriptable objects
     private void Awake()
-    {
-        //_navMeshAgent = GetComponent<NavMeshAgent>();
-        _behaviorTree = GetComponent<BehaviorTree>();
-
+    {        
         if(_personalChannelDictionary == null)
         {
            _personalChannelDictionary = new Dictionary<string, UnityEvent>();
@@ -86,16 +47,13 @@ public class Drone : MonoBehaviour
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>
+    override
     public void ReadStatsFromFile()
     {
         Script script = new Script();
         script.DoFile("drone.lua");
         Health = (int)script.Globals.Get("health").Number;
         Debug.Log(Health);
-
-        MaxResources = (int)script.Globals.Get("maxResources").Number;
-        Debug.Log(MaxResources);
-
     }
 
     // Update is called once per frame
