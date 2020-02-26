@@ -58,19 +58,22 @@ namespace Bbbt
                 2f
             );
 
-            // Draw the button to remove the connection.
-            bool clicked = Handles.Button(
-                (InPoint.Rect.center + OutPoint.Rect.center) * 0.5f,
-                Quaternion.identity,
-                4,
-                8,
-                Handles.RectangleHandleCap
-            );
-
-            if (clicked)
+            if (!Application.isPlaying)
             {
-                // Button was clicked.
-                _onClickRemoveConnection?.Invoke(this);
+                // Draw the button to remove the connection.
+                bool clicked = Handles.Button(
+                    (InPoint.Rect.center + OutPoint.Rect.center) * 0.5f,
+                    Quaternion.identity,
+                    4,
+                    8,
+                    Handles.RectangleHandleCap
+                );
+
+                if (clicked)
+                {
+                    // Button was clicked.
+                    _onClickRemoveConnection?.Invoke(this);
+                }
             }
         }
 

@@ -799,7 +799,14 @@ namespace Bbbt
             _currentTab.Connections?.Add(new BbbtConnection(
                 _selectedInPoint,
                 _selectedOutPoint,
-                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(_currentTab); }
+                (connection) =>
+                {
+                    if (!Application.isPlaying)
+                    {
+                        _currentTab.Connections.Remove(connection);
+                        SetUnsavedChangesTabTitle(_currentTab);
+                    }
+                }
             ));
 
             SetUnsavedChangesTabTitle(_currentTab);
@@ -813,9 +820,15 @@ namespace Bbbt
             _currentTab.Connections?.Add(new BbbtConnection(
                 to.InPoint,
                 from.OutPoint,
-                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(_currentTab); }
+                (connection) =>
+                {
+                    if (!Application.isPlaying)
+                    {
+                        _currentTab.Connections.Remove(connection);
+                        SetUnsavedChangesTabTitle(_currentTab);
+                    }
+                }
             ));
-
 
             SetUnsavedChangesTabTitle(_currentTab);
         }
