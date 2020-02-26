@@ -18,7 +18,8 @@ namespace Bbbt
         /// BbbtRoot doesn't have any initialisation logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override void OnInitialize()
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnInitialize(GameObject gameObject)
         {
             throw new System.NotImplementedException();
         }
@@ -27,7 +28,8 @@ namespace Bbbt
         /// BbbtRoot doesn't have any termination logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override void OnTerminate(BbbtBehaviourStatus status)
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
             throw new System.NotImplementedException();
         }
@@ -36,7 +38,8 @@ namespace Bbbt
         /// BbbtRoot doesn't have any update logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override BbbtBehaviourStatus UpdateBehavior()
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
             throw new System.NotImplementedException();
         }

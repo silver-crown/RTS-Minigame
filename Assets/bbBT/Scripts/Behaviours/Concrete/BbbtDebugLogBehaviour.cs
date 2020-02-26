@@ -22,21 +22,24 @@ namespace Bbbt
         /// <summary>
         /// BbbtRoot doesn't have any initialisation logic.
         /// </summary>
-        protected override void OnInitialize()
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnInitialize(GameObject gameObject)
         {
         }
 
         /// <summary>
         /// BbbtRoot doesn't have any termination logic.
         /// </summary>
-        protected override void OnTerminate(BbbtBehaviourStatus status)
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
         }
 
         /// <summary>
         /// Prints the message the debug logger is supposed to print.
         /// </summary>
-        protected override BbbtBehaviourStatus UpdateBehavior()
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
             switch (_logType)
             {

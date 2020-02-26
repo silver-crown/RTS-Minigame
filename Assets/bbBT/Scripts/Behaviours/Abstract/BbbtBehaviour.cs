@@ -56,21 +56,22 @@ namespace Bbbt
         /// <summary>
         /// Tick gets called every time the behaviour tree reaches the node containing this behaviour.
         /// </summary>
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>The status of the behaviour tree.</returns>
-        public BbbtBehaviourStatus Tick()
+        public BbbtBehaviourStatus Tick(GameObject gameObject)
         {
             if (Status != BbbtBehaviourStatus.Running)
             {
                 // Behaviour hasn't started running.
-                OnInitialize();
+                OnInitialize(gameObject);
             }
 
-            Status = UpdateBehavior();
+            Status = UpdateBehavior(gameObject);
 
             if (Status != BbbtBehaviourStatus.Running)
             {
                 // Behaviour finished running.
-                OnTerminate(Status);
+                OnTerminate(gameObject, Status);
             }
 
             return Status;
@@ -79,20 +80,23 @@ namespace Bbbt
         /// <summary>
         /// OnInitialize is called once, immediately before the first call to the behavior’s update method
         /// </summary>
-        protected abstract void OnInitialize();
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected abstract void OnInitialize(GameObject gameObject);
 
         /// <summary>
         /// Updace is called once each time the behavior tree is updated,
         /// until it signals it has terminated thanks to its return status
         /// </summary>
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>The status of the behaviour.</returns>
-        protected abstract BbbtBehaviourStatus UpdateBehavior();
+        protected abstract BbbtBehaviourStatus UpdateBehavior(GameObject gameObject);
 
         /// <summary>
         /// OnTerminate is called once, immediately after the previous update signals it’s no longer running.
         /// </summary>
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <param name="status">The behaviour's status upoin termination.</param>
-        protected abstract void OnTerminate(BbbtBehaviourStatus status);
+        protected abstract void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status);
 
         /// <summary>
         /// Converts the behaviour to save data.
@@ -131,9 +135,9 @@ namespace Bbbt
         /// <summary>
         /// Gracefully aborts the behaviour.
         /// </summary>
-        public void Abort()
+        public void Abort(GameObject gameObject)
         {
-            OnTerminate(BbbtBehaviourStatus.Aborted);
+            OnTerminate(gameObject, BbbtBehaviourStatus.Aborted);
             Status = BbbtBehaviourStatus.Aborted;
         }
 

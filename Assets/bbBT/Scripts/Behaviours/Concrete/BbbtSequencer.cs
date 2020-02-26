@@ -11,32 +11,34 @@ namespace Bbbt
         /// <summary>
         /// BbbtSequencer does not have an OnInitialize implementation.
         /// </summary>
-        protected override void OnInitialize()
+        protected override void OnInitialize(GameObject gameObject)
         {
         }
 
         /// <summary>
         /// BbbtSequencer does not have an OnTerminate implementation.
         /// </summary>
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <param name="status"></param>
-        protected override void OnTerminate(BbbtBehaviourStatus status)
+        protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
         }
 
         /// <summary>
         /// Runs through the sequencers child nodes until they have been completed or one fails.
         /// </summary>
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>
         /// Running if a child is running. Failure if a child failed. Success if all the children ran succesfully.
         /// </returns>
-        protected override BbbtBehaviourStatus UpdateBehavior()
+        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
             // Iterate through each child behaviour until we find one that's running or returned failure.
             // The assumption is that if a child is not in one of those states then it must have successfully
             // ran in the past, so we only care about the first behaviour that returns running or failure.
             foreach (var child in Children)
             {
-                var status = child.Tick();
+                var status = child.Tick(gameObject);
                 if (status == BbbtBehaviourStatus.Running || status == BbbtBehaviourStatus.Failure)
                 {
                     return status;
@@ -49,6 +51,7 @@ namespace Bbbt
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>The generated save data.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {

@@ -30,24 +30,27 @@ namespace Bbbt
         /// <summary>
         /// OnInitialize gets called the first time the behaviour is called.
         /// </summary>
-        protected override void OnInitialize()
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnInitialize(GameObject gameObject)
         {
         }
 
         /// <summary>
         /// Doesn't have any termination logic.
         /// </summary>
-        protected override void OnTerminate(BbbtBehaviourStatus status)
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
         }
 
         /// <summary>
         /// Ticks the root of the behaviour tree to be called.
         /// </summary>
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>The status of the root node in the tree that was run.</returns>
-        protected override BbbtBehaviourStatus UpdateBehavior()
+        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
-            return _root.Tick();
+            return _root.Tick(gameObject);
         }
 
         /// <summary>
