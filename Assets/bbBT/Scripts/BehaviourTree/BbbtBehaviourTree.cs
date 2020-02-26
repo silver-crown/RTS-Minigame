@@ -140,25 +140,24 @@ namespace Bbbt
         }
         
         /// <summary>
-        /// Tries to find a beahaviour tree that matches a given query.
+        /// Tries to find a beahaviour tree that matches a given query (case insensitive).
         /// </summary>
         /// <param name="query">
-        /// The string matching the name of the behaviour tree to find.
-        /// Has to match the name of the behaviour tree exactly as instantiated in the assets folder.
+        /// The string matching (case insensitive) the name of the behaviour tree to find.
+        /// Has to match the name of the behaviour tree exactly (apart from caes) as instantiated in the assets folder.
         /// </param>
         /// <returns>The behaviour tree that maches the query, if found. Null otherwise.</returns>
         public static BbbtBehaviourTree FindBehaviourTreeWithName(string query)
         {
             // Try to find a behaviour tree with name matching the query.
-            var guids = AssetDatabase.FindAssets(query);
+            var guids = AssetDatabase.FindAssets(query + " t:BbbtBehaviourTree");
             foreach (var guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
-                string file = Path.GetFileNameWithoutExtension(path);
+                var behaviourTree = AssetDatabase.LoadAssetAtPath<BbbtBehaviourTree>(path);
 
-                if (file == query)
+                if (behaviourTree.name.ToLower() == query.ToLower())
                 {
-                    var behaviourTree = AssetDatabase.LoadAssetAtPath<BbbtBehaviourTree>(path);
                     if (behaviourTree != null)
                     {
                         // Found a behaviour tree matching the query.
