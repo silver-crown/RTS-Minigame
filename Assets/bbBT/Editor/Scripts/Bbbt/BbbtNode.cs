@@ -80,21 +80,6 @@ namespace Bbbt
         /// </summary>
         private Action<BbbtNode> _onClickRemoveNode;
 
-        /// <summary>
-        /// The label attached to the node's rect indicating the attached action.
-        /// </summary>
-        private string _actionLabel;
-
-        /// <summary>
-        /// The time the last time this node was clicked.
-        /// </summary>
-        private double _lastClickTime = 0.0f;
-
-        /// <summary>
-        /// The max time between two clicks that can produce a double click.
-        /// </summary>
-        private double _doubleClickMaxTime = 0.3f;
-
 
         /// <summary>
         /// Sets up a new BbbtNode.
@@ -233,28 +218,6 @@ namespace Bbbt
                             _isDragged = true;
                             IsSelected = true;
 
-                            // Check if we double clicked the node (only leaf nodes for now).
-                            /*
-                            if (Type == BbbtNodeType.Leaf &&
-                                EditorApplication.timeSinceStartup - _lastClickTime < _doubleClickMaxTime)
-                            {
-                                // Go to the behaviour tree attached to the node if any.
-                                if (_actionLabel != "")
-                                {
-                                    // Find and load the behaviour tree with the name of the associated action label.
-                                    var guid = AssetDatabase.FindAssets(_actionLabel + " t:BbbtBehaviourTree")[0];
-                                    var path = AssetDatabase.GUIDToAssetPath(guid);
-                                    var asset = AssetDatabase.LoadAssetAtPath(path, typeof(BbbtBehaviourTree));
-                                    var window = EditorWindow.GetWindow<BbbtWindow>();
-                                    window.TreeToLoad = (BbbtBehaviourTree)asset;
-                                    //AssetDatabase.OpenAsset(asset.GetInstanceID());
-                                    _isDragged = false;
-                                    return false;
-                                }
-                            }
-                            */
-
-                            _lastClickTime = EditorApplication.timeSinceStartup;
                             return true;
                         }
                         else if (IsSelected)
