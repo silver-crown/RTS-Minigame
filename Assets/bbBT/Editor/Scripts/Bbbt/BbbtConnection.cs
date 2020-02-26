@@ -47,13 +47,23 @@ namespace Bbbt
         /// </summary>
         public void Draw()
         {
+            // Colour the connection based  on the status of its inpoint node behaviour.
+            var color = Color.white;
+            switch (InPoint.Node.Behaviour.Status)
+            {
+                case BbbtBehaviourStatus.Running:
+                case BbbtBehaviourStatus.Success:
+                    color = Color.green;
+                    break;
+            }
+
             // Draw the connection
             Handles.DrawBezier(
                 InPoint.Rect.center,
                 OutPoint.Rect.center,
                 InPoint.Rect.center - Vector2.up * 50f,
                 OutPoint.Rect.center + Vector2.up * 50f,
-                Color.white,
+                color,
                 null,
                 2f
             );
