@@ -110,6 +110,11 @@ namespace Bbbt
         /// </summary>
         private Rect _topBarRect;
 
+        /// <summary>
+        /// Application.isPlaying last time we checked.
+        /// </summary>
+        private bool _lastIsPlaying;
+
 
         /// <summary>
         /// Opens a bbBT window.
@@ -194,11 +199,18 @@ namespace Bbbt
         /// </summary>
         private void OnGUI()
         {
+            // Close all tabs if we leave/enter play mode
+            if (_lastIsPlaying != Application.isPlaying)
+            {
+                while (_tabs != null && _tabs.Count > 0)
+                {
+                    CloseTab(_tabs[0]);
+                }
+            }
             // Check if the behaviour tree has disappeared.
             if (_currentTab != null && _currentTab.Tree == null)
             {
-                _tabs.Remove(_currentTab);
-                _currentTab = null;
+                CloseTab(_currentTab);
             }
 
             // Check if we need to open a node editor.
@@ -253,6 +265,8 @@ namespace Bbbt
                 CloseTab(TabToRemove);
                 TabToRemove = null;
             }
+
+            _lastIsPlaying = Application.isPlaying;
         }
 
         /// <summary>
