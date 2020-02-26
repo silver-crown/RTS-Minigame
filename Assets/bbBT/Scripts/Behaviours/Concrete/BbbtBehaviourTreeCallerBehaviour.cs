@@ -33,6 +33,10 @@ namespace Bbbt
         /// <param name="gameObject">The game object that owns the behaviour.</param>
         protected override void OnInitialize(GameObject gameObject)
         {
+            if (!_behaviourTree.name.EndsWith("(" + gameObject.name + ")"))
+            {
+                _behaviourTree.name = _behaviourTree.name + " (" + gameObject.name + ")";
+            }
         }
 
         /// <summary>
