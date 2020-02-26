@@ -215,7 +215,10 @@ namespace Bbbt
                         if (Rect.Contains(e.mousePosition))
                         {
                             // Clicked inside the rect, start dragging and highlight the node.
-                            _isDragged = true;
+                            if (!Application.isPlaying)
+                            {
+                                _isDragged = true;
+                            }
                             IsSelected = true;
 
                             return true;

@@ -194,6 +194,13 @@ namespace Bbbt
         /// </summary>
         private void OnGUI()
         {
+            // Check if the behaviour tree has disappeared.
+            if (_currentTab != null && _currentTab.Tree == null)
+            {
+                _tabs.Remove(_currentTab);
+                _currentTab = null;
+            }
+
             // Check if we need to open a node editor.
             if (_nodeToOpenInInspector != null && Selection.activeObject as BbbtNode != _nodeToOpenInInspector)
             {
