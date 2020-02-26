@@ -6,11 +6,11 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
-
+using RTS;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
-public class Drone : Actor 
+public class Drone : RTS.Actor 
 {
     /// <summary>
     /// The last used drone id.
