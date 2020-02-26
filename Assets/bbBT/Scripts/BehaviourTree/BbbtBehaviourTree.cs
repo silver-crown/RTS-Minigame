@@ -136,7 +136,6 @@ namespace Bbbt
                     behavioursToVisit.Enqueue((behaviour as BbbtDecoratorBehaviour).Child);
                 }
             }
-            
         }
         
         /// <summary>

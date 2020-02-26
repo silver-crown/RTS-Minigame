@@ -5,22 +5,30 @@ namespace Bbbt
     /// <summary>
     /// Leaf node which calls another behaviour tree.
     /// </summary>
-    [CreateAssetMenu(fileName = "Debug Logger", menuName = "bbBT/Behaviour/Leaf/Debug Logger", order = 0)]
+    [CreateAssetMenu(
+        fileName = "Behaviour Tree Caller",
+        menuName = "bbBT/Behaviour/Leaf/Behaviour Tree Caller",
+        order = 0)]
     public class BbbtBehaviourTreeCallerBehaviour : BbbtLeafBehaviour
     {
         /// <summary>
-        /// The message to print to log to the Unity console.
+        /// The the behaviour tree to call.
         /// </summary>
-        [SerializeField] private string _message = "";
+        [SerializeField] private BbbtBehaviourTree _behaviourTree = null;
 
         /// <summary>
-        /// The type of message to log.
+        /// The the behaviour tree to call.
         /// </summary>
-        [SerializeField] private LogType _logType = LogType.Log;
+        public BbbtBehaviourTree BehaviourTree { get => _behaviourTree; }
+
+        /// <summary>
+        /// The root of the behaviour tree to call. 
+        /// </summary>
+        private BbbtBehaviour _root = null;
 
 
         /// <summary>
-        /// Doesn't have any initialisation logic.
+        /// OnInitialize gets called the first time the behaviour is called.
         /// </summary>
         protected override void OnInitialize()
         {
@@ -34,29 +42,12 @@ namespace Bbbt
         }
 
         /// <summary>
-        /// Prints the message the debug logger is supposed to print.
+        /// Ticks the root of the behaviour tree to be called.
         /// </summary>
+        /// <returns>The status of the root node in the tree that was run.</returns>
         protected override BbbtBehaviourStatus UpdateBehavior()
         {
-            switch (_logType)
-            {
-                case LogType.Error:
-                    Debug.LogError(_message);
-                    break;
-                case LogType.Assert:
-                    Debug.LogAssertion(_message);
-                    break;
-                case LogType.Warning:
-                    Debug.LogWarning(_message);
-                    break;
-                case LogType.Log:
-                    Debug.Log(_message);
-                    break;
-                case LogType.Exception:
-                    Debug.LogException(new System.Exception(_message));
-                    break;
-            }
-            return BbbtBehaviourStatus.Success;
+            return _root.Tick();
         }
 
         /// <summary>
@@ -65,7 +56,8 @@ namespace Bbbt
         /// <returns>The generated save data.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {
-            return new BbbtDebugLogBehaviourSaveData(NodeId, _message, _logType);
+            Debug.Log(_behaviourTree.name);
+            return new BbbtBehaviourTreeCallerBehaviourSaveData(NodeId, _behaviourTree.name);
         }
 
         /// <summary>
@@ -75,15 +67,26 @@ namespace Bbbt
         public override void LoadSaveData(BbbtBehaviourSaveData saveData)
         {
             base.LoadSaveData(saveData);
-            var castSaveData = saveData as BbbtDebugLogBehaviourSaveData;
+            var castSaveData = saveData as BbbtBehaviourTreeCallerBehaviourSaveData;
             if (castSaveData != null)
             {
-                _message = castSaveData.Message;
-                _logType = castSaveData.LogType;
+                string behaviourTreeName = castSaveData.BehaviourTreeName;
+                _behaviourTree = BbbtBehaviourTree.FindBehaviourTreeWithName(behaviourTreeName);
+                var copiedTree = Instantiate(_behaviourTree);
+                copiedTree.LoadSaveData(_behaviourTree);
+                copiedTree.name = _behaviourTree.name;
+                _root = (copiedTree.RootBehaviour as BbbtRoot).Child;
+                if (Application.isPlaying)
+                {
+                    _behaviourTree = copiedTree;
+                }
             }
             else
             {
-                Debug.LogError("Save data passed to BbbtDebugLogBehaviour was not BbbtDebugLogBehaviourSaveData.");
+                Debug.LogError(
+                    "Save data passed to BbbtBehaviourTreeCallerBehaviour was not " +
+                    "BbbtBehaviourTreeCallerBehaviourSaveData."
+                );
             }
         }
     }
