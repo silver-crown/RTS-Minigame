@@ -11,7 +11,7 @@ namespace Bbbt
         /// <summary>
         /// The unique tree belonging to this component.
         /// </summary>
-        public BbbtBehaviourTree Tree = null;
+        [HideInInspector] public BbbtBehaviourTree Tree = null;
 
         /// <summary>
         /// The entry point of the behaviour tree.

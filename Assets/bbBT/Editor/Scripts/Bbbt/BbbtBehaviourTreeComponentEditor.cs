@@ -14,13 +14,12 @@ namespace Bbbt
         /// </summary>
         public override void OnInspectorGUI()
         {
+            base.OnInspectorGUI();
             var component = (BbbtBehaviourTreeComponent)target;
             var tree = component.Tree;
 
-            
-
             // Show the tree in the bbBT editor window.
-            if (GUILayout.Button("Open Behaviour Tree") && tree != null)
+            if (Application.isPlaying && GUILayout.Button("Open Behaviour Tree") && tree != null)
             {
                 var window = EditorWindow.GetWindow<BbbtWindow>();
                 window.LoadTree(tree);
