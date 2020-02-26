@@ -28,7 +28,7 @@ namespace Bbbt
         /// <summary>
         /// The node's rect.
         /// </summary>
-        private Rect _rect;
+        public Rect Rect { get; protected set; }
 
         /// <summary>
         /// The rect used to show the icon for the node's type.
@@ -135,7 +135,7 @@ namespace Bbbt
                 }
             }
 
-            _rect = new Rect(position.x, position.y, width, height);
+            Rect = new Rect(position.x, position.y, width, height);
 
 
             // Set up the node type icon
@@ -146,13 +146,13 @@ namespace Bbbt
 
             // Create the rects, make them some reasonable size.
             _typeIconRect = new Rect(
-                _rect.position + _rect.size / 4.0f,
-                _rect.size / 2.0f
+                Rect.position + Rect.size / 4.0f,
+                Rect.size / 2.0f
             );
 
             _labelRect = new Rect(
-                new Vector2(_rect.x + 10.0f, _rect.y + _rect.height - 22.5f),
-                new Vector2(_rect.width - 10.0f * 2.0f, 30.0f)
+                new Vector2(Rect.x + 10.0f, Rect.y + Rect.height - 22.5f),
+                new Vector2(Rect.width - 10.0f * 2.0f, 30.0f)
             );
 
             // Create connectors.
@@ -177,7 +177,7 @@ namespace Bbbt
         /// <param name="delta">The amount by which to drag the node.</param>
         public void Drag(Vector2 delta)
         {
-            _rect.position += delta;
+            Rect = new Rect(Rect.position + delta, Rect.size);
             _typeIconRect.position += delta;
             _labelRect.position += delta;
         }
@@ -188,12 +188,12 @@ namespace Bbbt
         public void Draw()
         {
             // Draw connection points.
-            InPoint?.Draw(_rect);
-            OutPoint?.Draw(_rect);
+            InPoint?.Draw(Rect);
+            OutPoint?.Draw(Rect);
 
             // Draw the node itself.
             GUIStyle currentStyle = IsSelected ? _selectedStyle : _style;
-            GUI.Box(_rect, "", currentStyle);
+            GUI.Box(Rect, "", currentStyle);
             GUI.Box(_typeIconRect, "", _typeIconStyle);
         }
 
@@ -212,7 +212,7 @@ namespace Bbbt
                     if (e.button == 0)
                     {
                         // Are we clicking inside the rect?
-                        if (_rect.Contains(e.mousePosition))
+                        if (Rect.Contains(e.mousePosition))
                         {
                             // Clicked inside the rect, start dragging and highlight the node.
                             _isDragged = true;
@@ -228,7 +228,7 @@ namespace Bbbt
                         }
                     }
 
-                    if (e.button == 1 && IsSelected && _rect.Contains(e.mousePosition))
+                    if (e.button == 1 && IsSelected && Rect.Contains(e.mousePosition))
                     {
                         if (!Application.isPlaying)
                         {
@@ -288,8 +288,8 @@ namespace Bbbt
                 Id,
                 BaseBehaviour.name,
                 Behaviour.ToSaveData(),
-                _rect.x,
-                _rect.y,
+                Rect.x,
+                Rect.y,
                 IsSelected
             );
         }

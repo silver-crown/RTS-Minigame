@@ -992,17 +992,59 @@ namespace Bbbt
         /// <param name="tab">The tab whose contents to save.</param>
         private void SaveTab(BbbtWindowTab tab)
         {
-            // Clear all behaviour's children
+            // Clear all behaviours' children
+            // This is necessary to avoid double-adding children.
             foreach (var node in tab.Nodes)
             {
                 node.Behaviour.RemoveChildren();
             }
-            // Set up the nodes' children.
+
+            // Set up the nodes' children,
+            // making sure that the order matches the children's order in the editor (left-to-right).
+            var parentToChildren = new Dictionary<BbbtNode, List<BbbtNode>>();
             foreach (var connection in tab.Connections)
             {
-                var parent = connection.OutPoint.Node.Behaviour;
-                var child = connection.InPoint.Node.Behaviour;
-                parent.AddChild(child);
+                var parent = connection.OutPoint.Node;
+                var child = connection.InPoint.Node;
+
+                if (!parentToChildren.ContainsKey(parent))
+                {
+                    parentToChildren[parent] = new List<BbbtNode>();
+                    parentToChildren[parent].Add(child);
+                }
+                else
+                {
+                    // Insert the new child before the first existing child that is to the right of the new child.
+                    BbbtNode childToTheRightOfNewChild = null;
+                    foreach (var existingChild in parentToChildren[parent])
+                    {
+                        if (existingChild.Rect.x > child.Rect.x)
+                        {
+                            childToTheRightOfNewChild = existingChild;
+                            break;
+                        }
+                    }
+                    if (childToTheRightOfNewChild != null)
+                    {
+                        parentToChildren[parent].Insert(
+                            parentToChildren[parent].IndexOf(childToTheRightOfNewChild),
+                            child
+                        );
+                    }
+                    else
+                    {
+                        parentToChildren[parent].Add(child);
+                    }
+                }
+            }
+
+            // Actually add the children based on the ordering we figured out.
+            foreach (var parent in parentToChildren.Keys)
+            {
+                foreach (var child in parentToChildren[parent])
+                {
+                    parent.Behaviour.AddChild(child.Behaviour);
+                }
             }
 
             // Store nodes.
