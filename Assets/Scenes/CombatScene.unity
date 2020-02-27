@@ -291,7 +291,6 @@ GameObject:
   - component: {fileID: 767627780}
   - component: {fileID: 767627779}
   - component: {fileID: 767627785}
-  - component: {fileID: 767627786}
   - component: {fileID: 767627783}
   - component: {fileID: 767627784}
   m_Layer: 0
@@ -391,6 +390,8 @@ MonoBehaviour:
   _behaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
+  enemyInSight: 0
+  LastSighting: {x: 0, y: 0, z: 0}
   Waypoints: []
   TargetDestination: {fileID: 0}
   Faction: 0
@@ -429,21 +430,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &767627786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767627778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b36a9426d01824c899f059e3769453, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 30
-  playerInSight: 0
-  LastSighting: {x: 0, y: 0, z: 0}
 --- !u!1001 &1418541962
 PrefabInstance:
   m_ObjectHideFlags: 0
