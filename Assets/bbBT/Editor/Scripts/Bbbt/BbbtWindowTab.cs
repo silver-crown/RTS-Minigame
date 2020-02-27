@@ -58,11 +58,6 @@ namespace Bbbt
         public bool IsUnsaved = false;
 
         /// <summary>
-        /// The style of the tab.
-        /// </summary>
-        private GUIStyle _style;
-
-        /// <summary>
         /// Whether the tab is being dragged.
         /// </summary>
         private bool _isDragged = false;
@@ -253,10 +248,6 @@ namespace Bbbt
         {
             CommandManager = new CommandManager();
             CommandHistoryBrowser = new BbbtCommandHistoryBrowser(CommandManager);
-        }
-
-        public void OnCommandDone(Command c)
-        {
         }
     }
 }

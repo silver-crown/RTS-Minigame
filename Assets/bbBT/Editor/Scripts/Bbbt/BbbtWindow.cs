@@ -1269,6 +1269,7 @@ namespace Bbbt
                 }
             }
             CurrentTab.ResetCommands();
+            CurrentTab.IsUnsaved = false;
         }
     }
 }
