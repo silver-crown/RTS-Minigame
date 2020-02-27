@@ -157,7 +157,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 0a9fde5c394dfad49bfaf5a638b5a571, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7b0b7cd1515c8744e966a4fcb17ed06a, type: 2}
 --- !u!4 &114439816
 Transform:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbb92005043ba649a929da68339a191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _behavior: {fileID: 11400000, guid: 3bbb1a2c0e211f0478f59e6439ff3b8d, type: 2}
+  _behavior: {fileID: 0}
   _behaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
@@ -394,6 +394,7 @@ MonoBehaviour:
   LastSighting: {x: 0, y: 0, z: 0}
   Waypoints: []
   TargetDestination: {fileID: 1632345764}
+  agent: {fileID: 0}
   Faction: 0
 --- !u!114 &767627784
 MonoBehaviour:

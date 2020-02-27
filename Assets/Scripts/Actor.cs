@@ -109,7 +109,7 @@ namespace RTS
 
         }
 
-        private void Awake()
+        public virtual void  Awake()
         {
             GameObject worldPos = GameObject.Find("WorldEntityLocationSystem");
             entityPosScript = worldPos.GetComponent<EntityLocations>();
@@ -117,14 +117,14 @@ namespace RTS
         }
 
         // Start is called before the first frame update
-        void Start()
+        public virtual void Start()
         {
             agent = this.GetComponent<NavMeshAgent>();
             agent.SetDestination(TargetDestination.transform.position);
         }
 
         // Update is called once per frame
-        void Update()
+        public virtual void Update()
         {
             // 1. Loop over enemies
             for (int i = 0; i < entityPosScript.PlayerLocaitons.Count; i++)

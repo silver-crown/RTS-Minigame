@@ -34,21 +34,21 @@ public class CombatDrone : Drone
        
     }
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         SetUpCombatBT();
     }
 
     // Start is called before the first frame update
-    void Start()
+    public override void  Start()
     {
-        agent = this.GetComponent<NavMeshAgent>();
-        agent.SetDestination(TargetDestination.transform.position);
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-
+        base.Update();
     }
 }
