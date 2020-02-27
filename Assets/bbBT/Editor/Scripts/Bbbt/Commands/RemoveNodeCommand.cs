@@ -9,7 +9,7 @@ namespace Bbbt.Commands
     public class RemoveNodeCommand : Command
     {
         /// <summary>
-        /// The window in which to add a node.
+        /// The window in which to remove a node.
         /// </summary>
         private BbbtWindow _window;
         

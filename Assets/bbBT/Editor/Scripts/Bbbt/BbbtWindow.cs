@@ -823,20 +823,19 @@ namespace Bbbt
         /// </summary>
         public void CreateConnection()
         {
-            CurrentTab.Connections?.Add(new BbbtConnection(
+            var connection = new BbbtConnection(
                 _selectedInPoint,
                 _selectedOutPoint,
-                (connection) =>
+                (c) =>
                 {
                     if (!Application.isPlaying)
                     {
-                        CurrentTab.Connections.Remove(connection);
-                        SetUnsavedChangesTabTitle(CurrentTab);
+                        CurrentTab.CommandManager.Do(new RemoveConnectionCommand(this, c));
                     }
                 }
-            ));
+            );
 
-            SetUnsavedChangesTabTitle(CurrentTab);
+            CurrentTab.CommandManager.Do(new CreateConnectionCommand(this, connection));
         }
 
         /// <summary>
@@ -844,20 +843,19 @@ namespace Bbbt
         /// </summary>
         public void CreateConnection(BbbtNode from, BbbtNode to)
         {
-            CurrentTab.Connections?.Add(new BbbtConnection(
+            var connection = new BbbtConnection(
                 to.InPoint,
                 from.OutPoint,
-                (connection) =>
+                (c) =>
                 {
                     if (!Application.isPlaying)
                     {
-                        CurrentTab.Connections.Remove(connection);
-                        SetUnsavedChangesTabTitle(CurrentTab);
+                        CurrentTab.CommandManager.Do(new RemoveConnectionCommand(this, c));
                     }
                 }
-            ));
+            );
 
-            SetUnsavedChangesTabTitle(CurrentTab);
+            CurrentTab.CommandManager.Do(new CreateConnectionCommand(this, connection));
         }
 
         /// <summary>
