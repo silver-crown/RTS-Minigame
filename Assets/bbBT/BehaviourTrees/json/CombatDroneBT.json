@@ -1,1 +1,1 @@
-{"RootSaveData":{"SaveDataType":"BbbtRootSaveData","ChildSaveData":{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"A message.","LogType":3,"NodeId":2},"NodeId":1}}
+{"RootSaveData":{"SaveDataType":"BbbtRootSaveData","ChildSaveData":{"SaveDataType":"BbbtSequencerSaveData","ChildSaveData":[{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"A message.","LogType":3,"NodeId":4}],"NodeId":3},"NodeId":1}}

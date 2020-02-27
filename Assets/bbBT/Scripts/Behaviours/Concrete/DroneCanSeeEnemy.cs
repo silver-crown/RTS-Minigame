@@ -12,7 +12,7 @@ namespace Bbbt
     /// </summary>
     [CreateAssetMenu(
         fileName = "DroneCanSeeEnemy",
-        menuName = "DronecanSeeEnemy",
+        menuName = "bbBT/Behaviour/Leaf/DronecanSeeEnemy",
         order = 0)]
     public class DroneCanSeeEnemy : BbbtLeafBehaviour
     {
