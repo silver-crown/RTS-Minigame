@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Commands
 {
@@ -16,6 +17,21 @@ namespace Commands
         /// Stack of commands that have been undone and can be redone.
         /// </summary>
         private Stack<Command> _redoStack;
+
+        /// <summary>
+        /// Action invoked when CommandManager.Do() is called.
+        /// </summary>
+        public Action<Command> OnDo;
+
+        /// <summary>
+        /// Action invoked when CommandManager.Undo() is called with a non-empty undo stack.
+        /// </summary>
+        public Action<Command> OnUndo;
+
+        /// <summary>
+        /// Action invoked when CommandManager.Redo() is called with a non-empty redo stack.
+        /// </summary>
+        public Action<Command> OnRedo;
 
 
         /// <summary>
@@ -37,6 +53,7 @@ namespace Commands
             command.Do();
             _undoStack.Push(command);
             _redoStack = new Stack<Command>();
+            OnDo?.Invoke(command);
         }
 
         /// <summary>
@@ -49,6 +66,7 @@ namespace Commands
                 var command = _undoStack.Pop();
                 command.Undo();
                 _redoStack.Push(command);
+                OnUndo?.Invoke(command);
             }
         }
 
@@ -62,6 +80,7 @@ namespace Commands
                 var command = _redoStack.Pop();
                 command.Do();
                 _undoStack.Push(command);
+                OnRedo?.Invoke(command);
             }
         }
     }

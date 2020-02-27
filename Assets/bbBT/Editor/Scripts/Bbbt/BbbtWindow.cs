@@ -117,6 +117,11 @@ namespace Bbbt
         /// </summary>
         private bool _lastIsPlaying;
 
+        /// <summary>
+        /// The window's side panel.
+        /// </summary>
+        private BbbtSidePanel _sidePanel;
+
 
         /// <summary>
         /// Opens a bbBT window.
@@ -134,6 +139,9 @@ namespace Bbbt
         /// </summary>
         private void OnEnable()
         {
+            var window = GetWindow<BbbtWindow>();
+            window.titleContent = new GUIContent("bbBT");
+
             // Set up the style of the behaviour tree nodes.
             _nodeStyle = new GUIStyle();
             _nodeStyle.normal.background = EditorGUIUtility.Load(
@@ -194,6 +202,7 @@ namespace Bbbt
 
             // Instantiate the list of nodes and connections.
             _tabs = new List<BbbtWindowTab>();
+            _sidePanel = new BbbtSidePanel(this);
         }
 
         /// <summary>
@@ -244,6 +253,7 @@ namespace Bbbt
             DrawTopBar();
             DrawTabs();
 
+            _sidePanel.Draw();
             
             // Draw the prompt if there is one and check if it was handled.
             if (_prompt != null && _prompt.Draw())
@@ -338,7 +348,8 @@ namespace Bbbt
         private void DrawTopBar()
         {
 
-            _topBarRect.width = position.width;
+            _topBarRect.x = _sidePanel.GetTotalWidth();
+            _topBarRect.width = position.width - _topBarRect.x;
             GUI.Box(_topBarRect, "", _topBarStyle);
         }
 
@@ -352,11 +363,11 @@ namespace Bbbt
                 if (_tabs[i] == CurrentTab)
                 {
                     // Highlight current tab
-                    _tabs[i].Draw(_tabs, true);
+                    _tabs[i].Draw(_topBarRect, _tabs, true);
                 }
                 else
                 {
-                    _tabs[i].Draw(_tabs, false);
+                    _tabs[i].Draw(_topBarRect, _tabs, false);
                 }
             }
         }
@@ -1201,7 +1212,7 @@ namespace Bbbt
             {
                 _tabs.Add(new BbbtWindowTab(tree, _tabStyle));
                 CurrentTab = _tabs[_tabs.Count - 1];
-                CurrentTab.CommandManager = new CommandManager();
+                CurrentTab.ResetCommands();
 
                 if (tree.EditorSaveData != null)
                 {
@@ -1260,7 +1271,8 @@ namespace Bbbt
                     }
                 }
             }
-            CurrentTab.CommandManager = new CommandManager();
+            CurrentTab.ResetCommands();
+            CurrentTab.IsUnsaved = false;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Commands;
+﻿using Bbbt.Commands;
+using Commands;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -13,7 +15,12 @@ namespace Bbbt
         /// <summary>
         /// The tab's command manager.
         /// </summary>
-        public CommandManager CommandManager;
+        public CommandManager CommandManager { get; protected set; }
+
+        /// <summary>
+        /// The tab's command history browser.
+        /// </summary>
+        public BbbtCommandHistoryBrowser CommandHistoryBrowser { get; protected set; }
 
         /// <summary>
         /// The tab's rect.
@@ -49,11 +56,6 @@ namespace Bbbt
         /// Whether the tab has unsaved changes.
         /// </summary>
         public bool IsUnsaved = false;
-
-        /// <summary>
-        /// The style of the tab.
-        /// </summary>
-        private GUIStyle _style;
 
         /// <summary>
         /// Whether the tab is being dragged.
@@ -94,12 +96,13 @@ namespace Bbbt
         /// <summary>
         /// Draws the tab.
         /// </summary>
+        /// <param name="topBarRect">The rect of the top bar containing the tab.</param>
         /// <param name="tabs">The full list of tabs to be drawn.</param>
         /// <param name="isActive">Whether the tab is active.</param>
-        public void Draw(List<BbbtWindowTab> tabs, bool isActive = false)
+        public void Draw(Rect topBarRect, List<BbbtWindowTab> tabs, bool isActive = false)
         {
             // Figure out the rect's position by adding together the widths of the preceding tabs.
-            _rect.position = new Vector2(5, 2);
+            _rect.position = topBarRect.position + new Vector2(3, 2);
             foreach (var tab in tabs)
             {
                 if (tab == this)
@@ -236,6 +239,15 @@ namespace Bbbt
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Resets the CommandManager/command strings for this tab.
+        /// </summary>
+        public void ResetCommands()
+        {
+            CommandManager = new CommandManager();
+            CommandHistoryBrowser = new BbbtCommandHistoryBrowser(CommandManager);
         }
     }
 }
