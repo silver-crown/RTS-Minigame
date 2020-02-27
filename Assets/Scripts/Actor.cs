@@ -75,7 +75,7 @@ namespace RTS
         /// <summary>
         /// Used for the actor to access locations of other entites.
         /// </summary>
-        EntityLocations entityPosScript;
+        public EntityLocations entityPosScript;
 
         #endregion Vision
 
