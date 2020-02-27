@@ -250,15 +250,15 @@ namespace Bbbt
 
                 // Mouse button released.
                 case EventType.MouseUp:
-                    if (_isDragged)
+                    if (_isDragged && Rect.position != _dragStartPosition)
                     {
-                        _isDragged = false;
                         var position = Rect.position;
                         window.CurrentTab.CommandManager.Do(
                             new MoveNodeCommand(this, position - _dragStartPosition)
                         );
                         Drag(_dragStartPosition - position);
                     }
+                    _isDragged = false;
                     break;
 
                 // Mouse moved.
