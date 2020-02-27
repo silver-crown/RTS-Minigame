@@ -18,20 +18,6 @@ public class CombatDrone : Drone
     {
         MyBbbtBehaviourTreeComponent = GetComponent<BbbtBehaviourTreeComponent>();
         MyBbbtBehaviourTreeComponent.SetBehaviourTree("CombatDroneBT");
-
-
-       /* // adds the root node
-        Sequencer sequencer = new Sequencer();
-
-        // First thing the combat drone checks is the findplayer behavior
-        CanSeeEnemy canSeeEnemy = new CanSeeEnemy();
-        sequencer.AddChild(canSeeEnemy);
-
-        // Creates the behavior treee
-        _behaviorTree = GetComponent<BehaviorTree>();
-        _behaviorTree.SetRootNode(sequencer);*/
-
-       
     }
 
     public override void Awake()

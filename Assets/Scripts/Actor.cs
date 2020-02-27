@@ -100,7 +100,7 @@ namespace RTS
         /// <summary>
         /// The faction the actor is alligned with
         /// </summary>
-        public Factions Faction;
+        public Factions MyFaction;
 
         #endregion
 
@@ -113,33 +113,23 @@ namespace RTS
         {
             GameObject worldPos = GameObject.Find("WorldEntityLocationSystem");
             entityPosScript = worldPos.GetComponent<EntityLocations>();
-
         }
 
         // Start is called before the first frame update
         public virtual void Start()
         {
             agent = this.GetComponent<NavMeshAgent>();
-            agent.SetDestination(TargetDestination.transform.position);
+
+            if(TargetDestination != null)
+            {
+                agent.SetDestination(TargetDestination.transform.position);
+            }
         }
 
         // Update is called once per frame
         public virtual void Update()
         {
-            // 1. Loop over enemies
-            for (int i = 0; i < entityPosScript.PlayerLocaitons.Count; i++)
-            {
-                if (Vector3.Distance(this.transform.position, entityPosScript.PlayerLocaitons[i].transform.position) <= LineOfSight)
-                {
-                    // Inn here we have spotted a player
-                    Debug.Log("Spotted player!");
 
-                    // Records last sighting of the player
-                    LastSighting = entityPosScript.PlayerLocaitons[i].transform.position;
-
-                    // Let CI know about the spotted player?
-                }
-            }
         }
     }
 }

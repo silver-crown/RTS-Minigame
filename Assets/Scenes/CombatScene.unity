@@ -367,7 +367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767627778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15, y: 1.083, z: -20.41}
+  m_LocalPosition: {x: -34.4, y: 1.083, z: -36.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 468509882}
@@ -395,7 +395,7 @@ MonoBehaviour:
   Waypoints: []
   TargetDestination: {fileID: 1632345764}
   agent: {fileID: 0}
-  Faction: 0
+  MyFaction: 0
 --- !u!114 &767627784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.55
+      value: 30.2
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -452,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.74
+      value: 14.52
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -494,6 +494,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1418541962}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1418541964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418541963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc66ce455ed88fd409831a8cdb49c35e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _behavior: {fileID: 0}
+  _behaviorTree: {fileID: 0}
+  MyBbbtBehaviourTreeComponent: {fileID: 0}
+  LineOfSight: 30
+  enemyInSight: 0
+  LastSighting: {x: 0, y: 0, z: 0}
+  Waypoints: []
+  TargetDestination: {fileID: 0}
+  agent: {fileID: 0}
+  MyFaction: 0
 --- !u!1 &1484295748
 GameObject:
   m_ObjectHideFlags: 0
