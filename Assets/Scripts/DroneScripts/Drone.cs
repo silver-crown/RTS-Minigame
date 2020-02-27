@@ -30,8 +30,8 @@ public class Drone : RTS.Actor
 
     // we should probbly init drones with LUA or Scriptable objects
     private void Awake()
-    {        
-        if(_personalChannelDictionary == null)
+    {
+        if (_personalChannelDictionary == null)
         {
            _personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
@@ -58,7 +58,7 @@ public class Drone : RTS.Actor
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         listenToChannels();
     }
     /// <summary>

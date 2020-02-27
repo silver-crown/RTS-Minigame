@@ -84,7 +84,7 @@ namespace RTS
         [Header("Movement")]
         public GameObject[] Waypoints;
         public GameObject TargetDestination;
-        private NavMeshAgent agent;
+        public NavMeshAgent agent;
 
         #endregion
 
@@ -96,6 +96,7 @@ namespace RTS
         /// </summary>
         public string Name { get => name; }
 
+        [Header("Faction")]
         /// <summary>
         /// The faction the actor is alligned with
         /// </summary>
@@ -113,13 +114,13 @@ namespace RTS
             GameObject worldPos = GameObject.Find("WorldEntityLocationSystem");
             entityPosScript = worldPos.GetComponent<EntityLocations>();
 
-            agent = this.GetComponent<NavMeshAgent>();
-            agent.SetDestination(TargetDestination.transform.position);
         }
 
         // Start is called before the first frame update
         void Start()
         {
+            agent = this.GetComponent<NavMeshAgent>();
+            agent.SetDestination(TargetDestination.transform.position);
         }
 
         // Update is called once per frame

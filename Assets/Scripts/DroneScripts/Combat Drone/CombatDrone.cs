@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.AI;
+
 using Bbbt;
 
 /// <summary>
@@ -40,7 +42,8 @@ public class CombatDrone : Drone
     // Start is called before the first frame update
     void Start()
     {
-
+        agent = this.GetComponent<NavMeshAgent>();
+        agent.SetDestination(TargetDestination.transform.position);
     }
 
     // Update is called once per frame
