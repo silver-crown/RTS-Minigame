@@ -480,7 +480,7 @@ namespace Bbbt
                         }
                         e.Use();
                     }
-                    // Pressed the delete key
+                    // Pressed the delete key.
                     if (e.keyCode == KeyCode.Delete)
                     {
                         if (!Application.isPlaying)
@@ -494,18 +494,21 @@ namespace Bbbt
                             }
                         }
                     }
-                    // Pressed 0
-                    if (e.keyCode == KeyCode.Alpha0)
+                    // Pressed tab (select next node).
+                    if (e.keyCode == KeyCode.Tab)
                     {
-                        _gridOffset = Vector3.zero;
+                        if (CurrentTab.Nodes != null && CurrentTab.Nodes.Count > 0)
+                        {
+                            SelectNode(CurrentTab.Nodes[0]);
+                        }
                     }
-                    // Pressed z
+                    // Pressed ctrl-z (undo).
                     if (e.control && e.keyCode == KeyCode.Z)
                     {
                         CurrentTab.CommandManager.Undo();
                         e.Use();
                     }
-                    // Pressed y
+                    // Pressed ctrl-y (redo).
                     if (e.control && e.keyCode == KeyCode.Y)
                     {
                         CurrentTab.CommandManager.Redo();
