@@ -392,6 +392,7 @@ MonoBehaviour:
   LineOfSight: 30
   enemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
+  entityPosScript: {fileID: 0}
   Waypoints: []
   TargetDestination: {fileID: 1632345764}
   agent: {fileID: 0}
@@ -512,10 +513,11 @@ MonoBehaviour:
   LineOfSight: 30
   enemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
+  entityPosScript: {fileID: 0}
   Waypoints: []
   TargetDestination: {fileID: 0}
   agent: {fileID: 0}
-  MyFaction: 0
+  MyFaction: 1
 --- !u!1 &1484295748
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,8 +616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2e744722e02e64aa8465f2726ed01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerLocaitons:
-  - {fileID: 1418541963}
 --- !u!4 &1586501339
 Transform:
   m_ObjectHideFlags: 0
@@ -791,7 +791,7 @@ GameObject:
   - component: {fileID: 2141485051}
   - component: {fileID: 2141485050}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
