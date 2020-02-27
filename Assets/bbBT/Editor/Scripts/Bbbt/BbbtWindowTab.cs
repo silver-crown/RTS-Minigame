@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Commands;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +10,11 @@ namespace Bbbt
     /// </summary>
     public class BbbtWindowTab
     {
+        /// <summary>
+        /// The tab's command manager.
+        /// </summary>
+        public CommandManager CommandManager;
+
         /// <summary>
         /// The tab's rect.
         /// </summary>

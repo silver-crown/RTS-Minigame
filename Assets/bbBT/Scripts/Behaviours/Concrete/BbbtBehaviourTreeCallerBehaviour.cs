@@ -63,8 +63,14 @@ namespace Bbbt
         /// <returns>The generated save data.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {
-            Debug.Log(_behaviourTree.name);
-            return new BbbtBehaviourTreeCallerBehaviourSaveData(NodeId, _behaviourTree.name);
+            if (_behaviourTree != null)
+            {
+                return new BbbtBehaviourTreeCallerBehaviourSaveData(NodeId, _behaviourTree.name);
+            }
+            else
+            {
+                return new BbbtBehaviourTreeCallerBehaviourSaveData(NodeId, "");
+            }   
         }
 
         /// <summary>
@@ -79,13 +85,20 @@ namespace Bbbt
             {
                 string behaviourTreeName = castSaveData.BehaviourTreeName;
                 _behaviourTree = BbbtBehaviourTree.FindBehaviourTreeWithName(behaviourTreeName);
-                var copiedTree = Instantiate(_behaviourTree);
-                copiedTree.LoadSaveData(_behaviourTree);
-                copiedTree.name = _behaviourTree.name;
-                _root = (copiedTree.RootBehaviour as BbbtRoot).Child;
-                if (Application.isPlaying)
+                if (_behaviourTree != null)
                 {
-                    _behaviourTree = copiedTree;
+                    var copiedTree = Instantiate(_behaviourTree);
+                    copiedTree.LoadSaveData(_behaviourTree);
+                    copiedTree.name = _behaviourTree.name;
+                    _root = (copiedTree.RootBehaviour as BbbtRoot).Child;
+                    if (Application.isPlaying)
+                    {
+                        _behaviourTree = copiedTree;
+                    }
+                }
+                else if (Application.isPlaying)
+                {
+                    Debug.LogWarning("Could not find behaviour tree '" + behaviourTreeName + "'.");
                 }
             }
             else

@@ -55,12 +55,19 @@ namespace Bbbt
         /// <returns>The generated save data.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {
-            var childSaveData = new BbbtBehaviourSaveData[Children.Count];
-            for (int i = 0; i < Children.Count; i++)
+            if (Children != null)
             {
-                childSaveData[i] = Children[i].ToSaveData();
+                var childSaveData = new BbbtBehaviourSaveData[Children.Count];
+                for (int i = 0; i < Children.Count; i++)
+                {
+                    childSaveData[i] = Children[i].ToSaveData();
+                }
+                return new BbbtSequencerSaveData(NodeId, childSaveData);
             }
-            return new BbbtSequencerSaveData(NodeId, childSaveData);
+            else
+            {
+                return new BbbtSequencerSaveData(NodeId, null);
+            }
         }
 
         /// <summary>
@@ -74,9 +81,12 @@ namespace Bbbt
             var castSaveData = saveData as BbbtSequencerSaveData;
             if (castSaveData != null)
             {
-                foreach (var childSaveData in castSaveData.ChildSaveData)
+                if (castSaveData.ChildSaveData != null)
                 {
-                    AddChild(childSaveData.Deserialize());
+                    foreach (var childSaveData in castSaveData.ChildSaveData)
+                    {
+                        AddChild(childSaveData.Deserialize());
+                    }
                 }
             }
             else

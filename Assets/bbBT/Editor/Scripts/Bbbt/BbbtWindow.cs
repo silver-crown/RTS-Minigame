@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bbbt.Commands;
+using Commands;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -32,7 +34,7 @@ namespace Bbbt
         /// <summary>
         /// The currently selected tab.
         /// </summary>
-        private BbbtWindowTab _currentTab = null;
+        public BbbtWindowTab CurrentTab { get; protected set; } = null;
 
         /// <summary>
         /// The currently open prompt if any.
@@ -208,9 +210,9 @@ namespace Bbbt
                 }
             }
             // Check if the behaviour tree has disappeared.
-            if (_currentTab != null && _currentTab.Tree == null)
+            if (CurrentTab != null && CurrentTab.Tree == null)
             {
-                CloseTab(_currentTab);
+                CloseTab(CurrentTab);
             }
 
             // Check if we need to open a node editor.
@@ -347,7 +349,7 @@ namespace Bbbt
         {
             for (int i = 0; i < _tabs.Count; i++)
             {
-                if (_tabs[i] == _currentTab)
+                if (_tabs[i] == CurrentTab)
                 {
                     // Highlight current tab
                     _tabs[i].Draw(_tabs, true);
@@ -386,11 +388,11 @@ namespace Bbbt
                 _tabs.Remove(tab);
                 if (_tabs.Count == 0)
                 {
-                    _currentTab = null;
+                    CurrentTab = null;
                 }
-                else if (tab == _currentTab)
+                else if (tab == CurrentTab)
                 {
-                    _currentTab = _tabs[Mathf.Clamp(index, 0, _tabs.Count - 1)];
+                    CurrentTab = _tabs[Mathf.Clamp(index, 0, _tabs.Count - 1)];
                 }
             }
         }
@@ -400,9 +402,9 @@ namespace Bbbt
         /// </summary>
         private void DrawNodes()
         {
-            if (_currentTab != null && _currentTab.Nodes != null)
+            if (CurrentTab != null && CurrentTab.Nodes != null)
             {
-                _currentTab.Nodes.ForEach((node) => node.Draw());
+                CurrentTab.Nodes.ForEach((node) => node.Draw());
             }
         }
 
@@ -411,12 +413,12 @@ namespace Bbbt
         /// </summary>
         private void DrawConnections()
         {
-            if (_currentTab != null)
+            if (CurrentTab != null)
             {
                 // We use a regular for loop in case a connection gets removed.
-                for (int i = 0; i < _currentTab.Connections.Count; i++)
+                for (int i = 0; i < CurrentTab.Connections.Count; i++)
                 {
-                    _currentTab.Connections[i].Draw();
+                    CurrentTab.Connections[i].Draw();
                 }
             }
 
@@ -430,7 +432,7 @@ namespace Bbbt
         private void ProcessEvents(Event e)
         {
             // Don't let the user do anything without a loaded tab/tree.
-            if (_currentTab == null) return;
+            if (CurrentTab == null) return;
 
             _drag = Vector3.zero;
             BbbtBehaviour draggedBehavior = null;
@@ -461,10 +463,10 @@ namespace Bbbt
                     {
                         // Drag the entire window.
                         _drag = e.delta;
-                        _currentTab.WindowOffset += _drag;
-                        _currentTab.Nodes?.ForEach((node) => { node.Drag(e.delta); });
+                        CurrentTab.WindowOffset += _drag;
+                        CurrentTab.Nodes?.ForEach((node) => { node.Drag(e.delta); });
                         GUI.changed = true;
-                        SetUnsavedChangesTabTitle(_currentTab);
+                        SetUnsavedChangesTabTitle(CurrentTab);
                     }
                     break;
                 // Started pressing a key.
@@ -476,6 +478,7 @@ namespace Bbbt
                         {
                             SaveTree();
                         }
+                        e.Use();
                     }
                     // Pressed the delete key
                     if (e.keyCode == KeyCode.Delete)
@@ -495,6 +498,18 @@ namespace Bbbt
                     if (e.keyCode == KeyCode.Alpha0)
                     {
                         _gridOffset = Vector3.zero;
+                    }
+                    // Pressed z
+                    if (e.control && e.keyCode == KeyCode.Z)
+                    {
+                        CurrentTab.CommandManager.Undo();
+                        e.Use();
+                    }
+                    // Pressed y
+                    if (e.control && e.keyCode == KeyCode.Y)
+                    {
+                        CurrentTab.CommandManager.Redo();
+                        e.Use();
                     }
                     break;
                 // Something dragged into the editor window.
@@ -521,7 +536,7 @@ namespace Bbbt
                         if (draggedBehavior != null)
                         {
                             // A behaviour was dropped into the editor, instantiate a node with the behaviour attached.
-                            var node = AddNode(++_currentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
+                            var node = AddNode(++CurrentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
                             SelectNode(node);
                         }
                     }
@@ -535,19 +550,19 @@ namespace Bbbt
         /// <param name="e">The events to be handled.</param>
         private void ProcessNodeEvents(Event e)
         {
-            if (_currentTab == null) return;
+            if (CurrentTab == null) return;
 
             // The node that was used in some way during the processing of node events.
             BbbtNode usedNode = null;
 
             // Iterate in the reverse of our draw order because we want to give nodes in the foreground priority.
-            for (int i = _currentTab.Nodes.Count - 1; i >= 0; i--)
+            for (int i = CurrentTab.Nodes.Count - 1; i >= 0; i--)
             {
-                if (_currentTab.Nodes[i].ProcessEvents(e))
+                if (CurrentTab.Nodes[i].ProcessEvents(e))
                 {
                     // This node either moved or was clicked on.
                     GUI.changed = true;
-                    usedNode = _currentTab.Nodes[i];
+                    usedNode = CurrentTab.Nodes[i];
                 }
             }
 
@@ -561,8 +576,8 @@ namespace Bbbt
                 else
                 {
                     // Put the node on top.
-                    _currentTab.Nodes.Remove(usedNode);
-                    _currentTab.Nodes.Add(usedNode);
+                    CurrentTab.Nodes.Remove(usedNode);
+                    CurrentTab.Nodes.Add(usedNode);
                 }
             }
         }
@@ -573,14 +588,14 @@ namespace Bbbt
         /// <param name="e">The events to be handled.</param>
         private void ProcessTabEvents(Event e)
         {
-            if (_currentTab == null) return;
+            if (CurrentTab == null) return;
 
             for (int i = 0; i < _tabs.Count; i++)
             {
                 if (_tabs[i].ProcessEvents(e))
                 {
                     // This tab either moved or was clicked on. Select the tab.
-                    _currentTab = _tabs[i];
+                    CurrentTab = _tabs[i];
                     GUI.changed = true;
                     break;
                 }
@@ -605,10 +620,10 @@ namespace Bbbt
             _nodeToOpenInInspector = node;
 
             // Put the node on top.
-            _currentTab.Nodes.Remove(node);
-            _currentTab.Nodes.Add(node);
+            CurrentTab.Nodes.Remove(node);
+            CurrentTab.Nodes.Add(node);
 
-            SetUnsavedChangesTabTitle(_currentTab);
+            SetUnsavedChangesTabTitle(CurrentTab);
         }
 
         /// <summary>
@@ -625,7 +640,7 @@ namespace Bbbt
             {
                 // Check if a root node exists
                 bool rootExists = false;
-                foreach (var node in _currentTab.Nodes)
+                foreach (var node in CurrentTab.Nodes)
                 {
                     if (node.Behaviour as BbbtRoot != null)
                     {
@@ -639,7 +654,7 @@ namespace Bbbt
                     menu.AddItem(
                         new GUIContent("Add " + behaviour.name),
                         false,
-                        () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                        () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
                     );
                 }
                 else
@@ -655,7 +670,7 @@ namespace Bbbt
                 menu.AddItem(
                        new GUIContent("Composite/Add " + behaviour.name),
                        false,
-                       () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                       () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
                    );
             }
 
@@ -665,7 +680,7 @@ namespace Bbbt
                 menu.AddItem(
                        new GUIContent("Decorator/Add " + behaviour.name),
                        false,
-                       () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                       () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
                    );
             }
 
@@ -675,7 +690,7 @@ namespace Bbbt
                 menu.AddItem(
                        new GUIContent("Leaf/Add " + behaviour.name),
                        false,
-                       () => AddNode(++_currentTab.LastNodeID, behaviour, position)
+                       () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
                    );
             }
 
@@ -692,7 +707,7 @@ namespace Bbbt
         /// <param name="behaviourSaveData">
         /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
         /// </param>
-        private BbbtNode AddNode(
+        public BbbtNode AddNode(
             int id,
             BbbtBehaviour baseBehaviour,
             Vector2 position,
@@ -700,7 +715,6 @@ namespace Bbbt
             BbbtBehaviourSaveData behaviourSaveData = null)
         {
             var node = CreateInstance<BbbtNode>();
-            _currentTab.Nodes.Add(node);
             node.Setup(
                 id,
                 baseBehaviour,
@@ -718,8 +732,7 @@ namespace Bbbt
                 behaviourSaveData
             );
 
-            SetUnsavedChangesTabTitle(_currentTab);
-
+            CurrentTab.CommandManager.Do(new CreateNodeCommand(this, node));
             return node;
         }
         
@@ -810,20 +823,20 @@ namespace Bbbt
         /// </summary>
         public void CreateConnection()
         {
-            _currentTab.Connections?.Add(new BbbtConnection(
+            CurrentTab.Connections?.Add(new BbbtConnection(
                 _selectedInPoint,
                 _selectedOutPoint,
                 (connection) =>
                 {
                     if (!Application.isPlaying)
                     {
-                        _currentTab.Connections.Remove(connection);
-                        SetUnsavedChangesTabTitle(_currentTab);
+                        CurrentTab.Connections.Remove(connection);
+                        SetUnsavedChangesTabTitle(CurrentTab);
                     }
                 }
             ));
 
-            SetUnsavedChangesTabTitle(_currentTab);
+            SetUnsavedChangesTabTitle(CurrentTab);
         }
 
         /// <summary>
@@ -831,20 +844,20 @@ namespace Bbbt
         /// </summary>
         public void CreateConnection(BbbtNode from, BbbtNode to)
         {
-            _currentTab.Connections?.Add(new BbbtConnection(
+            CurrentTab.Connections?.Add(new BbbtConnection(
                 to.InPoint,
                 from.OutPoint,
                 (connection) =>
                 {
                     if (!Application.isPlaying)
                     {
-                        _currentTab.Connections.Remove(connection);
-                        SetUnsavedChangesTabTitle(_currentTab);
+                        CurrentTab.Connections.Remove(connection);
+                        SetUnsavedChangesTabTitle(CurrentTab);
                     }
                 }
             ));
 
-            SetUnsavedChangesTabTitle(_currentTab);
+            SetUnsavedChangesTabTitle(CurrentTab);
         }
 
         /// <summary>
@@ -863,7 +876,7 @@ namespace Bbbt
         /// <returns>The connection connected to the connection point if it exists. Null otherwise.</returns>
         private BbbtConnection FindConnectionToPoint(BbbtConnectionPoint point)
         {
-            foreach (var connection in _currentTab.Connections)
+            foreach (var connection in CurrentTab.Connections)
             {
                 if (connection.InPoint == point || connection.OutPoint == point)
                 {
@@ -926,26 +939,26 @@ namespace Bbbt
             {
                 // Remove connections.
                 var connectionsToRemove = new List<BbbtConnection>();
-                for (int i = 0; i < _currentTab.Connections.Count; i++)
+                for (int i = 0; i < CurrentTab.Connections.Count; i++)
                 {
                     // Check if the connection connects to a point on the node to be removed.
-                    if (_currentTab.Connections[i].InPoint.Node == node ||
-                        _currentTab.Connections[i].OutPoint.Node == node)
+                    if (CurrentTab.Connections[i].InPoint.Node == node ||
+                        CurrentTab.Connections[i].OutPoint.Node == node)
                     {
                         // Add the connection to be removed.
-                        connectionsToRemove.Add(_currentTab.Connections[i]);
+                        connectionsToRemove.Add(CurrentTab.Connections[i]);
                     }
                 }
                 foreach (var connection in connectionsToRemove)
                 {
-                    _currentTab.Connections.Remove(connection);
+                    CurrentTab.Connections.Remove(connection);
                 }
 
                 // Remove node.
-                _currentTab.Nodes.Remove(node);
+                CurrentTab.Nodes.Remove(node);
                 DestroyImmediate(node);
 
-                SetUnsavedChangesTabTitle(_currentTab);
+                SetUnsavedChangesTabTitle(CurrentTab);
             }
         }
 
@@ -955,7 +968,7 @@ namespace Bbbt
         /// <returns>The currently selected node, if any. Null otherwise.</returns>
         private BbbtNode FindSelectedNode()
         {
-            foreach (var node in _currentTab.Nodes)
+            foreach (var node in CurrentTab.Nodes)
             {
                 if (node.IsSelected)
                 {
@@ -1017,7 +1030,7 @@ namespace Bbbt
         private void SaveTree()
         {
             // Store all the nodes.
-            SaveTab(_currentTab);
+            SaveTab(CurrentTab);
         }
 
         /// <summary>
@@ -1153,7 +1166,7 @@ namespace Bbbt
         public void LoadTree(BbbtBehaviourTree tree)
         {
             TreeToLoad = null;
-            _currentTab = null;
+            CurrentTab = null;
 
             // See if the tree is loaded into a tab
             foreach (var tab in _tabs)
@@ -1161,16 +1174,17 @@ namespace Bbbt
                 if (tab.Tree == tree)
                 {
                     // Tree was already loaded.
-                    _currentTab = tab;
+                    CurrentTab = tab;
                     break;
                 }
             }
 
             // Tree was not loaded, load it in.
-            if (_currentTab == null)
+            if (CurrentTab == null)
             {
                 _tabs.Add(new BbbtWindowTab(tree, _tabStyle));
-                _currentTab = _tabs[_tabs.Count - 1];
+                CurrentTab = _tabs[_tabs.Count - 1];
+                CurrentTab.CommandManager = new CommandManager();
 
                 if (tree.EditorSaveData != null)
                 {
@@ -1199,9 +1213,9 @@ namespace Bbbt
                                 nodeSaveData.IsSelected,
                                 behaviourSaveData
                             );
-                            if (_currentTab.LastNodeID < nodeSaveData.Id)
+                            if (CurrentTab.LastNodeID < nodeSaveData.Id)
                             {
-                                _currentTab.LastNodeID = nodeSaveData.Id;
+                                CurrentTab.LastNodeID = nodeSaveData.Id;
                             }
 
                             if (Application.isPlaying)
@@ -1212,7 +1226,7 @@ namespace Bbbt
                         else
                         {
                             Debug.LogError(
-                                _currentTab.Tree.name +
+                                CurrentTab.Tree.name +
                                 ": Couldn't load behaviour '" +
                                 nodeSaveData.BaseBehaviour +
                                 "'.");
@@ -1223,12 +1237,13 @@ namespace Bbbt
                     foreach (var connectionSaveData in tree.EditorSaveData.Connections)
                     {
                         CreateConnection(
-                            _currentTab.Nodes.Find((node) => node.Id == connectionSaveData.OutNodeId),
-                            _currentTab.Nodes.Find((node) => node.Id == connectionSaveData.InNodeId)
+                            CurrentTab.Nodes.Find((node) => node.Id == connectionSaveData.OutNodeId),
+                            CurrentTab.Nodes.Find((node) => node.Id == connectionSaveData.InNodeId)
                         );
                     }
                 }
             }
+            CurrentTab.CommandManager = new CommandManager();
         }
     }
 }
