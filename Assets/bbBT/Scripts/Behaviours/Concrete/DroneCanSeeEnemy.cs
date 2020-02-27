@@ -7,13 +7,15 @@ using RTS;
 namespace Bbbt
 {
 
-    /// <summary>
-    /// Leaf Node behavior for drone
-    /// </summary>
+    // Creates the menu option in the unity engine
     [CreateAssetMenu(
         fileName = "DroneCanSeeEnemy",
         menuName = "bbBT/Behaviour/Leaf/DronecanSeeEnemy",
         order = 0)]
+
+    /// <summary>
+    /// Leaf Node behavior for drone
+    /// </summary>
     public class DroneCanSeeEnemy : BbbtLeafBehaviour
     {
         private RTS.Actor _actor;
@@ -37,7 +39,7 @@ namespace Bbbt
         /// Updates the drone behavior
         /// </summary>
         /// <param name="gameObject"></param>
-        /// <returns> </returns>
+        /// <returns>Returns SUCCESS for "true" and FAILURE for "false" </returns>
         protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
             for (int i = 0; i < EntityLocations.MarineLocations.Count; i++)
@@ -57,6 +59,5 @@ namespace Bbbt
             }
             return BbbtBehaviourStatus.Failure;
         }
-
     }
 }
