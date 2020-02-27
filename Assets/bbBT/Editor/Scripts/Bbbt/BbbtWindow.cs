@@ -949,16 +949,8 @@ namespace Bbbt
                         connectionsToRemove.Add(CurrentTab.Connections[i]);
                     }
                 }
-                foreach (var connection in connectionsToRemove)
-                {
-                    CurrentTab.Connections.Remove(connection);
-                }
 
-                // Remove node.
-                CurrentTab.Nodes.Remove(node);
-                DestroyImmediate(node);
-
-                SetUnsavedChangesTabTitle(CurrentTab);
+                CurrentTab.CommandManager.Do(new RemoveNodeCommand(this, node, connectionsToRemove));
             }
         }
 
