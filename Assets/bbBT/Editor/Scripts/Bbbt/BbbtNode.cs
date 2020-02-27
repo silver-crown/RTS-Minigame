@@ -189,16 +189,6 @@ namespace Bbbt
         }
 
         /// <summary>
-        /// Sets the node's position.
-        /// </summary>
-        /// <param name="position">The node's new position.</param>
-        public void SetPosition(Vector2 position)
-        {
-            Vector2 delta = position - Rect.position;
-            Drag(delta);
-        }
-
-        /// <summary>
         /// Draws the node.
         /// </summary>
         public void Draw()
@@ -263,9 +253,11 @@ namespace Bbbt
                     if (_isDragged)
                     {
                         _isDragged = false;
+                        var position = Rect.position;
                         window.CurrentTab.CommandManager.Do(
-                            new MoveNodeCommand(this, _dragStartPosition, Rect.position)
+                            new MoveNodeCommand(this, position - _dragStartPosition)
                         );
+                        Drag(_dragStartPosition - position);
                     }
                     break;
 

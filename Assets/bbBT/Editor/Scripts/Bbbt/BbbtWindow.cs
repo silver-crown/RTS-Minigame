@@ -462,11 +462,7 @@ namespace Bbbt
                     if (e.button == 2)
                     {
                         // Drag the entire window.
-                        _drag = e.delta;
-                        CurrentTab.WindowOffset += _drag;
-                        CurrentTab.Nodes?.ForEach((node) => { node.Drag(e.delta); });
-                        GUI.changed = true;
-                        SetUnsavedChangesTabTitle(CurrentTab);
+                        DragWindow(e.delta);
                     }
                     break;
                 // Started pressing a key.
@@ -493,6 +489,7 @@ namespace Bbbt
                                 GUI.changed = true;
                             }
                         }
+                        e.Use();
                     }
                     // Pressed tab (select next node).
                     if (e.keyCode == KeyCode.Tab)
@@ -501,6 +498,21 @@ namespace Bbbt
                         {
                             SelectNode(CurrentTab.Nodes[0]);
                         }
+                        e.Use();
+                    }
+                    // Pressed shift-f (focus on selected node).
+                    if (e.shift && e.keyCode == KeyCode.F)
+                    {
+                        var selectedNode = FindSelectedNode();
+                        if (selectedNode != null)
+                        {
+                            // Find the centre of the node
+                            var nodeCenter = selectedNode.Rect.position + selectedNode.Rect.size / 2.0f;
+
+                            // Move the window by the distance between the node centre and window centre.
+                            DragWindow(position.size / 2.0f - nodeCenter);
+                        }
+                        e.Use();
                     }
                     // Pressed ctrl-z (undo).
                     if (e.control && e.keyCode == KeyCode.Z)
@@ -545,6 +557,18 @@ namespace Bbbt
                     }
                     break;
             }
+        }
+
+        /// <summary>
+        /// Drags the entire window.
+        /// </summary>
+        /// <param name="delta">The amound by which to drag the window.</param>
+        private void DragWindow(Vector2 delta)
+        {
+            _drag = delta;
+            CurrentTab.WindowOffset += _drag;
+            CurrentTab.Nodes?.ForEach((node) => { node.Drag(delta); });
+            GUI.changed = true;
         }
 
         /// <summary>

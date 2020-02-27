@@ -16,35 +16,28 @@ namespace Bbbt.Commands
         /// <summary>
         /// The old node position.
         /// </summary>
-        private Vector2 _oldPosition;
-
-        /// <summary>
-        /// The new node position.
-        /// </summary>
-        private Vector2 _newPosition;
+        private Vector2 _delta;
 
 
         /// <summary>
         /// Constructs a new MoveNodeCommand.
         /// </summary>
         /// <param name="node">The node to move.</param>
-        /// <param name="oldPosition">The old node position.</param>
-        /// <param name="newPosition">The new node position.</param>
-        public MoveNodeCommand(BbbtNode node, Vector2 oldPosition, Vector2 newPosition)
+        /// <param name="delta">The amount by which to move the node.</param>
+        public MoveNodeCommand(BbbtNode node, Vector2 delta)
         {
             _node = node;
-            _oldPosition = oldPosition;
-            _newPosition = newPosition;
+            _delta = delta;
         }
 
         public override void Do()
         {
-            _node.SetPosition(_newPosition);
+            _node.Drag(_delta);
         }
 
         public override void Undo()
         {
-            _node.SetPosition(_oldPosition);
+            _node.Drag(-_delta);
         }
     }
 }
