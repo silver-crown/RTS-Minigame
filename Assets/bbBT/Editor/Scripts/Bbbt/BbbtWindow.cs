@@ -558,7 +558,7 @@ namespace Bbbt
             // Iterate in the reverse of our draw order because we want to give nodes in the foreground priority.
             for (int i = CurrentTab.Nodes.Count - 1; i >= 0; i--)
             {
-                if (CurrentTab.Nodes[i].ProcessEvents(e))
+                if (CurrentTab.Nodes[i].ProcessEvents(this, e))
                 {
                     // This node either moved or was clicked on.
                     GUI.changed = true;

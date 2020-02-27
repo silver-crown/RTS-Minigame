@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bbbt.Commands;
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -69,6 +70,11 @@ namespace Bbbt
         /// Whether the node is currently being dragged.
         /// </summary>
         private bool _isDragged = false;
+
+        /// <summary>
+        /// The position on which we started dragging the node.
+        /// </summary>
+        private Vector2 _dragStartPosition;
 
         /// <summary>
         /// Whether the node is currently selected.
@@ -183,6 +189,16 @@ namespace Bbbt
         }
 
         /// <summary>
+        /// Sets the node's position.
+        /// </summary>
+        /// <param name="position">The node's new position.</param>
+        public void SetPosition(Vector2 position)
+        {
+            Vector2 delta = position - Rect.position;
+            Drag(delta);
+        }
+
+        /// <summary>
         /// Draws the node.
         /// </summary>
         public void Draw()
@@ -202,7 +218,7 @@ namespace Bbbt
         /// </summary>
         /// <param name="e">The events to be processed.</param>
         /// <returns>Returns true if the GUI should change, false otherwise.</returns>
-        public bool ProcessEvents(Event e)
+        public bool ProcessEvents(BbbtWindow window, Event e)
         {
             switch (e.type)
             {
@@ -218,6 +234,7 @@ namespace Bbbt
                             if (!Application.isPlaying)
                             {
                                 _isDragged = true;
+                                _dragStartPosition = Rect.position;
                             }
                             IsSelected = true;
 
@@ -243,7 +260,13 @@ namespace Bbbt
 
                 // Mouse button released.
                 case EventType.MouseUp:
-                    _isDragged = false;
+                    if (_isDragged)
+                    {
+                        _isDragged = false;
+                        window.CurrentTab.CommandManager.Do(
+                            new MoveNodeCommand(this, _dragStartPosition, Rect.position)
+                        );
+                    }
                     break;
 
                 // Mouse moved.
