@@ -139,6 +139,9 @@ namespace Bbbt
         /// </summary>
         private void OnEnable()
         {
+            var window = GetWindow<BbbtWindow>();
+            window.titleContent = new GUIContent("bbBT");
+
             // Set up the style of the behaviour tree nodes.
             _nodeStyle = new GUIStyle();
             _nodeStyle.normal.background = EditorGUIUtility.Load(
