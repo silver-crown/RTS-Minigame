@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Bbbt.Commands;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -7,6 +10,19 @@ namespace Bbbt
     /// </summary>
     public class BbbtCommandHistoryBrowser : BbbtSidePanelContent
     {
+        /// <summary>
+        /// Maps command types to the string to be displayed in the command history browser.
+        /// </summary>
+        private static Dictionary<Type, string> _commandStrings = new Dictionary<Type, string>()
+        {
+            { typeof(CreateConnectionCommand), "Create Connection" },
+            { typeof(CreateNodeCommand), "Create Node" },
+            { typeof(LastResetCommand), "Last Reset" },
+            { typeof(MoveNodeCommand), "Move Node" },
+            { typeof(RemoveConnectionCommand), "Remove Connection" },
+            { typeof(RemoveNodeCommand), "Remove Node" },
+        };
+
         /// <summary>
         /// The window the browser is open in.
         /// </summary>
@@ -53,7 +69,12 @@ namespace Bbbt
                 for (int i = 0; i < doneCommands.Count; i++)
                 {
                     Rect buttonRect = new Rect(x, drawnElements++ * elementHeight, rect.width, elementHeight);
-                    if (GUI.Button(buttonRect, doneCommands[i], _doneCommandsStyle))
+                    string content = _commandStrings[doneCommands[i].GetType()];
+                    if (doneCommands[i] == commandHistory.LastSaveCommand)
+                    {
+                        content += " (Last Save)";
+                    }
+                    if (GUI.Button(buttonRect, content, _doneCommandsStyle))
                     {
                         // Undo till this command is the last done command.
                         commandsToUndo = doneCommands.Count - i - 1;
@@ -69,7 +90,12 @@ namespace Bbbt
                 for (int i = 0; i < undoneCommands.Count; i++)
                 {
                     Rect buttonRect = new Rect(x, drawnElements++ * elementHeight, rect.width, elementHeight);
-                    if (GUI.Button(buttonRect, undoneCommands[i], _undoneCommandsStyle))
+                    string content = _commandStrings[undoneCommands[i].GetType()];
+                    if (undoneCommands[i] == commandHistory.LastSaveCommand)
+                    {
+                        content += " (Last Save)";
+                    }
+                    if (GUI.Button(buttonRect, content, _undoneCommandsStyle))
                     {
                         // Redo until this command is the last done command.
                         commandsToRedo = i + 1;

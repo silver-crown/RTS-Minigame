@@ -1186,6 +1186,9 @@ namespace Bbbt
                     tab.Tree.Save(null, saveData);
                 }
             }
+
+            tab.CommandHistory.LastSaveCommand =
+                tab.CommandHistory.DoneCommands[tab.CommandHistory.DoneCommands.Count - 1];
         }
 
         /// <summary>

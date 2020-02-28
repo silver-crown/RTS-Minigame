@@ -95,10 +95,7 @@ namespace Bbbt
             _borderStyle.normal.background = borderBackground;
 
             // Populate the panel with content.
-            // TODO: Rewrite this in a more reusable and less ugly way.
-            var guid = AssetDatabase.FindAssets("CommandHistoryBrowserIcon t:texture2d")[0];
-            var path = AssetDatabase.GUIDToAssetPath(guid);
-            var commandBrowserIcon = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+            var commandBrowserIcon = FindTexture("CommandHistoryBrowserIcon");
             _textureToContent = new List<KeyValuePair<Texture2D, BbbtSidePanelContent>>()
             {
                 new KeyValuePair<Texture2D, BbbtSidePanelContent>(
@@ -106,6 +103,18 @@ namespace Bbbt
                     new BbbtCommandHistoryBrowser(window)
                 )
             };
+        }
+
+        /// <summary>
+        /// Finds a texture in the asset database.
+        /// </summary>
+        /// <param name="query">The search term to use.</param>
+        /// <returns>The texture matching the query.</returns>
+        private Texture2D FindTexture(string query)
+        {
+            var guid = AssetDatabase.FindAssets(query + " t:texture2d")[0];
+            var path = AssetDatabase.GUIDToAssetPath(guid);
+            return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
         }
 
         /// <summary>
@@ -123,10 +132,14 @@ namespace Bbbt
             // Draw the buttons in the navigation bar.
             for (int i = 0; i < _textureToContent.Count; i++)
             {
+                float border = 6.0f;
                 Rect rect = new Rect(
-                    _navigationBarRect.position + Vector2.down * i * _navigationBarRect.width,
-                    Vector2.one * _navigationBarRect.width
+                    _navigationBarRect.position.x + border,
+                    i * _navigationBarRect.width + border,
+                    _navigationBarRect.width - border * 2.0f,
+                    _navigationBarRect.width - border * 2.0f
                 );
+
                 if (GUI.Button(rect, _textureToContent[i].Key, _style))
                 {
                     if (_selectedContent != _textureToContent[i].Value)
