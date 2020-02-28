@@ -248,6 +248,7 @@ namespace Bbbt
         {
             CommandManager = new CommandManager();
             CommandHistoryBrowser = new BbbtCommandHistoryBrowser(CommandManager);
+            CommandManager.Do(new LastResetCommand());
         }
     }
 }

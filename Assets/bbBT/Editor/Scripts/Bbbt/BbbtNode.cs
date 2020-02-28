@@ -254,7 +254,7 @@ namespace Bbbt
                     {
                         var position = Rect.position;
                         window.CurrentTab.CommandManager.Do(
-                            new MoveNodeCommand(this, position - _dragStartPosition)
+                            new MoveNodeCommand(window, this, position - _dragStartPosition)
                         );
                         Drag(_dragStartPosition - position);
                     }

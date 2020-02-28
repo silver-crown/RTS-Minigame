@@ -9,6 +9,11 @@ namespace Bbbt.Commands
     public class MoveNodeCommand : Command
     {
         /// <summary>
+        /// The window in which the node should move.
+        /// </summary>
+        private BbbtWindow _window;
+
+        /// <summary>
         /// The node to move.
         /// </summary>
         private BbbtNode _node;
@@ -22,10 +27,12 @@ namespace Bbbt.Commands
         /// <summary>
         /// Constructs a new MoveNodeCommand.
         /// </summary>
+        /// <param name="window">The window in which the node should move.</param>
         /// <param name="node">The node to move.</param>
         /// <param name="delta">The amount by which to move the node.</param>
-        public MoveNodeCommand(BbbtNode node, Vector2 delta)
+        public MoveNodeCommand(BbbtWindow window, BbbtNode node, Vector2 delta)
         {
+            _window = window;
             _node = node;
             _delta = delta;
         }
@@ -33,11 +40,13 @@ namespace Bbbt.Commands
         public override void Do()
         {
             _node.Drag(_delta);
+            _window.SetUnsavedChangesTabTitle(_window.CurrentTab);
         }
 
         public override void Undo()
         {
             _node.Drag(-_delta);
+            _window.SetUnsavedChangesTabTitle(_window.CurrentTab);
         }
     }
 }

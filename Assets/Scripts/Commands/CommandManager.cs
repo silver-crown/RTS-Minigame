@@ -59,28 +59,46 @@ namespace Commands
         /// <summary>
         /// Undoes the last command handled by the CommandManager.
         /// </summary>
-        public void Undo()
+        /// <param name="amount">The amount of undoes to perform.</param>
+        public void Undo(int amount = 1)
         {
-            if (_undoStack.Count > 0)
+            while (amount > 0)
             {
-                var command = _undoStack.Pop();
-                command.Undo();
-                _redoStack.Push(command);
-                OnUndo?.Invoke(command);
+                if (_undoStack.Count > 0)
+                {
+                    var command = _undoStack.Pop();
+                    command.Undo();
+                    _redoStack.Push(command);
+                    OnUndo?.Invoke(command);
+                }
+                else
+                {
+                    break;
+                }
+                amount--;
             }
         }
 
         /// <summary>
         /// Redoes the last command undone by the CommandManager.
         /// </summary>
-        public void Redo()
+        /// <param name="amount">The amount of redoes to perform.</param>
+        public void Redo(int amount = 1)
         {
-            if (_redoStack.Count > 0)
+            while (amount > 0)
             {
-                var command = _redoStack.Pop();
-                command.Do();
-                _undoStack.Push(command);
-                OnRedo?.Invoke(command);
+                if (_redoStack.Count > 0)
+                {
+                    var command = _redoStack.Pop();
+                    command.Do();
+                    _undoStack.Push(command);
+                    OnRedo?.Invoke(command);
+                }
+                else
+                {
+                    break;
+                }
+                amount--;
             }
         }
     }

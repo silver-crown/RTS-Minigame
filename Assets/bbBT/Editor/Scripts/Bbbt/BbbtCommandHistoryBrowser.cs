@@ -18,16 +18,21 @@ namespace Bbbt
         {
             { typeof(CreateConnectionCommand), "Create Connection" },
             { typeof(CreateNodeCommand), "Create Node" },
+            { typeof(LastResetCommand), "Last Reset" },
             { typeof(MoveNodeCommand), "Move Node" },
             { typeof(RemoveConnectionCommand), "Remove Connection" },
             { typeof(RemoveNodeCommand), "Remove Node" },
         };
 
         /// <summary>
+        /// The CommandManager that this command history browser operated with.
+        /// </summary>
+        private CommandManager _commandManager;
+
+        /// <summary>
         /// List of the names of commands that have been performed.
         /// </summary>
         private List<string> _doneCommands;
-
 
         /// <summary>
         /// List of the names of commands that have been undone.
@@ -51,6 +56,9 @@ namespace Bbbt
         /// <param name="commandManager">The command manager to listen to for done/undone commands.</param>
         public BbbtCommandHistoryBrowser(CommandManager commandManager)
         {
+            // Store the CommandManager reference.
+            _commandManager = commandManager;
+
             // Instantiate lists.
             // TODO: We want to replace these with more interactable entries at some point so we can click through
             // the history.
@@ -91,20 +99,38 @@ namespace Bbbt
         public void Draw(Rect sidePanelRect)
         {
             float elementHeight = 20.0f;
+            float x = sidePanelRect.x + 5.0f;
             int drawnElements = 0;
+
             // Display done commands.
-            foreach (var command in _doneCommands)
+            int commandsToUndo = 0;
+            for (int i = 0; i < _doneCommands.Count; i++)
             {
-                Rect rect = new Rect(0, drawnElements++ * elementHeight, sidePanelRect.width, elementHeight);
-                GUI.Label(rect, command, _doneCommandsStyle);
+                Rect rect = new Rect(x, drawnElements++ * elementHeight, sidePanelRect.width, elementHeight);
+                if (GUI.Button(rect, _doneCommands[i], _doneCommandsStyle))
+                {
+                    // Undo till this command is the last done command.
+                    commandsToUndo = _doneCommands.Count - i - 1;
+                }
             }
 
+            // Undo commands
+            _commandManager.Undo(commandsToUndo);
+
             // Display undone commands.
-            foreach (var command in _undoneCommands)
+            int commandsToRedo = 0;
+            for (int i = 0; i < _undoneCommands.Count; i++)
             {
-                Rect rect = new Rect(0, drawnElements++ * elementHeight, sidePanelRect.width, elementHeight);
-                GUI.Label(rect, command, _undoneCommandsStyle);
+                Rect rect = new Rect(x, drawnElements++ * elementHeight, sidePanelRect.width, elementHeight);
+                if (GUI.Button(rect, _undoneCommands[i], _undoneCommandsStyle))
+                {
+                    // Redo until this command is the last done command.
+                    commandsToRedo = i + 1;
+                }
             }
+
+            // Redo commands
+            _commandManager.Redo(commandsToRedo);
         }
     }
 }
