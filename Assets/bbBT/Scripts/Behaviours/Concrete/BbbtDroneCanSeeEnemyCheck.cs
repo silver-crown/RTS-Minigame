@@ -16,7 +16,7 @@ namespace Bbbt
     /// <summary>
     /// Leaf Node behavior for drone
     /// </summary>
-    public class DroneCanSeeEnemy : BbbtLeafBehaviour
+    public class BbbtDroneCanSeeEnemyCheck : BbbtLeafBehaviour
     {
         private RTS.Actor _actor;
 
