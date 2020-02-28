@@ -139,6 +139,7 @@ namespace Bbbt
                         {
                             // Clicked inside the rect, select this tab and start dragging.
                             _isDragged = true;
+                            e.Use();
                             return true;
                         }
                     }
@@ -148,8 +149,17 @@ namespace Bbbt
                         // Clicking inside rect?
                         if (_rect.Contains(e.mousePosition))
                         {
-                            var window = EditorWindow.GetWindow<BbbtWindow>();
-                            window.TabToRemove = this;
+                            CloseTab();
+                            e.Use();
+                        }
+                    }
+                    // RMB
+                    if (e.button == 1)
+                    {
+                        if (_rect.Contains(e.mousePosition))
+                        {
+                            CreateContextMenu(e.mousePosition);
+                            e.Use();
                         }
                     }
                     break;
@@ -176,6 +186,26 @@ namespace Bbbt
 
             // GUI did not change.
             return false;
+        }
+
+        /// <summary>
+        /// Creates a context menu
+        /// </summary>
+        /// <param name="position">The position on which to create the context menu.</param>
+        private void CreateContextMenu(Vector2 position)
+        {
+            var menu = new GenericMenu();
+            menu.AddItem(new GUIContent("Close Tab"), false, CloseTab);
+            menu.ShowAsContext();
+        }
+
+        /// <summary>
+        /// Closes the tab.
+        /// </summary>
+        private void CloseTab()
+        {
+            var window = EditorWindow.GetWindow<BbbtWindow>();
+            window.TabToRemove = this;
         }
 
         /// <summary>
