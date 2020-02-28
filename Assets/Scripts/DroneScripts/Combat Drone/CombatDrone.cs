@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.AI;
+
 using Bbbt;
 
 /// <summary>
@@ -16,36 +18,23 @@ public class CombatDrone : Drone
     {
         MyBbbtBehaviourTreeComponent = GetComponent<BbbtBehaviourTreeComponent>();
         MyBbbtBehaviourTreeComponent.SetBehaviourTree("CombatDroneBT");
-
-
-       /* // adds the root node
-        Sequencer sequencer = new Sequencer();
-
-        // First thing the combat drone checks is the findplayer behavior
-        CanSeeEnemy canSeeEnemy = new CanSeeEnemy();
-        sequencer.AddChild(canSeeEnemy);
-
-        // Creates the behavior treee
-        _behaviorTree = GetComponent<BehaviorTree>();
-        _behaviorTree.SetRootNode(sequencer);*/
-
-       
     }
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         SetUpCombatBT();
     }
 
     // Start is called before the first frame update
-    void Start()
+    public override void  Start()
     {
-
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-
+        base.Update();
     }
 }

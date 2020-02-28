@@ -8,7 +8,7 @@ using UnityEngine;
 public enum Factions
 {
     Drone,
-    HumanPlayer,
+    Marine,
     Elders 
 }
 

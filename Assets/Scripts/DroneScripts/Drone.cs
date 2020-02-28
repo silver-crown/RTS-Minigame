@@ -27,22 +27,25 @@ public class Drone : RTS.Actor
     /// </summary>
     public int ID { get; protected set; }
 
+    /// <summary>
+    /// example on use of message listening 
+    /// </summary>
+    void listenToChannels()
+    {
+        //listening on a public channel
+        EventManager.StartListening("Testing Worker Channel", WorkerChannelTest, EventManager.MessageChannel.workerChannel);
 
-    // we should probbly init drones with LUA or Scriptable objects
-    private void Awake()
-    {        
-        if(_personalChannelDictionary == null)
-        {
-           _personalChannelDictionary = new Dictionary<string, UnityEvent>();
-        }
-
-        ReadStatsFromFile();
-        //add the channel to the private channel list, it's connected to the ID number of the drone
-        //Private channel 0 corresponds to Drone ID 0
-        EventManager.AddPrivateChannel(_personalChannelDictionary); 
-        ID = _lastUsedId++;
+        //Listening on a private channel requires an id number, the Drone's own id should be provided here
+        EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
     }
-
+    void WorkerChannelTest()
+    {
+        Debug.Log("Drone " + ID + " received a message in the Worker Channel!");
+    }
+    void PrivateChannelTest()
+    {
+        Debug.Log("Drone " + ID + " received a message in the Private Channel!");
+    }
 
     /// <summary>
     /// Reads the drone's stats from lua.
@@ -56,28 +59,33 @@ public class Drone : RTS.Actor
         Debug.Log(Health);
     }
 
+
+    public override void Awake()
+    {
+        base.Awake();
+
+        if (_personalChannelDictionary == null)
+        {
+            _personalChannelDictionary = new Dictionary<string, UnityEvent>();
+        }
+
+        ReadStatsFromFile();
+        //add the channel to the private channel list, it's connected to the ID number of the drone
+        //Private channel 0 corresponds to Drone ID 0
+        EventManager.AddPrivateChannel(_personalChannelDictionary);
+        ID = _lastUsedId++;
+    }
+
+    public override void Start()
+    {
+        base.Start();
+    }
+
     // Update is called once per frame
-    void Update()
-    {   
+    public override void Update()
+    {
+        base.Update();
         listenToChannels();
     }
-    /// <summary>
-    /// example on use of message listening 
-    /// </summary>
-    void listenToChannels()
-    {
-        //listening on a public channel
-         EventManager.StartListening("Testing Worker Channel", WorkerChannelTest, EventManager.MessageChannel.workerChannel);
-        
-        //Listening on a private channel requires an id number, the Drone's own id should be provided here
-        EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
-    }
-    void WorkerChannelTest()
-    {
-        Debug.Log("Drone " + ID + " received a message in the Worker Channel!");
-    }
-    void PrivateChannelTest()
-    {
-        Debug.Log("Drone " + ID + " received a message in the Private Channel!");
-    }
+
 }

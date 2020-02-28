@@ -157,7 +157,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: bb5d25274a54f5d4bbdf261603ce0528, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7b0b7cd1515c8744e966a4fcb17ed06a, type: 2}
 --- !u!4 &114439816
 Transform:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 524477019}
   - component: {fileID: 524477018}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Event Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +291,6 @@ GameObject:
   - component: {fileID: 767627780}
   - component: {fileID: 767627779}
   - component: {fileID: 767627785}
-  - component: {fileID: 767627786}
   - component: {fileID: 767627783}
   - component: {fileID: 767627784}
   m_Layer: 0
@@ -368,7 +367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767627778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15, y: 1.083, z: -20.41}
+  m_LocalPosition: {x: -34.4, y: 1.083, z: -36.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 468509882}
@@ -387,13 +386,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbb92005043ba649a929da68339a191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _behavior: {fileID: 11400000, guid: 3bbb1a2c0e211f0478f59e6439ff3b8d, type: 2}
+  _behavior: {fileID: 0}
   _behaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
+  enemyInSight: 0
+  LastSighting: {x: 0, y: 0, z: 0}
+  entityPosScript: {fileID: 0}
   Waypoints: []
-  TargetDestination: {fileID: 0}
-  Faction: 0
+  TargetDestination: {fileID: 1632345764}
+  agent: {fileID: 0}
+  MyFaction: 0
 --- !u!114 &767627784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,21 +432,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &767627786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767627778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b36a9426d01824c899f059e3769453, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewRadius: 30
-  playerInSight: 0
-  LastSighting: {x: 0, y: 0, z: 0}
 --- !u!1001 &1418541962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -457,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.55
+      value: 30.2
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -465,7 +453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.74
+      value: 14.52
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -507,6 +495,29 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1418541962}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1418541964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418541963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc66ce455ed88fd409831a8cdb49c35e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _behavior: {fileID: 0}
+  _behaviorTree: {fileID: 0}
+  MyBbbtBehaviourTreeComponent: {fileID: 0}
+  LineOfSight: 30
+  enemyInSight: 0
+  LastSighting: {x: 0, y: 0, z: 0}
+  entityPosScript: {fileID: 0}
+  Waypoints: []
+  TargetDestination: {fileID: 0}
+  agent: {fileID: 0}
+  MyFaction: 1
 --- !u!1 &1484295748
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,8 +616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2e744722e02e64aa8465f2726ed01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerLocaitons:
-  - {fileID: 1418541963}
 --- !u!4 &1586501339
 Transform:
   m_ObjectHideFlags: 0
@@ -782,7 +791,7 @@ GameObject:
   - component: {fileID: 2141485051}
   - component: {fileID: 2141485050}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
