@@ -18,9 +18,9 @@ namespace Bbbt
         public CommandManager CommandManager { get; protected set; }
 
         /// <summary>
-        /// The tab's command history browser.
+        /// The tab's command history.
         /// </summary>
-        public BbbtCommandHistoryBrowser CommandHistoryBrowser { get; protected set; }
+        public BbbtTabCommandHistory CommandHistory { get; protected set; }
 
         /// <summary>
         /// The tab's rect.
@@ -247,7 +247,7 @@ namespace Bbbt
         public void ResetCommands()
         {
             CommandManager = new CommandManager();
-            CommandHistoryBrowser = new BbbtCommandHistoryBrowser(CommandManager);
+            CommandHistory = new BbbtTabCommandHistory(CommandManager);
             CommandManager.Do(new LastResetCommand());
         }
     }

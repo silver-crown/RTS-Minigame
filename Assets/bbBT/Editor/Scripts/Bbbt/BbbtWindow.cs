@@ -253,6 +253,7 @@ namespace Bbbt
             DrawTopBar();
             DrawTabs();
 
+            _sidePanel.ProcessEvents(Event.current);
             _sidePanel.Draw();
             
             // Draw the prompt if there is one and check if it was handled.
