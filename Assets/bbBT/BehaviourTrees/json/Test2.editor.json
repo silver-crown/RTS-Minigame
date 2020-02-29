@@ -1,1 +1,51 @@
-{"Nodes":[{"Id":1,"BaseBehaviour":"Root","BehaviourSaveData":{"SaveDataType":"BbbtRootSaveData","ChildSaveData":{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Hello from Test2!","LogType":3,"NodeId":2},"NodeId":1},"X":147.0,"Y":212.0,"IsSelected":false},{"Id":2,"BaseBehaviour":"Debug Logger","BehaviourSaveData":{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Hello from Test2!","LogType":3,"NodeId":2},"X":183.0,"Y":375.0,"IsSelected":false}],"Connections":[{"InNodeId":2,"OutNodeId":1}],"WindowOffsetX":0.0,"WindowOffsetY":0.0}
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "_message": "Test2 here!",
+          "_logType": 3,
+          "SaveDataType": "BbbtDebugLogBehaviour",
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Debug Logger(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 471.0,
+      "Y": 398.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "Test2 here!",
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 513.0,
+      "Y": 577.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 2,
+      "OutNodeId": 1
+    }
+  ],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}

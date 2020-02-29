@@ -23,9 +23,12 @@ namespace Bbbt
         /// </summary>
         private void Update()
         {
-            if (Time.frameCount % 5 == 0)
+            if (_rootNode != null)
             {
-                _rootNode.Tick(gameObject);
+                if (Time.frameCount % 5 == 0)
+                {
+                    _rootNode.Tick(gameObject);
+                }
             }
         }
 
@@ -38,8 +41,8 @@ namespace Bbbt
             // Build the tree.
             var sourceTree = BbbtBehaviourTree.FindBehaviourTreeWithName(treeName);
             Tree = Instantiate(sourceTree);
-            Tree.LoadSaveData(sourceTree);
             Tree.name = sourceTree.name + " (" + name + ")";
+            Tree.LoadSaveData(sourceTree);
             _rootNode = (Tree.RootBehaviour as BbbtRoot).Child;
         }
     }

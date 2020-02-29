@@ -18,12 +18,16 @@ namespace Bbbt
     /// </summary>
     public class BbbtDroneCanSeeEnemyCheck : BbbtLeafBehaviour
     {
+        public override string SaveDataType { get; } = "BbbtDroneCanSeeEnemyCheck";
+
         private RTS.Actor _actor;
 
+        /*
         public override BbbtBehaviourSaveData ToSaveData()
         {
             throw new System.NotImplementedException();
         }
+        */
 
         protected override void OnInitialize(GameObject gameObject)
         {

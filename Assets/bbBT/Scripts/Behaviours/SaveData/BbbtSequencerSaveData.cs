@@ -28,6 +28,7 @@ namespace Bbbt
             ChildSaveData = childSaveData;
         }
 
+        /*
         /// <summary>
         /// Deserializes the save data.
         /// </summary>
@@ -38,5 +39,6 @@ namespace Bbbt
             behaviour.LoadSaveData(this);
             return behaviour;
         }
+        */
     }
 }

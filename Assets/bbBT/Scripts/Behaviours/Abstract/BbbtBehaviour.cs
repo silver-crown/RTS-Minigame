@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using JsonSubTypes;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -39,8 +41,14 @@ namespace Bbbt
     /// <summary>
     /// A behaviour to be attached to a BbbtNode.
     /// </summary>
+    [JsonConverter(typeof(JsonSubtypes), "SaveDataType")]
     public abstract class BbbtBehaviour : ScriptableObject
     {
+        /// <summary>
+        /// The name of the save data type used for identifying type during serialisation.
+        /// </summary>
+        public abstract string SaveDataType { get; }
+
         /// <summary>
         /// The current status of the behaviour.
         /// </summary>
@@ -98,6 +106,7 @@ namespace Bbbt
         /// <param name="status">The behaviour's status upoin termination.</param>
         protected abstract void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status);
 
+        /*
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
@@ -112,6 +121,7 @@ namespace Bbbt
         {
             NodeId = saveData.NodeId;
         }
+        */
 
         /// <summary>
         /// Adds a child to the node.

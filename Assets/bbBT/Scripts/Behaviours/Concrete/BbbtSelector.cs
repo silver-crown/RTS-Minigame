@@ -8,6 +8,8 @@ namespace Bbbt
     [CreateAssetMenu(fileName = "Selector", menuName =  "bbBT/Behaviour/Composite/Selector", order = 0)]
     public class BbbtSelector : BbbtCompositeBehaviour
     {
+        public override string SaveDataType { get; } = "BbbtSelector";
+
         /// <summary>
         /// BbbtSelector doesn't use any initialisation logic.
         /// </summary>
@@ -47,6 +49,7 @@ namespace Bbbt
             return BbbtBehaviourStatus.Invalid;
         }
 
+        /*
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
@@ -92,5 +95,6 @@ namespace Bbbt
                 Debug.LogError("Save data passed to BbbtSelector was not BbbtSelectorSaveData.");
             }
         }
+        */
     }
 }

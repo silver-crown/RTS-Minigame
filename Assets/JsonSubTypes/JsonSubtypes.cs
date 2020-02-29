@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Bbbt;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UnityEngine;
 #if (NET35 || NET40)
 using TypeInfo = System.Type;
 #else
@@ -33,6 +35,8 @@ namespace JsonSubTypes
     //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     //  SOFTWARE.
+
+    // Note: I changed this to support deserialisation of ScriptableObject. In case anyone was curious. -Benjamin
 
     public class JsonSubtypes : JsonConverter
     {
@@ -73,7 +77,7 @@ namespace JsonSubTypes
             }
         }
 
-        protected readonly string JsonDiscriminatorPropertyName;
+        protected string JsonDiscriminatorPropertyName;
 
         [ThreadStatic] private static bool _isInsideRead;
 
@@ -413,7 +417,16 @@ namespace JsonSubTypes
             _isInsideRead = true;
             try
             {
-                return serializer.Deserialize(_reader, targetType);
+                if (targetType.IsSubclassOf(typeof(ScriptableObject)))
+                {
+                    var behaviour = ScriptableObject.CreateInstance(targetType);
+                    serializer.Populate(_reader, behaviour);
+                    return behaviour;
+                }
+                else
+                {
+                    return serializer.Deserialize(_reader, targetType);
+                }
             }
             finally
             {

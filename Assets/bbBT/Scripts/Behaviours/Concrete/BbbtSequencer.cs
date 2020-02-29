@@ -8,6 +8,8 @@ namespace Bbbt
     [CreateAssetMenu(fileName = "Sequencer", menuName = "bbBT/Behaviour/Composite/Sequencer", order = 0)]
     public class BbbtSequencer : BbbtCompositeBehaviour
     {
+        public override string SaveDataType { get; } = "BbbtSequencer";
+
         /// <summary>
         /// BbbtSequencer does not have an OnInitialize implementation.
         /// </summary>
@@ -48,6 +50,7 @@ namespace Bbbt
             return BbbtBehaviourStatus.Success;
         }
 
+        /*
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
@@ -94,5 +97,6 @@ namespace Bbbt
                 Debug.LogError("Save data passed to BbbtSequencer was not BbbtSequencerSaveData.");
             }
         }
+        */
     }
 }

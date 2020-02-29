@@ -29,6 +29,7 @@ namespace Bbbt
             BehaviourTreeName = behaviourTreeName;
         }
 
+        /*
         /// <summary>
         /// Deserializes the save data.
         /// </summary>
@@ -39,5 +40,6 @@ namespace Bbbt
             behaviour.LoadSaveData(this);
             return behaviour;
         }
+        */
     }
 }

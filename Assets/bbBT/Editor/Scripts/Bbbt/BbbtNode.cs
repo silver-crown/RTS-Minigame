@@ -91,7 +91,7 @@ namespace Bbbt
         /// Sets up a new BbbtNode.
         /// </summary>
         /// <param name="id">The node's id.</param>
-        /// <param name="behaviour">The behaviour to use as a template for the node's exported behaviour.</param>
+        /// <param name="baseBehaviour">The behaviour to use as a template for the node's exported behaviour.</param>
         /// <param name="position">The position of the node.</param>
         /// <param name="width">The width of the node.</param>
         /// <param name="height">The height of the node.</param>
@@ -107,12 +107,12 @@ namespace Bbbt
         /// </param>
         /// <param name="onClickRemoveNode">Action invoked when the node is removed.</param>
         /// <param name="isSelected">Whether the node should start out selected.</param>
-        /// <param name="behaviourSaveData">
+        /*/// <param name="behaviourSaveData">
         /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
-        /// </param>
+        /// </param>*/
         public void Setup(
             int id,
-            BbbtBehaviour behaviour,
+            BbbtBehaviour baseBehaviour,
             Vector2 position,
             float width,
             float height,
@@ -124,20 +124,22 @@ namespace Bbbt
             Action<BbbtConnectionPoint> outPointOnClick,
             Action<BbbtNode> onClickRemoveNode,
             bool isSelected = false,
-            BbbtBehaviourSaveData behaviourSaveData = null)
+            //BbbtBehaviourSaveData behaviourSaveData = null
+            BbbtBehaviour behaviour = null)
         {
             Id = id;
             _style = style;
             _selectedStyle = selectedStyle;
-            BaseBehaviour = behaviour;
+            BaseBehaviour = baseBehaviour;
 
             // Create a copy of the provided behaviour so that we don't write changes to it if we are not playing
             if (!Application.isPlaying)
             {
-                Behaviour = Instantiate(behaviour);
-                if (behaviourSaveData != null)
+                Behaviour = Instantiate(BaseBehaviour);
+                if (/*behaviourSaveData*/behaviour != null)
                 {
-                    Behaviour.LoadSaveData(behaviourSaveData);
+                    Behaviour = behaviour;
+                    //Behaviour.LoadSaveData(behaviourSaveData);
                 }
             }
 
@@ -305,7 +307,7 @@ namespace Bbbt
             return new BbbtNodeSaveData(
                 Id,
                 BaseBehaviour.name,
-                Behaviour.ToSaveData(),
+                Behaviour,//.ToSaveData(),
                 Rect.x,
                 Rect.y,
                 IsSelected

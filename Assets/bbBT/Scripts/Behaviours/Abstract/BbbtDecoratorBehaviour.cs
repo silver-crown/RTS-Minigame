@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -10,7 +11,7 @@ namespace Bbbt
         /// <summary>
         /// The decorator's child behaviour.
         /// </summary>
-        public BbbtBehaviour Child { get; protected set; } = null;
+        [JsonProperty] public BbbtBehaviour Child { get; protected set; } = null;
 
 
         /// <summary>

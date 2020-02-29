@@ -21,10 +21,12 @@ namespace Bbbt
         /// </summary>
         public int NodeId { get; set; }
 
+        /*
         /// <summary>
         /// Deserializes the save data.
         /// </summary>
         /// <returns>The object represented by the save data.</returns>
         public abstract BbbtBehaviour Deserialize();
+        */
     }
 }

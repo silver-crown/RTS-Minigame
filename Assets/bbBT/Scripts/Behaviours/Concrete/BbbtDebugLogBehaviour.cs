@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -8,15 +9,17 @@ namespace Bbbt
     [CreateAssetMenu(fileName = "Debug Logger", menuName = "bbBT/Behaviour/Leaf/Debug Logger", order = 0)]
     public class BbbtDebugLogBehaviour : BbbtLeafBehaviour
     {
+        public override string SaveDataType { get; } = "BbbtDebugLogBehaviour";
+
         /// <summary>
         /// The message to print to log to the Unity console.
         /// </summary>
-        [SerializeField] private string _message = "";
+        [JsonProperty][SerializeField] private string _message = "";
 
         /// <summary>
         /// The type of message to log.
         /// </summary>
-        [SerializeField] private LogType _logType = LogType.Log;
+        [JsonProperty][SerializeField] private LogType _logType = LogType.Log;
 
 
         /// <summary>
@@ -62,6 +65,7 @@ namespace Bbbt
             return BbbtBehaviourStatus.Success;
         }
 
+        /*
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
@@ -89,5 +93,6 @@ namespace Bbbt
                 Debug.LogError("Save data passed to BbbtDebugLogBehaviour was not BbbtDebugLogBehaviourSaveData.");
             }
         }
+        */
     }
 }

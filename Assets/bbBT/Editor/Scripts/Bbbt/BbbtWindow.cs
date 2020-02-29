@@ -381,7 +381,7 @@ namespace Bbbt
         private void CloseTab(BbbtWindowTab tab, bool force = false)
         {
             // Check if the tab has unsaved changes, if so we want to prompt the user to save the contents of the tab.
-            if (tab.IsUnsaved && !force)
+            if (tab.Tree != null && tab.IsUnsaved && !force)
             {
                 _prompt = new BbbtPrompt(
                     tab.Tree.name + " has unsaved changes. Do you want to save the changes before closing the tab?",
@@ -743,15 +743,17 @@ namespace Bbbt
         /// <param name="baseBehaviour">The behaviour attached to the node.</param>
         /// <param name="position">The position of the node.</param>
         /// <param name="isSelected">Whether the node should be selected.</param>
-        /// <param name="behaviourSaveData">
+        /*/// <param name="behaviourSaveData">
         /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
-        /// </param>
+        /// </param>*/
+        /// <param name="behaviour">The behaviour of the node</param>
         public BbbtNode AddNode(
             int id,
             BbbtBehaviour baseBehaviour,
             Vector2 position,
             bool isSelected = false,
-            BbbtBehaviourSaveData behaviourSaveData = null)
+            //BbbtBehaviourSaveData behaviourSaveData = null,
+            BbbtBehaviour behaviour = null)
         {
             var node = CreateInstance<BbbtNode>();
             node.Setup(
@@ -768,7 +770,8 @@ namespace Bbbt
                 OnClickOutPoint,
                 RemoveNode,
                 isSelected,
-                behaviourSaveData
+                //behaviourSaveData,
+                behaviour
             );
 
             CurrentTab.CommandManager.Do(new CreateNodeCommand(this, node));
@@ -1125,7 +1128,8 @@ namespace Bbbt
 
             // Store nodes.
             var nodeSaveData = new BbbtNodeSaveData[tab.Nodes.Count];
-            BbbtRootSaveData rootSaveData = null;
+            //BbbtRootSaveData rootSaveData = null;
+            BbbtRoot root = null;
             var behaviours = new List<BbbtBehaviour>();
             for (int i = 0; i < tab.Nodes.Count; i++)
             {
@@ -1134,7 +1138,8 @@ namespace Bbbt
                 behaviours.Add(tab.Nodes[i].Behaviour);
                 if (tab.Nodes[i].Behaviour as BbbtRoot != null)
                 {
-                    rootSaveData = (BbbtRootSaveData)nodeSaveData[i].BehaviourSaveData;
+                    //rootSaveData = (BbbtRootSaveData)nodeSaveData[i].BehaviourSaveData;
+                    root = (BbbtRoot)nodeSaveData[i].Behaviour;
                 }
             }
 
@@ -1158,7 +1163,7 @@ namespace Bbbt
             SetUnsavedChangesTabTitle(tab, false);
 
             // Save functional save data if the tree is valid.
-            if (rootSaveData != null)
+            if (root != null/*rootSaveData != null*/)
             {
                 bool isValid = true;
                 foreach (var behaviour in behaviours)
@@ -1182,7 +1187,7 @@ namespace Bbbt
 
                 if (isValid)
                 {
-                    var saveData = new BbbtBehaviourTreeSaveData(rootSaveData);
+                    var saveData = new BbbtBehaviourTreeSaveData(root/*rootSaveData*/);
                     tab.Tree.Save(null, saveData);
                 }
             }
@@ -1234,7 +1239,8 @@ namespace Bbbt
                     {
                         // Get the behaviour instance from the save data's string and check if it's valid.
                         var baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
-                        var behaviourSaveData = nodeSaveData.BehaviourSaveData;
+                        //var behaviourSaveData = nodeSaveData.BehaviourSaveData;
+                        var behaviour = nodeSaveData.Behaviour;
 
                         if (baseBehaviour != null)
                         {
@@ -1243,7 +1249,8 @@ namespace Bbbt
                                 baseBehaviour,
                                 new Vector2(nodeSaveData.X, nodeSaveData.Y),
                                 nodeSaveData.IsSelected,
-                                behaviourSaveData
+                                //behaviourSaveData
+                                behaviour
                             );
                             if (CurrentTab.LastNodeID < nodeSaveData.Id)
                             {

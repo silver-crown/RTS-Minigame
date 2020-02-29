@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -11,15 +12,17 @@ namespace Bbbt
         order = 0)]
     public class BbbtBehaviourTreeCallerBehaviour : BbbtLeafBehaviour
     {
+        public override string SaveDataType { get; } = "BbbtBehaviourTreeCallerBehaviour";
+
         /// <summary>
-        /// The the behaviour tree to call.
+        /// The name of the behaviour tree to call.
         /// </summary>
-        [SerializeField] private BbbtBehaviourTree _behaviourTree = null;
+        [JsonProperty][SerializeField] private string _behaviourTreeName = null;
 
         /// <summary>
         /// The the behaviour tree to call.
         /// </summary>
-        public BbbtBehaviourTree BehaviourTree { get => _behaviourTree; }
+        public BbbtBehaviourTree BehaviourTree { get; protected set; }
 
         /// <summary>
         /// The root of the behaviour tree to call. 
@@ -33,9 +36,18 @@ namespace Bbbt
         /// <param name="gameObject">The game object that owns the behaviour.</param>
         protected override void OnInitialize(GameObject gameObject)
         {
-            if (!_behaviourTree.name.EndsWith("(" + gameObject.name + ")"))
+            if (_root == null && _behaviourTreeName != null)
             {
-                _behaviourTree.name = _behaviourTree.name + " (" + gameObject.name + ")";
+                Debug.Log(_behaviourTreeName);
+                var originalTree = BbbtBehaviourTree.FindBehaviourTreeWithName(_behaviourTreeName);
+                BehaviourTree = Instantiate(originalTree);
+                BehaviourTree.LoadSaveData(originalTree);
+                BehaviourTree.name = _behaviourTreeName;
+                _root = (BehaviourTree.RootBehaviour as BbbtRoot).Child;
+                if (Application.isPlaying)
+                {
+                    BehaviourTree.name = BehaviourTree.name + " (" + gameObject.name + ")";
+                }
             }
         }
 
@@ -57,6 +69,7 @@ namespace Bbbt
             return _root.Tick(gameObject);
         }
 
+        /*
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
@@ -109,5 +122,6 @@ namespace Bbbt
                 );
             }
         }
+        */
     }
 }

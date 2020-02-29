@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -9,10 +10,12 @@ namespace Bbbt
     [CreateAssetMenu(fileName = "Root", menuName = "bbBT/Behaviour/Root", order = 0)]
     public class BbbtRoot : BbbtBehaviour
     {
+        public override string SaveDataType { get; } = "BbbtRoot";
+
         /// <summary>
         /// The node that the BbbtRoot points to as the real root of the behaviour tree.
         /// </summary>
-        public BbbtBehaviour Child { get; protected set; }
+        [JsonProperty] public BbbtBehaviour Child { get; protected set; }
 
         /// <summary>
         /// BbbtRoot doesn't have any initialisation logic.
@@ -44,6 +47,7 @@ namespace Bbbt
             throw new System.NotImplementedException();
         }
 
+        /*
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
@@ -73,6 +77,7 @@ namespace Bbbt
                 Debug.LogError("Save data passed to BbbtRoot was not BbbtBehaviourSaveData.");
             }
         }
+        */
 
         /// <summary>
         /// Adds a child to the node.
