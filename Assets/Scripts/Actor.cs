@@ -15,22 +15,48 @@ namespace RTS
     /// </summary>
     public abstract class Actor : MonoBehaviour
     {
-        #region Stats
+        
+        #region Combat
+
+        // 1. Base Stats
+
         /// <summary>
         /// Current Health Points the drone has
         /// </summary>
         public int Health { get; protected set; }
 
-        /// <summary>
-        /// The amount of damge the actor deals.
-        /// </summary>
-        public int Damage { get; protected set; }
+        // 2. Shooting
 
         /// <summary>
         /// How far the Actor can attack
         /// </summary>
         public int AttackRange { get; protected set; }
 
+        /// <summary>
+        /// The muzzle is the end of the gun, from where the projectile will be shot
+        /// </summary>
+        public Transform muzzle;
+
+        /// <summary>
+        /// The amount of damage the projectile deals to the target
+        /// </summary>
+         public float GunDamage { get; protected set; }
+
+        /// <summary>
+        /// How fast the weapon shoots projectiles
+        /// </summary>
+        public int FireRate { get; protected set; }
+
+        /// <summary>
+        /// The entity the script wants to shoot at
+        /// </summary>
+        public GameObject Target;
+
+        /// <summary>
+        /// The prefab of the bullet that will be spawned when the weapon is fired.
+        /// </summary>
+        public GameObject ProjectilePrefab;
+ 
 
         #endregion
 
