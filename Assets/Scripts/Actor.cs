@@ -90,7 +90,8 @@ namespace RTS
         /// <summary>
         /// If we can see an enemy
         /// </summary>
-        public bool enemyInSight = false;
+        [SerializeField]
+        public bool EnemyInSight = false;
 
         /// <summary>
         /// inference, AI difficulty
@@ -101,6 +102,10 @@ namespace RTS
         /// Used for the actor to access locations of other entites.
         /// </summary>
         public EntityLocations entityPosScript;
+
+
+        [SerializeField]
+        public List<GameObject> VisibleEnemies;
 
         #endregion Vision
 

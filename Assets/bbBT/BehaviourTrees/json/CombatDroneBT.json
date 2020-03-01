@@ -10,6 +10,13 @@
           "NodeId": 4,
           "name": "DroneCanSeeEnemy(Clone)",
           "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtDroneAllEnimesInSight",
+          "Status": 0,
+          "NodeId": 5,
+          "name": "DroneAllEnimesInSight(Clone)",
+          "hideFlags": 0
         }
       ],
       "Status": 0,

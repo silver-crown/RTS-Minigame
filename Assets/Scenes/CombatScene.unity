@@ -390,12 +390,13 @@ MonoBehaviour:
   Target: {fileID: 0}
   ProjectilePrefab: {fileID: 0}
   _behavior: {fileID: 0}
-  _behaviorTree: {fileID: 0}
+  BehaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
-  enemyInSight: 0
+  EnemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
   entityPosScript: {fileID: 0}
+  VisibleEnemies: []
   Waypoints: []
   TargetDestination: {fileID: 1632345764}
   agent: {fileID: 0}
@@ -448,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.2
+      value: -18.13
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -456,7 +457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14.52
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 4427613559659150, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -514,12 +515,13 @@ MonoBehaviour:
   Target: {fileID: 0}
   ProjectilePrefab: {fileID: 0}
   _behavior: {fileID: 0}
-  _behaviorTree: {fileID: 0}
+  BehaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
-  enemyInSight: 0
+  EnemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
   entityPosScript: {fileID: 0}
+  VisibleEnemies: []
   Waypoints: []
   TargetDestination: {fileID: 0}
   agent: {fileID: 0}
@@ -721,7 +723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632345764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.94, y: 0.48, z: 8.507051}
+  m_LocalPosition: {x: -37.35, y: 0.48, z: 8.507051}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

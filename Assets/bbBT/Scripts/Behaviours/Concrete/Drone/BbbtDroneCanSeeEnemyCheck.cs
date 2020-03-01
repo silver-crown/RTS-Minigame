@@ -9,7 +9,7 @@ namespace Bbbt
     // Creates the menu option in the unity engine
     [CreateAssetMenu(
         fileName = "DroneCanSeeEnemy",
-        menuName = "bbBT/Behaviour/Leaf/Drone/DronecanSeeEnemy",
+        menuName = "bbBT/Behaviour/Leaf/Drone/DroneCanSeeEnemy",
         order = 0)]
 
     /// <summary>
@@ -58,9 +58,11 @@ namespace Bbbt
 
                     // Let CI know about the spotted player?
 
+                    _actor.EnemyInSight = true;
                     return BbbtBehaviourStatus.Success;
                 }
             }
+            _actor.EnemyInSight = false;
             return BbbtBehaviourStatus.Failure;
         }
     }
