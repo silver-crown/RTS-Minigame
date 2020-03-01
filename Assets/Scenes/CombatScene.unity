@@ -386,7 +386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbb92005043ba649a929da68339a191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _behavior: {fileID: 0}
+  muzzle: {fileID: 0}
+  Target: {fileID: 0}
+  ProjectilePrefab: {fileID: 0}
+  _behavior: {fileID: 11400000, guid: e593f374c732be34dbdcffd66be7a638, type: 2}
   _behaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
@@ -507,6 +510,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc66ce455ed88fd409831a8cdb49c35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  muzzle: {fileID: 0}
+  Target: {fileID: 0}
+  ProjectilePrefab: {fileID: 0}
   _behavior: {fileID: 0}
   _behaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}

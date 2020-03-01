@@ -36,7 +36,7 @@ namespace Bbbt
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         /// <summary>

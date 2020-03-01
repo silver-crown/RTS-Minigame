@@ -1,0 +1,34 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "_message": "A message.",
+          "_logType": 3,
+          "SaveDataType": "BbbtDebugLogBehaviour",
+          "Status": 0,
+          "NodeId": 3,
+          "name": "Debug Logger(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtDroneCanSeeEnemyCheck",
+          "Status": 0,
+          "NodeId": 4,
+          "name": "DroneCanSeeEnemy(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 2,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}
