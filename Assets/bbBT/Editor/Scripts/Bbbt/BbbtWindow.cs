@@ -217,6 +217,7 @@ namespace Bbbt
                 {
                     CloseTab(_tabs[0]);
                 }
+                _sidePanel = new BbbtSidePanel(this);
             }
             // Check if the behaviour tree has disappeared.
             if (CurrentTab != null && CurrentTab.Tree == null)
