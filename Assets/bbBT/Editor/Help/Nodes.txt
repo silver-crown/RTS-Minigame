@@ -1,0 +1,1 @@
+Nodes are the main component of your behaviour tree and contain the behaviours needed to make your behaviour tree do something in-game.

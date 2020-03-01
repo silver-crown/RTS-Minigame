@@ -14,21 +14,21 @@
           "hideFlags": 0
         },
         {
+          "_behaviourTreeName": "Test2",
+          "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+          "BehaviourTree": null,
+          "Status": 0,
+          "NodeId": 7,
+          "name": "Behaviour Tree Caller(Clone)",
+          "hideFlags": 0
+        },
+        {
           "_message": "World!",
           "_logType": 2,
           "SaveDataType": "BbbtDebugLogBehaviour",
           "Status": 0,
           "NodeId": 5,
           "name": "Debug Logger(Clone)",
-          "hideFlags": 0
-        },
-        {
-          "_behaviourTreeName": "lmao",
-          "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-          "BehaviourTree": null,
-          "Status": 0,
-          "NodeId": 7,
-          "name": "Behaviour Tree Caller(Clone)",
           "hideFlags": 0
         }
       ],

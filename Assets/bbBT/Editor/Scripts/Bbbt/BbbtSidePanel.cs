@@ -95,12 +95,15 @@ namespace Bbbt
             _borderStyle.normal.background = borderBackground;
 
             // Populate the panel with content.
-            var commandBrowserIcon = FindTexture("CommandHistoryBrowserIcon");
             _textureToContent = new List<KeyValuePair<Texture2D, BbbtSidePanelContent>>()
             {
                 new KeyValuePair<Texture2D, BbbtSidePanelContent>(
-                    commandBrowserIcon,
+                    FindTexture("CommandHistoryBrowserIcon"),
                     new BbbtCommandHistoryBrowser(window)
+                ),
+                new KeyValuePair<Texture2D, BbbtSidePanelContent>(
+                    FindTexture("Selector"),
+                    new BbbtHelpMenu()
                 )
             };
         }
