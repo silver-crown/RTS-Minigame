@@ -51,12 +51,12 @@ namespace Bbbt
                     // Records last sighting of the player
                     _actor.LastSighting = EntityLocations.MarineLocations[i].transform.position;
 
-
+                    // checks that the detected player is not already inn the list, this is to avoid
+                    // the same enemy beeing added multiple times in the same list.
                     if(!_actor.VisibleEnemies.Contains(EntityLocations.MarineLocations[i]))
                     {
                         _actor.VisibleEnemies.Add(EntityLocations.MarineLocations[i]);
                     }
-                    // Let CI know about the spotted player?
                 }
             }
 

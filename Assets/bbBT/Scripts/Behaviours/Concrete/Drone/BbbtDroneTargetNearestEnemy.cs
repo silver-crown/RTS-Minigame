@@ -20,6 +20,8 @@ namespace Bbbt
         public override string SaveDataType { get; } = "BbbtDroneTargetNearestEnemy";
 
         private GameObject _nearestEnemy;
+        
+
         private RTS.Actor _actor;
 
         protected override void OnInitialize(GameObject gameObject)
@@ -32,8 +34,25 @@ namespace Bbbt
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <returns></returns>
         protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
+            if(_actor.VisibleEnemies.Count == 0)
+            {
+                return BbbtBehaviourStatus.Failure;
+            }
+
+            _nearestEnemy = _actor.VisibleEnemies[0];
+            for (int i = 0; i < _actor.VisibleEnemies.Count; i++)
+            {
+                
+
+            }
+
             // 1. Loop Over List of Visible enemies
 
             throw new System.NotImplementedException();
