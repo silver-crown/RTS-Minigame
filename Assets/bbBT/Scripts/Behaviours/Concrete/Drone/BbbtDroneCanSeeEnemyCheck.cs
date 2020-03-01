@@ -6,11 +6,10 @@ using RTS;
 
 namespace Bbbt
 {
-
     // Creates the menu option in the unity engine
     [CreateAssetMenu(
         fileName = "DroneCanSeeEnemy",
-        menuName = "bbBT/Behaviour/Leaf/DronecanSeeEnemy",
+        menuName = "bbBT/Behaviour/Leaf/Drone/DronecanSeeEnemy",
         order = 0)]
 
     /// <summary>
@@ -43,10 +42,10 @@ namespace Bbbt
         /// Updates the drone behavior
         /// </summary>
         /// <param name="gameObject"></param>
-        /// <returns>Returns SUCCESS for "true" and FAILURE for "false" </returns>
+        /// <returns>Returns SUCCESS if the drone can see an enemy
+        ///              and FAILURE it can not" </returns>
         protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
-
             for (int i = 0; i < EntityLocations.MarineLocations.Count; i++)
             {
                 if (Vector3.Distance(_actor.transform.position, EntityLocations.MarineLocations[i].transform.position) <= _actor.LineOfSight)

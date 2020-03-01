@@ -57,7 +57,6 @@ namespace RTS
         /// </summary>
         public GameObject ProjectilePrefab;
  
-
         #endregion
 
         #region AI
@@ -69,7 +68,7 @@ namespace RTS
         /// <summary>
         /// Old Behavior Tree
         /// </summary>
-        public BehaviorTree _behaviorTree;
+        public BehaviorTree BehaviorTree;
 
         /// <summary>
         /// Add this script to the game object in unity
