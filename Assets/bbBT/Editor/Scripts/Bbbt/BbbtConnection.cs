@@ -79,7 +79,7 @@ namespace Bbbt
                     Handles.RectangleHandleCap
                 );
 
-                if (clicked)
+                if (clicked && Event.current.button != 2)
                 {
                     // Button was clicked.
                     _onClickRemoveConnection?.Invoke(this);

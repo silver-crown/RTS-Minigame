@@ -39,8 +39,8 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 284.0,
-      "Y": 543.0,
+      "X": 431.0,
+      "Y": 449.0,
       "IsSelected": false
     },
     {
@@ -55,8 +55,8 @@
         "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 234.0,
-      "Y": 694.0,
+      "X": 381.0,
+      "Y": 600.0,
       "IsSelected": false
     },
     {
@@ -71,8 +71,8 @@
         "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 375.0,
-      "Y": 680.0,
+      "X": 522.0,
+      "Y": 586.0,
       "IsSelected": false
     },
     {
@@ -121,8 +121,8 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 287.0,
-      "Y": 392.0,
+      "X": 434.0,
+      "Y": 298.0,
       "IsSelected": false
     },
     {
@@ -137,8 +137,8 @@
         "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 571.0,
-      "Y": 674.0,
+      "X": 718.0,
+      "Y": 580.0,
       "IsSelected": true
     }
   ],
@@ -160,6 +160,6 @@
       "OutNodeId": 3
     }
   ],
-  "WindowOffsetX": -61.0,
-  "WindowOffsetY": 11.0
+  "WindowOffsetX": 69.0,
+  "WindowOffsetY": 9.0
 }
