@@ -5,15 +5,6 @@
       "SaveDataType": "BbbtSequencer",
       "Children": [
         {
-          "_message": "A message.",
-          "_logType": 3,
-          "SaveDataType": "BbbtDebugLogBehaviour",
-          "Status": 0,
-          "NodeId": 3,
-          "name": "Debug Logger(Clone)",
-          "hideFlags": 0
-        },
-        {
           "SaveDataType": "BbbtDroneCanSeeEnemyCheck",
           "Status": 0,
           "NodeId": 4,

@@ -389,7 +389,7 @@ MonoBehaviour:
   muzzle: {fileID: 0}
   Target: {fileID: 0}
   ProjectilePrefab: {fileID: 0}
-  _behavior: {fileID: 11400000, guid: e593f374c732be34dbdcffd66be7a638, type: 2}
+  _behavior: {fileID: 0}
   _behaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30

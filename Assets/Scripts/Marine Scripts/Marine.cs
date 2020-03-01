@@ -11,8 +11,8 @@ public class Marine : RTS.Actor
     {
         base.Awake();
 
+        EntityLocations.MarineLocations.Add(this.gameObject);
         MyFaction = Factions.Marine;
-
     }
 
     // Start is called before the first frame update

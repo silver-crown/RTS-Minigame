@@ -46,6 +46,7 @@ namespace Bbbt
         /// <returns>Returns SUCCESS for "true" and FAILURE for "false" </returns>
         protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
+
             for (int i = 0; i < EntityLocations.MarineLocations.Count; i++)
             {
                 if (Vector3.Distance(_actor.transform.position, EntityLocations.MarineLocations[i].transform.position) <= _actor.LineOfSight)
