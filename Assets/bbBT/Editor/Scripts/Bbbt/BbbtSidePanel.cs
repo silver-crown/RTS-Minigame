@@ -221,7 +221,7 @@ namespace Bbbt
         /// <param name="delta">The amount to drag the panel by.</param>
         private void Drag(float delta)
         {
-            SetupRects(Mathf.Clamp(_panelRect.width + delta, 0.0f, _window.position.width));
+            SetupRects(Mathf.Clamp(_panelRect.width + delta, 100.0f, _window.position.width));
         }
 
         /// <summary>
