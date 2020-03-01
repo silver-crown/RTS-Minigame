@@ -11,6 +11,7 @@ namespace Bbbt
     {
         public override void OnInspectorGUI()
         {
+            EditorGUI.BeginChangeCheck();
             base.OnInspectorGUI();
             var node = (BbbtNode)target;
 
@@ -27,6 +28,14 @@ namespace Bbbt
             if (Application.isPlaying)
             {
                 EditorGUILayout.EnumFlagsField(node.Behaviour.Status);
+            }
+
+            // Check if anything changed, if so tell the bbBT editor window that a change occured in the tab
+            // that the node belongs to.
+            if (EditorGUI.EndChangeCheck())
+            {
+                var window = EditorWindow.GetWindow<BbbtWindow>(null, false);
+                window.SetUnsavedChangesTabTitle(node.Tab);
             }
         }
     }

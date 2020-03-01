@@ -32,6 +32,11 @@ namespace Bbbt
         public Rect Rect { get; protected set; }
 
         /// <summary>
+        /// The tab the node belongs to.
+        /// </summary>
+        public BbbtWindowTab Tab { get; protected set; }
+
+        /// <summary>
         /// The rect used to show the icon for the node's type.
         /// </summary>
         private Rect _typeIconRect;
@@ -92,6 +97,7 @@ namespace Bbbt
         /// </summary>
         /// <param name="id">The node's id.</param>
         /// <param name="baseBehaviour">The behaviour to use as a template for the node's exported behaviour.</param>
+        /// <param name="tab">The tab the node belongs to.</param>
         /// <param name="position">The position of the node.</param>
         /// <param name="width">The width of the node.</param>
         /// <param name="height">The height of the node.</param>
@@ -114,6 +120,7 @@ namespace Bbbt
             int id,
             BbbtBehaviour baseBehaviour,
             Vector2 position,
+            BbbtWindowTab tab,
             float width,
             float height,
             GUIStyle style,
@@ -128,6 +135,7 @@ namespace Bbbt
             BbbtBehaviour behaviour = null)
         {
             Id = id;
+            Tab = tab;
             _style = style;
             _selectedStyle = selectedStyle;
             BaseBehaviour = baseBehaviour;

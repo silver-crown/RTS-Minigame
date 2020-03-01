@@ -1,49 +1,6 @@
 {
   "Nodes": [
     {
-      "Id": 3,
-      "BaseBehaviour": "Sequencer",
-      "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "_message": "Hello, ",
-            "_logType": 3,
-            "SaveDataType": "BbbtDebugLogBehaviour",
-            "Status": 0,
-            "NodeId": 4,
-            "name": "Debug Logger(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "_message": "World!",
-            "_logType": 2,
-            "SaveDataType": "BbbtDebugLogBehaviour",
-            "Status": 0,
-            "NodeId": 5,
-            "name": "Debug Logger(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "_behaviourTreeName": "Test2",
-            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-            "BehaviourTree": null,
-            "Status": 0,
-            "NodeId": 7,
-            "name": "Behaviour Tree Caller(Clone)",
-            "hideFlags": 0
-          }
-        ],
-        "Status": 0,
-        "NodeId": 3,
-        "name": "Sequencer(Clone)",
-        "hideFlags": 0
-      },
-      "X": 431.0,
-      "Y": 449.0,
-      "IsSelected": false
-    },
-    {
       "Id": 4,
       "BaseBehaviour": "Debug Logger",
       "Behaviour": {
@@ -55,24 +12,8 @@
         "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 381.0,
-      "Y": 600.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 5,
-      "BaseBehaviour": "Debug Logger",
-      "Behaviour": {
-        "_message": "World!",
-        "_logType": 2,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 522.0,
-      "Y": 586.0,
+      "X": 319.0,
+      "Y": 594.0,
       "IsSelected": false
     },
     {
@@ -102,7 +43,7 @@
               "hideFlags": 0
             },
             {
-              "_behaviourTreeName": "Test2",
+              "_behaviourTreeName": "lmao",
               "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
               "BehaviourTree": null,
               "Status": 0,
@@ -121,15 +62,74 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 434.0,
-      "Y": 298.0,
+      "X": 372.0,
+      "Y": 292.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "World!",
+        "_logType": 2,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 460.0,
+      "Y": 580.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Sequencer",
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "_message": "Hello, ",
+            "_logType": 3,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 4,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_message": "World!",
+            "_logType": 2,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_behaviourTreeName": "lmao",
+            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+            "BehaviourTree": null,
+            "Status": 0,
+            "NodeId": 7,
+            "name": "Behaviour Tree Caller(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 369.0,
+      "Y": 443.0,
       "IsSelected": false
     },
     {
       "Id": 7,
       "BaseBehaviour": "Behaviour Tree Caller",
       "Behaviour": {
-        "_behaviourTreeName": "Test2",
+        "_behaviourTreeName": "lmao",
         "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
         "BehaviourTree": null,
         "Status": 0,
@@ -137,9 +137,9 @@
         "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 718.0,
-      "Y": 580.0,
-      "IsSelected": true
+      "X": 656.0,
+      "Y": 574.0,
+      "IsSelected": false
     }
   ],
   "Connections": [
@@ -160,6 +160,6 @@
       "OutNodeId": 3
     }
   ],
-  "WindowOffsetX": 69.0,
-  "WindowOffsetY": 9.0
+  "WindowOffsetX": 137.0,
+  "WindowOffsetY": -90.0
 }

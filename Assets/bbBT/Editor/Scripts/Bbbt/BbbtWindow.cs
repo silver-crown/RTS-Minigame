@@ -761,6 +761,7 @@ namespace Bbbt
                 id,
                 baseBehaviour,
                 position,
+                CurrentTab,
                 96,
                 96,
                 _nodeStyle,
