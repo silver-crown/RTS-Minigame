@@ -51,6 +51,38 @@
       "IsSelected": false
     },
     {
+      "Id": 4,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "Hello, ",
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 407.0,
+      "Y": 473.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "World!",
+        "_logType": 2,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 795.0,
+      "Y": 469.0,
+      "IsSelected": false
+    },
+    {
       "Id": 3,
       "BaseBehaviour": "Sequencer",
       "Behaviour": {
@@ -89,40 +121,8 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 552.0,
-      "Y": 340.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 4,
-      "BaseBehaviour": "Debug Logger",
-      "Behaviour": {
-        "_message": "Hello, ",
-        "_logType": 3,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 4,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 407.0,
-      "Y": 473.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 5,
-      "BaseBehaviour": "Debug Logger",
-      "Behaviour": {
-        "_message": "World!",
-        "_logType": 2,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 795.0,
-      "Y": 469.0,
+      "X": 547.0,
+      "Y": 344.0,
       "IsSelected": false
     },
     {
@@ -137,8 +137,8 @@
         "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 592.0,
-      "Y": 482.0,
+      "X": 547.0,
+      "Y": 533.0,
       "IsSelected": false
     }
   ],
@@ -148,15 +148,15 @@
       "OutNodeId": 1
     },
     {
-      "InNodeId": 4,
-      "OutNodeId": 3
-    },
-    {
       "InNodeId": 5,
       "OutNodeId": 3
     },
     {
       "InNodeId": 7,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 4,
       "OutNodeId": 3
     }
   ],

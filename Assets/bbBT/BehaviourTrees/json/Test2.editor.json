@@ -1,6 +1,22 @@
 {
   "Nodes": [
     {
+      "Id": 2,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "Test2 here!",
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 450.0,
+      "Y": 596.0,
+      "IsSelected": false
+    },
+    {
       "Id": 1,
       "BaseBehaviour": "Root",
       "Behaviour": {
@@ -19,25 +35,9 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 471.0,
-      "Y": 398.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 2,
-      "BaseBehaviour": "Debug Logger",
-      "Behaviour": {
-        "_message": "Test2 here!",
-        "_logType": 3,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 2,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 513.0,
-      "Y": 577.0,
-      "IsSelected": false
+      "X": 426.0,
+      "Y": 415.0,
+      "IsSelected": true
     }
   ],
   "Connections": [
@@ -46,6 +46,6 @@
       "OutNodeId": 1
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": -63.0,
+  "WindowOffsetY": 19.0
 }

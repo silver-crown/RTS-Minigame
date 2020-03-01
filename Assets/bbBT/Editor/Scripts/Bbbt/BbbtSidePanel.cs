@@ -45,6 +45,11 @@ namespace Bbbt
         private GUIStyle _style;
 
         /// <summary>
+        /// The style of selected buttons.
+        /// </summary>
+        private GUIStyle _selectedButtonStyle;
+
+        /// <summary>
         /// The panel's border style.
         /// </summary>
         private GUIStyle _borderStyle;
@@ -85,6 +90,14 @@ namespace Bbbt
 
             _style = new GUIStyle();
             _style.normal.background = background;
+
+            // Set up the selected button style.
+            var selectedButtonBackground = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            selectedButtonBackground.SetPixel(0, 0, new Color(0.12f, 0.12f, 0.12f, 1.0f));
+            selectedButtonBackground.Apply();
+
+            _selectedButtonStyle = new GUIStyle();
+            _selectedButtonStyle.normal.background = selectedButtonBackground;
 
             // Set up style of the border.
             var borderBackground = new Texture2D(1, 1, TextureFormat.RGBA32, false);
@@ -137,13 +150,37 @@ namespace Bbbt
             {
                 float border = 6.0f;
                 Rect rect = new Rect(
+                    _navigationBarRect.position.x,
+                    i * _navigationBarRect.width,
+                    _navigationBarRect.width,
+                    _navigationBarRect.width
+                );
+                Rect textureRect = new Rect(
                     _navigationBarRect.position.x + border,
                     i * _navigationBarRect.width + border,
                     _navigationBarRect.width - border * 2.0f,
                     _navigationBarRect.width - border * 2.0f
                 );
 
-                if (GUI.Button(rect, _textureToContent[i].Key, _style))
+                // Highlight this button if it's mapped to the selected content
+                if (_selectedContent == _textureToContent[i].Value)
+                {
+                    GUI.Box(rect, "", _selectedButtonStyle);
+                }
+
+                // Draw the texture.
+                GUI.DrawTexture(
+                    textureRect,
+                    _textureToContent[i].Key,
+                    ScaleMode.ScaleToFit,
+                    true,
+                    0.0f,
+                    _selectedContent == _textureToContent[i].Value ? Color.white : Color.white * 0.95f,
+                    0.0f,
+                    0.0f);
+
+                // Create the button and toggle the associated content if pressed.
+                if (GUI.Button(rect, "", GUIStyle.none))
                 {
                     if (_selectedContent != _textureToContent[i].Value)
                     {

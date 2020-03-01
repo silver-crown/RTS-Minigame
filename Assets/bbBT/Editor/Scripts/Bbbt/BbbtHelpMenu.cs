@@ -36,7 +36,6 @@ namespace Bbbt
             _headerStyle.richText = true;
             _headerStyle.normal.textColor = Color.white;
             _headerStyle.fontSize = 14;
-            _headerStyle.wordWrap = true;
 
             _contentStyle = new GUIStyle();
             _contentStyle.richText = true;
