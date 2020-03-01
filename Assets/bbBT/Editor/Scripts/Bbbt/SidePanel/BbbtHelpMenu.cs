@@ -69,13 +69,30 @@ namespace Bbbt
             float usedVerticalSpace = 0.0f;
             foreach (var section in _sections)
             {
+                // Header.
                 var buttonRect = new Rect(x, usedVerticalSpace, width, height);
-                if (GUI.Button(buttonRect, section.Header, _headerStyle))
+                var header = new GUIContent(section.Header);
+
+                // Truncate long text
+                if (_headerStyle.CalcSize(header).x > width)
+                {
+                    header.text += "...";
+                }
+
+                while (_headerStyle.CalcSize(header).x > width)
+                {
+                    // -8: -5 to skip over </b>, then -3 to skip over ...
+                    header.text = header.text.Remove(header.text.Length - 8, 1);
+                }
+
+                // Draw the header.
+                if (GUI.Button(buttonRect, header, _headerStyle))
                 {
                     section.IsActive = !section.IsActive;
                 }
                 usedVerticalSpace += height;
 
+                // Content
                 if (section.IsActive)
                 {
                     float contentHeight = _contentStyle.CalcHeight(new GUIContent(section.Content), width);

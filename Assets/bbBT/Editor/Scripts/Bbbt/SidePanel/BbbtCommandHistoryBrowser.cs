@@ -62,6 +62,7 @@ namespace Bbbt
                 float elementHeight = 20.0f;
                 float x = rect.x + 5.0f;
                 int drawnElements = 0;
+                float width = rect.xMax - x - 5.0f;
 
                 // Display done commands.
                 int commandsToUndo = 0;
@@ -74,6 +75,7 @@ namespace Bbbt
                     {
                         content += " (Last Save)";
                     }
+                    content = Truncate(content, _doneCommandsStyle, width);
                     if (GUI.Button(buttonRect, content, _doneCommandsStyle))
                     {
                         // Undo till this command is the last done command.
@@ -95,6 +97,7 @@ namespace Bbbt
                     {
                         content += " (Last Save)";
                     }
+                    content = Truncate(content, _undoneCommandsStyle, width);
                     if (GUI.Button(buttonRect, content, _undoneCommandsStyle))
                     {
                         // Redo until this command is the last done command.
@@ -105,6 +108,29 @@ namespace Bbbt
                 // Redo commands
                 commandHistory.CommandManager.Redo(commandsToRedo);
             }
+        }
+
+        /// <summary>
+        /// Truncates a string to fit horizontally within a maximum width.
+        /// </summary>
+        /// <param name="value">The string to truncate.</param>
+        /// <param name="style">The style to use for checking the string's width.</param>
+        /// <param name="maxWidth">The maximum width of the string.</param>
+        /// <returns>The truncated string.</returns>
+        private string Truncate(string value, GUIStyle style, float maxWidth)
+        {
+            GUIContent content = new GUIContent(value);
+            if (style.CalcSize(content).x > maxWidth)
+            {
+                content.text += "...";
+            }
+
+            while (style.CalcSize(content).x > maxWidth)
+            {
+                content.text = content.text.Remove(content.text.Length - 4, 1);
+            }
+
+            return content.text;
         }
     }
 }
