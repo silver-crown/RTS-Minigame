@@ -166,9 +166,11 @@ namespace Bbbt
                 Rect.size / 2.0f
             );
 
+            Vector2 labelSize = new GUIStyle("Tooltip").CalcSize(new GUIContent(BaseBehaviour.name));
+
             _labelRect = new Rect(
-                new Vector2(Rect.x + 10.0f, Rect.y + Rect.height - 22.5f),
-                new Vector2(Rect.width - 10.0f * 2.0f, 30.0f)
+                new Vector2(Rect.center.x - labelSize.x / 2.0f, Rect.yMax + 10.0f),
+                labelSize
             );
 
             // Create connectors.
@@ -209,8 +211,16 @@ namespace Bbbt
 
             // Draw the node itself.
             GUIStyle currentStyle = IsSelected ? _selectedStyle : _style;
-            GUI.Box(Rect, "", currentStyle);
+            GUI.Box(Rect, new GUIContent("", BaseBehaviour.name), currentStyle);
             GUI.Box(_typeIconRect, "", _typeIconStyle);
+        }
+
+        /// <summary>
+        /// Draws the node's label undearneath the node.
+        /// </summary>
+        public void DrawLabel()
+        {
+            GUI.Box(_labelRect, BaseBehaviour.name, "Tooltip");
         }
 
         /// <summary>

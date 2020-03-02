@@ -46,24 +46,8 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 516.0,
-      "Y": 284.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 5,
-      "BaseBehaviour": "Debug Logger",
-      "Behaviour": {
-        "_message": "World!",
-        "_logType": 2,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 753.0,
-      "Y": 547.0,
+      "X": 639.0,
+      "Y": 325.0,
       "IsSelected": false
     },
     {
@@ -105,8 +89,24 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 505.0,
-      "Y": 422.0,
+      "X": 637.0,
+      "Y": 471.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "World!",
+        "_logType": 2,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 887.0,
+      "Y": 599.0,
       "IsSelected": false
     },
     {
@@ -121,8 +121,8 @@
         "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 344.0,
-      "Y": 590.0,
+      "X": 478.0,
+      "Y": 642.0,
       "IsSelected": false
     },
     {
@@ -137,9 +137,9 @@
         "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 538.0,
-      "Y": 637.0,
-      "IsSelected": false
+      "X": 672.0,
+      "Y": 689.0,
+      "IsSelected": true
     }
   ],
   "Connections": [
@@ -148,18 +148,18 @@
       "OutNodeId": 1
     },
     {
-      "InNodeId": 5,
-      "OutNodeId": 3
-    },
-    {
       "InNodeId": 7,
       "OutNodeId": 3
     },
     {
       "InNodeId": 4,
       "OutNodeId": 3
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 3
     }
   ],
-  "WindowOffsetX": -62.0,
-  "WindowOffsetY": 35.0
+  "WindowOffsetX": 134.0,
+  "WindowOffsetY": 52.0
 }

@@ -122,6 +122,16 @@ namespace Bbbt
         /// </summary>
         private BbbtSidePanel _sidePanel;
 
+        /// <summary>
+        /// Whether node labels should always be shown.
+        /// </summary>
+        private bool _alwaysShowNodeLabels;
+
+        /// <summary>
+        /// Whether the window should resize with the side panel.
+        /// </summary>
+        private bool _resizeWithSidePanel = false;
+
 
         /// <summary>
         /// Opens a bbBT window.
@@ -200,9 +210,25 @@ namespace Bbbt
             _tabStyle.normal.textColor = Color.white;
             _topBarStyle.border = new RectOffset(0, 0, 0, 0);
 
-            // Instantiate the list of nodes and connections.
+
             _tabs = new List<BbbtWindowTab>();
             _sidePanel = new BbbtSidePanel(this);
+            if (_resizeWithSidePanel)
+            {
+                _sidePanel.OnOpenSidePanel += () =>
+                {
+                    DragWindow(new Vector2(_sidePanel.GetTotalWidth(true) - _sidePanel.GetNavigationBarWidth(), 0.0f));
+                };
+                _sidePanel.OnCloseSidePanel += () =>
+                {
+                    DragWindow(-new Vector2(_sidePanel.GetTotalWidth(true) - _sidePanel.GetNavigationBarWidth(), 0.0f));
+                };
+                _sidePanel.OnResizeSidePanel += (delta) =>
+                {
+                    DragWindow(new Vector2(delta, 0.0f));
+                };
+            }
+            _alwaysShowNodeLabels = false;
         }
 
         /// <summary>
@@ -242,6 +268,7 @@ namespace Bbbt
 
             DrawNodes();
             DrawConnections();
+            if (_alwaysShowNodeLabels) DrawNodeLabels();
 
             // Block input if we have an open prompt.
             if (_prompt == null)
@@ -420,6 +447,17 @@ namespace Bbbt
                 CurrentTab.Nodes.ForEach((node) => node.Draw());
             }
         }
+        
+        /// <summary>
+        /// Draws all node labe.
+        /// </summary>
+        private void DrawNodeLabels()
+        {
+            if (CurrentTab != null && CurrentTab.Nodes != null)
+            {
+                CurrentTab.Nodes.ForEach((node) => node.DrawLabel());
+            }
+        }
 
         /// <summary>
         /// Draws all connections in the behaviour tree.
@@ -537,6 +575,13 @@ namespace Bbbt
                     if (e.control && e.keyCode == KeyCode.Y)
                     {
                         CurrentTab.CommandManager.Redo();
+                        e.Use();
+                    }
+                    // Pressed T (for tooltip).
+                    if (e.keyCode == KeyCode.T)
+                    {
+                        _alwaysShowNodeLabels = !_alwaysShowNodeLabels;
+                        GUI.changed = true;
                         e.Use();
                     }
                     break;

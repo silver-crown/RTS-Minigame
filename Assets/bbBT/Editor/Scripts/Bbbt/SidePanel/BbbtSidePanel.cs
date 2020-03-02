@@ -1,4 +1,5 @@
 ﻿using ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -69,6 +70,21 @@ namespace Bbbt
         /// The currently selected content to display in the panel.
         /// </summary>
         private BbbtSidePanelContent _selectedContent = null;
+
+        /// <summary>
+        /// Invoked when the side panel is opened.
+        /// </summary>
+        public Action OnOpenSidePanel;
+
+        /// <summary>
+        /// Invoked when the side panel is closed.
+        /// </summary>
+        public Action OnCloseSidePanel;
+        
+        /// <summary>
+        /// Invoked when the side panel is resized.
+        /// </summary>
+        public Action<float> OnResizeSidePanel;
 
 
         /// <summary>
@@ -173,11 +189,16 @@ namespace Bbbt
                 {
                     if (_selectedContent != _textureToContent[i].Value)
                     {
+                        if (_selectedContent == null)
+                        {
+                            OnOpenSidePanel?.Invoke();
+                        }
                         _selectedContent = _textureToContent[i].Value;
                     }
                     else
                     {
                         _selectedContent = null;
+                        OnCloseSidePanel?.Invoke();
                     }
                 }
             }
@@ -248,6 +269,7 @@ namespace Bbbt
         private void Drag(float delta)
         {
             SetupRects(Mathf.Clamp(_panelRect.width + delta, 100.0f, _window.position.width));
+            OnResizeSidePanel?.Invoke(delta);
         }
 
         /// <summary>
@@ -291,17 +313,38 @@ namespace Bbbt
         }
 
         /// <summary>
-        /// Returns the total width of the panel including border.
+        /// Returns the total width of the panel and navigation bar including borders.
         /// </summary>
+        /// <param name="includeClosedPanel">
+        /// Whether the width of content panel should be included if it is not open.
+        /// </param>
         /// <returns>The total width of the panel including border</returns>
-        public float GetTotalWidth()
+        public float GetTotalWidth(bool includeClosedPanel = false)
         {
             float width = _navigationBarRect.width + _navigationBarBorderRect.width;
-            if (_selectedContent != null)
+            if (_selectedContent != null || includeClosedPanel)
             {
                 width += _panelRect.width + _panelBorderRect.width;
             }
             return width;
+        }
+
+        /// <summary>
+        /// Returns the total width of the content panel including border.
+        /// </summary>
+        /// <returns>The total width of the content panel including border.</returns>
+        public float GetContentPanelWidth()
+        {
+            return _panelRect.width + _panelBorderRect.width;
+        }
+        
+        /// <summary>
+        /// Returns the total width of the navigation bar including border.
+        /// </summary>
+        /// <returns>The total width of the navigation bar including border.</returns>
+        public float GetNavigationBarWidth()
+        {
+            return _navigationBarRect.width + _navigationBarBorderRect.width;
         }
     }
 }
