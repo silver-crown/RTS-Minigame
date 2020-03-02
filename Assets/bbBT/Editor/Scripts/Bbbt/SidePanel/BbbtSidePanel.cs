@@ -98,7 +98,7 @@ namespace Bbbt
 
             // Set up rects
             _navigationBarRect = new Rect(0, 0, 48, window.position.height);
-            SetupRects(170.0f);
+            SetupRects(250.0f);
 
             // Set up style of the panel.
             var background = new Texture2D(1, 1, TextureFormat.RGBA32, false);
