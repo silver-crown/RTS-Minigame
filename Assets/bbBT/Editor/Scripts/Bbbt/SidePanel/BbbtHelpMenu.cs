@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExtensionMethods;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -25,6 +26,21 @@ namespace Bbbt
         /// </summary>
         private GUIStyle _contentStyle;
 
+        /// <summary>
+        /// The style used for the borders between sections.
+        /// </summary>
+        private GUIStyle _borderStyle;
+
+        ///// <summary>
+        ///// Texture for closed sections (indicating that they can be expanded).
+        ///// </summary>
+        //private Texture2D _downArrow;
+        //
+        ///// <summary>
+        ///// Texture for open sections (indicating that they can be collapsed).
+        ///// </summary>
+        //private Texture2D _upArrow;
+
 
         /// <summary>
         /// Constructs a new BbbtHelpMenu.
@@ -43,6 +59,12 @@ namespace Bbbt
             _contentStyle.fontSize = 12;
             _contentStyle.wordWrap = true;
 
+            var background = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            background.SetPixel(1, 1, new Color(0.13f, 0.13f, 0.13f, 1.0f));
+            background.Apply();
+            _borderStyle = new GUIStyle();
+            _borderStyle.normal.background = background;
+
             // Find the help .txt files and store their content.
             // Find the bbBT/Help folder. I'll hard code the location for now to make sure the system works.
             _sections = new List<BbbtHelpSection>();
@@ -57,8 +79,10 @@ namespace Bbbt
                     _sections.Add(new BbbtHelpSection("<b>" + fileName + "</b>", content));
                 }
             }
+
+            //_downArrow = AssetDatabaseWrapper.FindTexture2D("DownArrow");
+            //_upArrow = AssetDatabaseWrapper.FindTexture2D("UpArrow");
         }
-        
         
         public override void Draw(Rect rect)
         {
@@ -70,8 +94,10 @@ namespace Bbbt
             foreach (var section in _sections)
             {
                 // Header.
+                GUI.Box(new Rect(rect.x, usedVerticalSpace, rect.width, 1.0f), "", _borderStyle);
                 var buttonRect = new Rect(x, usedVerticalSpace, width, height);
                 var header = new GUIContent(section.Header);
+                var arrowRect = new Rect(buttonRect.xMax - 20.0f, usedVerticalSpace, 20.0f, 20.0f);
 
                 // Truncate long text
                 if (_headerStyle.CalcSize(header).x > width)
@@ -91,6 +117,7 @@ namespace Bbbt
                     section.IsActive = !section.IsActive;
                 }
                 usedVerticalSpace += height;
+                GUI.Box(new Rect(rect.x, usedVerticalSpace, rect.width, 1.0f), "", _borderStyle);
 
                 // Content
                 if (section.IsActive)
@@ -98,10 +125,10 @@ namespace Bbbt
                     float contentHeight = _contentStyle.CalcHeight(new GUIContent(section.Content), width);
                     var contentRect = new Rect(x, usedVerticalSpace, width, contentHeight);
                     GUI.Label(contentRect, section.Content, _contentStyle);
-                    usedVerticalSpace += contentHeight;
+                    usedVerticalSpace += contentHeight + 2.0f;
                 }
-                usedVerticalSpace += 2.0f;
             }
+            GUI.Box(new Rect(rect.x, usedVerticalSpace, rect.width, 1.0f), "", _borderStyle);
         }
     }
 }

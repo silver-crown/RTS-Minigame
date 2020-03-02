@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ExtensionMethods;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -111,26 +112,14 @@ namespace Bbbt
             _textureToContent = new List<KeyValuePair<Texture2D, BbbtSidePanelContent>>()
             {
                 new KeyValuePair<Texture2D, BbbtSidePanelContent>(
-                    FindTexture("CommandHistoryBrowserIcon"),
+                    AssetDatabaseWrapper.FindTexture2D("CommandHistoryBrowserIcon"),
                     new BbbtCommandHistoryBrowser(window)
                 ),
                 new KeyValuePair<Texture2D, BbbtSidePanelContent>(
-                    FindTexture("Selector"),
+                    AssetDatabaseWrapper.FindTexture2D("Selector"),
                     new BbbtHelpMenu()
                 )
             };
-        }
-
-        /// <summary>
-        /// Finds a texture in the asset database.
-        /// </summary>
-        /// <param name="query">The search term to use.</param>
-        /// <returns>The texture matching the query.</returns>
-        private Texture2D FindTexture(string query)
-        {
-            var guid = AssetDatabase.FindAssets(query + " t:texture2d")[0];
-            var path = AssetDatabase.GUIDToAssetPath(guid);
-            return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
         }
 
         /// <summary>
