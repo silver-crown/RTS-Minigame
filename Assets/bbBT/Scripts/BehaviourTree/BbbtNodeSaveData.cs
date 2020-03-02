@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -21,7 +23,12 @@ namespace Bbbt
         /// <summary>
         /// The save data of the node's behaviour.
         /// </summary>
-        public BbbtBehaviourSaveData BehaviourSaveData;
+        //public BbbtBehaviourSaveData BehaviourSaveData;
+
+        /// <summary>
+        /// The behaviour attached to the node.
+        /// </summary>
+        public BbbtBehaviour Behaviour;
 
         /// <summary>
         /// The node's X position.
@@ -44,21 +51,24 @@ namespace Bbbt
         /// </summary>
         /// <param name="id">A unique ID used to identify the node.</param>
         /// <param name="baseBehaviour">The name of the node's base behaviour.</param>
-        /// <param name="behaviourSaveData">The save data of the node's behaviour.</param>
+        ///// <param name="behaviourSaveData">The save data of the node's behaviour.</param>
+        /// <param name="behaviour">The behaviour attached to the node.</param>
         /// <param name="x">The node's x position.</param>
         /// <param name="y">The node's y position.</param>
         /// <param name="isSelected">Whether the node is selected.</param>
         public BbbtNodeSaveData(
             int id,
             string baseBehaviour,
-            BbbtBehaviourSaveData behaviourSaveData,
+            //BbbtBehaviourSaveData behaviourSaveData,
+            BbbtBehaviour behaviour,
             float x,
             float y,
             bool isSelected)
         {
             Id = id;
             BaseBehaviour = baseBehaviour;
-            BehaviourSaveData = behaviourSaveData;
+            //BehaviourSaveData = behaviourSaveData;
+            Behaviour = behaviour;
             X = x;
             Y = y;
             IsSelected = isSelected;

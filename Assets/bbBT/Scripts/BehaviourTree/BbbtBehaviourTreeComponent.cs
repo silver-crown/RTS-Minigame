@@ -1,5 +1,4 @@
-﻿using System.Timers;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Bbbt
 {
@@ -9,55 +8,42 @@ namespace Bbbt
     public class BbbtBehaviourTreeComponent : MonoBehaviour
     {
         /// <summary>
-        /// The tree to use as a source for building this tree.
-        /// This is also the tree that will be opened in the editor when debugging.
+        /// The unique tree belonging to this component.
         /// </summary>
-        [SerializeField] private BbbtBehaviourTree _sourceTree = null;
+        [HideInInspector] public BbbtBehaviourTree Tree = null;
 
         /// <summary>
         /// The entry point of the behaviour tree.
         /// </summary>
-        public BbbtBehaviour RootNode { get; set; } = null;
+        private BbbtBehaviour _rootNode = null;
+
 
         /// <summary>
-        /// Timer used to keep the behaviour tree ticking.
+        /// Called every frame.
         /// </summary>
-        private Timer _timer = null;
-
+        private void Update()
+        {
+            if (_rootNode != null)
+            {
+                if (Time.frameCount % 5 == 0)
+                {
+                    _rootNode.Tick(gameObject);
+                }
+            }
+        }
 
         /// <summary>
         /// Awake is called before Start.
         /// </summary>
-        private void Awake()
+        /// <param name="treeName">The name of the tree to use.</param>
+        public void SetBehaviourTree(string treeName)
         {
-            // Start the timer.
-            _timer = new Timer(200);
-            _timer.Elapsed += Tick;
-            _timer.AutoReset = true;
-            _timer.Enabled = true;
-
             // Build the tree.
-            var _tree = Instantiate(_sourceTree);
-            _tree.LoadSaveData(_sourceTree);
-            RootNode = (_tree.RootBehaviour as BbbtRoot).Child;
-        }
-
-        /// <summary>
-        /// Ticks the behaviour tree.
-        /// </summary>
-        private void Tick(object source, ElapsedEventArgs e)
-        {
-            RootNode.Tick();
-        }
-
-        /// <summary>
-        /// Called when the object is destroyed.
-        /// </summary>
-        private void OnDestroy()
-        {
-            // Stop timer upon destroying the tree so it doesn't keep ticking.
-            _timer.Stop();
-            _timer.Dispose();
+            var sourceTree = BbbtBehaviourTree.FindBehaviourTreeWithName(treeName);
+            Tree = Instantiate(sourceTree);
+            Tree.name = sourceTree.name + " (" + name + ")";
+            Tree.LoadSaveData(sourceTree);
+            _rootNode = (Tree.RootBehaviour as BbbtRoot).Child;
         }
     }
 }

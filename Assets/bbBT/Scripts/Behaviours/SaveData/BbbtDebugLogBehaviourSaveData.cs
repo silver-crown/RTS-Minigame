@@ -17,16 +17,26 @@ namespace Bbbt
         /// </summary>
         public string Message { get; protected set; }
 
+        /// <summary>
+        /// The type of message to log.
+        /// </summary>
+        public LogType LogType { get; protected set; }
+
 
         /// <summary>
         /// Constructs a new BbbtDebugLogBehaviourSaveData object.
         /// </summary>
+        /// <param name="nodeId">The id of the node the behaviour belongs to in the editor.</param>
         /// <param name="message">The message to be displayed by the behaviour.</param>
-        public BbbtDebugLogBehaviourSaveData(string message)
+        /// <param name="logType">The type of message to log.</param>
+        public BbbtDebugLogBehaviourSaveData(int nodeId, string message, LogType logType)
         {
+            NodeId = nodeId;
             Message = message;
+            LogType = logType;
         }
 
+        /*
         /// <summary>
         /// Deserializes the save data.
         /// </summary>
@@ -37,5 +47,6 @@ namespace Bbbt
             behaviour.LoadSaveData(this);
             return behaviour;
         }
+        */
     }
 }

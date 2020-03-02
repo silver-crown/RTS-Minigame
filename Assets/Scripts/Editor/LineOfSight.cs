@@ -6,6 +6,8 @@ using UnityEditor;
 /// <summary>
 /// Custom Editor script used to draw the line of sight of the drone.
 /// </summary>
+/// 
+/*
 [CustomEditor(typeof(DroneSight))]
 public class LineOfSight : Editor
 {
@@ -26,4 +28,4 @@ public class LineOfSight : Editor
             );
     }
 
-}
+}*/

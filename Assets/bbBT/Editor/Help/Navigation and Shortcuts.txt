@@ -1,0 +1,11 @@
+<b>Left mouse button</b> - Select nodes
+<b>Middle mouse button</b> - Panning
+<b>Right mouse button</b> - Context menu
+
+<b>Tab</b> - Select next node
+<b>Shift + F</b> - Go to selected node
+<b>Delete</b> - Delete selected node
+<b>T</b> - Toggle node tooltips
+<b>Ctrl + S</b> - Save
+<b>Ctrl + Z</b> - Undo
+<b>Ctrl + Y</b> - Redo

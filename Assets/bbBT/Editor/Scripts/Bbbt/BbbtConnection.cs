@@ -47,30 +47,43 @@ namespace Bbbt
         /// </summary>
         public void Draw()
         {
+            // Colour the connection based  on the status of its inpoint node behaviour.
+            var color = Color.white;
+            switch (InPoint.Node.Behaviour.Status)
+            {
+                case BbbtBehaviourStatus.Running:
+                case BbbtBehaviourStatus.Success:
+                    color = Color.green;
+                    break;
+            }
+
             // Draw the connection
             Handles.DrawBezier(
                 InPoint.Rect.center,
                 OutPoint.Rect.center,
                 InPoint.Rect.center - Vector2.up * 50f,
                 OutPoint.Rect.center + Vector2.up * 50f,
-                Color.white,
+                color,
                 null,
                 2f
             );
 
-            // Draw the button to remove the connection.
-            bool clicked = Handles.Button(
-                (InPoint.Rect.center + OutPoint.Rect.center) * 0.5f,
-                Quaternion.identity,
-                4,
-                8,
-                Handles.RectangleHandleCap
-            );
-
-            if (clicked)
+            if (!Application.isPlaying)
             {
-                // Button was clicked.
-                _onClickRemoveConnection?.Invoke(this);
+                // Draw the button to remove the connection.
+                bool clicked = Handles.Button(
+                    (InPoint.Rect.center + OutPoint.Rect.center) * 0.5f,
+                    Quaternion.identity,
+                    4,
+                    8,
+                    Handles.RectangleHandleCap
+                );
+
+                if (clicked && Event.current.button != 2)
+                {
+                    // Button was clicked.
+                    _onClickRemoveConnection?.Invoke(this);
+                }
             }
         }
 

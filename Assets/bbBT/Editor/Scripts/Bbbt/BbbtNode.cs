@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bbbt.Commands;
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -23,12 +24,17 @@ namespace Bbbt
         /// <summary>
         /// The behaviour instance specific to this node.
         /// </summary>
-        public BbbtBehaviour Behaviour { get; protected set; }
+        public BbbtBehaviour Behaviour { get; set; }
 
         /// <summary>
         /// The node's rect.
         /// </summary>
-        private Rect _rect;
+        public Rect Rect { get; protected set; }
+
+        /// <summary>
+        /// The tab the node belongs to.
+        /// </summary>
+        public BbbtWindowTab Tab { get; protected set; }
 
         /// <summary>
         /// The rect used to show the icon for the node's type.
@@ -71,36 +77,27 @@ namespace Bbbt
         private bool _isDragged = false;
 
         /// <summary>
+        /// The position on which we started dragging the node.
+        /// </summary>
+        private Vector2 _dragStartPosition;
+
+        /// <summary>
         /// Whether the node is currently selected.
         /// </summary>
-        public bool IsSelected { get; protected set; } = false;
+        public bool IsSelected { get; set; } = false;
 
         /// <summary>
         /// Action invoked when the node is removed.
         /// </summary>
         private Action<BbbtNode> _onClickRemoveNode;
 
-        /// <summary>
-        /// The label attached to the node's rect indicating the attached action.
-        /// </summary>
-        private string _actionLabel;
-
-        /// <summary>
-        /// The time the last time this node was clicked.
-        /// </summary>
-        private double _lastClickTime = 0.0f;
-
-        /// <summary>
-        /// The max time between two clicks that can produce a double click.
-        /// </summary>
-        private double _doubleClickMaxTime = 0.3f;
-
 
         /// <summary>
         /// Sets up a new BbbtNode.
         /// </summary>
         /// <param name="id">The node's id.</param>
-        /// <param name="behaviour">The behaviour to use as a template for the node's exported behaviour.</param>
+        /// <param name="baseBehaviour">The behaviour to use as a template for the node's exported behaviour.</param>
+        /// <param name="tab">The tab the node belongs to.</param>
         /// <param name="position">The position of the node.</param>
         /// <param name="width">The width of the node.</param>
         /// <param name="height">The height of the node.</param>
@@ -116,13 +113,14 @@ namespace Bbbt
         /// </param>
         /// <param name="onClickRemoveNode">Action invoked when the node is removed.</param>
         /// <param name="isSelected">Whether the node should start out selected.</param>
-        /// <param name="behaviourSaveData">
+        /*/// <param name="behaviourSaveData">
         /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
-        /// </param>
+        /// </param>*/
         public void Setup(
             int id,
-            BbbtBehaviour behaviour,
+            BbbtBehaviour baseBehaviour,
             Vector2 position,
+            BbbtWindowTab tab,
             float width,
             float height,
             GUIStyle style,
@@ -133,21 +131,27 @@ namespace Bbbt
             Action<BbbtConnectionPoint> outPointOnClick,
             Action<BbbtNode> onClickRemoveNode,
             bool isSelected = false,
-            BbbtBehaviourSaveData behaviourSaveData = null)
+            //BbbtBehaviourSaveData behaviourSaveData = null
+            BbbtBehaviour behaviour = null)
         {
             Id = id;
+            Tab = tab;
             _style = style;
             _selectedStyle = selectedStyle;
-            BaseBehaviour = behaviour;
+            BaseBehaviour = baseBehaviour;
 
-            // Create a copy of the provided behaviour so that we don't write changes to it.
-            Behaviour = Instantiate(behaviour);
-            if (behaviourSaveData != null)
+            // Create a copy of the provided behaviour so that we don't write changes to it if we are not playing
+            if (!Application.isPlaying)
             {
-                Behaviour.LoadSaveData(behaviourSaveData);
+                Behaviour = Instantiate(BaseBehaviour);
+                if (/*behaviourSaveData*/behaviour != null)
+                {
+                    Behaviour = behaviour;
+                    //Behaviour.LoadSaveData(behaviourSaveData);
+                }
             }
 
-            _rect = new Rect(position.x, position.y, width, height);
+            Rect = new Rect(position.x, position.y, width, height);
 
 
             // Set up the node type icon
@@ -158,13 +162,15 @@ namespace Bbbt
 
             // Create the rects, make them some reasonable size.
             _typeIconRect = new Rect(
-                _rect.position + _rect.size / 4.0f,
-                _rect.size / 2.0f
+                Rect.position + Rect.size / 4.0f,
+                Rect.size / 2.0f
             );
 
+            Vector2 labelSize = new GUIStyle("Tooltip").CalcSize(new GUIContent(BaseBehaviour.name));
+
             _labelRect = new Rect(
-                new Vector2(_rect.x + 10.0f, _rect.y + _rect.height - 22.5f),
-                new Vector2(_rect.width - 10.0f * 2.0f, 30.0f)
+                new Vector2(Rect.center.x - labelSize.x / 2.0f, Rect.yMax + 10.0f),
+                labelSize
             );
 
             // Create connectors.
@@ -189,7 +195,7 @@ namespace Bbbt
         /// <param name="delta">The amount by which to drag the node.</param>
         public void Drag(Vector2 delta)
         {
-            _rect.position += delta;
+            Rect = new Rect(Rect.position + delta, Rect.size);
             _typeIconRect.position += delta;
             _labelRect.position += delta;
         }
@@ -200,13 +206,21 @@ namespace Bbbt
         public void Draw()
         {
             // Draw connection points.
-            InPoint?.Draw(_rect);
-            OutPoint?.Draw(_rect);
+            InPoint?.Draw(Rect);
+            OutPoint?.Draw(Rect);
 
             // Draw the node itself.
             GUIStyle currentStyle = IsSelected ? _selectedStyle : _style;
-            GUI.Box(_rect, "", currentStyle);
+            GUI.Box(Rect, new GUIContent("", BaseBehaviour.name), currentStyle);
             GUI.Box(_typeIconRect, "", _typeIconStyle);
+        }
+
+        /// <summary>
+        /// Draws the node's label undearneath the node.
+        /// </summary>
+        public void DrawLabel()
+        {
+            GUI.Box(_labelRect, BaseBehaviour.name, "Tooltip");
         }
 
         /// <summary>
@@ -214,7 +228,7 @@ namespace Bbbt
         /// </summary>
         /// <param name="e">The events to be processed.</param>
         /// <returns>Returns true if the GUI should change, false otherwise.</returns>
-        public bool ProcessEvents(Event e)
+        public bool ProcessEvents(BbbtWindow window, Event e)
         {
             switch (e.type)
             {
@@ -224,34 +238,16 @@ namespace Bbbt
                     if (e.button == 0)
                     {
                         // Are we clicking inside the rect?
-                        if (_rect.Contains(e.mousePosition))
+                        if (Rect.Contains(e.mousePosition))
                         {
                             // Clicked inside the rect, start dragging and highlight the node.
-                            _isDragged = true;
+                            if (!Application.isPlaying)
+                            {
+                                _isDragged = true;
+                                _dragStartPosition = Rect.position;
+                            }
                             IsSelected = true;
 
-                            // Check if we double clicked the node (only leaf nodes for now).
-                            /*
-                            if (Type == BbbtNodeType.Leaf &&
-                                EditorApplication.timeSinceStartup - _lastClickTime < _doubleClickMaxTime)
-                            {
-                                // Go to the behaviour tree attached to the node if any.
-                                if (_actionLabel != "")
-                                {
-                                    // Find and load the behaviour tree with the name of the associated action label.
-                                    var guid = AssetDatabase.FindAssets(_actionLabel + " t:BbbtBehaviourTree")[0];
-                                    var path = AssetDatabase.GUIDToAssetPath(guid);
-                                    var asset = AssetDatabase.LoadAssetAtPath(path, typeof(BbbtBehaviourTree));
-                                    var window = EditorWindow.GetWindow<BbbtWindow>();
-                                    window.TreeToLoad = (BbbtBehaviourTree)asset;
-                                    //AssetDatabase.OpenAsset(asset.GetInstanceID());
-                                    _isDragged = false;
-                                    return false;
-                                }
-                            }
-                            */
-
-                            _lastClickTime = EditorApplication.timeSinceStartup;
                             return true;
                         }
                         else if (IsSelected)
@@ -262,15 +258,26 @@ namespace Bbbt
                         }
                     }
 
-                    if (e.button == 1 && IsSelected && _rect.Contains(e.mousePosition))
+                    if (e.button == 1 && IsSelected && Rect.Contains(e.mousePosition))
                     {
-                        CreateContextMenu();
-                        e.Use();
+                        if (!Application.isPlaying)
+                        {
+                            CreateContextMenu();
+                            e.Use();
+                        }
                     }
                     break;
 
                 // Mouse button released.
                 case EventType.MouseUp:
+                    if (_isDragged && Rect.position != _dragStartPosition)
+                    {
+                        var position = Rect.position;
+                        window.CurrentTab.CommandManager.Do(
+                            new MoveNodeCommand(window, this, position - _dragStartPosition)
+                        );
+                        Drag(_dragStartPosition - position);
+                    }
                     _isDragged = false;
                     break;
 
@@ -318,9 +325,9 @@ namespace Bbbt
             return new BbbtNodeSaveData(
                 Id,
                 BaseBehaviour.name,
-                Behaviour.ToSaveData(),
-                _rect.x,
-                _rect.y,
+                Behaviour,//.ToSaveData(),
+                Rect.x,
+                Rect.y,
                 IsSelected
             );
         }

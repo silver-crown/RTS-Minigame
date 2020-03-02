@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bbbt.Commands;
+using Commands;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -32,7 +34,7 @@ namespace Bbbt
         /// <summary>
         /// The currently selected tab.
         /// </summary>
-        private BbbtWindowTab _currentTab = null;
+        public BbbtWindowTab CurrentTab { get; protected set; } = null;
 
         /// <summary>
         /// The currently open prompt if any.
@@ -110,6 +112,26 @@ namespace Bbbt
         /// </summary>
         private Rect _topBarRect;
 
+        /// <summary>
+        /// Application.isPlaying last time we checked.
+        /// </summary>
+        private bool _lastIsPlaying;
+
+        /// <summary>
+        /// The window's side panel.
+        /// </summary>
+        private BbbtSidePanel _sidePanel;
+
+        /// <summary>
+        /// Whether node labels should always be shown.
+        /// </summary>
+        private bool _alwaysShowNodeLabels;
+
+        /// <summary>
+        /// Whether the window should resize with the side panel.
+        /// </summary>
+        private bool _resizeWithSidePanel = false;
+
 
         /// <summary>
         /// Opens a bbBT window.
@@ -127,6 +149,9 @@ namespace Bbbt
         /// </summary>
         private void OnEnable()
         {
+            var window = GetWindow<BbbtWindow>();
+            window.titleContent = new GUIContent("bbBT");
+
             // Set up the style of the behaviour tree nodes.
             _nodeStyle = new GUIStyle();
             _nodeStyle.normal.background = EditorGUIUtility.Load(
@@ -185,8 +210,25 @@ namespace Bbbt
             _tabStyle.normal.textColor = Color.white;
             _topBarStyle.border = new RectOffset(0, 0, 0, 0);
 
-            // Instantiate the list of nodes and connections.
+
             _tabs = new List<BbbtWindowTab>();
+            _sidePanel = new BbbtSidePanel(this);
+            if (_resizeWithSidePanel)
+            {
+                _sidePanel.OnOpenSidePanel += () =>
+                {
+                    DragWindow(new Vector2(_sidePanel.GetTotalWidth(true) - _sidePanel.GetNavigationBarWidth(), 0.0f));
+                };
+                _sidePanel.OnCloseSidePanel += () =>
+                {
+                    DragWindow(-new Vector2(_sidePanel.GetTotalWidth(true) - _sidePanel.GetNavigationBarWidth(), 0.0f));
+                };
+                _sidePanel.OnResizeSidePanel += (delta) =>
+                {
+                    DragWindow(new Vector2(delta, 0.0f));
+                };
+            }
+            _alwaysShowNodeLabels = false;
         }
 
         /// <summary>
@@ -194,6 +236,21 @@ namespace Bbbt
         /// </summary>
         private void OnGUI()
         {
+            // Close all tabs if we leave/enter play mode
+            if (_lastIsPlaying != Application.isPlaying)
+            {
+                while (_tabs != null && _tabs.Count > 0)
+                {
+                    CloseTab(_tabs[0]);
+                }
+                _sidePanel = new BbbtSidePanel(this);
+            }
+            // Check if the behaviour tree has disappeared.
+            if (CurrentTab != null && CurrentTab.Tree == null)
+            {
+                CloseTab(CurrentTab);
+            }
+
             // Check if we need to open a node editor.
             if (_nodeToOpenInInspector != null && Selection.activeObject as BbbtNode != _nodeToOpenInInspector)
             {
@@ -211,6 +268,7 @@ namespace Bbbt
 
             DrawNodes();
             DrawConnections();
+            if (_alwaysShowNodeLabels) DrawNodeLabels();
 
             // Block input if we have an open prompt.
             if (_prompt == null)
@@ -223,6 +281,8 @@ namespace Bbbt
             DrawTopBar();
             DrawTabs();
 
+            _sidePanel.ProcessEvents(Event.current);
+            _sidePanel.Draw();
             
             // Draw the prompt if there is one and check if it was handled.
             if (_prompt != null && _prompt.Draw())
@@ -246,6 +306,8 @@ namespace Bbbt
                 CloseTab(TabToRemove);
                 TabToRemove = null;
             }
+
+            _lastIsPlaying = Application.isPlaying;
         }
 
         /// <summary>
@@ -315,7 +377,8 @@ namespace Bbbt
         private void DrawTopBar()
         {
 
-            _topBarRect.width = position.width;
+            _topBarRect.x = _sidePanel.GetTotalWidth();
+            _topBarRect.width = position.width - _topBarRect.x;
             GUI.Box(_topBarRect, "", _topBarStyle);
         }
 
@@ -326,14 +389,14 @@ namespace Bbbt
         {
             for (int i = 0; i < _tabs.Count; i++)
             {
-                if (_tabs[i] == _currentTab)
+                if (_tabs[i] == CurrentTab)
                 {
                     // Highlight current tab
-                    _tabs[i].Draw(_tabs, true);
+                    _tabs[i].Draw(_topBarRect, _tabs, true);
                 }
                 else
                 {
-                    _tabs[i].Draw(_tabs, false);
+                    _tabs[i].Draw(_topBarRect, _tabs, false);
                 }
             }
         }
@@ -346,7 +409,7 @@ namespace Bbbt
         private void CloseTab(BbbtWindowTab tab, bool force = false)
         {
             // Check if the tab has unsaved changes, if so we want to prompt the user to save the contents of the tab.
-            if (tab.IsUnsaved && !force)
+            if (tab.Tree != null && tab.IsUnsaved && !force)
             {
                 _prompt = new BbbtPrompt(
                     tab.Tree.name + " has unsaved changes. Do you want to save the changes before closing the tab?",
@@ -365,11 +428,11 @@ namespace Bbbt
                 _tabs.Remove(tab);
                 if (_tabs.Count == 0)
                 {
-                    _currentTab = null;
+                    CurrentTab = null;
                 }
-                else if (tab == _currentTab)
+                else if (tab == CurrentTab)
                 {
-                    _currentTab = _tabs[Mathf.Clamp(index, 0, _tabs.Count - 1)];
+                    CurrentTab = _tabs[Mathf.Clamp(index, 0, _tabs.Count - 1)];
                 }
             }
         }
@@ -379,9 +442,20 @@ namespace Bbbt
         /// </summary>
         private void DrawNodes()
         {
-            if (_currentTab != null && _currentTab.Nodes != null)
+            if (CurrentTab != null && CurrentTab.Nodes != null)
             {
-                _currentTab.Nodes.ForEach((node) => node.Draw());
+                CurrentTab.Nodes.ForEach((node) => node.Draw());
+            }
+        }
+        
+        /// <summary>
+        /// Draws all node labe.
+        /// </summary>
+        private void DrawNodeLabels()
+        {
+            if (CurrentTab != null && CurrentTab.Nodes != null)
+            {
+                CurrentTab.Nodes.ForEach((node) => node.DrawLabel());
             }
         }
 
@@ -390,12 +464,12 @@ namespace Bbbt
         /// </summary>
         private void DrawConnections()
         {
-            if (_currentTab != null)
+            if (CurrentTab != null)
             {
                 // We use a regular for loop in case a connection gets removed.
-                for (int i = 0; i < _currentTab.Connections.Count; i++)
+                for (int i = 0; i < CurrentTab.Connections.Count; i++)
                 {
-                    _currentTab.Connections[i].Draw();
+                    CurrentTab.Connections[i].Draw();
                 }
             }
 
@@ -409,7 +483,7 @@ namespace Bbbt
         private void ProcessEvents(Event e)
         {
             // Don't let the user do anything without a loaded tab/tree.
-            if (_currentTab == null) return;
+            if (CurrentTab == null) return;
 
             _drag = Vector3.zero;
             BbbtBehaviour draggedBehavior = null;
@@ -427,7 +501,10 @@ namespace Bbbt
                     // RMB pressed.
                     if (e.button == 1)
                     {
-                        CreateContextMenu(e.mousePosition);
+                        if (!Application.isPlaying)
+                        {
+                            CreateContextMenu(e.mousePosition);
+                        }
                     }
                     break;
                 // Mouse moved.
@@ -436,11 +513,7 @@ namespace Bbbt
                     if (e.button == 2)
                     {
                         // Drag the entire window.
-                        _drag = e.delta;
-                        _currentTab.WindowOffset += _drag;
-                        _currentTab.Nodes?.ForEach((node) => { node.Drag(e.delta); });
-                        GUI.changed = true;
-                        SetUnsavedChangesTabTitle(_currentTab);
+                        DragWindow(e.delta);
                     }
                     break;
                 // Started pressing a key.
@@ -448,48 +521,112 @@ namespace Bbbt
                     // Pressed Ctrl-S down.
                     if (e.control && e.keyCode == KeyCode.S)
                     {
-                        SaveTree();
+                        if (!Application.isPlaying)
+                        {
+                            SaveTree();
+                        }
+                        e.Use();
                     }
-                    // Pressed the delete key
+                    // Pressed the delete key.
                     if (e.keyCode == KeyCode.Delete)
                     {
-                        // Delete the selected node if there is one.
+                        if (!Application.isPlaying)
+                        {
+                            // Delete the selected node if there is one.
+                            var selectedNode = FindSelectedNode();
+                            if (selectedNode != null)
+                            {
+                                RemoveNode(selectedNode);
+                                GUI.changed = true;
+                            }
+                        }
+                        e.Use();
+                    }
+                    // Pressed tab (select next node).
+                    if (e.keyCode == KeyCode.Tab)
+                    {
+                        if (CurrentTab.Nodes != null && CurrentTab.Nodes.Count > 0)
+                        {
+                            SelectNode(CurrentTab.Nodes[0]);
+                        }
+                        e.Use();
+                    }
+                    // Pressed shift-f (focus on selected node).
+                    if (e.shift && e.keyCode == KeyCode.F)
+                    {
                         var selectedNode = FindSelectedNode();
                         if (selectedNode != null)
                         {
-                            RemoveNode(selectedNode);
-                            GUI.changed = true;
+                            // Find the centre of the node
+                            var nodeCenter = selectedNode.Rect.position + selectedNode.Rect.size / 2.0f;
+
+                            // Move the window by the distance between the node centre and window centre.
+                            DragWindow(position.size / 2.0f - nodeCenter);
                         }
+                        e.Use();
                     }
-                    // Pressed 0
-                    if (e.keyCode == KeyCode.Alpha0)
+                    // Pressed ctrl-z (undo).
+                    if (e.control && e.keyCode == KeyCode.Z)
                     {
-                        _gridOffset = Vector3.zero;
+                        CurrentTab.CommandManager.Undo();
+                        e.Use();
+                    }
+                    // Pressed ctrl-y (redo).
+                    if (e.control && e.keyCode == KeyCode.Y)
+                    {
+                        CurrentTab.CommandManager.Redo();
+                        e.Use();
+                    }
+                    // Pressed T (for tooltip).
+                    if (e.keyCode == KeyCode.T)
+                    {
+                        _alwaysShowNodeLabels = !_alwaysShowNodeLabels;
+                        GUI.changed = true;
+                        e.Use();
                     }
                     break;
                 // Something dragged into the editor window.
                 case EventType.DragUpdated:
-                    // Check if we're dragging a valid object into the editor
-                    // and update visuals to reflect the fact that it's valid if it is.
-                    draggedBehavior = DragAndDrop.objectReferences[0] as BbbtBehaviour;
-
-                    if (draggedBehavior != null)
+                    if (!Application.isPlaying)
                     {
-                        DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                        // Check if we're dragging a valid object into the editor
+                        // and update visuals to reflect the fact that it's valid if it is.
+                        draggedBehavior = DragAndDrop.objectReferences[0] as BbbtBehaviour;
+
+                        if (draggedBehavior != null)
+                        {
+                            DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                        }
                     }
                     break;
                 // We stopped dragging whatever we were dragging.
                 case EventType.DragExited:
-                    // Check if we dragged a valid object into the editor
-                    draggedBehavior = DragAndDrop.objectReferences[0] as BbbtBehaviour;
-
-                    if (draggedBehavior != null)
+                    if (!Application.isPlaying)
                     {
-                        // A behaviour was dropped into the editor, instantiate a node with the behaviour attached.
-                        AddNode(++_currentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
+                        // Check if we dragged a valid object into the editor
+                        draggedBehavior = DragAndDrop.objectReferences[0] as BbbtBehaviour;
+
+                        if (draggedBehavior != null)
+                        {
+                            // A behaviour was dropped into the editor, instantiate a node with the behaviour attached.
+                            var node = AddNode(++CurrentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
+                            SelectNode(node);
+                        }
                     }
                     break;
             }
+        }
+
+        /// <summary>
+        /// Drags the entire window.
+        /// </summary>
+        /// <param name="delta">The amound by which to drag the window.</param>
+        private void DragWindow(Vector2 delta)
+        {
+            _drag = delta;
+            CurrentTab.WindowOffset += _drag;
+            CurrentTab.Nodes?.ForEach((node) => { node.Drag(delta); });
+            GUI.changed = true;
         }
 
         /// <summary>
@@ -498,54 +635,80 @@ namespace Bbbt
         /// <param name="e">The events to be handled.</param>
         private void ProcessNodeEvents(Event e)
         {
-            if (_currentTab == null) return;
+            if (CurrentTab == null) return;
 
             // The node that was used in some way during the processing of node events.
             BbbtNode usedNode = null;
 
             // Iterate in the reverse of our draw order because we want to give nodes in the foreground priority.
-            for (int i = _currentTab.Nodes.Count - 1; i >= 0; i--)
+            for (int i = CurrentTab.Nodes.Count - 1; i >= 0; i--)
             {
-                if (_currentTab.Nodes[i].ProcessEvents(e))
+                if (CurrentTab.Nodes[i].ProcessEvents(this, e))
                 {
                     // This node either moved or was clicked on.
                     GUI.changed = true;
-                    usedNode = _currentTab.Nodes[i];
+                    usedNode = CurrentTab.Nodes[i];
                 }
             }
 
             // Check if usedNode isn't null, i.e. a node was interacted with.
             if (usedNode != null)
             {
-                // Put the node that was interacted with on top.
-                _currentTab.Nodes.Remove(usedNode);
-                _currentTab.Nodes.Add(usedNode);
-
-                // Select the node.
-                _nodeToOpenInInspector = usedNode;
-
-                SetUnsavedChangesTabTitle(_currentTab);
+                if (usedNode.IsSelected)
+                {
+                    SelectNode(usedNode);
+                }
+                else
+                {
+                    // Put the node on top.
+                    CurrentTab.Nodes.Remove(usedNode);
+                    CurrentTab.Nodes.Add(usedNode);
+                }
             }
         }
 
         /// <summary>
-        /// Processes node events.
+        /// Processes tab events.
         /// </summary>
         /// <param name="e">The events to be handled.</param>
         private void ProcessTabEvents(Event e)
         {
-            if (_currentTab == null) return;
+            if (CurrentTab == null) return;
 
             for (int i = 0; i < _tabs.Count; i++)
             {
                 if (_tabs[i].ProcessEvents(e))
                 {
                     // This tab either moved or was clicked on. Select the tab.
-                    _currentTab = _tabs[i];
+                    CurrentTab = _tabs[i];
                     GUI.changed = true;
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Selects a node.
+        /// </summary>
+        /// <param name="node">The node to select.</param>
+        private void SelectNode(BbbtNode node)
+        {
+            // Deselect the selected node.
+            var selectedNode = FindSelectedNode();
+            if (selectedNode != null)
+            {
+                selectedNode.IsSelected = false;
+            }
+
+            // Select the node and open in inspector.
+            node.IsSelected = true;
+            _nodeToOpenInInspector = node;
+
+            // Put the node on top.
+            CurrentTab.Nodes.Remove(node);
+            CurrentTab.Nodes.Add(node);
+
+            SetUnsavedChangesTabTitle(CurrentTab);
         }
 
         /// <summary>
@@ -554,15 +717,69 @@ namespace Bbbt
         /// <param name="position">The positioni of the context menu.</param>
         private void CreateContextMenu(Vector2 position)
         {
-            /*
+            // Show an entry for all types of behaviours.
             var menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Add Root"), false, () => AddNode(BbbtNodeType.Root, position));
-            menu.AddItem(new GUIContent("Add Selector"), false, () => AddNode(BbbtNodeType.Selector, position));
-            menu.AddItem(new GUIContent("Add Sequence"), false, () => AddNode(BbbtNodeType.Sequence, position));
-            menu.AddItem(new GUIContent("Add Repeater"), false, () => AddNode(BbbtNodeType.Repeater, position));
-            menu.AddItem(new GUIContent("Add Leaf"), false, () => AddNode(BbbtNodeType.Leaf, position));
+
+            // Root
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtRoot>())
+            {
+                // Check if a root node exists
+                bool rootExists = false;
+                foreach (var node in CurrentTab.Nodes)
+                {
+                    if (node.Behaviour as BbbtRoot != null)
+                    {
+                        rootExists = true;
+                    }
+                }
+
+                if (!rootExists)
+                {
+                    // Add root node to menu
+                    menu.AddItem(
+                        new GUIContent("Add " + behaviour.name),
+                        false,
+                        () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
+                    );
+                }
+                else
+                {
+                    // Add disabled root node to menu
+                    menu.AddDisabledItem(new GUIContent("Add " + behaviour.name));
+                }
+            }
+
+            // Composite
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtCompositeBehaviour>())
+            {
+                menu.AddItem(
+                       new GUIContent("Composite/Add " + behaviour.name),
+                       false,
+                       () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
+                   );
+            }
+
+            // Decorator
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtDecoratorBehaviour>())
+            {
+                menu.AddItem(
+                       new GUIContent("Decorator/Add " + behaviour.name),
+                       false,
+                       () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
+                   );
+            }
+
+            // Leaf
+            foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtLeafBehaviour>())
+            {
+                menu.AddItem(
+                       new GUIContent("Leaf/Add " + behaviour.name),
+                       false,
+                       () => AddNode(++CurrentTab.LastNodeID, behaviour, position)
+                   );
+            }
+
             menu.ShowAsContext();
-            */
         }
 
         /// <summary>
@@ -572,22 +789,24 @@ namespace Bbbt
         /// <param name="baseBehaviour">The behaviour attached to the node.</param>
         /// <param name="position">The position of the node.</param>
         /// <param name="isSelected">Whether the node should be selected.</param>
-        /// <param name="behaviourSaveData">
+        /*/// <param name="behaviourSaveData">
         /// The save data associated used to reconstruct the behaviour of the node if loading the node from file.
-        /// </param>
-        private void AddNode(
+        /// </param>*/
+        /// <param name="behaviour">The behaviour of the node</param>
+        public BbbtNode AddNode(
             int id,
             BbbtBehaviour baseBehaviour,
             Vector2 position,
             bool isSelected = false,
-            BbbtBehaviourSaveData behaviourSaveData = null)
+            //BbbtBehaviourSaveData behaviourSaveData = null,
+            BbbtBehaviour behaviour = null)
         {
             var node = CreateInstance<BbbtNode>();
-            _currentTab.Nodes.Add(node);
             node.Setup(
                 id,
                 baseBehaviour,
                 position,
+                CurrentTab,
                 96,
                 96,
                 _nodeStyle,
@@ -598,10 +817,12 @@ namespace Bbbt
                 OnClickOutPoint,
                 RemoveNode,
                 isSelected,
-                behaviourSaveData
+                //behaviourSaveData,
+                behaviour
             );
 
-            SetUnsavedChangesTabTitle(_currentTab);
+            CurrentTab.CommandManager.Do(new CreateNodeCommand(this, node));
+            return node;
         }
         
         /// <summary>
@@ -610,34 +831,37 @@ namespace Bbbt
         /// <param name="inPoint">The point which was clicked.</param>
         private void OnClickInPoint(BbbtConnectionPoint inPoint)
         {
-            // Check if the in point has a connection going to it.
-            // If it does we don't want to do anything with it.
-            if (FindConnectionToPoint(inPoint) == null)
+            if (!Application.isPlaying)
             {
-                // Select the in point.
-                var previousSelectedInPoint = _selectedInPoint;
-                _selectedInPoint = inPoint;
+                // Check if the in point has a connection going to it.
+                // If it does we don't want to do anything with it.
+                if (FindConnectionToPoint(inPoint) == null)
+                {
+                    // Select the in point.
+                    var previousSelectedInPoint = _selectedInPoint;
+                    _selectedInPoint = inPoint;
 
-                // Out point selected?
-                if (_selectedOutPoint != null)
-                {
-                    // Check that the in point and out point aren't on the same node.
-                    if (_selectedOutPoint.Node != _selectedInPoint.Node)
+                    // Out point selected?
+                    if (_selectedOutPoint != null)
                     {
-                        // Not on the same node, create a connection from in point to out point.
-                        CreateConnection();
-                        ClearConnectionSelection();
+                        // Check that the in point and out point aren't on the same node.
+                        if (_selectedOutPoint.Node != _selectedInPoint.Node)
+                        {
+                            // Not on the same node, create a connection from in point to out point.
+                            CreateConnection();
+                            ClearConnectionSelection();
+                        }
+                        else
+                        {
+                            // Out and in point are on the same node, clear selection.
+                            ClearConnectionSelection();
+                        }
                     }
-                    else
+                    else if (previousSelectedInPoint == null)
                     {
-                        // Out and in point are on the same node, clear selection.
-                        ClearConnectionSelection();
+                        // No point selected previously, create a preview.
+                        _connectionPreview = new BbbtConnectionPreview(inPoint);
                     }
-                }
-                else if (previousSelectedInPoint == null)
-                {
-                    // No point selected previously, create a preview.
-                    _connectionPreview = new BbbtConnectionPreview(inPoint);
                 }
             }
         }
@@ -648,34 +872,37 @@ namespace Bbbt
         /// <param name="outPoint">The point which was clicked.</param>
         private void OnClickOutPoint(BbbtConnectionPoint outPoint)
         {
-            // Check if the out point has reached its max capacity.
-            // In practice this means that it is a decorator/root and has a connection point.
-            if (!IsConnectionPointAtMaxCapacity(outPoint))
+            if (!Application.isPlaying)
             {
-                // Select the out point.
-                var previousSelectedOutPoint = _selectedOutPoint;
-                _selectedOutPoint = outPoint;
+                // Check if the out point has reached its max capacity.
+                // In practice this means that it is a decorator/root and has a connection point.
+                if (!IsConnectionPointAtMaxCapacity(outPoint))
+                {
+                    // Select the out point.
+                    var previousSelectedOutPoint = _selectedOutPoint;
+                    _selectedOutPoint = outPoint;
 
-                // In point selected?
-                if (_selectedInPoint != null)
-                {
-                    // Check that the in point and out point aren't on the same node.
-                    if (_selectedOutPoint.Node != _selectedInPoint.Node)
+                    // In point selected?
+                    if (_selectedInPoint != null)
                     {
-                        // Not on the same node, create a connection from in point to out point.
-                        CreateConnection();
-                        ClearConnectionSelection();
+                        // Check that the in point and out point aren't on the same node.
+                        if (_selectedOutPoint.Node != _selectedInPoint.Node)
+                        {
+                            // Not on the same node, create a connection from in point to out point.
+                            CreateConnection();
+                            ClearConnectionSelection();
+                        }
+                        else
+                        {
+                            // Out and in point are on the same node, clear selection.
+                            ClearConnectionSelection();
+                        }
                     }
-                    else
+                    else if (previousSelectedOutPoint == null)
                     {
-                        // Out and in point are on the same node, clear selection.
-                        ClearConnectionSelection();
+                        // No out point selected, create a preview.
+                        _connectionPreview = new BbbtConnectionPreview(outPoint);
                     }
-                }
-                else if (previousSelectedOutPoint == null)
-                {
-                    // No out point selected, create a preview.
-                    _connectionPreview = new BbbtConnectionPreview(outPoint);
                 }
             }
         }
@@ -685,13 +912,19 @@ namespace Bbbt
         /// </summary>
         public void CreateConnection()
         {
-            _currentTab.Connections?.Add(new BbbtConnection(
+            var connection = new BbbtConnection(
                 _selectedInPoint,
                 _selectedOutPoint,
-                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(_currentTab); }
-            ));
+                (c) =>
+                {
+                    if (!Application.isPlaying)
+                    {
+                        CurrentTab.CommandManager.Do(new RemoveConnectionCommand(this, c));
+                    }
+                }
+            );
 
-            SetUnsavedChangesTabTitle(_currentTab);
+            CurrentTab.CommandManager.Do(new CreateConnectionCommand(this, connection));
         }
 
         /// <summary>
@@ -699,14 +932,19 @@ namespace Bbbt
         /// </summary>
         public void CreateConnection(BbbtNode from, BbbtNode to)
         {
-            _currentTab.Connections?.Add(new BbbtConnection(
+            var connection = new BbbtConnection(
                 to.InPoint,
                 from.OutPoint,
-                (connection) => { _currentTab.Connections.Remove(connection); SetUnsavedChangesTabTitle(_currentTab); }
-            ));
+                (c) =>
+                {
+                    if (!Application.isPlaying)
+                    {
+                        CurrentTab.CommandManager.Do(new RemoveConnectionCommand(this, c));
+                    }
+                }
+            );
 
-
-            SetUnsavedChangesTabTitle(_currentTab);
+            CurrentTab.CommandManager.Do(new CreateConnectionCommand(this, connection));
         }
 
         /// <summary>
@@ -725,7 +963,7 @@ namespace Bbbt
         /// <returns>The connection connected to the connection point if it exists. Null otherwise.</returns>
         private BbbtConnection FindConnectionToPoint(BbbtConnectionPoint point)
         {
-            foreach (var connection in _currentTab.Connections)
+            foreach (var connection in CurrentTab.Connections)
             {
                 if (connection.InPoint == point || connection.OutPoint == point)
                 {
@@ -784,26 +1022,23 @@ namespace Bbbt
         /// <param name="node">The node to be removed.</param>
         private void RemoveNode(BbbtNode node)
         {
-            // Remove connections.
-            var connectionsToRemove = new List<BbbtConnection>();
-            for (int i = 0; i < _currentTab.Connections.Count; i++)
+            if (!Application.isPlaying)
             {
-                // Check if the connection connects to a point on the node to be removed.
-                if (_currentTab.Connections[i].InPoint.Node == node || _currentTab.Connections[i].OutPoint.Node == node)
+                // Remove connections.
+                var connectionsToRemove = new List<BbbtConnection>();
+                for (int i = 0; i < CurrentTab.Connections.Count; i++)
                 {
-                    // Add the connection to be removed.
-                    connectionsToRemove.Add(_currentTab.Connections[i]);
+                    // Check if the connection connects to a point on the node to be removed.
+                    if (CurrentTab.Connections[i].InPoint.Node == node ||
+                        CurrentTab.Connections[i].OutPoint.Node == node)
+                    {
+                        // Add the connection to be removed.
+                        connectionsToRemove.Add(CurrentTab.Connections[i]);
+                    }
                 }
-            }
-            foreach (var connection in connectionsToRemove)
-            {
-                _currentTab.Connections.Remove(connection);
-            }
 
-            // Remove node.
-            _currentTab.Nodes.Remove(node);
-
-            SetUnsavedChangesTabTitle(_currentTab);
+                CurrentTab.CommandManager.Do(new RemoveNodeCommand(this, node, connectionsToRemove));
+            }
         }
 
         /// <summary>
@@ -812,7 +1047,7 @@ namespace Bbbt
         /// <returns>The currently selected node, if any. Null otherwise.</returns>
         private BbbtNode FindSelectedNode()
         {
-            foreach (var node in _currentTab.Nodes)
+            foreach (var node in CurrentTab.Nodes)
             {
                 if (node.IsSelected)
                 {
@@ -830,8 +1065,11 @@ namespace Bbbt
         /// <param name="isUnsaved">Whether the tree is now unsaved.</param>
         public void SetUnsavedChangesTabTitle(BbbtWindowTab tab, bool isUnsaved = true)
         {
-            tab.IsUnsaved = isUnsaved;
-            GUI.changed = true;
+            if (!Application.isPlaying)
+            {
+                tab.IsUnsaved = isUnsaved;
+                GUI.changed = true;
+            }
         }
 
         /// <summary>
@@ -871,7 +1109,7 @@ namespace Bbbt
         private void SaveTree()
         {
             // Store all the nodes.
-            SaveTab(_currentTab);
+            SaveTab(CurrentTab);
         }
 
         /// <summary>
@@ -880,31 +1118,75 @@ namespace Bbbt
         /// <param name="tab">The tab whose contents to save.</param>
         private void SaveTab(BbbtWindowTab tab)
         {
-            // Clear all behaviour's children
+            // Clear all behaviours' children
+            // This is necessary to avoid double-adding children.
             foreach (var node in tab.Nodes)
-                {
-                    node.Behaviour.RemoveChildren();
-                }
-            // Set up the nodes' children.
+            {
+                node.Behaviour.RemoveChildren();
+            }
+
+            // Set up the nodes' children,
+            // making sure that the order matches the children's order in the editor (left-to-right).
+            var parentToChildren = new Dictionary<BbbtNode, List<BbbtNode>>();
             foreach (var connection in tab.Connections)
             {
-                var parent = connection.OutPoint.Node.Behaviour;
-                var child = connection.InPoint.Node.Behaviour;
-                Debug.Log(parent.name + ">" + child.name);
-                parent.AddChild(child);
+                var parent = connection.OutPoint.Node;
+                var child = connection.InPoint.Node;
+
+                if (!parentToChildren.ContainsKey(parent))
+                {
+                    parentToChildren[parent] = new List<BbbtNode>();
+                    parentToChildren[parent].Add(child);
+                }
+                else
+                {
+                    // Insert the new child before the first existing child that is to the right of the new child.
+                    BbbtNode childToTheRightOfNewChild = null;
+                    foreach (var existingChild in parentToChildren[parent])
+                    {
+                        if (existingChild.Rect.x > child.Rect.x)
+                        {
+                            childToTheRightOfNewChild = existingChild;
+                            break;
+                        }
+                    }
+                    if (childToTheRightOfNewChild != null)
+                    {
+                        parentToChildren[parent].Insert(
+                            parentToChildren[parent].IndexOf(childToTheRightOfNewChild),
+                            child
+                        );
+                    }
+                    else
+                    {
+                        parentToChildren[parent].Add(child);
+                    }
+                }
+            }
+
+            // Actually add the children based on the ordering we figured out.
+            foreach (var parent in parentToChildren.Keys)
+            {
+                foreach (var child in parentToChildren[parent])
+                {
+                    parent.Behaviour.AddChild(child.Behaviour);
+                }
             }
 
             // Store nodes.
             var nodeSaveData = new BbbtNodeSaveData[tab.Nodes.Count];
-            BbbtRoot rootBehaviour = null;
+            //BbbtRootSaveData rootSaveData = null;
+            BbbtRoot root = null;
             var behaviours = new List<BbbtBehaviour>();
             for (int i = 0; i < tab.Nodes.Count; i++)
             {
+                tab.Nodes[i].Behaviour.NodeId = tab.Nodes[i].Id;
                 nodeSaveData[i] = tab.Nodes[i].ToSaveData();
                 behaviours.Add(tab.Nodes[i].Behaviour);
                 if (tab.Nodes[i].Behaviour as BbbtRoot != null)
                 {
-                    rootBehaviour = (BbbtRoot)tab.Nodes[i].Behaviour;
+                    //rootSaveData = (BbbtRootSaveData)nodeSaveData[i].BehaviourSaveData;
+                    root = (BbbtRoot)nodeSaveData[i].Behaviour;
                 }
             }
 
@@ -928,7 +1210,7 @@ namespace Bbbt
             SetUnsavedChangesTabTitle(tab, false);
 
             // Save functional save data if the tree is valid.
-            if (rootBehaviour != null)
+            if (root != null/*rootSaveData != null*/)
             {
                 bool isValid = true;
                 foreach (var behaviour in behaviours)
@@ -952,19 +1234,23 @@ namespace Bbbt
 
                 if (isValid)
                 {
-                    var saveData = new BbbtBehaviourTreeSaveData((BbbtRootSaveData)rootBehaviour.ToSaveData());
+                    var saveData = new BbbtBehaviourTreeSaveData(root/*rootSaveData*/);
                     tab.Tree.Save(null, saveData);
                 }
             }
+
+            tab.CommandHistory.LastSaveCommand =
+                tab.CommandHistory.DoneCommands[tab.CommandHistory.DoneCommands.Count - 1];
         }
 
         /// <summary>
         /// Loads a behaviour tree from a BbbtBehaviourTree scriptable object.
         /// </summary>
+        /// <param name="tree">The tree to open.</param>
         public void LoadTree(BbbtBehaviourTree tree)
         {
             TreeToLoad = null;
-            _currentTab = null;
+            CurrentTab = null;
 
             // See if the tree is loaded into a tab
             foreach (var tab in _tabs)
@@ -972,44 +1258,61 @@ namespace Bbbt
                 if (tab.Tree == tree)
                 {
                     // Tree was already loaded.
-                    _currentTab = tab;
+                    CurrentTab = tab;
                     break;
                 }
             }
 
             // Tree was not loaded, load it in.
-            if (_currentTab == null)
+            if (CurrentTab == null)
             {
                 _tabs.Add(new BbbtWindowTab(tree, _tabStyle));
-                _currentTab = _tabs[_tabs.Count - 1];
+                CurrentTab = _tabs[_tabs.Count - 1];
+                CurrentTab.ResetCommands();
 
                 if (tree.EditorSaveData != null)
                 {
+                    var nodeIdToBehaviour = new Dictionary<int, BbbtBehaviour>();
+                    if (Application.isPlaying)
+                    {
+                        // Loading a tree for debugging.
+                        foreach (var behaviour in tree.Behaviours)
+                        {
+                            nodeIdToBehaviour.Add(behaviour.NodeId, behaviour);
+                        }
+                    }
                     // Add nodes
                     foreach (var nodeSaveData in tree.EditorSaveData.Nodes)
                     {
                         // Get the behaviour instance from the save data's string and check if it's valid.
                         var baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
-                        var behaviourSaveData = nodeSaveData.BehaviourSaveData;
+                        //var behaviourSaveData = nodeSaveData.BehaviourSaveData;
+                        var behaviour = nodeSaveData.Behaviour;
 
                         if (baseBehaviour != null)
                         {
-                            AddNode(
+                            var node = AddNode(
                                 nodeSaveData.Id,
                                 baseBehaviour,
                                 new Vector2(nodeSaveData.X, nodeSaveData.Y),
                                 nodeSaveData.IsSelected,
-                                behaviourSaveData
+                                //behaviourSaveData
+                                behaviour
                             );
-                            if (_currentTab.LastNodeID < nodeSaveData.Id)
+                            if (CurrentTab.LastNodeID < nodeSaveData.Id)
                             {
-                                _currentTab.LastNodeID = nodeSaveData.Id;
+                                CurrentTab.LastNodeID = nodeSaveData.Id;
+                            }
+
+                            if (Application.isPlaying)
+                            {
+                                node.Behaviour = nodeIdToBehaviour[nodeSaveData.Id];
                             }
                         }
                         else
                         {
                             Debug.LogError(
-                                _currentTab.Tree.name +
+                                CurrentTab.Tree.name +
                                 ": Couldn't load behaviour '" +
                                 nodeSaveData.BaseBehaviour +
                                 "'.");
@@ -1020,12 +1323,14 @@ namespace Bbbt
                     foreach (var connectionSaveData in tree.EditorSaveData.Connections)
                     {
                         CreateConnection(
-                            _currentTab.Nodes.Find((node) => node.Id == connectionSaveData.OutNodeId),
-                            _currentTab.Nodes.Find((node) => node.Id == connectionSaveData.InNodeId)
+                            CurrentTab.Nodes.Find((node) => node.Id == connectionSaveData.OutNodeId),
+                            CurrentTab.Nodes.Find((node) => node.Id == connectionSaveData.InNodeId)
                         );
                     }
                 }
             }
+            CurrentTab.ResetCommands();
+            CurrentTab.IsUnsaved = false;
         }
     }
 }

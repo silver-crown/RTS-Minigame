@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using JsonSubTypes;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -10,22 +11,28 @@ namespace Bbbt
     /// A BbbtBehaviourTree scriptable object that can be loaded into and edited in the bbBT editor window.
     /// </summary>
     [CreateAssetMenu(fileName = "New bbBT Behaviour Tree", menuName = "bbBT/Behaviour Tree", order = 0)]
+    [JsonConverter(typeof(JsonSubtypes))]
     public class BbbtBehaviourTree : ScriptableObject
     {
         /// <summary>
         /// The data needed to reconstruct the tree in the editor.
         /// </summary>
-        public BbbtBehaviourTreeEditorSaveData EditorSaveData { get; protected set; }
+        [JsonProperty] public BbbtBehaviourTreeEditorSaveData EditorSaveData { get; protected set; }
 
         /// <summary>
         /// The data needed to functionally reconstruct the behaviour tree.
         /// </summary>
-        public BbbtBehaviourTreeSaveData SaveData { get; protected set; }
+        [JsonProperty] public BbbtBehaviourTreeSaveData SaveData { get; protected set; }
 
         /// <summary>
         /// The entry point of the behaviour tree.
         /// </summary>
-        public BbbtBehaviour RootBehaviour { get; protected set; }
+        [JsonProperty] public BbbtBehaviour RootBehaviour { get; protected set; }
+
+        /// <summary>
+        /// A list of all the behaviours in the tree.
+        /// </summary>
+        [JsonProperty] public List<BbbtBehaviour> Behaviours { get; protected set; }
 
 
         /// <summary>
@@ -49,14 +56,14 @@ namespace Bbbt
             if (editorSaveData != null)
             {
                 EditorSaveData = editorSaveData;
-                string editorJson = JsonConvert.SerializeObject(editorSaveData);
+                string editorJson = JsonConvert.SerializeObject(editorSaveData, Formatting.Indented);
                 File.WriteAllText(Path.Combine(jsonFolder, name + ".editor.json"), editorJson);
             }
 
             if (saveData != null)
             {
                 SaveData = saveData;
-                string json = JsonConvert.SerializeObject(saveData);
+                string json = JsonConvert.SerializeObject(saveData, Formatting.Indented);
                 File.WriteAllText(Path.Combine(jsonFolder, name + ".json"), json);
             }
 
@@ -82,10 +89,11 @@ namespace Bbbt
                 if (File.Exists(Path.Combine(parentDirectory, "json", fileName + ".editor.json")))
                 {
                     string jsonFolderGuid = AssetDatabase.AssetPathToGUID(Path.Combine(parentDirectory, "json"));
-                    string json = File.ReadAllText(Path.Combine(
+                    string path = Path.Combine(
                         AssetDatabase.GUIDToAssetPath(jsonFolderGuid),
                         fileName + ".editor.json"
-                    ));
+                    );
+                    string json = File.ReadAllText(path);
                     EditorSaveData = JsonConvert.DeserializeObject<BbbtBehaviourTreeEditorSaveData>(json);
                 }
 
@@ -93,10 +101,11 @@ namespace Bbbt
                 if (File.Exists(Path.Combine(parentDirectory, "json", fileName + ".json")))
                 {
                     string jsonFolderGuid = AssetDatabase.AssetPathToGUID(Path.Combine(parentDirectory, "json"));
-                    string json = File.ReadAllText(Path.Combine(
+                    string path = Path.Combine(
                         AssetDatabase.GUIDToAssetPath(jsonFolderGuid),
                         fileName + ".json"
-                    ));
+                    );
+                    string json = File.ReadAllText(path);
                     SaveData = JsonConvert.DeserializeObject<BbbtBehaviourTreeSaveData>(json);
                     BuildTree();
                 }
@@ -108,7 +117,67 @@ namespace Bbbt
         /// </summary>
         private void BuildTree()
         {
-            RootBehaviour = SaveData.RootSaveData.Deserialize();
+            RootBehaviour = SaveData.Root;
+
+            // Populate the behaviour list
+            if ((RootBehaviour as BbbtRoot).Child != null)
+            {
+                Behaviours = new List<BbbtBehaviour>();
+                Behaviours.Add(RootBehaviour);
+                var behavioursToVisit = new Queue<BbbtBehaviour>();
+                behavioursToVisit.Enqueue((RootBehaviour as BbbtRoot).Child);
+                while (behavioursToVisit.Count != 0)
+                {
+                    var behaviour = (behavioursToVisit.Dequeue());
+                    Behaviours.Add(behaviour);
+                    if (behaviour as BbbtCompositeBehaviour != null)
+                    {
+                        foreach (var child in (behaviour as BbbtCompositeBehaviour).Children)
+                        {
+                            behavioursToVisit.Enqueue(child);
+                        }
+                    }
+                    else if (behaviour as BbbtDecoratorBehaviour != null)
+                    {
+                        behavioursToVisit.Enqueue((behaviour as BbbtDecoratorBehaviour).Child);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Behaviour tree " + name + "'s root has no child.");
+            }
+        }
+        
+        /// <summary>
+        /// Tries to find a beahaviour tree that matches a given query (case insensitive).
+        /// </summary>
+        /// <param name="query">
+        /// The string matching (case insensitive) the name of the behaviour tree to find.
+        /// Has to match the name of the behaviour tree exactly (apart from caes) as instantiated in the assets folder.
+        /// </param>
+        /// <returns>The behaviour tree that maches the query, if found. Null otherwise.</returns>
+        public static BbbtBehaviourTree FindBehaviourTreeWithName(string query)
+        {
+            // Try to find a behaviour tree with name matching the query.
+            var guids = AssetDatabase.FindAssets(query + " t:BbbtBehaviourTree");
+            foreach (var guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var behaviourTree = AssetDatabase.LoadAssetAtPath<BbbtBehaviourTree>(path);
+
+                if (behaviourTree.name.ToLower() == query.ToLower())
+                {
+                    if (behaviourTree != null)
+                    {
+                        // Found a behaviour tree matching the query.
+                        return AssetDatabase.LoadAssetAtPath<BbbtBehaviourTree>(path);
+                    }
+                }
+            }
+
+            // No behaviour tree found with name matching the query.
+            return null;
         }
     }
 }

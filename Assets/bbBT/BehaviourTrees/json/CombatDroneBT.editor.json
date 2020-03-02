@@ -1,0 +1,115 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtDroneCanSeeEnemyCheck",
+              "Status": 0,
+              "NodeId": 4,
+              "name": "DroneCanSeeEnemy(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtDroneAllEnimesInSight",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "DroneAllEnimesInSight(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 724.0,
+      "Y": 181.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Sequencer",
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtDroneCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 4,
+            "name": "DroneCanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtDroneAllEnimesInSight",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "DroneAllEnimesInSight(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 637.0,
+      "Y": 366.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "DroneCanSeeEnemy",
+      "Behaviour": {
+        "SaveDataType": "BbbtDroneCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "DroneCanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 464.0,
+      "Y": 590.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "DroneAllEnimesInSight",
+      "Behaviour": {
+        "SaveDataType": "BbbtDroneAllEnimesInSight",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "DroneAllEnimesInSight(Clone)",
+        "hideFlags": 0
+      },
+      "X": 615.0,
+      "Y": 594.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 2,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 4,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 2
+    }
+  ],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}

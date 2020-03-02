@@ -18,6 +18,11 @@ namespace Bbbt
         private Rect _rect;
 
         /// <summary>
+        /// The prompt's text rect.
+        /// </summary>
+        private Rect _textRect;
+
+        /// <summary>
         /// The text to display in the prompt.
         /// </summary>
         private string _text;
@@ -32,6 +37,11 @@ namespace Bbbt
         /// </summary>
         private BbbtWindow _window;
 
+        /// <summary>
+        /// The prompt's gui style.
+        /// </summary>
+        private GUIStyle _style;
+
 
         /// <summary>
         /// Constructs a new BbbtPrompt.
@@ -44,8 +54,21 @@ namespace Bbbt
             _options = options;
 
             _rect = new Rect(0, 0, 400, 200);
+            _textRect = new Rect(0, 0, 380, 186);
 
             _window = EditorWindow.GetWindow<BbbtWindow>();
+
+            // Set up the style.
+
+            var background = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            background.SetPixel(0, 0, new Color(0.94f, 0.94f, 0.94f, 1.0f));
+            background.Apply();
+
+            _style = new GUIStyle();
+            _style.fontSize = 15;
+            _style.wordWrap = true;
+            _style.normal.textColor = Color.black;
+            _style.normal.background = background;
         }
 
         /// <summary>
@@ -58,9 +81,12 @@ namespace Bbbt
             // since the window size could change.
             _rect.x = _window.position.width / 2.0f - _rect.width / 2.0f;
             _rect.y = _window.position.height / 2.0f - _rect.height / 2.0f;
+            _textRect.x = _window.position.width / 2.0f - _textRect.width / 2.0f;
+            _textRect.y = _window.position.height / 2.0f - _textRect.height / 2.0f;
 
             // Draw the rect.
-            GUI.Box(_rect, _text);
+            GUI.Box(_rect, "", _style);
+            GUI.Label(_textRect, _text, _style);
             
             // Draw the options in the bottom left of the pop-up.
             for (int i = _options.Count - 1; i >= 0; i--)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Bbbt
 {
@@ -10,7 +11,7 @@ namespace Bbbt
         /// <summary>
         /// The child behaviours of this node.
         /// </summary>
-        public List<BbbtBehaviour> Children { get; protected set; } = null;
+        [JsonProperty] public List<BbbtBehaviour> Children { get; protected set; } = null;
 
 
         /// <summary>

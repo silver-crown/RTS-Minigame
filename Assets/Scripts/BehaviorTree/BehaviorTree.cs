@@ -19,6 +19,7 @@ public class BehaviorTree : MonoBehaviour
     /// </summary>
     private  int _updateFrequency = 200; // milliseconds
 
+    GameObject owner;
 
     void Awake()
     {

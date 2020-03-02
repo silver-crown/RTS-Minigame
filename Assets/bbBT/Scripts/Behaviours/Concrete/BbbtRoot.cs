@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -9,16 +10,19 @@ namespace Bbbt
     [CreateAssetMenu(fileName = "Root", menuName = "bbBT/Behaviour/Root", order = 0)]
     public class BbbtRoot : BbbtBehaviour
     {
+        public override string SaveDataType { get; } = "BbbtRoot";
+
         /// <summary>
         /// The node that the BbbtRoot points to as the real root of the behaviour tree.
         /// </summary>
-        public BbbtBehaviour Child { get; protected set; }
+        [JsonProperty] public BbbtBehaviour Child { get; protected set; }
 
         /// <summary>
         /// BbbtRoot doesn't have any initialisation logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override void OnInitialize()
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnInitialize(GameObject gameObject)
         {
             throw new System.NotImplementedException();
         }
@@ -27,7 +31,8 @@ namespace Bbbt
         /// BbbtRoot doesn't have any termination logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override void OnTerminate(BbbtBehaviourStatus status)
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
             throw new System.NotImplementedException();
         }
@@ -36,18 +41,20 @@ namespace Bbbt
         /// BbbtRoot doesn't have any update logic.
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
-        protected override BbbtBehaviourStatus UpdateBehavior()
+        /// <param name="gameObject">The game object that owns the behaviour.</param>
+        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
         {
             throw new System.NotImplementedException();
         }
 
+        /*
         /// <summary>
         /// Converts the behaviour to save data.
         /// </summary>
         /// <returns>The save data object.</returns>
         public override BbbtBehaviourSaveData ToSaveData()
         {
-            return new BbbtRootSaveData(Child != null ? Child.ToSaveData() : null);
+            return new BbbtRootSaveData(NodeId, Child != null ? Child.ToSaveData() : null);
         }
 
         /// <summary>
@@ -56,6 +63,7 @@ namespace Bbbt
         /// <param name="saveData">The save data to use for setting up the behaviour.</param>
         public override void LoadSaveData(BbbtBehaviourSaveData saveData)
         {
+            base.LoadSaveData(saveData);
             var castSaveData = saveData as BbbtRootSaveData;
             if (castSaveData != null)
             {
@@ -69,6 +77,7 @@ namespace Bbbt
                 Debug.LogError("Save data passed to BbbtRoot was not BbbtBehaviourSaveData.");
             }
         }
+        */
 
         /// <summary>
         /// Adds a child to the node.

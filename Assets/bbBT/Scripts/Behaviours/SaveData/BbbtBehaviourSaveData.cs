@@ -16,9 +16,17 @@ namespace Bbbt
         public abstract string SaveDataType { get; }
 
         /// <summary>
+        /// The id of the node that contains the behaviour in the editor.
+        /// We need this to get direct behaviour references when opening behaviour trees in the editor in debug mode.
+        /// </summary>
+        public int NodeId { get; set; }
+
+        /*
+        /// <summary>
         /// Deserializes the save data.
         /// </summary>
         /// <returns>The object represented by the save data.</returns>
         public abstract BbbtBehaviour Deserialize();
+        */
     }
 }

@@ -1,0 +1,1 @@
+To create a new behaviour tree right right click a folder in the project view and select Create>bbBT>Behaviour Tree.

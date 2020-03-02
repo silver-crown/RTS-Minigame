@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Bbbt.Commands;
+using Commands;
+using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +12,16 @@ namespace Bbbt
     /// </summary>
     public class BbbtWindowTab
     {
+        /// <summary>
+        /// The tab's command manager.
+        /// </summary>
+        public CommandManager CommandManager { get; protected set; }
+
+        /// <summary>
+        /// The tab's command history.
+        /// </summary>
+        public BbbtTabCommandHistory CommandHistory { get; protected set; }
+
         /// <summary>
         /// The tab's rect.
         /// </summary>
@@ -43,11 +56,6 @@ namespace Bbbt
         /// Whether the tab has unsaved changes.
         /// </summary>
         public bool IsUnsaved = false;
-
-        /// <summary>
-        /// The style of the tab.
-        /// </summary>
-        private GUIStyle _style;
 
         /// <summary>
         /// Whether the tab is being dragged.
@@ -88,12 +96,13 @@ namespace Bbbt
         /// <summary>
         /// Draws the tab.
         /// </summary>
+        /// <param name="topBarRect">The rect of the top bar containing the tab.</param>
         /// <param name="tabs">The full list of tabs to be drawn.</param>
         /// <param name="isActive">Whether the tab is active.</param>
-        public void Draw(List<BbbtWindowTab> tabs, bool isActive = false)
+        public void Draw(Rect topBarRect, List<BbbtWindowTab> tabs, bool isActive = false)
         {
             // Figure out the rect's position by adding together the widths of the preceding tabs.
-            _rect.position = new Vector2(5, 2);
+            _rect.position = topBarRect.position + new Vector2(3, 2);
             foreach (var tab in tabs)
             {
                 if (tab == this)
@@ -130,6 +139,7 @@ namespace Bbbt
                         {
                             // Clicked inside the rect, select this tab and start dragging.
                             _isDragged = true;
+                            e.Use();
                             return true;
                         }
                     }
@@ -139,8 +149,17 @@ namespace Bbbt
                         // Clicking inside rect?
                         if (_rect.Contains(e.mousePosition))
                         {
-                            var window = EditorWindow.GetWindow<BbbtWindow>();
-                            window.TabToRemove = this;
+                            CloseTab();
+                            e.Use();
+                        }
+                    }
+                    // RMB
+                    if (e.button == 1)
+                    {
+                        if (_rect.Contains(e.mousePosition))
+                        {
+                            CreateContextMenu(e.mousePosition);
+                            e.Use();
                         }
                     }
                     break;
@@ -167,6 +186,26 @@ namespace Bbbt
 
             // GUI did not change.
             return false;
+        }
+
+        /// <summary>
+        /// Creates a context menu
+        /// </summary>
+        /// <param name="position">The position on which to create the context menu.</param>
+        private void CreateContextMenu(Vector2 position)
+        {
+            var menu = new GenericMenu();
+            menu.AddItem(new GUIContent("Close Tab"), false, CloseTab);
+            menu.ShowAsContext();
+        }
+
+        /// <summary>
+        /// Closes the tab.
+        /// </summary>
+        private void CloseTab()
+        {
+            var window = EditorWindow.GetWindow<BbbtWindow>();
+            window.TabToRemove = this;
         }
 
         /// <summary>
@@ -230,6 +269,16 @@ namespace Bbbt
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Resets the CommandManager/command strings for this tab.
+        /// </summary>
+        public void ResetCommands()
+        {
+            CommandManager = new CommandManager();
+            CommandHistory = new BbbtTabCommandHistory(CommandManager);
+            CommandManager.Do(new LastResetCommand());
         }
     }
 }

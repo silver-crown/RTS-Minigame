@@ -13,7 +13,7 @@ public class EntityLocations : MonoBehaviour
     /// </summary>
     [Tooltip("Player Marines")]
     [SerializeField]
-    public List<GameObject> PlayerLocaitons = new List<GameObject>();
+    public static List<GameObject> MarineLocations = new List<GameObject>();
 
 
 }

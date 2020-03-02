@@ -1,1 +1,165 @@
-{"Nodes":[{"Id":4,"BaseBehaviour":"Debug Logger","BehaviourSaveData":{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Message 1"},"X":357.0,"Y":523.0,"IsSelected":false},{"Id":5,"BaseBehaviour":"Debug Logger","BehaviourSaveData":{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Message 2"},"X":502.0,"Y":520.0,"IsSelected":false},{"Id":6,"BaseBehaviour":"Sequencer","BehaviourSaveData":{"SaveDataType":"BbbtSequencerSaveData","ChildSaveData":[{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Message 1"},{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Message 2"}]},"X":416.0,"Y":368.0,"IsSelected":false},{"Id":1,"BaseBehaviour":"Root","BehaviourSaveData":{"SaveDataType":"BbbtRootSaveData","ChildSaveData":{"SaveDataType":"BbbtSequencerSaveData","ChildSaveData":[{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Message 1"},{"SaveDataType":"BbbtDebugLogBehaviourSaveData","Message":"Message 2"}]}},"X":403.0,"Y":203.0,"IsSelected":true}],"Connections":[{"InNodeId":4,"OutNodeId":6},{"InNodeId":5,"OutNodeId":6},{"InNodeId":6,"OutNodeId":1}],"WindowOffsetX":-91.0,"WindowOffsetY":-31.0}
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "_message": "Hello, ",
+              "_logType": 3,
+              "SaveDataType": "BbbtDebugLogBehaviour",
+              "Status": 0,
+              "NodeId": 4,
+              "name": "Debug Logger(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_behaviourTreeName": "Test2",
+              "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+              "BehaviourTree": null,
+              "Status": 0,
+              "NodeId": 7,
+              "name": "Behaviour Tree Caller(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_message": "World!",
+              "_logType": 2,
+              "SaveDataType": "BbbtDebugLogBehaviour",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "Debug Logger(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 3,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 561.0,
+      "Y": 204.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "World!",
+        "_logType": 2,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 809.0,
+      "Y": 478.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "Hello, ",
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 400.0,
+      "Y": 521.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 7,
+      "BaseBehaviour": "Behaviour Tree Caller",
+      "Behaviour": {
+        "_behaviourTreeName": "Test2",
+        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+        "BehaviourTree": null,
+        "Status": 0,
+        "NodeId": 7,
+        "name": "Behaviour Tree Caller(Clone)",
+        "hideFlags": 0
+      },
+      "X": 594.0,
+      "Y": 568.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Sequencer",
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "_message": "Hello, ",
+            "_logType": 3,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 4,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_behaviourTreeName": "Test2",
+            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+            "BehaviourTree": null,
+            "Status": 0,
+            "NodeId": 7,
+            "name": "Behaviour Tree Caller(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_message": "World!",
+            "_logType": 2,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 561.0,
+      "Y": 356.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 3,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 7,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 4,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 3
+    }
+  ],
+  "WindowOffsetX": -78.0,
+  "WindowOffsetY": -121.0
+}
