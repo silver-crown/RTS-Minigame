@@ -23,8 +23,9 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Total number of drones present in the army
     /// </summary>
-    private int _droneCount;
-    private const int MAXDRONES = 300;
+    public int DroneCount { get; protected set; }
+    public const int MAXDRONES = 300;
+    //TODO Make separate counters for different types of drones
 
     /// <summary>
     /// Different types of drones CI is capable of building
@@ -49,23 +50,23 @@ public class CentralIntelligence : MonoBehaviour
     //the action that has been selected
     private Action _selectedAction;
 
-    //The number of actions the AI is capable of doimg.
-    private static int NUMOFACTIONS = 2;
+    //The number of actions the AI is capable of doing in total
+    private const int NUMOFACTIONS = 3;
 
     float _timeOfLastAction = 0.0f;
 
     /// <summary>
     /// Seconds between each time the AI tries to reselect an action
     /// </summary>
-    private static int AIDECISIONTIME = 4;
+    private const int AIDECISIONTIME = 4;
 
     #endregion UtilityAI
 
 
     void Awake()
     {
-        if(_droneCount != 0)
-            _droneCount = 0;
+        if(DroneCount != 0)
+            DroneCount = 0;
         _behaviorTree = GetComponent<BehaviorTree>();
         // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
@@ -75,6 +76,14 @@ public class CentralIntelligence : MonoBehaviour
         Resources = new Dictionary<string, int>();
         Resources.Add("metal", 100);
         Resources.Add("crystal", 100);
+
+        //set up actions
+        _actions[0] = new Action(new List<Factor> { new GatherResourceAmount(this, "metal") }, new CIGatherMetal());
+        _actions[1] = new Action(new List<Factor> { new GatherResourceAmount(this, "crystal") }, new CIGatherCrystal());
+        _actions[2] = new Action(new List<Factor> { new WorkerNumber(this) }, new CIBuildWorker());
+
+        //run selectAction
+        _selectAction();
     }
 
     // Update is called once per frame
@@ -100,7 +109,14 @@ public class CentralIntelligence : MonoBehaviour
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {
             _selectAction();
+
+            //tick selected action
+            _selectedAction.Behaviour.Tick(gameObject);
+
+            _timeOfLastAction = Time.time;
         }
+
+        
     }
 
     /// <summary>
@@ -133,38 +149,56 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     void BuildDrone(DroneType droneType)
     {
-        if(_droneCount < MAXDRONES)
+        if(DroneCount < MAXDRONES)
         {
             Drone drone = Instantiate(_dronePrefab).GetComponent<Drone>();
             _drones.Add(drone);
             Debug.Log("Created drone with ID " + drone.ID);
-            _droneCount++;
+            DroneCount++;
         }
     }
     private void _selectAction()
     {
-        Action currentAction= _selectedAction;         //the currently best action at this point in the loop
-        float currentUtility = 0.0f;   //the utility of the currently best action
+        Action chosenAction= _selectedAction;         //the currently best action at this point in the loop
+        float chosenUtility = 0.0f;   //the utility of the currently best action
+
+        //debug values to get information on chosen action
+        int chosenIndex = 0;
+        int debugIndex = 0;
 
         //go through all actions, choose the one with the highest utility
         foreach (Action action in _actions)
         {
             float utility = action.GetUtility();
-            if (utility > currentUtility)
+            Debug.Log("Utility of action " + debugIndex + ": " + utility);
+            if (utility > chosenUtility)
             {
-                currentAction = action;
-                currentUtility = utility;
+                chosenAction = action;
+                chosenUtility = utility;
+                chosenIndex = debugIndex;
             }
+            debugIndex++;
         }
 
-        _selectedAction = currentAction;
+        _selectedAction = chosenAction;
     }
 
-    private void TestUtilityBuildDrone()
+    public void TestBuildDrone()
     {
         Resources["metal"] -= 10;
         Resources["crystal"] -= 8;
-        Debug.Log("Built drone.");
+        DroneCount++;
+        Debug.Log("Built drone. Metal: " +  Resources["metal"] + "Crystal: " + Resources["crystal"]);
+    }
+
+    public void TestGatherMetal()
+    {
+        Resources["metal"] += 10;
+    }
+
+    public void TestGatherCrystal()
+    {
+        Resources["crystal"] += 10;
     }
 }
 

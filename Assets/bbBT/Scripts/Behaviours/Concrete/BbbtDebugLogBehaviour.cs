@@ -42,7 +42,7 @@ namespace Bbbt
         /// Prints the message the debug logger is supposed to print.
         /// </summary>
         /// <param name="gameObject">The game object that owns the behaviour.</param>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             switch (_logType)
             {

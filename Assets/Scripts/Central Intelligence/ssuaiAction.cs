@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bbbt;
 
 namespace ssuai
 {
-    public abstract class Action : MonoBehaviour
+    public class Action
     {
         protected List<Factor> _factors;
-        private Behavior _behavior;
+        public BbbtBehaviour Behaviour { get; protected set; }
         private float _utility = 0.0f;
 
 
@@ -16,10 +17,10 @@ namespace ssuai
         /// </summary>
         /// <param name="factors"></param>
         /// <param name="behavior"></param>
-        public Action(List<Factor> factors, Behavior behavior)
+        public Action(List<Factor> factors, BbbtBehaviour behaviour)
         {
             _factors = factors;
-            _behavior = behavior;
+            Behaviour = behaviour;
         }
 
         //Updates utility to be the average of all its factors utilities

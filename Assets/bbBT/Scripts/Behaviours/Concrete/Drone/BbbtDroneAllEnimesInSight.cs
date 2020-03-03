@@ -39,7 +39,7 @@ namespace Bbbt
         ///     BbbtBehaviourStatus.Failure; If no drone was counted
         ///     BbbtBehaviourStatus.Success; if at least one drone was counted
         /// </returns>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             for (int i = 0; i < EntityLocations.MarineLocations.Count; i++)
             {

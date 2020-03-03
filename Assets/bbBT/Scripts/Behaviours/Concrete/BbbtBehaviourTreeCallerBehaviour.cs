@@ -64,7 +64,7 @@ namespace Bbbt
         /// </summary>
         /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>The status of the root node in the tree that was run.</returns>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             return _root.Tick(gameObject);
         }

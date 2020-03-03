@@ -39,7 +39,7 @@ namespace Bbbt
         /// </summary>
         /// <param name="gameObject"></param>
         /// <returns></returns>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             if(_actor.VisibleEnemies.Count == 0)
             {

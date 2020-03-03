@@ -33,7 +33,7 @@ namespace Bbbt
         /// <returns>
         /// Running if a child is running. Failure if a child failed. Success if all the children ran succesfully.
         /// </returns>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             // Iterate through each child behaviour until we find one that's running or returned failure.
             // The assumption is that if a child is not in one of those states then it must have successfully

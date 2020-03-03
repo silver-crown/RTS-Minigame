@@ -44,7 +44,7 @@ namespace Bbbt
         /// <param name="gameObject"></param>
         /// <returns>Returns SUCCESS if the drone can see an enemy
         ///              and FAILURE it can not" </returns>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             for (int i = 0; i < EntityLocations.MarineLocations.Count; i++)
             {
