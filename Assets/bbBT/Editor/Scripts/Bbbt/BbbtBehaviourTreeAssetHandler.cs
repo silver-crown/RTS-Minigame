@@ -104,7 +104,7 @@ namespace Bbbt
                     string destinationJsonDirectory = Path.Combine(destinationParentDirectory, "json");
 
                     // Moves a file from the source json directory to the target json directory.
-                    void moveFile(string path)
+                    void MoveFile(string path)
                     {
                         if (File.Exists(path))
                         {
@@ -118,10 +118,10 @@ namespace Bbbt
                     }
 
                     // Move json files.
-                    moveFile(jsonFilePath);
-                    moveFile(jsonFileMetaPath);
-                    moveFile(jsonEditorFilePath);
-                    moveFile(jsonEditorFileMetaPath);
+                    MoveFile(jsonFilePath);
+                    MoveFile(jsonFileMetaPath);
+                    MoveFile(jsonEditorFilePath);
+                    MoveFile(jsonEditorFileMetaPath);
 
 
                     // Delete the old json directory if it is empty.
