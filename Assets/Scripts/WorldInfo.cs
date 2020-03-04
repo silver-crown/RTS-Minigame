@@ -14,7 +14,15 @@ public class WorldInfo : MonoBehaviour
     /// </summary>
     [Tooltip("Player Marines")]
     [SerializeField]
-    private List<GameObject> MarineLocations = new List<GameObject>();
+    public List<GameObject> MarineLocations = new List<GameObject>();
+
+    [Tooltip("Metal")]
+    [SerializeField]
+    public List<GameObject> Metal = new List<GameObject>();
+
+    [Tooltip("Crystal")]
+    [SerializeField]
+    public List<GameObject> Crystal = new List<GameObject>();
 
     private WorldInfo()
     {
