@@ -8,22 +8,27 @@ using MoonSharp.Interpreter;
 using Bbbt;
 
 namespace RTS
-    {
+{
 
     /// <summary>
     /// Base class used by drones for sight, movement etc.
     /// </summary>
     public abstract class Actor : MonoBehaviour
     {
-        
+
         #region Combat
 
         // 1. Base Stats
 
         /// <summary>
-        /// Current Health Points the drone has
+        /// Current Health Points the actor has
         /// </summary>
-        public int Health { get; protected set; }
+        public int Health { get; protected set; } = 40;
+
+        /// <summary>
+        /// Max health points the actor has
+        /// </summary>
+        public int MaxHealth { get; protected set; } = 40;
 
         // 2. Shooting
 
@@ -40,7 +45,7 @@ namespace RTS
         /// <summary>
         /// The amount of damage the projectile deals to the target
         /// </summary>
-         public float GunDamage { get; protected set; }
+        public float GunDamage { get; protected set; }
 
         /// <summary>
         /// How fast the weapon shoots projectiles
@@ -56,7 +61,7 @@ namespace RTS
         /// The prefab of the bullet that will be spawned when the weapon is fired.
         /// </summary>
         public GameObject ProjectilePrefab;
- 
+
         #endregion
 
         #region AI
@@ -139,7 +144,7 @@ namespace RTS
 
         }
 
-        public virtual void  Awake()
+        public virtual void Awake()
         {
             GameObject worldPos = GameObject.Find("WorldEntityLocationSystem");
             entityPosScript = worldPos.GetComponent<WorldInfo>();
@@ -150,7 +155,7 @@ namespace RTS
         {
             agent = this.GetComponent<NavMeshAgent>();
 
-            if(TargetDestination != null)
+            if (TargetDestination != null)
             {
                 agent.SetDestination(TargetDestination.transform.position);
             }

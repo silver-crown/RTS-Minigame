@@ -18,7 +18,7 @@ public class CentralIntelligence : MonoBehaviour
     private BehaviorTree _behaviorTree;
 
 
-    public Dictionary<string, int> Resources { get; protected set; }
+    public Dictionary<Resource.Type, int> Resources { get; protected set; }
 
     /// <summary>
     /// Total number of drones present in the army
@@ -73,13 +73,13 @@ public class CentralIntelligence : MonoBehaviour
         _actions = new Action[NUMOFACTIONS];
 
         //Contains the types of resources and the amounts the CI has of them
-        Resources = new Dictionary<string, int>();
-        Resources.Add("metal", 100);
-        Resources.Add("crystal", 100);
+        Resources = new Dictionary<Resource.Type, int>();
+        Resources.Add(Resource.Type.METAL, 100);
+        Resources.Add(Resource.Type.CRYSTAL, 100);
 
         //set up actions
-        _actions[0] = new Action(new List<Factor> { new GatherResourceAmount(this, "metal") }, new CIGatherMetal());
-        _actions[1] = new Action(new List<Factor> { new GatherResourceAmount(this, "crystal") }, new CIGatherCrystal());
+        _actions[0] = new Action(new List<Factor> { new GatherResourceAmount(this, Resource.Type.METAL) }, new CIGatherMetal());
+        _actions[1] = new Action(new List<Factor> { new GatherResourceAmount(this, Resource.Type.CRYSTAL) }, new CIGatherCrystal());
         _actions[2] = new Action(new List<Factor> { new WorkerNumber(this) }, new CIBuildWorker());
 
         //run selectAction
@@ -185,21 +185,23 @@ public class CentralIntelligence : MonoBehaviour
 
     public void TestBuildDrone()
     {
-        Resources["metal"] -= 10;
-        Resources["crystal"] -= 8;
+        Resources[Resource.Type.METAL] -= 10;
+        Resources[Resource.Type.CRYSTAL] -= 8;
         DroneCount++;
-        Debug.Log("Built drone. Metal: " +  Resources["metal"] + "Crystal: " + Resources["crystal"]);
+        Debug.Log("Built drone. Metal: " +  Resources[Resource.Type.METAL] + "Crystal: " + Resources[Resource.Type.CRYSTAL]);
     }
 
     public void TestGatherMetal()
     {
-        Resources["metal"] += 10;
+        Resources[Resource.Type.METAL] += 10;
     }
 
     public void TestGatherCrystal()
     {
-        Resources["crystal"] += 10;
+        Resources[Resource.Type.CRYSTAL] += 10;
     }
+
+    
 }
 
 
