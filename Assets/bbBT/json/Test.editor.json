@@ -1,7 +1,7 @@
 {
   "Nodes": [
     {
-      "Id": 1,
+      "Id": 4,
       "BaseBehaviour": "Root",
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
@@ -15,12 +15,12 @@
           "hideFlags": 0
         },
         "Status": 0,
-        "NodeId": 1,
+        "NodeId": 4,
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 589.0,
-      "Y": 96.0,
+      "X": 485.0,
+      "Y": 261.0,
       "IsSelected": false
     },
     {
@@ -35,17 +35,17 @@
         "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 623.0,
-      "Y": 266.0,
-      "IsSelected": false
+      "X": 533.0,
+      "Y": 459.0,
+      "IsSelected": true
     }
   ],
   "Connections": [
     {
       "InNodeId": 2,
-      "OutNodeId": 1
+      "OutNodeId": 4
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": -140.0,
+  "WindowOffsetY": 122.0
 }

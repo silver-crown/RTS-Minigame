@@ -280,5 +280,66 @@ namespace Bbbt
             CommandHistory = new BbbtTabCommandHistory(CommandManager);
             CommandManager.Do(new LastResetCommand());
         }
+
+        /// <summary>
+        /// Sets the behaviour children according to the nodes' position in the editor.
+        /// </summary>
+        public void SetBehaviourChildren()
+        {
+            // Clear all behaviours' children
+            // This is necessary to avoid double-adding children.
+            foreach (var node in Nodes)
+            {
+                node.Behaviour.RemoveChildren();
+            }
+
+            // Set up the nodes' children,
+            // making sure that the order matches the children's order in the editor (left-to-right).
+            var parentToChildren = new Dictionary<BbbtNode, List<BbbtNode>>();
+            foreach (var connection in Connections)
+            {
+                var parent = connection.OutPoint.Node;
+                var child = connection.InPoint.Node;
+
+                if (!parentToChildren.ContainsKey(parent))
+                {
+                    parentToChildren[parent] = new List<BbbtNode>();
+                    parentToChildren[parent].Add(child);
+                }
+                else
+                {
+                    // Insert the new child before the first existing child that is to the right of the new child.
+                    BbbtNode childToTheRightOfNewChild = null;
+                    foreach (var existingChild in parentToChildren[parent])
+                    {
+                        if (existingChild.Rect.x > child.Rect.x)
+                        {
+                            childToTheRightOfNewChild = existingChild;
+                            break;
+                        }
+                    }
+                    if (childToTheRightOfNewChild != null)
+                    {
+                        parentToChildren[parent].Insert(
+                            parentToChildren[parent].IndexOf(childToTheRightOfNewChild),
+                            child
+                        );
+                    }
+                    else
+                    {
+                        parentToChildren[parent].Add(child);
+                    }
+                }
+            }
+
+            // Actually add the children based on the ordering we figured out.
+            foreach (var parent in parentToChildren.Keys)
+            {
+                foreach (var child in parentToChildren[parent])
+                {
+                    parent.Behaviour.AddChild(child.Behaviour);
+                }
+            }
+        }
     }
 }

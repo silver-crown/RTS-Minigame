@@ -134,6 +134,10 @@ namespace Bbbt
                 new KeyValuePair<Texture2D, BbbtSidePanelContent>(
                     AssetDatabaseWrapper.FindTexture2D("Selector"),
                     new BbbtHelpMenu()
+                ),
+                new KeyValuePair<Texture2D, BbbtSidePanelContent>(
+                    AssetDatabaseWrapper.FindTexture2D("TreeValidationIcon"),
+                    new BbbtTreeValidationPanel(window)
                 )
             };
         }
