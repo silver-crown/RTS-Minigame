@@ -10,6 +10,13 @@
           "NodeId": 3,
           "name": "CanSeeEnemy(Clone)",
           "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtAllEnemiesInSight",
+          "Status": 0,
+          "NodeId": 4,
+          "name": "AllEnemiesInSight(Clone)",
+          "hideFlags": 0
         }
       ],
       "Status": 0,
