@@ -1,0 +1,25 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "SaveDataType": "BbbtCanSeeEnemyCheck",
+          "Status": 0,
+          "NodeId": 3,
+          "name": "CanSeeEnemy(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 2,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}

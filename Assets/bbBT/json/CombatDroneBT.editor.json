@@ -1,0 +1,83 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtCanSeeEnemyCheck",
+              "Status": 0,
+              "NodeId": 3,
+              "name": "CanSeeEnemy(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 769.0,
+      "Y": 119.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Sequencer",
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 3,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 759.0,
+      "Y": 344.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "CanSeeEnemy",
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 600.0,
+      "Y": 477.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 2,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 3,
+      "OutNodeId": 2
+    }
+  ],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}
