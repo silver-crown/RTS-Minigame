@@ -1,0 +1,22 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": null,
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 768.0,
+      "Y": 216.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}

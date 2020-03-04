@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Bbbt
         /// <param name="assetPath">The path of the asset.</param>
         /// <param name="options"></param>
         /// <returns>AssetDeleteResult.DidNotDelete.</returns>
-        public static AssetDeleteResult OnWillDeleteAsset(string assetPath, RemoveAssetOptions options)
+        private static AssetDeleteResult OnWillDeleteAsset(string assetPath, RemoveAssetOptions options)
         {
             if (AssetDatabase.GetMainAssetTypeAtPath(assetPath) == typeof(BbbtBehaviourTree))
             {
@@ -74,6 +75,68 @@ namespace Bbbt
                 }
             }
             return AssetDeleteResult.DidNotDelete;
+        }
+
+        /// <summary>
+        /// Called when an asset will move.
+        /// </summary>
+        /// <param name="sourcePath">The source path.</param>
+        /// <param name="destinationPath">The destination path.</param>
+        /// <returns>AssetMoveResult.DidNotMove.</returns>
+        private static AssetMoveResult OnWillMoveAsset(string sourcePath, string destinationPath)
+        {
+            if (AssetDatabase.GetMainAssetTypeAtPath(sourcePath) == typeof(BbbtBehaviourTree))
+            {
+                string parentDirectory = Path.GetDirectoryName(sourcePath);
+                string name = Path.GetFileNameWithoutExtension(sourcePath);
+                string destinationParentDirectory = Path.GetDirectoryName(destinationPath);
+                string sourceJsonDirectory = AssetDatabase.GUIDToAssetPath(
+                    AssetDatabase.AssetPathToGUID(Path.Combine(parentDirectory, "json")
+                ));
+                if (Directory.Exists(sourceJsonDirectory))
+                {
+                    string jsonFilePath = Path.Combine(sourceJsonDirectory, name + ".json");
+                    string jsonFileMetaPath = jsonFilePath + ".meta";
+                    string jsonEditorFilePath = Path.Combine(sourceJsonDirectory, name + ".editor.json");
+                    string jsonEditorFileMetaPath = jsonEditorFilePath + ".meta";
+
+                    // Create a json directory in the destination path.
+                    string destinationJsonDirectory = Path.Combine(destinationParentDirectory, "json");
+
+                    // Moves a file from the source json directory to the target json directory.
+                    void moveFile(string path)
+                    {
+                        if (File.Exists(path))
+                        {
+                            if (!Directory.Exists(destinationJsonDirectory))
+                            {
+                                Directory.CreateDirectory(destinationJsonDirectory);
+                            }
+                            string fileName = Path.GetFileName(path);
+                            File.Move(path, Path.Combine(destinationJsonDirectory, fileName));
+                        }
+                    }
+
+                    // Move json files.
+                    moveFile(jsonFilePath);
+                    moveFile(jsonFileMetaPath);
+                    moveFile(jsonEditorFilePath);
+                    moveFile(jsonEditorFileMetaPath);
+
+
+                    // Delete the old json directory if it is empty.
+                    if (Directory.GetFiles(sourceJsonDirectory).Length == 0)
+                    {
+                        Directory.Delete(sourceJsonDirectory);
+                        if (File.Exists(sourceJsonDirectory + ".meta"))
+                        {
+                            File.Delete(sourceJsonDirectory + ".meta");
+                        }
+                    }
+                }
+                AssetDatabase.Refresh();
+            }
+            return AssetMoveResult.DidNotMove;
         }
     }
 }

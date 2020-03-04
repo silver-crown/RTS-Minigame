@@ -2,8 +2,8 @@
   "Root": {
     "SaveDataType": "BbbtRoot",
     "Child": {
-      "_message": "Test2 here!",
-      "_logType": 3,
+      "_message": "HELLO",
+      "_logType": 2,
       "SaveDataType": "BbbtDebugLogBehaviour",
       "Status": 0,
       "NodeId": 2,
