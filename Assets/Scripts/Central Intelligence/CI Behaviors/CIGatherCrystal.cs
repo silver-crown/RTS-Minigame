@@ -38,7 +38,7 @@ namespace ssuai {
             CentralIntelligence CI = gameObject.GetComponent<CentralIntelligence>();
 
             CI.TestGatherCrystal();
-            Debug.Log("Gathering crystal, new total: " + CI.Resources["crystal"]);
+            Debug.Log("Gathering crystal, new total: " + CI.Resources[Resource.Type.CRYSTAL]);
 
 
 

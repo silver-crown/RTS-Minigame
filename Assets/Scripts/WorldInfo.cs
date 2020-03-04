@@ -16,13 +16,9 @@ public class WorldInfo : MonoBehaviour
     [SerializeField]
     public List<GameObject> MarineLocations = new List<GameObject>();
 
-    [Tooltip("Metal")]
+    [Tooltip("Resources")]
     [SerializeField]
-    public List<GameObject> Metal = new List<GameObject>();
-
-    [Tooltip("Crystal")]
-    [SerializeField]
-    public List<GameObject> Crystal = new List<GameObject>();
+    public Dictionary<Resource.Type, GameObject> Resources = new Dictionary<Resource.Type, GameObject>();
 
     private WorldInfo()
     {
