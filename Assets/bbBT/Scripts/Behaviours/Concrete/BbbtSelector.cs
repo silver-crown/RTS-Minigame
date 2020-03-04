@@ -32,7 +32,7 @@ namespace Bbbt
         /// </summary>
         /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>The status of the child that was run, or Invalid if none was found.</returns>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             // Iterate through the children and return the status of the first child that
             // returned Running or Success.

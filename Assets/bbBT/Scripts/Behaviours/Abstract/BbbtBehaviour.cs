@@ -74,7 +74,7 @@ namespace Bbbt
                 OnInitialize(gameObject);
             }
 
-            Status = UpdateBehavior(gameObject);
+            Status = UpdateBehaviour(gameObject);
 
             if (Status != BbbtBehaviourStatus.Running)
             {
@@ -92,12 +92,12 @@ namespace Bbbt
         protected abstract void OnInitialize(GameObject gameObject);
 
         /// <summary>
-        /// Updace is called once each time the behavior tree is updated,
+        /// Update is called once each time the behavior tree is updated,
         /// until it signals it has terminated thanks to its return status
         /// </summary>
         /// <param name="gameObject">The game object that owns the behaviour.</param>
         /// <returns>The status of the behaviour.</returns>
-        protected abstract BbbtBehaviourStatus UpdateBehavior(GameObject gameObject);
+        protected abstract BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject);
 
         /// <summary>
         /// OnTerminate is called once, immediately after the previous update signals it’s no longer running.

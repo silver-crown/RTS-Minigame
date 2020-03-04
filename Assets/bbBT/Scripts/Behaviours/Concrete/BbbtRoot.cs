@@ -42,7 +42,7 @@ namespace Bbbt
         /// This should never be called as the root node isn't actually a part of a built behaviour tree.
         /// </summary>
         /// <param name="gameObject">The game object that owns the behaviour.</param>
-        protected override BbbtBehaviourStatus UpdateBehavior(GameObject gameObject)
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             throw new System.NotImplementedException();
         }

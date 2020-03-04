@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ssuai;
+
 
 [RequireComponent(typeof(BehaviorTree))]
 public class CentralIntelligence : MonoBehaviour
@@ -15,19 +17,20 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     private BehaviorTree _behaviorTree;
 
-    private int _crystals;
-    private int _metals;
+
+    public Dictionary<string, int> Resources { get; protected set; }
+
     /// <summary>
     /// Total number of drones present in the army
     /// </summary>
-    private int _droneCount;
-    private const int MAXDRONES = 300;
+    public int DroneCount { get; protected set; }
+    public const int MAXDRONES = 300;
+    //TODO Make separate counters for different types of drones
 
     /// <summary>
     /// Different types of drones CI is capable of building
     /// </summary>
     /// 
-
     List<Drone> _drones = new List<Drone>();
 
     private int _droneID = 0;
@@ -39,17 +42,48 @@ public class CentralIntelligence : MonoBehaviour
         Tank
     }
     DroneType drone = DroneType.Worker;
-    // Need a counter for how many drones are doing what type of actions (Logging this could aslo help for
-    // adding learning to the AI later).
 
-    // Start is called before the first frame update
-    void Start()
+    #region UtilityAI
+
+    private Action[] _actions;
+
+    //the action that has been selected
+    private Action _selectedAction;
+
+    //The number of actions the AI is capable of doing in total
+    private const int NUMOFACTIONS = 3;
+
+    float _timeOfLastAction = 0.0f;
+
+    /// <summary>
+    /// Seconds between each time the AI tries to reselect an action
+    /// </summary>
+    private const int AIDECISIONTIME = 4;
+
+    #endregion UtilityAI
+
+
+    void Awake()
     {
-        if(_droneCount != 0)
-            _droneCount = 0;
+        if(DroneCount != 0)
+            DroneCount = 0;
         _behaviorTree = GetComponent<BehaviorTree>();
-       // SetUpTreeFromCode();
+        // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
+        _actions = new Action[NUMOFACTIONS];
+
+        //Contains the types of resources and the amounts the CI has of them
+        Resources = new Dictionary<string, int>();
+        Resources.Add("metal", 100);
+        Resources.Add("crystal", 100);
+
+        //set up actions
+        _actions[0] = new Action(new List<Factor> { new GatherResourceAmount(this, "metal") }, new CIGatherMetal());
+        _actions[1] = new Action(new List<Factor> { new GatherResourceAmount(this, "crystal") }, new CIGatherCrystal());
+        _actions[2] = new Action(new List<Factor> { new WorkerNumber(this) }, new CIBuildWorker());
+
+        //run selectAction
+        _selectAction();
     }
 
     // Update is called once per frame
@@ -70,10 +104,23 @@ public class CentralIntelligence : MonoBehaviour
         {
             EventManager.TriggerEvent("Testing Private Channel", EventManager.MessageChannel.privateChannel, 0);
         }
+
+        //if enough time has passed since last time do AI decision making
+        if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
+        {
+            _selectAction();
+
+            //tick selected action
+            _selectedAction.Behaviour.Tick(gameObject);
+
+            _timeOfLastAction = Time.time;
+        }
+
+        
     }
 
     /// <summary>
-    /// Creates a behavior tree for the Centreal Intelligence base on a pre defined code
+    /// Creates a behavior tree for the Central Intelligence base on a predefined code
     /// </summary>
     public void SetUpTreeFromCode()
     {
@@ -102,13 +149,56 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     void BuildDrone(DroneType droneType)
     {
-        if(_droneCount < MAXDRONES)
+        if(DroneCount < MAXDRONES)
         {
             Drone drone = Instantiate(_dronePrefab).GetComponent<Drone>();
             _drones.Add(drone);
             Debug.Log("Created drone with ID " + drone.ID);
-            _droneCount++;
+            DroneCount++;
         }
+    }
+    private void _selectAction()
+    {
+        Action chosenAction= _selectedAction;         //the currently best action at this point in the loop
+        float chosenUtility = 0.0f;   //the utility of the currently best action
+
+        //debug values to get information on chosen action
+        int chosenIndex = 0;
+        int debugIndex = 0;
+
+        //go through all actions, choose the one with the highest utility
+        foreach (Action action in _actions)
+        {
+            float utility = action.GetUtility();
+            Debug.Log("Utility of action " + debugIndex + ": " + utility);
+            if (utility > chosenUtility)
+            {
+                chosenAction = action;
+                chosenUtility = utility;
+                chosenIndex = debugIndex;
+            }
+            debugIndex++;
+        }
+
+        _selectedAction = chosenAction;
+    }
+
+    public void TestBuildDrone()
+    {
+        Resources["metal"] -= 10;
+        Resources["crystal"] -= 8;
+        DroneCount++;
+        Debug.Log("Built drone. Metal: " +  Resources["metal"] + "Crystal: " + Resources["crystal"]);
+    }
+
+    public void TestGatherMetal()
+    {
+        Resources["metal"] += 10;
+    }
+
+    public void TestGatherCrystal()
+    {
+        Resources["crystal"] += 10;
     }
 }
 
