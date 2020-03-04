@@ -6,12 +6,12 @@
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
-          "_message": "HELLO",
-          "_logType": 2,
-          "SaveDataType": "BbbtDebugLogBehaviour",
+          "_behaviourTreeName": "Lamo Mannen 123",
+          "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+          "BehaviourTree": null,
           "Status": 0,
           "NodeId": 2,
-          "name": "Debug Logger(Clone)",
+          "name": "Behaviour Tree Caller(Clone)",
           "hideFlags": 0
         },
         "Status": 0,
@@ -19,24 +19,24 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 543.0,
-      "Y": 351.0,
+      "X": 589.0,
+      "Y": 96.0,
       "IsSelected": false
     },
     {
       "Id": 2,
-      "BaseBehaviour": "Debug Logger",
+      "BaseBehaviour": "Behaviour Tree Caller",
       "Behaviour": {
-        "_message": "HELLO",
-        "_logType": 2,
-        "SaveDataType": "BbbtDebugLogBehaviour",
+        "_behaviourTreeName": "Lamo Mannen 123",
+        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+        "BehaviourTree": null,
         "Status": 0,
         "NodeId": 2,
-        "name": "Debug Logger(Clone)",
+        "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 538.0,
-      "Y": 534.0,
+      "X": 623.0,
+      "Y": 266.0,
       "IsSelected": false
     }
   ],

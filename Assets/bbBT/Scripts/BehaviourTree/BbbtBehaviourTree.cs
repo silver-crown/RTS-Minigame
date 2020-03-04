@@ -1,4 +1,5 @@
-﻿using JsonSubTypes;
+﻿using Bbbt.Constants;
+using JsonSubTypes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -45,26 +46,23 @@ namespace Bbbt
             // Save editor data
             string parentDirectory = Path.GetDirectoryName(AssetDatabase.GetAssetPath(this));
 
-            if (!Directory.Exists(Path.Combine(parentDirectory, "json")))
+            if (!Directory.Exists(BbbtConstants.JsonDirectory))
             {
-                AssetDatabase.CreateFolder(parentDirectory, "json");
+                Directory.CreateDirectory(BbbtConstants.JsonDirectory);
             }
-            string jsonFolder = AssetDatabase.GUIDToAssetPath(
-                AssetDatabase.AssetPathToGUID(Path.Combine(parentDirectory, "json")
-            ));
 
             if (editorSaveData != null)
             {
                 EditorSaveData = editorSaveData;
                 string editorJson = JsonConvert.SerializeObject(editorSaveData, Formatting.Indented);
-                File.WriteAllText(Path.Combine(jsonFolder, name + ".editor.json"), editorJson);
+                File.WriteAllText(Path.Combine(BbbtConstants.JsonDirectory, name + ".editor.json"), editorJson);
             }
 
             if (saveData != null)
             {
                 SaveData = saveData;
                 string json = JsonConvert.SerializeObject(saveData, Formatting.Indented);
-                File.WriteAllText(Path.Combine(jsonFolder, name + ".json"), json);
+                File.WriteAllText(Path.Combine(BbbtConstants.JsonDirectory, name + ".json"), json);
             }
 
             AssetDatabase.Refresh();
@@ -81,31 +79,22 @@ namespace Bbbt
                 sourceTree = this;
             }
             string fileName = sourceTree.name;
-            string parentDirectory = Path.GetDirectoryName(AssetDatabase.GetAssetPath(sourceTree));
 
-            if (Directory.Exists(Path.Combine(parentDirectory, "json")))
+            if (Directory.Exists(BbbtConstants.JsonDirectory))
             {
                 // Load editor save data.
-                if (File.Exists(Path.Combine(parentDirectory, "json", fileName + ".editor.json")))
+                string editorFile = Path.Combine(BbbtConstants.JsonDirectory, fileName + ".editor.json");
+                if (File.Exists(editorFile))
                 {
-                    string jsonFolderGuid = AssetDatabase.AssetPathToGUID(Path.Combine(parentDirectory, "json"));
-                    string path = Path.Combine(
-                        AssetDatabase.GUIDToAssetPath(jsonFolderGuid),
-                        fileName + ".editor.json"
-                    );
-                    string json = File.ReadAllText(path);
+                    string json = File.ReadAllText(editorFile);
                     EditorSaveData = JsonConvert.DeserializeObject<BbbtBehaviourTreeEditorSaveData>(json);
                 }
 
                 // Load functional save data.
-                if (File.Exists(Path.Combine(parentDirectory, "json", fileName + ".json")))
+                string file = Path.Combine(BbbtConstants.JsonDirectory, fileName + ".json");
+                if (File.Exists(file))
                 {
-                    string jsonFolderGuid = AssetDatabase.AssetPathToGUID(Path.Combine(parentDirectory, "json"));
-                    string path = Path.Combine(
-                        AssetDatabase.GUIDToAssetPath(jsonFolderGuid),
-                        fileName + ".json"
-                    );
-                    string json = File.ReadAllText(path);
+                    string json = File.ReadAllText(file);
                     SaveData = JsonConvert.DeserializeObject<BbbtBehaviourTreeSaveData>(json);
                     BuildTree();
                 }

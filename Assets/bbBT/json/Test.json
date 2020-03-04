@@ -2,12 +2,12 @@
   "Root": {
     "SaveDataType": "BbbtRoot",
     "Child": {
-      "_message": "HELLO",
-      "_logType": 2,
-      "SaveDataType": "BbbtDebugLogBehaviour",
+      "_behaviourTreeName": "Lamo Mannen 123",
+      "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+      "BehaviourTree": null,
       "Status": 0,
       "NodeId": 2,
-      "name": "Debug Logger(Clone)",
+      "name": "Behaviour Tree Caller(Clone)",
       "hideFlags": 0
     },
     "Status": 0,

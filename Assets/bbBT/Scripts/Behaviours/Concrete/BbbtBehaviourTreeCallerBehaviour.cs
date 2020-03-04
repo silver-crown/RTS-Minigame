@@ -38,7 +38,6 @@ namespace Bbbt
         {
             if (_root == null && _behaviourTreeName != null)
             {
-                Debug.Log(_behaviourTreeName);
                 var originalTree = BbbtBehaviourTree.FindBehaviourTreeWithName(_behaviourTreeName);
                 BehaviourTree = Instantiate(originalTree);
                 BehaviourTree.LoadSaveData(originalTree);
