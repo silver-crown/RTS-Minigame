@@ -122,8 +122,8 @@ namespace Bbbt
                 // Content
                 if (section.IsActive)
                 {
-                    float contentHeight = _contentStyle.CalcHeight(new GUIContent(section.Content), width);
-                    var contentRect = new Rect(x, usedVerticalSpace, width, contentHeight);
+                    float contentHeight = _contentStyle.CalcHeight(new GUIContent(section.Content), width - 10.0f);
+                    var contentRect = new Rect(x + 5.0f, usedVerticalSpace, width - 5.0f, contentHeight);
                     GUI.Label(contentRect, section.Content, _contentStyle);
                     usedVerticalSpace += contentHeight + 2.0f;
                 }
