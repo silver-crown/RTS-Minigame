@@ -101,7 +101,7 @@ namespace RTS
         /// <summary>
         /// Used for the actor to access locations of other entites.
         /// </summary>
-        public EntityLocations entityPosScript;
+        public WorldInfo entityPosScript;
 
 
         [SerializeField]
@@ -142,7 +142,7 @@ namespace RTS
         public virtual void  Awake()
         {
             GameObject worldPos = GameObject.Find("WorldEntityLocationSystem");
-            entityPosScript = worldPos.GetComponent<EntityLocations>();
+            entityPosScript = worldPos.GetComponent<WorldInfo>();
         }
 
         // Start is called before the first frame update

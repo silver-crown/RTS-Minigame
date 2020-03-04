@@ -43,15 +43,15 @@ namespace Bbbt
             {
                 case Factions.Drone:
 
-                    for (int i = 0; i < EntityLocations.MarineLocations.Count; i++)
+                    for (int i = 0; i < WorldInfo.Instance.MarineLocations.Count; i++)
                     {
-                        if (Vector3.Distance(_actor.transform.position, EntityLocations.MarineLocations[i].transform.position) <= _actor.LineOfSight)
+                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Instance.MarineLocations[i].transform.position) <= _actor.LineOfSight)
                         {
                             // Inn here we have spotted a player
                             Debug.Log("Spotted player!");
 
                             // Records last sighting of the player
-                            _actor.LastSighting = EntityLocations.MarineLocations[i].transform.position;
+                            _actor.LastSighting = WorldInfo.Instance.MarineLocations[i].transform.position;
 
                             _actor.EnemyInSight = true;
                             return BbbtBehaviourStatus.Success;
