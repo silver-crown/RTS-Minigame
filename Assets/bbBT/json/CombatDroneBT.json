@@ -17,6 +17,13 @@
           "NodeId": 4,
           "name": "AllEnemiesInSight(Clone)",
           "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtTargetNearest",
+          "Status": 0,
+          "NodeId": 5,
+          "name": "TargetNearest(Clone)",
+          "hideFlags": 0
         }
       ],
       "Status": 0,

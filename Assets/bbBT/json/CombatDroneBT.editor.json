@@ -21,6 +21,13 @@
               "NodeId": 4,
               "name": "AllEnemiesInSight(Clone)",
               "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtTargetNearest",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "TargetNearest(Clone)",
+              "hideFlags": 0
             }
           ],
           "Status": 0,
@@ -56,6 +63,13 @@
             "NodeId": 4,
             "name": "AllEnemiesInSight(Clone)",
             "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtTargetNearest",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "TargetNearest(Clone)",
+            "hideFlags": 0
           }
         ],
         "Status": 0,
@@ -77,8 +91,8 @@
         "name": "CanSeeEnemy(Clone)",
         "hideFlags": 0
       },
-      "X": 527.0,
-      "Y": 491.0,
+      "X": 483.0,
+      "Y": 509.0,
       "IsSelected": false
     },
     {
@@ -91,8 +105,22 @@
         "name": "AllEnemiesInSight(Clone)",
         "hideFlags": 0
       },
-      "X": 677.0,
-      "Y": 492.0,
+      "X": 615.0,
+      "Y": 509.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "TargetNearest",
+      "Behaviour": {
+        "SaveDataType": "BbbtTargetNearest",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "TargetNearest(Clone)",
+        "hideFlags": 0
+      },
+      "X": 738.0,
+      "Y": 512.0,
       "IsSelected": false
     }
   ],
@@ -107,6 +135,10 @@
     },
     {
       "InNodeId": 4,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 5,
       "OutNodeId": 2
     }
   ],

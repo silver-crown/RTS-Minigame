@@ -15,7 +15,6 @@ namespace RTS
     /// </summary>
     public abstract class Actor : MonoBehaviour
     {
-        
         #region Combat
 
         // 1. Base Stats
@@ -56,6 +55,11 @@ namespace RTS
         /// The prefab of the bullet that will be spawned when the weapon is fired.
         /// </summary>
         public GameObject ProjectilePrefab;
+
+        /// <summary>
+        /// This bool indicates if an enemy is within attacking distance of the actor.
+        /// </summary>
+        public bool EnemyInRange { get; protected set; }
  
         #endregion
 
@@ -135,6 +139,14 @@ namespace RTS
         #endregion
 
         public virtual void ReadStatsFromFile()
+        {
+
+        }
+
+        /// <summary>
+        /// Speciacations of the actor class determines how to attack
+        /// </summary>
+        public virtual void Attack()
         {
 
         }

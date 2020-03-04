@@ -37,4 +37,10 @@ public class CombatDrone : Drone
     {
         base.Update();
     }
+
+    public override void Attack()
+    {
+       
+    }
+
 }

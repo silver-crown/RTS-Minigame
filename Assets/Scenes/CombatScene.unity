@@ -457,7 +457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 767627778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34.4, y: 1.083, z: -36.8}
+  m_LocalPosition: {x: -34.67, y: 1.083, z: -34.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 468509882}
@@ -714,6 +714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2e744722e02e64aa8465f2726ed01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MarineLocations: []
+  Metal: []
+  Crystal: []
 --- !u!4 &1586501339
 Transform:
   m_ObjectHideFlags: 0
