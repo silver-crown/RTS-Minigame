@@ -10,14 +10,13 @@ public class Marine : RTS.Actor
     public override void Awake()
     {
         base.Awake();
-
-        WorldInfo.Instance.MarineLocations.Add(this.gameObject);
         MyFaction = Factions.Marine;
     }
-
+    
     // Start is called before the first frame update
     public override void Start()
     {
+        WorldInfo.Instance.MarineLocations.Add(this.gameObject);
         base.Start();
     }
 
