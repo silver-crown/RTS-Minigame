@@ -34,6 +34,7 @@ namespace RTS
         /// <summary>
         /// How far the Actor can attack
         /// </summary>
+        [SerializeField]
         public int AttackRange { get; protected set; }
 
         /// <summary>

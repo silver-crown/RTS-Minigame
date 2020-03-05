@@ -1,0 +1,6 @@
+--- stats
+
+
+
+--- AI
+behaviourTree = "CombatDroneBT"

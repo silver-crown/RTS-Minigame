@@ -1,0 +1,2 @@
+--- AI
+behaviourTree = "WorkerDroneDefaultBehavior"
