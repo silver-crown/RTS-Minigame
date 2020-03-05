@@ -4,7 +4,9 @@ using UnityEngine;
 
 using UnityEngine.AI;
 
+using MoonSharp.Interpreter;
 using Bbbt;
+using RTS;
 
 /// <summary>
 /// Specialiced type of drone that specelises on combat
@@ -18,6 +20,20 @@ public class CombatDrone : Drone
     {
         MyBbbtBehaviourTreeComponent = GetComponent<BbbtBehaviourTreeComponent>();
         MyBbbtBehaviourTreeComponent.SetBehaviourTree("CombatDroneBT");
+    }
+
+    /// <summary>
+    /// Reads the drone's stats from lua.
+    /// </summary>
+    override
+    public void ReadStatsFromFile()
+    {
+        base.ReadStatsFromFile();
+
+        Script script = new Script();
+        script.DoFile("CombatDrone.lua");
+        AttackRange = (int)script.Globals.Get("attackRange").Number;
+        Debug.Log("Combat Drone attack Range: " + AttackRange);
     }
 
     public override void Awake()
