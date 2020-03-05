@@ -228,7 +228,10 @@ namespace Bbbt
                 foreach (var node in _nodes)
                 {
                     var headerRect = new Rect(x, usedVerticalSpace, width, 20.0f);
-                    GUI.Label(headerRect, node.BaseBehaviour.name + " (node #" + node.Id + ")", _headerStyle);
+                    if (GUI.Button(headerRect, node.BaseBehaviour.name + " (node #" + node.Id + ")", _headerStyle))
+                    {
+                        _window.SelectNode(node);
+                    }
                     usedVerticalSpace += 20.0f;
                     // Display errors.
                     if (_errors.ContainsKey(node))
@@ -236,7 +239,10 @@ namespace Bbbt
                         foreach (var error in _errors[node])
                         {
                             var errorRect = new Rect(x + 5.0f, usedVerticalSpace, width - 5.0f, 20.0f);
-                            GUI.Label(errorRect, error, _errorStyle);
+                            if (GUI.Button(errorRect, error, _errorStyle))
+                            {
+                                _window.SelectNode(node);
+                            }
                             usedVerticalSpace += 20.0f;
                         }
                     }
@@ -247,7 +253,10 @@ namespace Bbbt
                         foreach (var warning in _warnings[node])
                         {
                             var warningRect = new Rect(x + 5.0f, usedVerticalSpace, width - 5.0f, 20.0f);
-                            GUI.Label(warningRect, warning, _warningStyle);
+                            if (GUI.Button(warningRect, warning, _warningStyle))
+                            {
+                                _window.SelectNode(node);
+                            }
                             usedVerticalSpace += 20.0f;
                         }
                     }

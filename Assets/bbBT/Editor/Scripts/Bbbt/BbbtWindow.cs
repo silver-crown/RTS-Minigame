@@ -691,7 +691,7 @@ namespace Bbbt
         /// Selects a node.
         /// </summary>
         /// <param name="node">The node to select.</param>
-        private void SelectNode(BbbtNode node)
+        public void SelectNode(BbbtNode node)
         {
             // Deselect the selected node.
             var selectedNode = FindSelectedNode();
