@@ -18,7 +18,7 @@ public class WorldInfo : MonoBehaviour
 
     [Tooltip("Resources")]
     [SerializeField]
-    public Dictionary<Resource.Type, GameObject> Resources = new Dictionary<Resource.Type, GameObject>();
+    public List <GameObject> Resources = new List<GameObject>();
 
     private WorldInfo()
     {
