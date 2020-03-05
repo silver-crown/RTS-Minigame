@@ -31,7 +31,7 @@ public class EventManager : MonoBehaviour
     }
 
     //Get the EventManager if there's one present in the scene
-    public static EventManager instance 
+    private static EventManager instance 
     {
         get 
         {
