@@ -36,6 +36,13 @@
               "NodeId": 6,
               "name": "Attack Distance Check(Clone)",
               "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtAttackTarget",
+              "Status": 0,
+              "NodeId": 7,
+              "name": "Attack Target(Clone)",
+              "hideFlags": 0
             }
           ],
           "Status": 0,
@@ -85,6 +92,13 @@
             "Status": 0,
             "NodeId": 6,
             "name": "Attack Distance Check(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 7,
+            "name": "Attack Target(Clone)",
             "hideFlags": 0
           }
         ],
@@ -156,6 +170,21 @@
       "X": 787.0,
       "Y": 610.0,
       "IsSelected": false
+    },
+    {
+      "Id": 7,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": -140274,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 7,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 951.0,
+      "Y": 611.0,
+      "IsSelected": true
     }
   ],
   "Connections": [
@@ -177,6 +206,10 @@
     },
     {
       "InNodeId": 6,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 7,
       "OutNodeId": 2
     }
   ],

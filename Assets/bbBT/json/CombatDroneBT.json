@@ -31,6 +31,13 @@
           "NodeId": 6,
           "name": "Attack Distance Check(Clone)",
           "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtAttackTarget",
+          "Status": 0,
+          "NodeId": 7,
+          "name": "Attack Target(Clone)",
+          "hideFlags": 0
         }
       ],
       "Status": 0,
