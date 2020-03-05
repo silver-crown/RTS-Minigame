@@ -1,9 +1,7 @@
 ﻿using Bbbt.Constants;
-using System;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using UnityEngine;
 
 namespace Bbbt
 {

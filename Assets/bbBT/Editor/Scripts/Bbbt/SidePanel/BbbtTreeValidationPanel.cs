@@ -14,14 +14,24 @@ namespace Bbbt
         private BbbtWindow _window;
 
         /// <summary>
+        /// Nodes to display warnings/errors for.
+        /// </summary>
+        private List<BbbtNode> _nodes;
+
+        /// <summary>
         /// Warnings to display.
         /// </summary>
-        private List<string> _warnings;
+        private Dictionary<BbbtNode, List<string>> _warnings;
 
         /// <summary>
         /// Errors to display.
         /// </summary>
-        private List<string> _errors;
+        private Dictionary<BbbtNode, List<string>> _errors;
+
+        /// <summary>
+        /// The style to use for headers.
+        /// </summary>
+        private GUIStyle _headerStyle;
 
         /// <summary>
         /// The style to use for warnings.
@@ -41,6 +51,10 @@ namespace Bbbt
         {
             _window = window;
 
+            _headerStyle = new GUIStyle();
+            _headerStyle.normal.textColor = Color.white;
+            _headerStyle.fontSize = 14;
+
             _warningStyle = new GUIStyle();
             _warningStyle.normal.textColor = Color.yellow;
             _warningStyle.fontSize = 14;
@@ -55,13 +69,52 @@ namespace Bbbt
         /// </summary>
         private void Validate()
         {
-            _warnings = new List<string>();
-            _errors = new List<string>();
+            void AddNode(BbbtNode node)
+            {
+                if (!_nodes.Contains(node))
+                {
+                    if (node.Behaviour as BbbtRoot != null)
+                    {
+                        _nodes.Insert(0, node);
+                    }
+                    else
+                    {
+                        _nodes.Add(node);
+                    }
+                }
+            }
+
+            void AddError(BbbtNode node, string error)
+            {
+                AddNode(node);
+                if (!_errors.ContainsKey(node))
+                {
+                    _errors[node] = new List<string>();
+                }
+                _errors[node].Add(error);
+            }
+
+            void AddWarning(BbbtNode node, string warning)
+            {
+                AddNode(node);
+                if (!_warnings.ContainsKey(node))
+                {
+                    _warnings[node] = new List<string>();
+                }
+                _warnings[node].Add(warning);
+            }
+
+            _nodes = new List<BbbtNode>();
+            _warnings = new Dictionary<BbbtNode, List<string>>();
+            _errors = new Dictionary<BbbtNode, List<string>>();
 
             _window.CurrentTab.SetBehaviourChildren();
 
-            // For each behaviour in the tree, validate the behaviour and display any warnings or errors.
+            // Find all the nodes and categorise them.
             BbbtRoot rootBehaviour = null;
+            var nodesFromRoot = new List<BbbtNode>();
+            var compositeNodes = new List<BbbtNode>();
+            var decoratorNodes = new List<BbbtNode>();
             foreach (var node in _window.CurrentTab.Nodes)
             {
                 if (node.Behaviour as BbbtRoot != null)
@@ -69,23 +122,96 @@ namespace Bbbt
                     rootBehaviour = node.Behaviour as BbbtRoot;
                     if (rootBehaviour.Child == null)
                     {
-                        _errors.Add("Root node has no child.");
+                        AddError(node, "Missing child.");
+                    }
+                    else
+                    {
+                        // Find all the nodes which come from the root node.
+                        var nodesToVisit = new Stack<BbbtNode>();
+                        nodesToVisit.Push(_window.CurrentTab.FindNodeWithId(rootBehaviour.Child.NodeId));
+                        while (nodesToVisit.Count != 0)
+                        {
+                            var visitedNode = nodesToVisit.Pop();
+                            nodesFromRoot.Add(visitedNode);
+                            if (visitedNode.Behaviour as BbbtCompositeBehaviour != null)
+                            {
+                                var behaviour = visitedNode.Behaviour as BbbtCompositeBehaviour;
+                                if (behaviour.Children != null)
+                                {
+                                    foreach (var child in behaviour.Children)
+                                    {
+                                        nodesToVisit.Push(_window.CurrentTab.FindNodeWithId(child.NodeId));
+                                    }
+                                }
+                            }
+                            else if (visitedNode.Behaviour as BbbtDecoratorBehaviour != null)
+                            {
+                                var behaviour = visitedNode.Behaviour as BbbtDecoratorBehaviour;
+                                if (behaviour.Child != null)
+                                {
+                                    nodesToVisit.Push(_window.CurrentTab.FindNodeWithId(behaviour.NodeId));
+                                }
+                            }
+                        }
                     }
                 }
 
-                // Check if the node's behaviour has any children.
-                var decorator = node.Behaviour as BbbtDecoratorBehaviour;
-                var composite = node.Behaviour as BbbtCompositeBehaviour;
-                if (decorator != null && decorator.Child == null || composite != null && composite.Children == null)
+                if (node.Behaviour as BbbtDecoratorBehaviour)
                 {
-                    _warnings.Add(node.BaseBehaviour.name + " (node #" + node.Id + ") has no child.");
+                    decoratorNodes.Add(node);
+                }
+                if (node.Behaviour as BbbtCompositeBehaviour)
+                {
+                    compositeNodes.Add(node);
+                }
+
+                // Check if the node has no parent (warning).
+                if (node.Behaviour as BbbtRoot == null && _window.CurrentTab.FindParentNode(node) == null)
+                {
+                    AddWarning(node, "Missing parent.");
                 }
             }
 
-            // Check if there is no root node.
+            /*
+            // Check if there is no root node (error).
             if (rootBehaviour == null)
             {
-                _errors.Add("No root node.");
+                _errors[null].Add("No root node.");
+            }
+            */
+
+            // Check if there are any childless composite nodes.
+            foreach (var node in compositeNodes)
+            {
+                var behaviour = node.Behaviour as BbbtCompositeBehaviour;
+                if (behaviour.Children == null)
+                {
+                    if (nodesFromRoot.Contains(node))
+                    {
+                        AddError(node, "Missing child.");
+                    }
+                    else
+                    {
+                        AddWarning(node, "Missing child.");
+                    }
+                }
+            }
+
+            // Check if there are any childless decorator nodes.
+            foreach (var node in decoratorNodes)
+            {
+                var behaviour = node.Behaviour as BbbtDecoratorBehaviour;
+                if (behaviour.Child == null)
+                {
+                    if (nodesFromRoot.Contains(node))
+                    {
+                        AddError(node, "Missing child.");
+                    }
+                    else
+                    {
+                        AddWarning(node, "Missing child.");
+                    }
+                }
             }
         }
 
@@ -98,22 +224,48 @@ namespace Bbbt
                 float x = rect.x + 5.0f;
                 float width = rect.xMax - x;
 
-                // Display errors.
-                foreach (var error in _errors)
+                // Display warnings and errors for each node.
+                foreach (var node in _nodes)
                 {
-                    var errorRect = new Rect(x, usedVerticalSpace, width, 20.0f);
-                    GUI.Label(errorRect, error, _errorStyle);
+                    var headerRect = new Rect(x, usedVerticalSpace, width, 20.0f);
+                    if (GUI.Button(headerRect, node.BaseBehaviour.name + " (node #" + node.Id + ")", _headerStyle))
+                    {
+                        _window.SelectNode(node);
+                    }
                     usedVerticalSpace += 20.0f;
-                }
+                    // Display errors.
+                    if (_errors.ContainsKey(node))
+                    {
+                        foreach (var error in _errors[node])
+                        {
+                            var errorRect = new Rect(x + 5.0f, usedVerticalSpace, width - 5.0f, 20.0f);
+                            if (GUI.Button(errorRect, error, _errorStyle))
+                            {
+                                _window.SelectNode(node);
+                            }
+                            usedVerticalSpace += 20.0f;
+                        }
+                    }
 
-                // Display warnings.
-                foreach (var warning in _warnings)
-                {
-                    var warningRect = new Rect(x, usedVerticalSpace, width, 20.0f);
-                    GUI.Label(warningRect, warning, _warningStyle);
-                    usedVerticalSpace += 20.0f;
+                    // Display warnings.
+                    if (_warnings.ContainsKey(node))
+                    {
+                        foreach (var warning in _warnings[node])
+                        {
+                            var warningRect = new Rect(x + 5.0f, usedVerticalSpace, width - 5.0f, 20.0f);
+                            if (GUI.Button(warningRect, warning, _warningStyle))
+                            {
+                                _window.SelectNode(node);
+                            }
+                            usedVerticalSpace += 20.0f;
+                        }
+                    }
                 }
             }
+        }
+
+        public override void ProcessEvents(Event e)
+        {
         }
     }
 }

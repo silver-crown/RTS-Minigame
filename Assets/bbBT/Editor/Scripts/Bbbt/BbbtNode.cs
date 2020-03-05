@@ -325,7 +325,8 @@ namespace Bbbt
             return new BbbtNodeSaveData(
                 Id,
                 BaseBehaviour.name,
-                Behaviour,//.ToSaveData(),
+                BaseBehaviour.GetInstanceID(),
+                Behaviour,
                 Rect.x,
                 Rect.y,
                 IsSelected

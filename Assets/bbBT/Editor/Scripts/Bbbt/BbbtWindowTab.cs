@@ -2,6 +2,7 @@
 using Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -340,6 +341,62 @@ namespace Bbbt
                     parent.Behaviour.AddChild(child.Behaviour);
                 }
             }
+        }
+
+        /// <summary>
+        /// Finds a node in the tab with a given id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The node with the given id.</returns>
+        public BbbtNode FindNodeWithId(int id)
+        {
+            return Nodes.Where(n => n.Id == id).First();
+        }
+
+        /// <summary>
+        /// Finds the node which the given node is a child of.
+        /// </summary>
+        /// <param name="node">The node to find the parent of.</param>
+        /// <returns>The parent of the given node.</returns>
+        public BbbtNode FindParentNode(BbbtNode node)
+        {
+            foreach (var potentialParentNode in Nodes)
+            {
+                var root = potentialParentNode.Behaviour as BbbtRoot;
+                var decorator = potentialParentNode.Behaviour as BbbtDecoratorBehaviour;
+                var composite = potentialParentNode.Behaviour as BbbtCompositeBehaviour;
+
+                if (root != null && root.Child == node.Behaviour)
+                {
+                    return potentialParentNode;
+                }
+                else if (decorator != null && decorator.Child == node.Behaviour)
+                {
+                    return potentialParentNode;
+                }
+                else if (composite != null && composite.Children != null &&
+                         composite.Children.Contains(node.Behaviour))
+                {
+                    return potentialParentNode;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Checks if a root node exists in the tab.
+        /// </summary>
+        /// <returns>True if root node exists, false otherwise.</returns>
+        public bool DoesRootExist()
+        {
+            foreach (var node in Nodes)
+            {
+                if (node.Behaviour as BbbtRoot != null)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

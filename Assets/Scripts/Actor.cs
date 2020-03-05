@@ -15,7 +15,6 @@ namespace RTS
     /// </summary>
     public abstract class Actor : MonoBehaviour
     {
-
         #region Combat
 
         // 1. Base Stats
@@ -35,6 +34,7 @@ namespace RTS
         /// <summary>
         /// How far the Actor can attack
         /// </summary>
+        [SerializeField]
         public int AttackRange { get; protected set; }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace RTS
         public int FireRate { get; protected set; }
 
         /// <summary>
-        /// The entity the script wants to shoot at
+        /// The current target of the actor, this is the enemy that the actor will attack
         /// </summary>
         public GameObject Target;
 
@@ -62,6 +62,11 @@ namespace RTS
         /// </summary>
         public GameObject ProjectilePrefab;
 
+        /// <summary>
+        /// This bool indicates if an enemy is within attacking distance of the actor.
+        /// </summary>
+        public bool EnemyInRange { get; protected set; }
+ 
         #endregion
 
         #region AI
@@ -144,7 +149,15 @@ namespace RTS
 
         }
 
-        public virtual void Awake()
+        /// <summary>
+        /// Speciacations of the actor class determines how to attack
+        /// </summary>
+        public virtual void Attack()
+        {
+
+        }
+
+        public virtual void  Awake()
         {
             GameObject worldPos = GameObject.Find("WorldEntityLocationSystem");
             entityPosScript = worldPos.GetComponent<WorldInfo>();

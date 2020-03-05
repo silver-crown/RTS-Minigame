@@ -3,15 +3,16 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 8006,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
-          "_behaviourTreeName": "",
-          "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-          "BehaviourTree": null,
+          "_message": "L M A O",
+          "_logType": 3,
+          "SaveDataType": "BbbtDebugLogBehaviour",
           "Status": 0,
-          "NodeId": 2,
-          "name": "Behaviour Tree Caller(Clone)",
+          "NodeId": 3,
+          "name": "Debug Logger(Clone)",
           "hideFlags": 0
         },
         "Status": 0,
@@ -19,33 +20,34 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 419.0,
-      "Y": 206.0,
+      "X": 487.0,
+      "Y": 262.0,
       "IsSelected": false
     },
     {
-      "Id": 2,
-      "BaseBehaviour": "Behaviour Tree Caller",
+      "Id": 3,
+      "BaseBehaviour": "Debug Logger",
+      "BaseBehaviourInstanceId": 5804,
       "Behaviour": {
-        "_behaviourTreeName": "",
-        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-        "BehaviourTree": null,
+        "_message": "L M A O",
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
         "Status": 0,
-        "NodeId": 2,
-        "name": "Behaviour Tree Caller(Clone)",
+        "NodeId": 3,
+        "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 494.0,
-      "Y": 381.0,
+      "X": 535.0,
+      "Y": 481.0,
       "IsSelected": true
     }
   ],
   "Connections": [
     {
-      "InNodeId": 2,
+      "InNodeId": 3,
       "OutNodeId": 1
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": -2.0,
+  "WindowOffsetY": 21.0
 }

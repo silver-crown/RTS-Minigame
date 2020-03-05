@@ -595,7 +595,10 @@ namespace Bbbt
 
                         if (draggedBehavior != null)
                         {
-                            DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                            if (!CurrentTab.DoesRootExist() || draggedBehavior as BbbtRoot == null)
+                            {
+                                DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                            }
                         }
                     }
                     break;
@@ -608,9 +611,13 @@ namespace Bbbt
 
                         if (draggedBehavior != null)
                         {
-                            // A behaviour was dropped into the editor, instantiate a node with the behaviour attached.
-                            var node = AddNode(++CurrentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
-                            SelectNode(node);
+                            if (!CurrentTab.DoesRootExist() || draggedBehavior as BbbtRoot == null)
+                            {
+                                // A behaviour was dropped into the editor,
+                                // instantiate a node with the behaviour attached.
+                                var node = AddNode(++CurrentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
+                                SelectNode(node);
+                            }
                         }
                     }
                     break;
@@ -691,7 +698,7 @@ namespace Bbbt
         /// Selects a node.
         /// </summary>
         /// <param name="node">The node to select.</param>
-        private void SelectNode(BbbtNode node)
+        public void SelectNode(BbbtNode node)
         {
             // Deselect the selected node.
             var selectedNode = FindSelectedNode();
@@ -724,14 +731,7 @@ namespace Bbbt
             foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtRoot>())
             {
                 // Check if a root node exists
-                bool rootExists = false;
-                foreach (var node in CurrentTab.Nodes)
-                {
-                    if (node.Behaviour as BbbtRoot != null)
-                    {
-                        rootExists = true;
-                    }
-                }
+                bool rootExists = CurrentTab.DoesRootExist();
 
                 if (!rootExists)
                 {
@@ -1232,7 +1232,21 @@ namespace Bbbt
                     foreach (var nodeSaveData in tree.EditorSaveData.Nodes)
                     {
                         // Get the behaviour instance from the save data's string and check if it's valid.
-                        var baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
+                        BbbtBehaviour baseBehaviour = null;
+                        UnityEngine.Object @object = EditorUtility.InstanceIDToObject(
+                            nodeSaveData.BaseBehaviourInstanceId
+                        );
+                        try
+                        {
+                            baseBehaviour = (BbbtBehaviour)@object;
+                        }
+                        catch (InvalidCastException e)
+                        {
+                        }
+                        if (baseBehaviour == null)
+                        {
+                            baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
+                        }
                         //var behaviourSaveData = nodeSaveData.BehaviourSaveData;
                         var behaviour = nodeSaveData.Behaviour;
 

@@ -42,8 +42,12 @@ namespace Bbbt
         /// </returns>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
+
+             _actor.VisibleEnemies.Clear();
+
             switch (_actor.MyFaction)
             {
+
                 case Factions.Drone:
 
                     for (int i = 0; i < WorldInfo.Instance.MarineLocations.Count; i++)
