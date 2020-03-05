@@ -21,6 +21,11 @@ namespace Bbbt
         public string BaseBehaviour;
 
         /// <summary>
+        /// The instance id of the node's base behaviour.
+        /// </summary>
+        public int BaseBehaviourInstanceId;
+
+        /// <summary>
         /// The behaviour attached to the node.
         /// </summary>
         public BbbtBehaviour Behaviour;
@@ -46,6 +51,7 @@ namespace Bbbt
         /// </summary>
         /// <param name="id">A unique ID used to identify the node.</param>
         /// <param name="baseBehaviour">The name of the node's base behaviour.</param>
+        /// <param name="baseBehaviourInstanceId">The instance id of the node's base behaviour.</param>
         /// <param name="behaviour">The behaviour attached to the node.</param>
         /// <param name="x">The node's x position.</param>
         /// <param name="y">The node's y position.</param>
@@ -53,6 +59,7 @@ namespace Bbbt
         public BbbtNodeSaveData(
             int id,
             string baseBehaviour,
+            int baseBehaviourInstanceId,
             BbbtBehaviour behaviour,
             float x,
             float y,
@@ -60,6 +67,7 @@ namespace Bbbt
         {
             Id = id;
             BaseBehaviour = baseBehaviour;
+            BaseBehaviourInstanceId = baseBehaviourInstanceId;
             Behaviour = behaviour;
             X = x;
             Y = y;

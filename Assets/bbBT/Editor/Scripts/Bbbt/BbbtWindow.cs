@@ -1232,7 +1232,21 @@ namespace Bbbt
                     foreach (var nodeSaveData in tree.EditorSaveData.Nodes)
                     {
                         // Get the behaviour instance from the save data's string and check if it's valid.
-                        var baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
+                        BbbtBehaviour baseBehaviour = null;
+                        UnityEngine.Object @object = EditorUtility.InstanceIDToObject(
+                            nodeSaveData.BaseBehaviourInstanceId
+                        );
+                        try
+                        {
+                            baseBehaviour = (BbbtBehaviour)@object;
+                        }
+                        catch (InvalidCastException e)
+                        {
+                        }
+                        if (baseBehaviour == null)
+                        {
+                            baseBehaviour = BbbtBehaviour.FindBehaviourWithName(nodeSaveData.BaseBehaviour);
+                        }
                         //var behaviourSaveData = nodeSaveData.BehaviourSaveData;
                         var behaviour = nodeSaveData.Behaviour;
 
