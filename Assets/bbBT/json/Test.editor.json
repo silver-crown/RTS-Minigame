@@ -1,38 +1,6 @@
 {
   "Nodes": [
     {
-      "Id": 2,
-      "BaseBehaviour": "Behaviour Tree Caller",
-      "Behaviour": {
-        "_behaviourTreeName": "Test2",
-        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-        "BehaviourTree": null,
-        "Status": 0,
-        "NodeId": 2,
-        "name": "Behaviour Tree Caller(Clone)",
-        "hideFlags": 0
-      },
-      "X": 612.0,
-      "Y": 645.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 6,
-      "BaseBehaviour": "Debug Logger",
-      "Behaviour": {
-        "_message": "LMAOOOOOO",
-        "_logType": 3,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 6,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 407.0,
-      "Y": 647.0,
-      "IsSelected": false
-    },
-    {
       "Id": 7,
       "BaseBehaviour": "Sequencer",
       "Behaviour": {
@@ -62,12 +30,44 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 511.0,
-      "Y": 486.0,
+      "X": 525.0,
+      "Y": 503.0,
       "IsSelected": false
     },
     {
-      "Id": 9,
+      "Id": 6,
+      "BaseBehaviour": "Debug Logger",
+      "Behaviour": {
+        "_message": "LMAOOOOOO",
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 326.0,
+      "Y": 716.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Behaviour Tree Caller",
+      "Behaviour": {
+        "_behaviourTreeName": "Test2",
+        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+        "BehaviourTree": null,
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Behaviour Tree Caller(Clone)",
+        "hideFlags": 0
+      },
+      "X": 571.0,
+      "Y": 667.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 11,
       "BaseBehaviour": "Root",
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
@@ -99,13 +99,28 @@
           "hideFlags": 0
         },
         "Status": 0,
-        "NodeId": 9,
+        "NodeId": 11,
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 509.0,
-      "Y": 293.0,
-      "IsSelected": true
+      "X": 503.0,
+      "Y": 307.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "Selector",
+      "Behaviour": {
+        "SaveDataType": "BbbtSelector",
+        "Children": null,
+        "Status": 0,
+        "NodeId": 10,
+        "name": "Selector(Clone)",
+        "hideFlags": 0
+      },
+      "X": 830.0,
+      "Y": 339.0,
+      "IsSelected": false
     }
   ],
   "Connections": [
@@ -119,9 +134,9 @@
     },
     {
       "InNodeId": 7,
-      "OutNodeId": 9
+      "OutNodeId": 11
     }
   ],
-  "WindowOffsetX": -20.0,
-  "WindowOffsetY": 7.0
+  "WindowOffsetX": -60.0,
+  "WindowOffsetY": 38.0
 }

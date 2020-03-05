@@ -382,5 +382,21 @@ namespace Bbbt
             }
             return null;
         }
+
+        /// <summary>
+        /// Checks if a root node exists in the tab.
+        /// </summary>
+        /// <returns>True if root node exists, false otherwise.</returns>
+        public bool DoesRootExist()
+        {
+            foreach (var node in Nodes)
+            {
+                if (node.Behaviour as BbbtRoot != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -595,7 +595,10 @@ namespace Bbbt
 
                         if (draggedBehavior != null)
                         {
-                            DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                            if (!CurrentTab.DoesRootExist() || draggedBehavior as BbbtRoot == null)
+                            {
+                                DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
+                            }
                         }
                     }
                     break;
@@ -608,9 +611,13 @@ namespace Bbbt
 
                         if (draggedBehavior != null)
                         {
-                            // A behaviour was dropped into the editor, instantiate a node with the behaviour attached.
-                            var node = AddNode(++CurrentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
-                            SelectNode(node);
+                            if (!CurrentTab.DoesRootExist() || draggedBehavior as BbbtRoot == null)
+                            {
+                                // A behaviour was dropped into the editor,
+                                // instantiate a node with the behaviour attached.
+                                var node = AddNode(++CurrentTab.LastNodeID, draggedBehavior, e.mousePosition, true);
+                                SelectNode(node);
+                            }
                         }
                     }
                     break;
@@ -724,14 +731,7 @@ namespace Bbbt
             foreach (var behaviour in BbbtBehaviour.GetAllInstances<BbbtRoot>())
             {
                 // Check if a root node exists
-                bool rootExists = false;
-                foreach (var node in CurrentTab.Nodes)
-                {
-                    if (node.Behaviour as BbbtRoot != null)
-                    {
-                        rootExists = true;
-                    }
-                }
+                bool rootExists = CurrentTab.DoesRootExist();
 
                 if (!rootExists)
                 {

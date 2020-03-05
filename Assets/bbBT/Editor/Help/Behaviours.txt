@@ -1,0 +1,27 @@
+Behaviours are what makes a behaviour tree do stuff. There are three main types of behaviours: Composite, Decorator, and Leaf. In addition, there is the root behaviour, which is a special type of behaviour that marks the entry point of the behaviour tree.
+
+<b>Composite Behaviours</b> can have multiple children and define the control flow of the behaviour tree.
+
+<b>Decorator Behaviours</b> have a single child and perform some operation on its return value.
+
+<b>Leaf Behaviours</b> have no children and are the end points of the behaviour tree. Leaf behaviours are what makes stuff happen in-game.
+
+<b>Creating a behaviour:</b>
+
+1. Create a new script and have it extend either BbbtCompositeBehaviour, DecoratorBehaviour, or LeafBehaviour.
+
+2. Set SaveDataType to the name of the class. This is necessary for saving the behaviour.
+
+3. Give the class a [CreateAssetMenu] attribute. The convention for prepackaged behaviours is
+[CreateAssetMenu(
+    fileName = "Designer Readable Name",
+    menuName = "bbBT/Behaviour/[Leaf/Composite/Decorator]/Designer Readable Name",
+    order = 0)]
+
+4. Write the behaviour's logic.
+
+5. Give any variables you want to edit in the inspector a [SerializeField] attribute and any variables you want to save/load a [JsonProperty] attribute.
+
+6. Create an instance of the behaviour in the asset menu.
+
+After creating the behaviour you can either drag it in or right click in the editor to use it.
