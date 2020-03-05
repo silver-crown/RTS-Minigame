@@ -1,92 +1,9 @@
 {
   "Nodes": [
     {
-      "Id": 2,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 7414,
-      "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "SaveDataType": "BbbtCanSeeEnemyCheck",
-            "Status": 0,
-            "NodeId": 3,
-            "name": "CanSeeEnemy(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtAllEnemiesInSight",
-            "Status": 0,
-            "NodeId": 4,
-            "name": "AllEnemiesInSight(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtTargetNearest",
-            "Status": 0,
-            "NodeId": 5,
-            "name": "TargetNearest(Clone)",
-            "hideFlags": 0
-          }
-        ],
-        "Status": 0,
-        "NodeId": 2,
-        "name": "Sequencer(Clone)",
-        "hideFlags": 0
-      },
-      "X": 544.0,
-      "Y": 404.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 3,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 9834,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 3,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 252.0,
-      "Y": 615.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 4,
-      "BaseBehaviour": "AllEnemiesInSight",
-      "BaseBehaviourInstanceId": 10612,
-      "Behaviour": {
-        "SaveDataType": "BbbtAllEnemiesInSight",
-        "Status": 0,
-        "NodeId": 4,
-        "name": "AllEnemiesInSight(Clone)",
-        "hideFlags": 0
-      },
-      "X": 384.0,
-      "Y": 615.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 5,
-      "BaseBehaviour": "TargetNearest",
-      "BaseBehaviourInstanceId": 13136,
-      "Behaviour": {
-        "SaveDataType": "BbbtTargetNearest",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "TargetNearest(Clone)",
-        "hideFlags": 0
-      },
-      "X": 507.0,
-      "Y": 618.0,
-      "IsSelected": false
-    },
-    {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 8006,
+      "BaseBehaviourInstanceId": 36034,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -112,6 +29,13 @@
               "NodeId": 5,
               "name": "TargetNearest(Clone)",
               "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtAttackDistanceCheck",
+              "Status": 0,
+              "NodeId": 6,
+              "name": "Attack Distance Check(Clone)",
+              "hideFlags": 0
             }
           ],
           "Status": 0,
@@ -124,9 +48,114 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 544.0,
-      "Y": 227.0,
-      "IsSelected": true
+      "X": 776.0,
+      "Y": 153.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 36432,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 3,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAllEnemiesInSight",
+            "Status": 0,
+            "NodeId": 4,
+            "name": "AllEnemiesInSight(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtTargetNearest",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "TargetNearest(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackDistanceCheck",
+            "Status": 0,
+            "NodeId": 6,
+            "name": "Attack Distance Check(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 749.0,
+      "Y": 344.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 35946,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 406.0,
+      "Y": 599.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "AllEnemiesInSight",
+      "BaseBehaviourInstanceId": 35914,
+      "Behaviour": {
+        "SaveDataType": "BbbtAllEnemiesInSight",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "AllEnemiesInSight(Clone)",
+        "hideFlags": 0
+      },
+      "X": 532.0,
+      "Y": 607.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "TargetNearest",
+      "BaseBehaviourInstanceId": 35986,
+      "Behaviour": {
+        "SaveDataType": "BbbtTargetNearest",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "TargetNearest(Clone)",
+        "hideFlags": 0
+      },
+      "X": 653.0,
+      "Y": 607.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Attack Distance Check",
+      "BaseBehaviourInstanceId": -135842,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackDistanceCheck",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Attack Distance Check(Clone)",
+        "hideFlags": 0
+      },
+      "X": 787.0,
+      "Y": 610.0,
+      "IsSelected": false
     }
   ],
   "Connections": [
@@ -145,8 +174,12 @@
     {
       "InNodeId": 5,
       "OutNodeId": 2
+    },
+    {
+      "InNodeId": 6,
+      "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": -105.0,
-  "WindowOffsetY": 31.0
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
 }

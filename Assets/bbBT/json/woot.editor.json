@@ -1,0 +1,86 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 36034,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtAttackDistanceCheck",
+              "Status": 0,
+              "NodeId": 3,
+              "name": "Attack Distance Check(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 646.0,
+      "Y": 161.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 36432,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtAttackDistanceCheck",
+            "Status": 0,
+            "NodeId": 3,
+            "name": "Attack Distance Check(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 645.0,
+      "Y": 369.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Attack Distance Check",
+      "BaseBehaviourInstanceId": -135842,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackDistanceCheck",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Attack Distance Check(Clone)",
+        "hideFlags": 0
+      },
+      "X": 616.0,
+      "Y": 537.0,
+      "IsSelected": true
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 2,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 3,
+      "OutNodeId": 2
+    }
+  ],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}
