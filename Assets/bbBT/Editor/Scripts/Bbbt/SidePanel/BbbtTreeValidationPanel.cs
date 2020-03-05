@@ -263,5 +263,9 @@ namespace Bbbt
                 }
             }
         }
+
+        public override void ProcessEvents(Event e)
+        {
+        }
     }
 }

@@ -3,6 +3,7 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 8006,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -19,13 +20,14 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 504.0,
-      "Y": 234.0,
+      "X": 487.0,
+      "Y": 262.0,
       "IsSelected": false
     },
     {
       "Id": 3,
       "BaseBehaviour": "Debug Logger",
+      "BaseBehaviourInstanceId": 5804,
       "Behaviour": {
         "_message": "L M A O",
         "_logType": 3,
@@ -35,9 +37,9 @@
         "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 534.0,
-      "Y": 456.0,
-      "IsSelected": false
+      "X": 535.0,
+      "Y": 481.0,
+      "IsSelected": true
     }
   ],
   "Connections": [
@@ -46,6 +48,6 @@
       "OutNodeId": 1
     }
   ],
-  "WindowOffsetX": 2.0,
-  "WindowOffsetY": 14.0
+  "WindowOffsetX": -2.0,
+  "WindowOffsetY": 21.0
 }
