@@ -12,7 +12,6 @@ using RTS;
 /// </summary>
 public class Drone : RTS.Actor 
 {
-
     /// <summary>
     /// The last used drone id.
     /// </summary>
@@ -77,10 +76,10 @@ public class Drone : RTS.Actor
         }
 
         ReadStatsFromFile();
-        //add the channel to the private channel list, it's connected to the ID number of the drone
-        //Private channel 0 corresponds to Drone ID 0
-        EventManager.AddPrivateChannel(_personalChannelDictionary);
+
         ID = _lastUsedId++;
+
+        EventManager.AddPrivateChannel(_personalChannelDictionary);
     }
 
     public override void Start()

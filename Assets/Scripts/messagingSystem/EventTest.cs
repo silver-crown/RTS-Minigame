@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class EventTest : MonoBehaviour
 {
-
     private UnityAction someListener;
     // Start is called before the first frame update
     void Awake()

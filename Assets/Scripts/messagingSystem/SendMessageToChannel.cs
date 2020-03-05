@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SendMessageToChannel : MonoBehaviour
 {
-    [SerializeField] static EventManager eventManager; 
     [SerializeField] EventManager.MessageChannel channel;
     private string message;
     [SerializeField] bool sending;
