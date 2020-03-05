@@ -33,7 +33,7 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            if (_actor.AttackRange >= Vector3.Distance(gameObject.transform.position, _actor.transform.position))
+            if (_actor.AttackRange >= Vector3.Distance(gameObject.transform.position, _actor.Target.transform.position))
             {
                 Debug.Log("Target is within range");
                 return BbbtBehaviourStatus.Success;
