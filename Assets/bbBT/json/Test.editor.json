@@ -13,8 +13,8 @@
         "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 338.0,
-      "Y": 693.0,
+      "X": 326.0,
+      "Y": 685.0,
       "IsSelected": false
     },
     {
@@ -30,8 +30,43 @@
         "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 583.0,
-      "Y": 644.0,
+      "X": 571.0,
+      "Y": 636.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 14,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 7414,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "_message": "LMAOOOOOO",
+            "_logType": 3,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 6,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_behaviourTreeName": "Test2",
+            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+            "BehaviourTree": null,
+            "Status": 0,
+            "NodeId": 2,
+            "name": "Behaviour Tree Caller(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 14,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 457.0,
+      "Y": 453.0,
       "IsSelected": false
     },
     {
@@ -72,43 +107,8 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 425.0,
-      "Y": 288.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 14,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 7414,
-      "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "_message": "LMAOOOOOO",
-            "_logType": 3,
-            "SaveDataType": "BbbtDebugLogBehaviour",
-            "Status": 0,
-            "NodeId": 6,
-            "name": "Debug Logger(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "_behaviourTreeName": "Test2",
-            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-            "BehaviourTree": null,
-            "Status": 0,
-            "NodeId": 2,
-            "name": "Behaviour Tree Caller(Clone)",
-            "hideFlags": 0
-          }
-        ],
-        "Status": 0,
-        "NodeId": 14,
-        "name": "Sequencer(Clone)",
-        "hideFlags": 0
-      },
-      "X": 469.0,
-      "Y": 461.0,
+      "X": 440.0,
+      "Y": 277.0,
       "IsSelected": true
     }
   ],
@@ -126,6 +126,6 @@
       "OutNodeId": 14
     }
   ],
-  "WindowOffsetX": 49.0,
-  "WindowOffsetY": -54.0
+  "WindowOffsetX": -12.0,
+  "WindowOffsetY": -8.0
 }

@@ -110,6 +110,10 @@ namespace Bbbt
             }
         }
 
+        public override void ProcessEvents(Event e)
+        {
+        }
+
         /// <summary>
         /// Truncates a string to fit horizontally within a maximum width.
         /// </summary>

@@ -1,7 +1,5 @@
-﻿using ExtensionMethods;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 
 namespace Bbbt
@@ -11,6 +9,11 @@ namespace Bbbt
     /// </summary>
     public class BbbtHelpMenu : BbbtSidePanelContent
     {
+        /// <summary>
+        /// The window the menu is in.
+        /// </summary>
+        private BbbtWindow _window;
+
         /// <summary>
         /// The sections of the help menu.
         /// </summary>
@@ -31,6 +34,16 @@ namespace Bbbt
         /// </summary>
         private GUIStyle _borderStyle;
 
+        /// <summary>
+        /// The y offset for placing the menu's content. Determined by scrolling.
+        /// </summary>
+        private float _yOffset;
+
+        /// <summary>
+        /// How much vertical space was used last time the menu was drawn.
+        /// </summary>
+        private float _usedVerticalSpaceLastDraw = 0.0f;
+
         ///// <summary>
         ///// Texture for closed sections (indicating that they can be expanded).
         ///// </summary>
@@ -45,8 +58,9 @@ namespace Bbbt
         /// <summary>
         /// Constructs a new BbbtHelpMenu.
         /// </summary>
-        public BbbtHelpMenu()
+        public BbbtHelpMenu(BbbtWindow window)
         {
+            _window = window;
             // Set up styles
             _headerStyle = new GUIStyle();
             _headerStyle.richText = true;
@@ -86,11 +100,15 @@ namespace Bbbt
         
         public override void Draw(Rect rect)
         {
+            if (_usedVerticalSpaceLastDraw < _window.position.height)
+            {
+                _yOffset = 0.0f;
+            }
             // For each section turn the key into a button which toggles its own content.
             float x = rect.x + 5.0f;
             float height = 20.0f;
             float width = rect.xMax - x - 5.0f;
-            float usedVerticalSpace = 0.0f;
+            float usedVerticalSpace = _yOffset;
             foreach (var section in _sections)
             {
                 // Header.
@@ -129,6 +147,26 @@ namespace Bbbt
                 }
             }
             GUI.Box(new Rect(rect.x, usedVerticalSpace, rect.width, 1.0f), "", _borderStyle);
+            _usedVerticalSpaceLastDraw = usedVerticalSpace - _yOffset;
+        }
+
+        public override void ProcessEvents(Event e)
+        {
+            switch (e.type)
+            {
+                case EventType.ScrollWheel:
+                    if (_usedVerticalSpaceLastDraw > _window.position.height)
+                    {
+                        _yOffset = Mathf.Clamp(
+                            _yOffset - e.delta.y * 5.0f,
+                            _window.position.height - _usedVerticalSpaceLastDraw,
+                            0.0f
+                        );
+                        GUI.changed = true;
+                        e.Use();
+                    }
+                    break;
+            }
         }
     }
 }

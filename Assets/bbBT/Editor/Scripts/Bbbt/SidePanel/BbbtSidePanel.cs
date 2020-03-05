@@ -133,7 +133,7 @@ namespace Bbbt
                 ),
                 new KeyValuePair<Texture2D, BbbtSidePanelContent>(
                     AssetDatabaseWrapper.FindTexture2D("Selector"),
-                    new BbbtHelpMenu()
+                    new BbbtHelpMenu(window)
                 ),
                 new KeyValuePair<Texture2D, BbbtSidePanelContent>(
                     AssetDatabaseWrapper.FindTexture2D("TreeValidationIcon"),
@@ -230,6 +230,7 @@ namespace Bbbt
                 }
 
                 // Draw the content of the panel.
+                _selectedContent.ProcessEvents(Event.current);
                 _selectedContent.Draw(_panelRect);
             }
         }
