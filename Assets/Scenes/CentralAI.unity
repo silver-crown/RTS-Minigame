@@ -697,7 +697,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccadf3efc7cc6ca4daa76d2618ef4b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  muzzle: {fileID: 0}
+  Target: {fileID: 0}
+  ProjectilePrefab: {fileID: 0}
+  _behavior: {fileID: 0}
+  BehaviorTree: {fileID: 0}
+  MyBbbtBehaviourTreeComponent: {fileID: 0}
+  LineOfSight: 30
+  EnemyInSight: 0
+  LastSighting: {x: 0, y: 0, z: 0}
+  entityPosScript: {fileID: 0}
+  VisibleEnemies: []
+  Waypoints: []
+  TargetDestination: {fileID: 0}
+  agent: {fileID: 0}
+  MyFaction: 0
+  messageList: []
 --- !u!195 &1867327586
 NavMeshAgent:
   m_ObjectHideFlags: 0

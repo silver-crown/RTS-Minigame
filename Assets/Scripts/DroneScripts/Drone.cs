@@ -12,6 +12,7 @@ using RTS;
 /// </summary>
 public class Drone : RTS.Actor 
 {
+
     /// <summary>
     /// The last used drone id.
     /// </summary>
@@ -21,12 +22,17 @@ public class Drone : RTS.Actor
     /// Each channel needs to store their own messages on dictionaries
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
+    ///<summary>
+    ///List of all the messages the drone will me listening after
+    /// </summary>
+    public List<string> messageList = new List<string>();
 
     /// <summary>
     /// Unique ID of the drone
     /// </summary>
     public int ID { get; protected set; }
 
+    //************************************************************************************
     /// <summary>
     /// example on use of message listening 
     /// </summary>
@@ -39,13 +45,14 @@ public class Drone : RTS.Actor
         EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
     }
     void WorkerChannelTest()
-    {
-        Debug.Log("Drone " + ID + " received a message in the Worker Channel!");
-    }
+        {
+            Debug.Log("Drone " + ID + " received a message in the Worker Channel!");
+        }
     void PrivateChannelTest()
     {
         Debug.Log("Drone " + ID + " received a message in the Private Channel!");
     }
+    //******************************************************************************
 
     /// <summary>
     /// Reads the drone's stats from lua.
@@ -86,6 +93,27 @@ public class Drone : RTS.Actor
     {
         base.Update();
         listenToChannels();
+    }
+
+    public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
+    {
+        //a switch for the channel
+        switch (channel)
+        {
+            case (EventManager.MessageChannel.globalChannel):
+                {
+                   //and a nested one for the message itself
+                    switch (message)
+                    {
+                        //a test message
+                        case ("Test message"):
+                            {
+                                break;
+                            }
+                    }
+                    break;
+                }
+        }
     }
 
 }
