@@ -52,7 +52,7 @@ namespace RTS
         public int FireRate { get; protected set; }
 
         /// <summary>
-        /// The entity the script wants to shoot at
+        /// The current target of the actor, this is the enemy that the actor will attack
         /// </summary>
         public GameObject Target;
 
