@@ -189,13 +189,17 @@ namespace RTS
                 float distance = Vector3.Distance(transform.position, actor.transform.position);
                 if (distance < AttackRange)
                 {
-                    Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
-                    Gizmos.DrawSphere(actor.transform.position, 1.0f);
+                    Handles.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
+                    Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
+                    //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
+                    //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                 }
                 else if (distance < LineOfSight)
                 {
-                    Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.4f);
-                    Gizmos.DrawSphere(actor.transform.position, 1.0f);
+                    Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
+                    Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
+                    //Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.4f);
+                    //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                 }
             }
         }
