@@ -62,7 +62,7 @@ public class Drone : RTS.Actor
         Script script = new Script();
         script.DoFile("drone.lua");
         Health = (int)script.Globals.Get("health").Number;
-        Debug.Log(Health);
+        //Debug.Log("Health: " + Health);
     }
 
 

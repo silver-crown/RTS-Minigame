@@ -28,7 +28,7 @@ public class Resource : MonoBehaviour
         _readStatsFromFile();
 
         //add self to resource lsit
-        WorldInfo.Instance.Resources.Add(gameObject);
+        WorldInfo.Resources.Add(gameObject);
     }
 
     private void Update()
@@ -91,7 +91,7 @@ public class Resource : MonoBehaviour
     public void Die()
     {
         //remove resource from global resource list
-        WorldInfo.Instance.Resources.Remove(gameObject);
+        WorldInfo.Resources.Remove(gameObject);
 
         //destroy the gameobject
         Destroy(gameObject);

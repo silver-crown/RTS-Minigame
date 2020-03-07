@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
+using UnityEditor;
 
 namespace RTS
 {
@@ -34,8 +35,7 @@ namespace RTS
         /// <summary>
         /// How far the Actor can attack
         /// </summary>
-        [SerializeField]
-        public int AttackRange { get; protected set; }
+        public float AttackRange { get; protected set; } = 10.0f;
 
         /// <summary>
         /// The muzzle is the end of the gun, from where the projectile will be shot
@@ -108,11 +108,6 @@ namespace RTS
         /// </summary>
         public Vector3 LastSighting;
 
-        /// <summary>
-        /// Used for the actor to access locations of other entites.
-        /// </summary>
-        public WorldInfo entityPosScript;
-
 
         [SerializeField]
         public List<GameObject> VisibleEnemies;
@@ -159,8 +154,7 @@ namespace RTS
 
         public virtual void  Awake()
         {
-            GameObject worldPos = GameObject.Find("WorldEntityLocationSystem");
-            entityPosScript = worldPos.GetComponent<WorldInfo>();
+            WorldInfo.Marines.Add(gameObject);
         }
 
         // Start is called before the first frame update
@@ -178,6 +172,14 @@ namespace RTS
         public virtual void Update()
         {
 
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Handles.color = Color.red;
+            Handles.DrawWireDisc(transform.position, Vector3.up, AttackRange);
+            Handles.color = Color.green;
+            Handles.DrawWireDisc(transform.position, Vector3.up, LineOfSight);
         }
     }
 }

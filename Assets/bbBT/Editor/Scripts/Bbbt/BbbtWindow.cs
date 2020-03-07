@@ -149,8 +149,7 @@ namespace Bbbt
         /// </summary>
         private void OnEnable()
         {
-            var window = GetWindow<BbbtWindow>();
-            window.titleContent = new GUIContent("bbBT");
+            titleContent = new GUIContent("bbBT");
 
             // Set up the style of the behaviour tree nodes.
             _nodeStyle = new GUIStyle();
@@ -626,7 +625,7 @@ namespace Bbbt
 
         /// <summary>
         /// Drags the entire window.
-        /// </summary>
+        /// </summary>i
         /// <param name="delta">The amound by which to drag the window.</param>
         private void DragWindow(Vector2 delta)
         {
@@ -1240,7 +1239,7 @@ namespace Bbbt
                         {
                             baseBehaviour = (BbbtBehaviour)@object;
                         }
-                        catch (InvalidCastException e)
+                        catch (InvalidCastException)
                         {
                         }
                         if (baseBehaviour == null)
