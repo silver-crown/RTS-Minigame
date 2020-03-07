@@ -186,14 +186,15 @@ namespace RTS
             foreach (var actor in WorldInfo.Actors)
             {
                 if (actor == gameObject) continue;
-                if (Vector3.Distance(transform.position, actor.transform.position) < AttackRange)
+                float distance = Vector3.Distance(transform.position, actor.transform.position);
+                if (distance < AttackRange)
                 {
-                    Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.3f);
+                    Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
                     Gizmos.DrawSphere(actor.transform.position, 1.0f);
                 }
-                else if (Vector3.Distance(transform.position, actor.transform.position) < LineOfSight)
+                else if (distance < LineOfSight)
                 {
-                    Gizmos.color = new Color(1.0f, 0.92f, 0.016f, 0.3f);
+                    Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.4f);
                     Gizmos.DrawSphere(actor.transform.position, 1.0f);
                 }
             }
