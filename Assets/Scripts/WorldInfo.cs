@@ -9,9 +9,9 @@ using UnityEngine;
 public static class WorldInfo
 {
     /// <summary>
-    /// List of all marines in the game.
+    /// List of all actors in the game.
     /// </summary>
-    public static List<GameObject> Marines { get; private set; } = new List<GameObject>();
+    public static List<GameObject> Actors { get; private set; } = new List<GameObject>();
 
     /// <summary>
     /// List of all resources in the game.

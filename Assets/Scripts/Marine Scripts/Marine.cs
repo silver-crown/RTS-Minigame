@@ -16,7 +16,7 @@ public class Marine : RTS.Actor
     // Start is called before the first frame update
     public override void Start()
     {
-        WorldInfo.Marines.Add(gameObject);
+        WorldInfo.Actors.Add(gameObject);
         base.Start();
     }
 

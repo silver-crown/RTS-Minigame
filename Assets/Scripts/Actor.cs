@@ -154,7 +154,7 @@ namespace RTS
 
         public virtual void  Awake()
         {
-            WorldInfo.Marines.Add(gameObject);
+            WorldInfo.Actors.Add(gameObject);
         }
 
         // Start is called before the first frame update
@@ -176,10 +176,27 @@ namespace RTS
 
         private void OnDrawGizmosSelected()
         {
+            // Draw sight/attack range.
             Handles.color = Color.red;
             Handles.DrawWireDisc(transform.position, Vector3.up, AttackRange);
             Handles.color = Color.green;
             Handles.DrawWireDisc(transform.position, Vector3.up, LineOfSight);
+
+            // Highlight actors in sight/attack range.
+            foreach (var actor in WorldInfo.Actors)
+            {
+                if (actor == gameObject) continue;
+                if (Vector3.Distance(transform.position, actor.transform.position) < AttackRange)
+                {
+                    Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.3f);
+                    Gizmos.DrawSphere(actor.transform.position, 1.0f);
+                }
+                else if (Vector3.Distance(transform.position, actor.transform.position) < LineOfSight)
+                {
+                    Gizmos.color = new Color(1.0f, 0.92f, 0.016f, 0.3f);
+                    Gizmos.DrawSphere(actor.transform.position, 1.0f);
+                }
+            }
         }
     }
 }

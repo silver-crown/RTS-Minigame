@@ -50,20 +50,20 @@ namespace Bbbt
 
                 case Factions.Drone:
 
-                    for (int i = 0; i < WorldInfo.Marines.Count; i++)
+                    for (int i = 0; i < WorldInfo.Actors.Count; i++)
                     {
-                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Marines[i].transform.position) <= _actor.LineOfSight)
+                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Actors[i].transform.position) <= _actor.LineOfSight)
                         {
                             // Records last sighting of the player
-                            _actor.LastSighting = WorldInfo.Marines[i].transform.position;
+                            _actor.LastSighting = WorldInfo.Actors[i].transform.position;
 
                             _actor.EnemyInSight = true;
 
                             // checks that the detected player is not already inn the list, this is to avoid
                             // the same enemy beeing added multiple times in the same list.
-                            if (!_actor.VisibleEnemies.Contains(WorldInfo.Marines[i]))
+                            if (!_actor.VisibleEnemies.Contains(WorldInfo.Actors[i]))
                             {
-                                _actor.VisibleEnemies.Add(WorldInfo.Marines[i]);
+                                _actor.VisibleEnemies.Add(WorldInfo.Actors[i]);
                             }
                         }
                     }
