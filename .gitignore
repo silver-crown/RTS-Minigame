@@ -1,0 +1,14 @@
+
+Library/
+obj/
+Builds/
+Temp/
+.git/*
+.vs/*
+*.unityproj
+*.csproj
+*.got
+*.userprefs
+*.suo
+*.sln
+/*/.gitignore
