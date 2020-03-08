@@ -56,12 +56,7 @@ public class CombatDrone : Drone
 
     public override void Attack()
     {
-        RaycastHit[] hits;
-        hits = Physics.RaycastAll(this.transform.position,  // Position to raycast from
-                                  transform.forward,        // Direction
-                                  AttackRange);             // Max Distance
-
-
+     
 
     }
 
