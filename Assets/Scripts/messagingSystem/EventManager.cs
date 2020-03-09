@@ -293,7 +293,7 @@ public class EventManager : MonoBehaviour
     /// <param name="channel"></param>
     public static void AddPrivateChannel(Dictionary<string, UnityEvent> channel)
     {
-        Debug.Log("adding a private channel to the list");
+        //Debug.Log("adding a private channel to the list");
         instance._privateChannelList.Add(channel);
     }
 

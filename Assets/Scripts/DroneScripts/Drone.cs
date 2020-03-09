@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using RTS;
+using System.IO;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
@@ -56,12 +57,12 @@ public class Drone : RTS.Actor
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>
-    override
-    public void ReadStatsFromFile()
+    /// <param name="type">The drone type to set </param>
+    public void SetType(string type)
     {
         Script script = new Script();
-        script.DoFile("drone.lua");
-        Health = (int)script.Globals.Get("health").Number;
+        var droneObject = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
+        Debug.Log(droneObject.Get("_name").String + " ready for action!");
         //Debug.Log("Health: " + Health);
     }
 
@@ -75,7 +76,7 @@ public class Drone : RTS.Actor
             _personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
 
-        ReadStatsFromFile();
+        SetDroneType();
 
         ID = _lastUsedId++;
 

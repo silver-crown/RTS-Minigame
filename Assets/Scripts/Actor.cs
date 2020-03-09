@@ -139,7 +139,7 @@ namespace RTS
 
         #endregion
 
-        public virtual void ReadStatsFromFile()
+        public virtual void SetDroneType()
         {
 
         }

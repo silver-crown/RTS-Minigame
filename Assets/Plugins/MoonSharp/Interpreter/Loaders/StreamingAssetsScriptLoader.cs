@@ -14,10 +14,19 @@ namespace MoonSharp.Interpreter.Loaders
 		/// Checks if a script file exists.
 		/// </summary>
 		/// <param name="name">The script filename.</param>
-		/// <returns></returns>
+		/// <returns>True if the file exists, false otherwise.</returns>
 		public override bool ScriptFileExists(string name)
 		{
-			return File.Exists(name);
+			// Get the full path.
+			string fullPath = Path.Combine(Application.streamingAssetsPath, "Lua", name);
+
+			// Append with .lua if not provided.
+			if (!fullPath.EndsWith(".lua"))
+			{
+				fullPath += ".lua";
+			}
+
+			return File.Exists(fullPath);
 		}
 
 		/// <summary>
