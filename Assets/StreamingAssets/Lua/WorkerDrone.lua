@@ -1,2 +1,0 @@
---- AI
-behaviourTree = "WorkerDroneDefaultBehavior"

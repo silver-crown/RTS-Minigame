@@ -26,9 +26,9 @@ public class CombatDrone : Drone
     /// Reads the drone's stats from lua.
     /// </summary>
     override
-    public void ReadStatsFromFile()
+    public void SetDroneType()
     {
-        base.ReadStatsFromFile();
+        base.SetDroneType();
 
         Script script = new Script();
         script.DoFile("CombatDrone.lua");

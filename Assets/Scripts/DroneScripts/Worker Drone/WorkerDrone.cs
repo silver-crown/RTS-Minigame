@@ -26,12 +26,12 @@ public class WorkerDrone : Drone
     public bool IsInventoryFull { get; protected set; }
 
     override
-    public void ReadStatsFromFile()
+    public void SetDroneType()
     {
         Script script = new Script();
 
         // Calls Read Stats in parent 
-        base.ReadStatsFromFile();
+        base.SetDroneType();
 
         MaxResources = (int)script.Globals.Get("maxResources").Number;
         Debug.Log(MaxResources);
