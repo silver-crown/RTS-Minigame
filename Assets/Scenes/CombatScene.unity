@@ -256,7 +256,6 @@ MonoBehaviour:
   LineOfSight: 30
   EnemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
-  entityPosScript: {fileID: 0}
   VisibleEnemies: []
   Waypoints: []
   TargetDestination: {fileID: 0}
@@ -485,12 +484,12 @@ MonoBehaviour:
   LineOfSight: 30
   EnemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
-  entityPosScript: {fileID: 0}
   VisibleEnemies: []
   Waypoints: []
   TargetDestination: {fileID: 1632345764}
   agent: {fileID: 0}
   MyFaction: 0
+  messageList: []
 --- !u!114 &767627784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,7 +609,6 @@ MonoBehaviour:
   LineOfSight: 30
   EnemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
-  entityPosScript: {fileID: 0}
   VisibleEnemies: []
   Waypoints: []
   TargetDestination: {fileID: 0}
@@ -694,7 +692,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1586501339}
-  - component: {fileID: 1586501338}
   m_Layer: 0
   m_Name: WorldEntityLocationSystem
   m_TagString: Untagged
@@ -702,21 +699,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1586501338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1586501337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2e744722e02e64aa8465f2726ed01f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MarineLocations: []
-  Metal: []
-  Crystal: []
 --- !u!4 &1586501339
 Transform:
   m_ObjectHideFlags: 0
@@ -906,7 +888,6 @@ MonoBehaviour:
   LineOfSight: 30
   EnemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
-  entityPosScript: {fileID: 0}
   VisibleEnemies: []
   Waypoints: []
   TargetDestination: {fileID: 0}
