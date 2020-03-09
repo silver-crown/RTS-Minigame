@@ -28,7 +28,8 @@ public class ResourceHealthbar : MonoBehaviour
     {
         //calculate HP percentage
         float HealthPercentage = (float)parent.HP / (float)parent.MaxHP;
+        Debug.Log(HealthPercentage);
         //set bar to that full
-        bar.localScale = new Vector3(HealthPercentage, 1f);
+        bar.localScale = new Vector3(HealthPercentage, 1f, 1f);
     }
 }
