@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,13 +8,16 @@ public class EventManager : MonoBehaviour
 {
     /// <summary>
     /// Each channel needs to store their own messages on dictionaries
-    /// Personal channels for the drones are located in Drone.cs
+    /// Personal channel dictionaries for the drones are located in Drone.cs
+    /// Each group needs to store their messages in a dictionary as well
     /// </summary>
     private Dictionary<string, UnityEvent> _globalChannelDictionary;
     private Dictionary<string, UnityEvent> _workerChannelDictionary;
     private Dictionary<string, UnityEvent> _scoutChannelDictionary;
     private Dictionary<string, UnityEvent> _tankChannelDictionary;
+    private Dictionary<string, UnityEvent> _CIChannelDictionary;
     private List<Dictionary<string, UnityEvent>> _privateChannelList;
+    private List<Dictionary<string, UnityEvent>> _groupChannelList;
     private static EventManager _eventManager;
 
     //the channels start at 0, c# hates me and refuses to let me set an int as NULL
@@ -27,7 +31,14 @@ public class EventManager : MonoBehaviour
         privateChannel,
         workerChannel,
         scoutChannel,
-        tankChannel
+        tankChannel,
+        CIChannel,
+        groupChannel
+    }
+
+    internal static void StartListening(UnityEvent unityEvent, Action leaderIssueCommand, MessageChannel groupChannel, int groupID)
+    {
+        throw new NotImplementedException();
     }
 
     //Get the EventManager if there's one present in the scene
@@ -85,7 +96,7 @@ public class EventManager : MonoBehaviour
     /// <param name="listener"></param>
     /// <param name="channel"></param>
     /// <param name="droneID"></param>
-    public static void StartListening(string eventName, UnityAction listener, MessageChannel channel, int droneID = noID)
+    public static void StartListening(string eventName, UnityAction listener, MessageChannel channel, int ID = noID)
     {
         UnityEvent thisEvent = null;
         switch (channel)
@@ -110,11 +121,11 @@ public class EventManager : MonoBehaviour
             //Each drone has a private channel, this case will exit immediately if an id is not present
             case (MessageChannel.privateChannel):
                 //the channels start at 0, c# hates me and refuses to let me set an int as NULL
-                if (droneID > noID)
+                if (ID > noID)
                 {
 
                     //If there's an event like this in the dictionary, add the listener
-                    if (instance._privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (instance._privateChannelList[ID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.AddListener(listener);
                     }
@@ -123,7 +134,7 @@ public class EventManager : MonoBehaviour
                     {
                         thisEvent = new UnityEvent();
                         thisEvent.AddListener(listener);
-                        instance._privateChannelList[droneID].Add(eventName, thisEvent);
+                        instance._privateChannelList[ID].Add(eventName, thisEvent);
                     }
                 }
                 else
@@ -177,6 +188,47 @@ public class EventManager : MonoBehaviour
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
                     instance._tankChannelDictionary.Add(eventName, thisEvent);
+                }
+                break;
+            //Listening in on the tank channel
+            //This is meant for the heavy units
+            case (MessageChannel.CIChannel):
+                //If there's an event like this in the dictionary, add the listener
+                if (instance._tankChannelDictionary.TryGetValue(eventName, out thisEvent))
+                {
+                    thisEvent.AddListener(listener);
+                }
+                //Else add the event to the dictionary.
+                else
+                {
+                    thisEvent = new UnityEvent();
+                    thisEvent.AddListener(listener);
+                    instance._tankChannelDictionary.Add(eventName, thisEvent);
+                }
+                break;
+            //Listening in on the group channel
+            //Each drone has a private channel, this case will exit immediately if an id is not present
+            case (MessageChannel.groupChannel):
+                //the channels start at 0, c# hates me and refuses to let me set an int as NULL
+                if (ID > noID)
+                {
+
+                    //If there's an event like this in the dictionary, add the listener
+                    if (instance._groupChannelList[ID].TryGetValue(eventName, out thisEvent))
+                    {
+                        thisEvent.AddListener(listener);
+                    }
+                    //Else add the event to the dictionary.
+                    else
+                    {
+                        thisEvent = new UnityEvent();
+                        thisEvent.AddListener(listener);
+                        instance._groupChannelList[ID].Add(eventName, thisEvent);
+                    }
+                }
+                else
+                {
+                    Debug.Log("Trying to listen in on invalid Private Channel ID!");
                 }
                 break;
         }

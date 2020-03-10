@@ -46,23 +46,27 @@ public class Drone : RTS.Actor
 
     //************************************************************************************
     /// <summary>
-    /// example on use of message listening 
+    /// Message Listening, with example functions below
     /// </summary>
     void ListenToChannels()
     {
         //listening on a public channel
-        EventManager.StartListening("Testing Worker Channel", WorkerChannelTest, EventManager.MessageChannel.workerChannel);
+        EventManager.StartListening("Testing Worker Channel", globalChannelTest, EventManager.MessageChannel.workerChannel);
 
         //Listening on a private channel requires an id number, the Drone's own id should be provided here
         EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
     }
-    void WorkerChannelTest()
+    void globalChannelTest()
         {
-            Debug.Log("Drone " + ID + " received a message in the Worker Channel!");
+            Debug.Log("Drone " + ID + " received a message in the Global Channel!");
         }
     void PrivateChannelTest()
     {
         Debug.Log("Drone " + ID + " received a message in the Private Channel!");
+    }
+    void groupChannelTest()
+    {
+        Debug.Log("Drone " + ID + " from group "+ groupID +" received a message in the group Channel!");
     }
     //******************************************************************************
 

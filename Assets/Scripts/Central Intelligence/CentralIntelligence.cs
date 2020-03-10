@@ -8,6 +8,11 @@ using MoonSharp.Interpreter;
 [RequireComponent(typeof(BehaviorTree))]
 public class CentralIntelligence : MonoBehaviour
 {
+
+    /// <summary>
+    /// List of groups(which is a list of drones)
+    /// </summary>
+    List<List<Drone>> _group = new List<List<Drone>>();
     /// <summary>
     /// The prefab to use when instatiating new drones.
     /// </summary>
@@ -133,6 +138,15 @@ public class CentralIntelligence : MonoBehaviour
         {
             EventManager.TriggerEvent("Testing Private Channel", EventManager.MessageChannel.privateChannel, 0);
         }
+        //test the group channels
+        if (Input.GetKeyDown("k"))
+        {
+            string m = "this is a test message to group 0";
+            //add the command to the group's list of messages
+            GetComponent<Group>().groupMessageList.Add(m);
+            //Fire off the event
+            EventManager.TriggerEvent(m, EventManager.MessageChannel.groupChannel, 0);
+        }
 
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
@@ -246,6 +260,8 @@ public class CentralIntelligence : MonoBehaviour
     {
         AddResource("Crystal", 10);
     }
+
+
 }
 
 
