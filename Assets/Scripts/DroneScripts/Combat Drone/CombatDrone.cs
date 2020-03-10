@@ -31,9 +31,9 @@ public class CombatDrone : Drone
         base.SetDroneType();
 
         Script script = new Script();
-        script.DoFile("CombatDrone.lua");
+        script.DoFile("Actors\\Drones\\FighterDrone.lua");
         AttackRange = (int)script.Globals.Get("attackRange").Number;
-        Debug.Log("Combat Drone attack Range: " + AttackRange);
+        Debug.Log("Fighter Drone attack Range: " + AttackRange);
     }
 
     public override void Awake()
