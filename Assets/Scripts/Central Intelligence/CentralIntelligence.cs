@@ -33,6 +33,8 @@ public class CentralIntelligence : MonoBehaviour
     /// 
     List<Drone> _drones = new List<Drone>();
 
+
+
     private int _droneID = 0;
 
     enum DroneType

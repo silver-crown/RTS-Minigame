@@ -12,6 +12,7 @@ using RTS;
 /// </summary>
 public class Drone : RTS.Actor 
 {
+    
     /// <summary>
     /// The last used drone id.
     /// </summary>
@@ -25,6 +26,11 @@ public class Drone : RTS.Actor
     ///List of all the messages the drone will me listening after
     /// </summary>
     public List<string> messageList = new List<string>();
+    /// <summary>
+    /// Drone Group ID
+    /// </summary>
+    private int groupID;
+
 
     /// <summary>
     /// Unique ID of the drone
@@ -35,7 +41,7 @@ public class Drone : RTS.Actor
     /// <summary>
     /// example on use of message listening 
     /// </summary>
-    void listenToChannels()
+    void ListenToChannels()
     {
         //listening on a public channel
         EventManager.StartListening("Testing Worker Channel", WorkerChannelTest, EventManager.MessageChannel.workerChannel);
@@ -91,7 +97,7 @@ public class Drone : RTS.Actor
     public override void Update()
     {
         base.Update();
-        listenToChannels();
+        ListenToChannels();
     }
 
     public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
