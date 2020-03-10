@@ -17,6 +17,7 @@ public class Marine : RTS.Actor
     public override void Start()
     {
         WorldInfo.Actors.Add(gameObject);
+        WorldInfo.Marines.Add(gameObject);
         base.Start();
     }
 
