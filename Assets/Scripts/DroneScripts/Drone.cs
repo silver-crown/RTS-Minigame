@@ -11,7 +11,7 @@ using System.IO;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
-public class Drone : RTS.Actor 
+public class Drone : RTS.Actor
 {
     /// <summary>
     /// The id to assign to the next instantiated drone.
@@ -22,6 +22,12 @@ public class Drone : RTS.Actor
     /// Each channel needs to store their own messages on dictionaries
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
+
+    /// <summary>
+    /// The drone's type.
+    /// </summary>
+    public string Type { get; protected set; }
+
     ///<summary>
     ///List of all the messages the drone will me listening after
     /// </summary>
@@ -60,9 +66,9 @@ public class Drone : RTS.Actor
     /// <param name="type">The drone type to set </param>
     public void SetType(string type)
     {
+        Type = type;
         Script script = new Script();
         var droneTable = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
-        Debug.Log("Drone created: " + droneTable.Get("_name").String, this);
         //Debug.Log("Health: " + Health);
     }
 

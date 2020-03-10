@@ -25,6 +25,7 @@ public class CentralIntelligence : MonoBehaviour
     /// Total number of drones present in the army
     /// </summary>
     public int DroneCount { get => _drones.Count; }
+    public Dictionary<string, int> DroneTypeCount { get; protected set; }
     public const int MAXDRONES = 300;
     //TODO Make separate counters for different types of drones
 
@@ -55,6 +56,7 @@ public class CentralIntelligence : MonoBehaviour
 
     void Awake()
     {
+        DroneTypeCount = new Dictionary<string, int>();
         _drones = new List<Drone>();
         _behaviorTree = GetComponent<BehaviorTree>();
         // SetUpTreeFromCode();
@@ -76,7 +78,17 @@ public class CentralIntelligence : MonoBehaviour
 
     private void Start()
     {
+        // Populate the DroneTypeCount dictionary.
+        foreach (string type in WorldInfo.DroneTypes)
+        {
+            if (!DroneTypeCount.ContainsKey(type))
+            {
+                DroneTypeCount.Add(type, 0);
+            }
+        }
+
         // Build the starting drones and give starting resources.
+        Debug.Log("Central Intelligence: Adding starting drones...", this);
         Script dronesStartDefault = new Script();
         var dronesStart = dronesStartDefault.DoFile("Setup/DronesStartDefault").Table;
         foreach (var type in dronesStart.Get("_drones").Table.Pairs)
@@ -145,6 +157,14 @@ public class CentralIntelligence : MonoBehaviour
     public void AddDrone(Drone drone)
     {
         _drones.Add(drone);
+        if (DroneTypeCount.ContainsKey(drone.Type))
+        {
+            DroneTypeCount[drone.Type]++;
+        }
+        else
+        {
+            DroneTypeCount[drone.Type] = 1;
+        }
     }
 
     /// <summary>
@@ -202,7 +222,6 @@ public class CentralIntelligence : MonoBehaviour
     {
         AddResource("Metal", -10);
         AddResource("Crystal", -8);
-        Debug.Log("Built drone. Metal: " +  Resources["Metal"] + "Crystal: " + Resources["Crystal"]);
     }
 
     public void TestGatherMetal()

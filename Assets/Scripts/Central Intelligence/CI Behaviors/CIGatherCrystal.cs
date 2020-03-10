@@ -36,12 +36,7 @@ namespace ssuai {
         {
             //TODO make this not a placeholder function
             CentralIntelligence CI = gameObject.GetComponent<CentralIntelligence>();
-
             CI.TestGatherCrystal();
-            Debug.Log("Gathering crystal, new total: " + CI.Resources["Metal"]);
-
-
-
             return BbbtBehaviourStatus.Success;
         }
 
