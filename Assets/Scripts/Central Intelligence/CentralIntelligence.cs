@@ -145,6 +145,10 @@ public class CentralIntelligence : MonoBehaviour
             //add the command to the group's list of messages
             GetComponent<Group>().groupMessageList.Add(m);
             //Fire off the event
+            //!!!NOTE!!!
+            //The group gets the message into it's list and then does a bunch of stuff, but there's no guarantee
+            //They're able to listen for the message before the event is triggered if it's done like this. 
+            //Sending and triggering should happen seperately
             EventManager.TriggerEvent(m, EventManager.MessageChannel.groupChannel, 0);
         }
 
