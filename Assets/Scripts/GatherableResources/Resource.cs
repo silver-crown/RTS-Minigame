@@ -13,7 +13,7 @@ public class Resource : MonoBehaviour
     public int HP { get; protected set; } = 40;
     public int MaxHP { get; protected set; } = 40;
 
-    public Type ResourceType { get; protected set; }
+    public string ResourceType { get; protected set; }
 
     [Tooltip("The file to read stats from")]
     [SerializeField]
@@ -52,18 +52,11 @@ public class Resource : MonoBehaviour
     {
         //open lua file
         Script script = new Script();
-        script.DoFile(_luaFile);
-        HP = (int)script.Globals.Get("HP").Number;
+        var resourceTable = script.DoFile(_luaFile).Table;
+        HP = (int)resourceTable.Get("HP").Number;
+        MaxHP = (int)resourceTable.Get("HP").Number;
 
-        string ReadTypeString = (string)script.Globals.Get("ResourceType").String;
-
-        switch (ReadTypeString)
-        {
-            case ("METAL"): ResourceType = Type.METAL; break;
-            case ("CRYSTAL"): ResourceType = Type.CRYSTAL; break;
-            default: Debug.LogError("Invalid resource type: " + ReadTypeString +" - Is the LUA value malformed?"); break;
-        }
-
+        ResourceType = script.Globals.Get("ResourceType").String;
     }
 
 
@@ -96,9 +89,4 @@ public class Resource : MonoBehaviour
         //destroy the gameobject
         Destroy(gameObject);
     }
-
-    /// <summary>
-    /// Types of resources that exist
-    /// </summary>
-    public enum Type { CRYSTAL, METAL };
 }

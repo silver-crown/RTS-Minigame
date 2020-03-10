@@ -14,9 +14,9 @@ using System.IO;
 public class Drone : RTS.Actor 
 {
     /// <summary>
-    /// The last used drone id.
+    /// The id to assign to the next instantiated drone.
     /// </summary>
-    private static int _lastUsedId = 0;
+    private static int _nextId = 0;
 
     /// <summary>
     /// Each channel needs to store their own messages on dictionaries
@@ -61,8 +61,8 @@ public class Drone : RTS.Actor
     public void SetType(string type)
     {
         Script script = new Script();
-        var droneObject = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
-        Debug.Log(droneObject.Get("_name").String + " ready for action!");
+        var droneTable = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
+        Debug.Log("Drone created: " + droneTable.Get("_name").String, this);
         //Debug.Log("Health: " + Health);
     }
 
@@ -78,7 +78,7 @@ public class Drone : RTS.Actor
 
         SetDroneType();
 
-        ID = _lastUsedId++;
+        ID = _nextId++;
 
         EventManager.AddPrivateChannel(_personalChannelDictionary);
     }
