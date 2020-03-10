@@ -12,14 +12,14 @@ namespace ssuai
     public class GatherResourceAmount : Factor
     {
         CentralIntelligence _centralIntelligence;
-        Resource.Type _resource;
+        string _resource;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="CI">The central intelligence gathering the resources</param>
         /// <param name="Resource">The string representation (as in the resources dictionary) of the resource </param>
-        public GatherResourceAmount(CentralIntelligence CI, Resource.Type resource)
+        public GatherResourceAmount(CentralIntelligence CI, string resource)
         {
             _centralIntelligence = CI;
             _resource = resource;
@@ -33,7 +33,14 @@ namespace ssuai
         public override void UpdateUtility()
         {
             //Logistic curve that is high when the resource is near 0 and curves down when it approaches 100
-            _utility = (float)(1 / (1 + System.Math.Pow(System.Math.E, (_centralIntelligence.Resources[_resource] - 50 / 10))));
+            if (_centralIntelligence.Resources.ContainsKey(_resource))
+            {
+                _utility = (float)(1 / (1 + System.Math.Pow(System.Math.E, (_centralIntelligence.Resources[_resource] - 50 / 10))));
+            }
+            else
+            {
+                _utility = 1.0f;
+            }
         }
     }
 }

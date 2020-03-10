@@ -11,6 +11,7 @@ using MoonSharp.Interpreter.IO;
 using MoonSharp.Interpreter.Platforms;
 using MoonSharp.Interpreter.Tree.Expressions;
 using MoonSharp.Interpreter.Tree.Fast_Interface;
+using UnityEngine;
 
 namespace MoonSharp.Interpreter
 {
@@ -52,6 +53,8 @@ namespace MoonSharp.Interpreter
 				ScriptLoader = new Loaders.StreamingAssetsScriptLoader(),//PlatformAutoDetector.GetDefaultScriptLoader(),
 				TailCallOptimizationThreshold = 65536
 			};
+			((Loaders.ScriptLoaderBase)DefaultOptions.ScriptLoader).ModulePaths =
+				Loaders.ScriptLoaderBase.UnpackStringPaths(Application.streamingAssetsPath + "/Lua/?.lua");
 		}
 
 		/// <summary>

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoonSharp.Interpreter;
 
 
 /// <summary>
@@ -8,17 +9,26 @@ using UnityEngine;
 /// </summary>
 public class Resource : MonoBehaviour
 {
+    [SerializeField]
     public int HP { get; protected set; } = 40;
     public int MaxHP { get; protected set; } = 40;
 
-    public Type ResourceType { get; protected set; }
+    public string ResourceType { get; protected set; }
+
+    [Tooltip("The file to read stats from")]
+    [SerializeField]
+    private string _luaFile;
 
     //Action used to update health bar
     public System.Action OnMined;
 
     private void Awake()
     {
-        //add object to resource list
+        //initialize data
+        _readStatsFromFile();
+
+        //add self to resource lsit
+        WorldInfo.Resources.Add(gameObject);
     }
 
     private void Update()
@@ -27,6 +37,26 @@ public class Resource : MonoBehaviour
         {
             Die();
         }
+
+        if (Input.GetKeyDown("m"))
+        {
+            Debug.Log(Mine(11));
+            Debug.Log(HP);
+        }
+    }
+
+    /// <summary>
+    /// Read the resources stats from the lua file specified in the _luaFile field.
+    /// </summary>
+    private void _readStatsFromFile()
+    {
+        //open lua file
+        Script script = new Script();
+        var resourceTable = script.DoFile(_luaFile).Table;
+        HP = (int)resourceTable.Get("HP").Number;
+        MaxHP = (int)resourceTable.Get("HP").Number;
+
+        ResourceType = script.Globals.Get("ResourceType").String;
     }
 
 
@@ -49,13 +79,14 @@ public class Resource : MonoBehaviour
     }
 
     /// <summary>
-    /// Destroy object and unsubscribe it from lists.
+    /// Destroy object and delete it from lists.
     /// </summary>
     public void Die()
     {
+        //remove resource from global resource list
+        WorldInfo.Resources.Remove(gameObject);
 
+        //destroy the gameobject
+        Destroy(gameObject);
     }
-
-    //Types of resources that exist
-    public enum Type { CRYSTAL, METAL };
 }

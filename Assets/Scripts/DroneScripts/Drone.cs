@@ -7,21 +7,28 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using RTS;
+using System.IO;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
-public class Drone : RTS.Actor 
+public class Drone : RTS.Actor
 {
     
     /// <summary>
-    /// The last used drone id.
+    /// The id to assign to the next instantiated drone.
     /// </summary>
-    private static int _lastUsedId = 0;
+    private static int _nextId = 0;
 
     /// <summary>
     /// Each channel needs to store their own messages on dictionaries
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
+
+    /// <summary>
+    /// The drone's type.
+    /// </summary>
+    public string Type { get; protected set; }
+
     ///<summary>
     ///List of all the messages the drone will me listening after
     /// </summary>
@@ -62,13 +69,13 @@ public class Drone : RTS.Actor
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>
-    override
-    public void ReadStatsFromFile()
+    /// <param name="type">The drone type to set </param>
+    public void SetType(string type)
     {
+        Type = type;
         Script script = new Script();
-        script.DoFile("drone.lua");
-        Health = (int)script.Globals.Get("health").Number;
-        Debug.Log(Health);
+        var droneTable = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
+        //Debug.Log("Health: " + Health);
     }
 
 
@@ -81,9 +88,9 @@ public class Drone : RTS.Actor
             _personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
 
-        ReadStatsFromFile();
+        SetDroneType();
 
-        ID = _lastUsedId++;
+        ID = _nextId++;
 
         EventManager.AddPrivateChannel(_personalChannelDictionary);
     }

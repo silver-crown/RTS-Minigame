@@ -42,7 +42,6 @@ namespace Bbbt
         /// </returns>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-
              _actor.VisibleEnemies.Clear();
 
             switch (_actor.MyFaction)
@@ -50,20 +49,20 @@ namespace Bbbt
 
                 case Factions.Drone:
 
-                    for (int i = 0; i < WorldInfo.Instance.MarineLocations.Count; i++)
+                    for (int i = 0; i < WorldInfo.Marines.Count; i++)
                     {
-                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Instance.MarineLocations[i].transform.position) <= _actor.LineOfSight)
+                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Marines[i].transform.position) <= _actor.LineOfSight)
                         {
                             // Records last sighting of the player
-                            _actor.LastSighting = WorldInfo.Instance.MarineLocations[i].transform.position;
+                            _actor.LastSighting = WorldInfo.Marines[i].transform.position;
 
                             _actor.EnemyInSight = true;
 
                             // checks that the detected player is not already inn the list, this is to avoid
                             // the same enemy beeing added multiple times in the same list.
-                            if (!_actor.VisibleEnemies.Contains(WorldInfo.Instance.MarineLocations[i]))
+                            if (!_actor.VisibleEnemies.Contains(WorldInfo.Marines[i]))
                             {
-                                _actor.VisibleEnemies.Add(WorldInfo.Instance.MarineLocations[i]);
+                                _actor.VisibleEnemies.Add(WorldInfo.Marines[i]);
                             }
                         }
                     }

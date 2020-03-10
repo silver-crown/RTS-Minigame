@@ -1,6 +1,0 @@
---- stats
-
-
-
---- AI
-behaviourTree = "CombatDroneBT"

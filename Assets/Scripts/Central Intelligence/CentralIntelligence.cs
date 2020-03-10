@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ssuai;
-
+using RTS.Test;
+using MoonSharp.Interpreter;
 
 [RequireComponent(typeof(BehaviorTree))]
 public class CentralIntelligence : MonoBehaviour
@@ -18,19 +19,19 @@ public class CentralIntelligence : MonoBehaviour
     private BehaviorTree _behaviorTree;
 
 
-    public Dictionary<Resource.Type, int> Resources { get; protected set; }
+    public Dictionary<string, int> Resources { get; protected set; }
 
     /// <summary>
     /// Total number of drones present in the army
     /// </summary>
-    public int DroneCount { get; protected set; }
+    public int DroneCount { get => _drones.Count; }
+    public Dictionary<string, int> DroneTypeCount { get; protected set; }
     public const int MAXDRONES = 300;
     //TODO Make separate counters for different types of drones
 
     /// <summary>
     /// Different types of drones CI is capable of building
     /// </summary>
-    /// 
     List<Drone> _drones = new List<Drone>();
 
 
@@ -44,6 +45,7 @@ public class CentralIntelligence : MonoBehaviour
         Tank
     }
     DroneType drone = DroneType.Worker;
+
 
     #region UtilityAI
 
@@ -67,35 +69,60 @@ public class CentralIntelligence : MonoBehaviour
 
     void Awake()
     {
-        if(DroneCount != 0)
-            DroneCount = 0;
+        DroneTypeCount = new Dictionary<string, int>();
+        _drones = new List<Drone>();
         _behaviorTree = GetComponent<BehaviorTree>();
         // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
         _actions = new Action[NUMOFACTIONS];
 
         //Contains the types of resources and the amounts the CI has of them
-        Resources = new Dictionary<Resource.Type, int>();
-        Resources.Add(Resource.Type.METAL, 100);
-        Resources.Add(Resource.Type.CRYSTAL, 100);
+        Resources = new Dictionary<string, int>();
+
 
         //set up actions
-        _actions[0] = new Action(new List<Factor> { new GatherResourceAmount(this, Resource.Type.METAL) }, new CIGatherMetal());
-        _actions[1] = new Action(new List<Factor> { new GatherResourceAmount(this, Resource.Type.CRYSTAL) }, new CIGatherCrystal());
+        _actions[0] = new Action(new List<Factor> { new GatherResourceAmount(this, "Metal") }, new CIGatherMetal());
+        _actions[1] = new Action(new List<Factor> { new GatherResourceAmount(this, "Crystal") }, new CIGatherCrystal());
         _actions[2] = new Action(new List<Factor> { new WorkerNumber(this) }, new CIBuildWorker());
 
         //run selectAction
         _selectAction();
     }
 
+    private void Start()
+    {
+        // Populate the DroneTypeCount dictionary.
+        foreach (string type in WorldInfo.DroneTypes)
+        {
+            if (!DroneTypeCount.ContainsKey(type))
+            {
+                DroneTypeCount.Add(type, 0);
+            }
+        }
+
+        // Build the starting drones and give starting resources.
+        Debug.Log("Central Intelligence: Adding starting drones...", this);
+        Script dronesStartDefault = new Script();
+        var dronesStart = dronesStartDefault.DoFile("Setup/DronesStartDefault").Table;
+        foreach (var type in dronesStart.Get("_drones").Table.Pairs)
+        {
+            int count = (int)type.Value.Number;
+            for (int i = 0; i < count; i++)
+            {
+                GetComponent<DroneTestFactory>().BuildDroneForFree(type.Key.String);
+            }
+        }
+        Debug.Log("Central Intelligence: Adding starting resources...", this);
+        foreach (var type in dronesStart.Get("_resources").Table.Pairs)
+        {
+            Debug.Log("\t" + type.Key.String + " : " + (int)type.Value.Number, this);
+            AddResource(type.Key.String, (int)type.Value.Number);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //build a drone
-        if (Input.GetKeyDown("b"))
-        {
-            BuildDrone(drone);
-        }
         //test the worker channel
         if (Input.GetKeyDown("w"))
         {
@@ -117,8 +144,6 @@ public class CentralIntelligence : MonoBehaviour
 
             _timeOfLastAction = Time.time;
         }
-
-        
     }
 
     /// <summary>
@@ -139,6 +164,40 @@ public class CentralIntelligence : MonoBehaviour
     }
 
     /// <summary>
+    /// Adds a drone to the CI's hivemind.
+    /// </summary>
+    /// <param name="drone"></param>
+    public void AddDrone(Drone drone)
+    {
+        _drones.Add(drone);
+        if (DroneTypeCount.ContainsKey(drone.Type))
+        {
+            DroneTypeCount[drone.Type]++;
+        }
+        else
+        {
+            DroneTypeCount[drone.Type] = 1;
+        }
+    }
+
+    /// <summary>
+    /// Adds a resource to the CI's resource pool.
+    /// </summary>
+    /// <param name="type">The type of the resource to add.</param>
+    /// <param name="count">The amount to add of the resource.</param>
+    public void AddResource(string type, int count)
+    {
+        if (Resources.ContainsKey(type))
+        {
+            Resources[type] += count;
+        }
+        else
+        {
+            Resources[type] = count;
+        }
+    }
+
+    /// <summary>
     /// Creates a behavior tree from a file.
     /// </summary>
     public bool SetUpBehaviorTreeFromFile()
@@ -146,19 +205,6 @@ public class CentralIntelligence : MonoBehaviour
         return false;
     }
 
-    ///<summary>
-    ///CI makes drones and gives them a unique ID
-    /// </summary>
-    void BuildDrone(DroneType droneType)
-    {
-        if(DroneCount < MAXDRONES)
-        {
-            Drone drone = Instantiate(_dronePrefab).GetComponent<Drone>();
-            _drones.Add(drone);
-            Debug.Log("Created drone with ID " + drone.ID);
-            DroneCount++;
-        }
-    }
     private void _selectAction()
     {
         Action chosenAction= _selectedAction;         //the currently best action at this point in the loop
@@ -187,23 +233,19 @@ public class CentralIntelligence : MonoBehaviour
 
     public void TestBuildDrone()
     {
-        Resources[Resource.Type.METAL] -= 10;
-        Resources[Resource.Type.CRYSTAL] -= 8;
-        DroneCount++;
-        Debug.Log("Built drone. Metal: " +  Resources[Resource.Type.METAL] + "Crystal: " + Resources[Resource.Type.CRYSTAL]);
+        AddResource("Metal", -10);
+        AddResource("Crystal", -8);
     }
 
     public void TestGatherMetal()
     {
-        Resources[Resource.Type.METAL] += 10;
+        AddResource("Metal", 10);
     }
 
     public void TestGatherCrystal()
     {
-        Resources[Resource.Type.CRYSTAL] += 10;
+        AddResource("Crystal", 10);
     }
-
-    
 }
 
 
