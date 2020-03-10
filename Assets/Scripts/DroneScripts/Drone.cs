@@ -8,8 +8,8 @@ using MoonSharp.Interpreter;
 using Bbbt;
 using System.IO;
 
-namespace RTS
-{
+using RTS;
+
     /// <summary>
     /// Drones are used by the enemy AI/CI to interact in the world
     /// </summary>
@@ -134,4 +134,3 @@ namespace RTS
         }
 
     }
-}
