@@ -8,8 +8,9 @@ namespace RTS.Test
     public class DroneTestFactory : MonoBehaviour
     {
         [SerializeField] private GameObject _dronePrefab = null;
-        private float _radius = 20.0f;
-        private float _timeBetweenSpawns = 2.0f;
+        [SerializeField] private float _timeBetweenSpawns = 2.0f;
+        [SerializeField] private float _radius = 20.0f;
+        [SerializeField] private bool _doNotSpawn = false;
         private float _timeSinceLastSpawn = 0.0f;
 
         private void Update()
@@ -18,7 +19,7 @@ namespace RTS.Test
             if (_timeSinceLastSpawn >= _timeBetweenSpawns)
             {
                 string type = WorldInfo.DroneTypes[Random.Range(0, WorldInfo.DroneTypes.Count)];
-                BuildDroneForFree(type);
+                if (!_doNotSpawn) BuildDroneForFree(type);
             }
         }
 

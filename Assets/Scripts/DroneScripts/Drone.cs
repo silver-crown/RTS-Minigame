@@ -6,8 +6,8 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
-using RTS;
 using System.IO;
+using RTS;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
@@ -46,7 +46,6 @@ public class Drone : RTS.Actor
     { 
         group.groupID = groupID;
     }
-
     /// <summary>
     /// Unique ID of the drone
     /// </summary>
@@ -65,18 +64,18 @@ public class Drone : RTS.Actor
         EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
     }
     void globalChannelTest()
-        {
-            Debug.Log("Drone " + ID + " received a message in the Global Channel!");
-        }
+    {
+        Debug.Log("Drone " + ID + " received a message in the Global Channel!");
+    }
+
     void PrivateChannelTest()
     {
         Debug.Log("Drone " + ID + " received a message in the Private Channel!");
     }
     void groupChannelTest()
     {
-        Debug.Log("Drone " + ID + " from group "+ groupID +" received a message in the group Channel!");
+        Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
     }
-    //******************************************************************************
 
     /// <summary>
     /// Reads the drone's stats from lua.
@@ -87,9 +86,17 @@ public class Drone : RTS.Actor
         Type = type;
         Script script = new Script();
         var droneTable = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
-        //Debug.Log("Health: " + Health);
-    }
+        string tree = droneTable.Get("_behaviourTree").String;
 
+        if (tree != null)
+        {
+            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(tree);
+        }
+        else
+        {
+            Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
+        }
+    }
 
     public override void Awake()
     {
@@ -126,7 +133,7 @@ public class Drone : RTS.Actor
         {
             case (EventManager.MessageChannel.globalChannel):
                 {
-                   //and a nested one for the message itself
+                    //and a nested one for the message itself
                     switch (message)
                     {
                         //a test message

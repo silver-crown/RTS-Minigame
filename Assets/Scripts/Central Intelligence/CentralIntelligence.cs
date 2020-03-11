@@ -236,7 +236,7 @@ public class CentralIntelligence : MonoBehaviour
         foreach (Action action in _actions)
         {
             float utility = action.GetUtility();
-            Debug.Log("Utility of action " + debugIndex + ": " + utility);
+            //Debug.Log("Utility of action " + debugIndex + ": " + utility);
             if (utility > chosenUtility)
             {
                 chosenAction = action;

@@ -2,7 +2,7 @@
 local BaseDrone =
 {
     _name               = "Base Drone",
-    _behaviourTree      = "Test",
+    _behaviourTree      = "EnterBuildingTest",
     _maxHP              = 20,
     _attackRange        = 30.0,
     _sightRange         = 15.0,

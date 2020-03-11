@@ -39,10 +39,14 @@ namespace Bbbt
             foreach (var child in Children)
             {
                 var status = child.Tick(gameObject);
-                if (status == BbbtBehaviourStatus.Running || status == BbbtBehaviourStatus.Success)
+                switch (status)
                 {
-                    // Found a child that
-                    return status;
+                    case BbbtBehaviourStatus.Running:
+                        return status;
+                    case BbbtBehaviourStatus.Success:
+                        return status;
+                    default:
+                        continue;
                 }
             }
             // No child could be run.
