@@ -26,6 +26,12 @@ public static class WorldInfo
     /// List of all actors in the game.
     /// </summary>
     public static List<GameObject> Actors { get; private set; }
+
+    /// <summary>
+    /// List of marines 
+    /// </summary>
+    public static List<GameObject> Marines { get; private set; }
+         
     /// <summary>
     /// List of all resources in the game.
     /// </summary>
@@ -37,6 +43,7 @@ public static class WorldInfo
         ResourceTypes = new List<string>();
         EnterableBuildings = new List<EnterableBuilding>();
         Actors = new List<GameObject>();
+        Marines = new List<GameObject>();
         Resources = new List<GameObject>();
 
         // Read all drone types.

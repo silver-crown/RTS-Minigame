@@ -10,7 +10,22 @@ public class ListenToChannel : MonoBehaviour
     [SerializeField] bool listening;
     [SerializeField] EventManager.MessageChannel _channel;
     private string message;
-    //Convert the enum into a proper
+
+    ListenToChannel()
+    {
+        string type = drone.Type;
+        switch (type)
+        {
+            case "test":
+                {
+                    _channel = EventManager.MessageChannel.globalChannel;
+                    break;
+                }
+            default:
+                break;
+        }
+    }
+
     void Start()
     {
         if(message == null)
@@ -31,10 +46,14 @@ public class ListenToChannel : MonoBehaviour
     /// </summary>
     void ListenInOnChannel()
     {
-        for(int i = 0; i<= drone.messageList.Count; i++)
+        EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
+        for (int i = 0; i<= drone.messageList.Count; i++)
         {
+            //Listen in on the global channel
+            EventManager.StartListening(drone.messageList[i], ProxyMessageReceiver, global);
             //set message to be the current message
             message = drone.messageList[i];
+            //listen in on the private channel
             if (_channel == EventManager.MessageChannel.privateChannel)
             {
                 EventManager.StartListening(drone.messageList[i], ProxyMessageReceiver, _channel, drone.ID);

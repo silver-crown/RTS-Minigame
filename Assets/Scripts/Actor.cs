@@ -33,14 +33,14 @@ namespace RTS
         // 2. Shooting
 
         /// <summary>
+        /// The muzzle is the end of the gun, from where the projectile will be shot
+        /// </summary>
+        [SerializeField] protected Transform _gunEnd;
+
+        /// <summary>
         /// How far the Actor can attack
         /// </summary>
         public float AttackRange { get; protected set; } = 10.0f;
-
-        /// <summary>
-        /// The muzzle is the end of the gun, from where the projectile will be shot
-        /// </summary>
-        public Transform muzzle;
 
         /// <summary>
         /// The amount of damage the projectile deals to the target
@@ -50,7 +50,7 @@ namespace RTS
         /// <summary>
         /// How fast the weapon shoots projectiles
         /// </summary>
-        public int FireRate { get; protected set; }
+        public float FireRate { get; protected set; }
 
         /// <summary>
         /// The current target of the actor, this is the enemy that the actor will attack
@@ -66,6 +66,21 @@ namespace RTS
         /// This bool indicates if an enemy is within attacking distance of the actor.
         /// </summary>
         public bool EnemyInRange { get; protected set; }
+
+        /// <summary>
+        /// How long the laser will be visible after it has been shot
+        /// </summary>
+        private WaitForSeconds ShotDuration = new WaitForSeconds(0.9f);
+
+        /// <summary>
+        /// Draws a straight line between points given to it.
+        /// </summary>
+        public LineRenderer LaserLine;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public float NextFire { get; protected set; }
  
         #endregion
 
@@ -144,6 +159,15 @@ namespace RTS
 
         #endregion
 
+        #region Audio
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private AudioSource _gunAudio;
+
+        #endregion
+
         public virtual void SetDroneType()
         {
 
@@ -157,9 +181,28 @@ namespace RTS
 
         }
 
+        /// <summary>
+        /// Draws the laser line
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerator ShootLaser()
+        {
+            // _gunAudio.Play();
+            LaserLine.enabled = true;
+            yield return ShotDuration;
+            LaserLine.enabled = false;
+
+        }
+
+
         public virtual void  Awake()
         {
             WorldInfo.Actors.Add(gameObject);
+
+            if (_gunEnd == null)
+            {
+                Debug.LogError(name + ": _gunEnd was null. Set Gun End in the inspector.", this);
+            }
         }
 
         // Start is called before the first frame update
@@ -171,6 +214,9 @@ namespace RTS
             {
                 agent.SetDestination(TargetDestination.transform.position);
             }
+
+            LaserLine = GetComponent<LineRenderer>();
+            _gunAudio = GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
