@@ -265,6 +265,12 @@ public class CentralIntelligence : MonoBehaviour
         AddResource("Crystal", 10);
     }
 
+    void CreateDroneGroup()
+    {
+        //find some dumbass drones
+        //if they dont have a group script, give them a group script
+        //Give them a unique group ID
+    }
 
 }
 

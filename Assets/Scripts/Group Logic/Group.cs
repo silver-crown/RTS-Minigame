@@ -6,32 +6,37 @@ using UnityEngine.Events;
 
 public class Group : MonoBehaviour
 {
-    //Leader status for the drone in question
-    [SerializeField] bool _leader;
-    public int _groupID;
+    /// <summary>
+    /// the unique ID of the group
+    /// </summary>
+    public int groupID;
+    /// <summary>
+    /// String used for listening to messages contained in the message list
+    /// </summary>
+    string message;
+    [SerializeField] Drone _leader;
+    /// <summary>
+    ///Leader status for the drone in question
+    /// </summary>
+    [SerializeField]bool _leaderStatus;
     /// <summary>
     /// All the group members in the group
     /// </summary>
     List<Drone> _groupMembers = new List<Drone>();
     bool _listening;
-    //string used for relaying a message to the group members
-    string message;
     /// <summary>
     /// A list of all messages currently sent to the group
     /// </summary>
     public List<string> groupMessageList = new List<string>();
     Group()
     {
-        //find each object with a Group on it
-        //get the ones with your ID number in it
-        //add self to group list in that group
     }
     // Update is called once per frame
     void Update()
     {
         if (!_listening)
         {
-            if (_leader)
+            if (_leaderStatus)
             {
                 LeaderStartListening();
             }
@@ -47,7 +52,7 @@ public class Group : MonoBehaviour
         for(int i = 0; i <= groupMessageList.Count; i++)
         {
             message = groupMessageList[i];
-            EventManager.StartListening(message, LeaderIssueCommand, EventManager.MessageChannel.groupChannel, _groupID);
+            EventManager.StartListening(message, LeaderIssueCommand, EventManager.MessageChannel.groupChannel, groupID);
         }
     }
 
@@ -69,6 +74,28 @@ public class Group : MonoBehaviour
         {
             //Listening on a private channel requires an id number, the Drone's own id should be provided here
             EventManager.TriggerEvent(message, EventManager.MessageChannel.privateChannel, _groupMembers[i].ID);
+        }
+    }
+
+    void AssignNewLeader()
+    {
+        //Leader (or the whole group, depending on how I want to do this) assigns a new group leader.
+    }
+    void ConstructGroup()
+    {
+        //find each object with a Group on it
+        //get the ones with your ID number in it
+        //add self and rest to group list in that group
+        Drone[] groupMember = FindObjectsOfType(typeof(Drone)) as Drone[];
+        //no this doesn't work
+        Debug.Log("Found " + groupMember.Length + " instances with Group attached");
+
+        for (int i = 0; i <= groupMember.Length; i++)
+        {
+            if (groupMember[i].groupID == groupID)
+            {
+                _groupMembers.Add(groupMember[i]);
+            }
         }
     }
 }

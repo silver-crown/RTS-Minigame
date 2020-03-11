@@ -34,10 +34,18 @@ public class Drone : RTS.Actor
     /// </summary>
     public List<string> messageList = new List<string>();
     /// <summary>
-    /// Drone Group ID
+    /// Drone Group and it's ID
     /// </summary>
-    private int groupID;
+    public int groupID;
+    [SerializeField] Group group;
 
+    /// <summary>
+    /// set the group script's id to match that of the drone
+    /// </summary>
+    void SetGroupID()
+    { 
+        group.groupID = groupID;
+    }
 
     /// <summary>
     /// Unique ID of the drone
