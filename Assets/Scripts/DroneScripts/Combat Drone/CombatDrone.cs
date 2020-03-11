@@ -76,12 +76,16 @@ namespace RTS
 
                 // https://answers.unity.com/questions/763387/raycastall-find-closest-hit.html
                 RaycastHit[] hits;
-                hits = Physics.RaycastAll(_gunEnd.position,      // The starting point of the ray in world coordinates.
+                hits = Physics.RaycastAll(_gunEnd.position,     // The starting point of the ray in world coordinates.
                                             transform.forward,  // The direction of the ray.
                                             AttackRange);       // The max distance the rayhit is allowed to be from the start of the ray.
 
+                LaserLine.SetPosition(1, Target.transform.position);
+
                 float minDistance;
                 int index = 0;
+
+                Debug.Log("Hits lenght is: " + hits.Length);
 
                 if(hits.Length > 0)
                 {
@@ -89,16 +93,20 @@ namespace RTS
                     {
                         Debug.Log("We shot our self, same as hitting nothing");
                     }
-
-                    minDistance = hits[0].distance;
-
-                    for(int i = 0; i < hits.Length; i++)
+                    else
                     {
-                        if(hits[i].distance < minDistance && hits[i].transform != this.gameObject.transform)
+                        minDistance = hits[0].distance;
+
+                        for (int i = 0; i < hits.Length; i++)
                         {
-                            index = i;
-                            minDistance = hits[i].distance;
+                            if (hits[i].distance < minDistance && hits[i].transform != this.gameObject.transform)
+                            {
+                                index = i;
+                                minDistance = hits[i].distance;
+                            }
                         }
+
+                        //LaserLine.SetPosition(1, hits[index].point); 
                     }
                 }
             }

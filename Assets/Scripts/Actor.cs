@@ -215,7 +215,7 @@ namespace RTS
                 agent.SetDestination(TargetDestination.transform.position);
             }
 
-            LaserLine = GetComponent<LineRenderer>();
+            LaserLine = GetComponentInChildren<LineRenderer>();
             _gunAudio = GetComponent<AudioSource>();
         }
 
