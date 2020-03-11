@@ -6,5 +6,5 @@ return
     _maxHP              = 20,
     _attackRange        = 30.0,
     _sightRange         = 15.0,
-    _attacksPerSecond   = 1.0
+    _fireRate           = 1.0
 }

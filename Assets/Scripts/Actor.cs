@@ -70,7 +70,7 @@ namespace RTS
         /// <summary>
         /// How long the laser will be visible after it has been shot
         /// </summary>
-        private WaitForSeconds ShotDuration = new WaitForSeconds(0.9f);
+        private WaitForSeconds ShotDuration = new WaitForSeconds(0.6f);
 
         /// <summary>
         /// Draws a straight line between points given to it.
