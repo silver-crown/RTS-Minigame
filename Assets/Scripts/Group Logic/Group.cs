@@ -18,7 +18,7 @@ public class Group : MonoBehaviour
     /// <summary>
     ///Leader status for the drone in question
     /// </summary>
-    [SerializeField]bool _leaderStatus;
+    public bool leaderStatus;
     /// <summary>
     /// All the group members in the group
     /// </summary>
@@ -28,15 +28,13 @@ public class Group : MonoBehaviour
     /// A list of all messages currently sent to the group
     /// </summary>
     public List<string> groupMessageList = new List<string>();
-    Group()
-    {
-    }
+
     // Update is called once per frame
     void Update()
     {
         if (!_listening)
         {
-            if (_leaderStatus)
+            if (leaderStatus)
             {
                 LeaderStartListening();
             }

@@ -36,20 +36,22 @@ public class Drone : RTS.Actor
     /// <summary>
     /// Drone Group and it's ID
     /// </summary>
-    public int groupID;
+    [System.NonSerialized] public int groupID;
+    [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] Group group;
-
     /// <summary>
     /// set the group script's id to match that of the drone
     /// </summary>
-    void SetGroupID()
+    void SetupGroup()
     { 
         group.groupID = groupID;
+        group.leaderStatus = leaderStatus;
     }
     /// <summary>
     /// Unique ID of the drone
     /// </summary>
     public int ID { get; protected set; }
+    public int killCount;
 
     //************************************************************************************
     /// <summary>

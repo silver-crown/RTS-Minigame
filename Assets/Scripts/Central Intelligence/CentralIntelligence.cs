@@ -13,6 +13,7 @@ public class CentralIntelligence : MonoBehaviour
     /// List of groups(which is a list of drones)
     /// </summary>
     List<List<Drone>> _group = new List<List<Drone>>();
+    int lastGroupID = 0;
     /// <summary>
     /// The prefab to use when instatiating new drones.
     /// </summary>
@@ -265,11 +266,92 @@ public class CentralIntelligence : MonoBehaviour
         AddResource("Crystal", 10);
     }
 
-    void CreateDroneGroup()
+    enum GroupType
     {
-        //find some dumbass drones
-        //if they dont have a group script, give them a group script
-        //Give them a unique group ID
+        Assault,
+        Mining,
+        Mixed,
+        Scouting,
+        Defense,
+    }
+    void CreateDroneGroup(GroupType type)
+    {
+        //pick out some dumbass drones depending on what type of group I want to make
+        //Give them a unique group ID and a leader
+        //Group script does the rest
+        Drone[] groupMember = FindObjectsOfType(typeof(Drone)) as Drone[];
+        int leader = 0;
+        switch (type)
+        {
+            //Assault group, for combat scenarios
+            case GroupType.Assault:
+                {
+                    for (int i = 0; i <= groupMember.Length; i++)
+                    {
+                        switch (groupMember[i].Type)
+                        {
+                            //get the fighters
+                            case ("Fighter Drone"):
+                                {
+                                    //something something utility AI
+                                    //*********************************************************
+                                    //give the group member a unique group number
+                                    groupMember[i].groupID = lastGroupID+1;
+                                    //assign a leader based on killcount
+                                    if (groupMember[i].killCount > groupMember[leader].killCount)
+                                    {
+                                        leader = i;
+                                    }
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                    groupMember[leader].leaderStatus = true;
+                }
+                break;
+            case GroupType.Mining:
+                {
+                    for (int i = 0; i <= groupMember.Length; i++)
+                    {
+                        switch (groupMember[i].Type)
+                        {
+                            //get the workers
+                            case ("Worker Drone"):
+                                {
+                                    //something something utility AI
+                                    //*********************************************************
+                                    //give the group member a unique group number
+                                    groupMember[i].groupID = lastGroupID + 1;
+                                    //assign a leader based on something
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                }
+                break;
+            case GroupType.Mixed:
+                {
+
+                }
+                break;
+            case GroupType.Scouting:
+                {
+
+                }
+                break;
+            case GroupType.Defense:
+                {
+
+                }
+                break;
+            default:
+                break;
+        }
+        lastGroupID++;
     }
 
 }
