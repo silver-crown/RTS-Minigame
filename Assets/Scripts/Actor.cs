@@ -35,7 +35,7 @@ namespace RTS
         /// <summary>
         /// The muzzle is the end of the gun, from where the projectile will be shot
         /// </summary>
-        [SerializeField] protected Transform _gunEnd;
+        [SerializeField] public Transform GunEnd;
 
         /// <summary>
         /// How far the Actor can attack
@@ -70,18 +70,13 @@ namespace RTS
         /// <summary>
         /// How long the laser will be visible after it has been shot
         /// </summary>
-        private WaitForSeconds ShotDuration = new WaitForSeconds(0.6f);
-
-        /// <summary>
-        /// Draws a straight line between points given to it.
-        /// </summary>
-        public LineRenderer LaserLine;
+        public WaitForSeconds ShotDuration = new WaitForSeconds(0.6f);
 
         /// <summary>
         /// 
         /// </summary>
-        public float NextFire { get; protected set; }
- 
+        public float NextFire;
+
         #endregion
 
         #region AI
@@ -181,27 +176,13 @@ namespace RTS
 
         }
 
-        /// <summary>
-        /// Draws the laser line
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerator ShootLaser()
-        {
-            // _gunAudio.Play();
-            LaserLine.enabled = true;
-            yield return ShotDuration;
-            LaserLine.enabled = false;
-
-        }
-
-
         public virtual void  Awake()
         {
             WorldInfo.Actors.Add(gameObject);
 
-            if (_gunEnd == null)
+            if (GunEnd == null)
             {
-                Debug.LogError(name + ": _gunEnd was null. Set Gun End in the inspector.", this);
+                Debug.LogError(name + ":  GunEnd was null. Set Gun End in the inspector.", this);
             }
         }
 
@@ -214,8 +195,7 @@ namespace RTS
             {
                 agent.SetDestination(TargetDestination.transform.position);
             }
-
-            LaserLine = GetComponentInChildren<LineRenderer>();
+            
             _gunAudio = GetComponent<AudioSource>();
         }
 
