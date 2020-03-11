@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Bbbt
 {
@@ -8,13 +9,16 @@ namespace Bbbt
     [CreateAssetMenu(fileName = "Sequencer", menuName = "bbBT/Behaviour/Composite/Sequencer", order = 0)]
     public class BbbtSequencer : BbbtCompositeBehaviour
     {
-        public override string SaveDataType { get; } = "BbbtSequencer";
+        private List<BbbtBehaviour> _completedChildren;
+
+        public override string SaveDataType => "BbbtSequencer";
 
         /// <summary>
         /// BbbtSequencer does not have an OnInitialize implementation.
         /// </summary>
         protected override void OnInitialize(GameObject gameObject)
         {
+            _completedChildren = new List<BbbtBehaviour>();
         }
 
         /// <summary>
@@ -24,6 +28,7 @@ namespace Bbbt
         /// <param name="status"></param>
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
+            _completedChildren = new List<BbbtBehaviour>();
         }
 
         /// <summary>
@@ -35,12 +40,11 @@ namespace Bbbt
         /// </returns>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            // Iterate through each child behaviour until we find one that's running or returned failure.
-            // The assumption is that if a child is not in one of those states then it must have successfully
-            // ran in the past, so we only care about the first behaviour that returns running or failure.
             foreach (var child in Children)
             {
+                if (_completedChildren.Contains(child)) continue;
                 var status = child.Tick(gameObject);
+                if (status == BbbtBehaviourStatus.Success) _completedChildren.Add(child);
                 if (status == BbbtBehaviourStatus.Running || status == BbbtBehaviourStatus.Failure)
                 {
                     return status;

@@ -148,13 +148,17 @@ namespace Bbbt
         /// <returns>The behaviour tree that maches the query, if found. Null otherwise.</returns>
         public static BbbtBehaviourTree FindBehaviourTreeWithName(string query)
         {
+            if (query == null)
+            {
+                Debug.LogError("BbbtBehaviourTree.FindBehaviourTreeWithName(): query was null.");
+                return null;
+            }
             // Try to find a behaviour tree with name matching the query.
             var guids = AssetDatabase.FindAssets(query + " t:BbbtBehaviourTree");
             foreach (var guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 var behaviourTree = AssetDatabase.LoadAssetAtPath<BbbtBehaviourTree>(path);
-
                 if (behaviourTree.name.ToLower() == query.ToLower())
                 {
                     if (behaviourTree != null)

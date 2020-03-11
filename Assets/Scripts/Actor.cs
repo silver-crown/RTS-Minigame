@@ -76,6 +76,10 @@ namespace RTS
         [SerializeField] BbbtBehaviourTree _behavior = null;
 
         /// <summary>
+        /// The actor's NavMeshAgent. Used for making the actor move.
+        /// </summary>
+
+        /// <summary>
         /// Old Behavior Tree
         /// </summary>
         public BehaviorTree BehaviorTree;
@@ -84,6 +88,7 @@ namespace RTS
         /// Add this script to the game object in unity
         /// </summary>
         public BbbtBehaviourTreeComponent MyBbbtBehaviourTreeComponent;
+
 
         #endregion AI
 
@@ -160,7 +165,7 @@ namespace RTS
         // Start is called before the first frame update
         public virtual void Start()
         {
-            agent = this.GetComponent<NavMeshAgent>();
+            agent = GetComponent<NavMeshAgent>();
 
             if (TargetDestination != null)
             {
@@ -171,7 +176,6 @@ namespace RTS
         // Update is called once per frame
         public virtual void Update()
         {
-
         }
 
         private void OnDrawGizmosSelected()

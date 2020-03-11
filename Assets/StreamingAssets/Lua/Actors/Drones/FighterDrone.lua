@@ -1,5 +1,7 @@
 -- A fighter drone who goes pew pew.
-return require("Actors.Drones.BaseDrone"):new
-{
-    _name = "Fighter Drone"
-}
+local BaseDrone = require("Actors.Drones.BaseDrone")
+local FighterDrone = BaseDrone
+
+FighterDrone._name = "FighterDrone"
+
+return FighterDrone

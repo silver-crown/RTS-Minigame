@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using RTS;
 
 /// <summary>
 /// This class is used to store the locaiton of all the player marines, drones and resources
@@ -18,6 +19,10 @@ public static class WorldInfo
     /// </summary>
     public static List<string> ResourceTypes { get; private set; }
     /// <summary>
+    /// List of all enterable buildings in the game.
+    /// </summary>
+    public static List<EnterableBuilding> EnterableBuildings { get; private set; }
+    /// <summary>
     /// List of all actors in the game.
     /// </summary>
     public static List<GameObject> Actors { get; private set; }
@@ -30,6 +35,7 @@ public static class WorldInfo
     {
         DroneTypes = new List<string>();
         ResourceTypes = new List<string>();
+        EnterableBuildings = new List<EnterableBuilding>();
         Actors = new List<GameObject>();
         Resources = new List<GameObject>();
 

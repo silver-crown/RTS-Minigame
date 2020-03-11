@@ -1,0 +1,275 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 8528,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtEnterBuildingBehaviour",
+              "Status": 0,
+              "NodeId": 2,
+              "name": "Enter Building(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_message": "Entered building.",
+              "_isEnabled": false,
+              "_logType": 3,
+              "SaveDataType": "BbbtDebugLogBehaviour",
+              "Status": 0,
+              "NodeId": 6,
+              "name": "Debug Logger(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_waitTime": 3.0,
+              "SaveDataType": "BbbtWaitBehaviour",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "Wait(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_message": "Stayed in building for 3 seconds, leaving.",
+              "_isEnabled": false,
+              "_logType": 3,
+              "SaveDataType": "BbbtDebugLogBehaviour",
+              "Status": 0,
+              "NodeId": 4,
+              "name": "Debug Logger(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtLeaveBuildingBehaviour",
+              "Status": 0,
+              "NodeId": 10,
+              "name": "Leave Building(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_waitTime": 3.0,
+              "SaveDataType": "BbbtWaitBehaviour",
+              "Status": 0,
+              "NodeId": 8,
+              "name": "Wait(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 3,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 476.0,
+      "Y": 243.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 7890,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtEnterBuildingBehaviour",
+            "Status": 0,
+            "NodeId": 2,
+            "name": "Enter Building(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_message": "Entered building.",
+            "_isEnabled": false,
+            "_logType": 3,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 6,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_waitTime": 3.0,
+            "SaveDataType": "BbbtWaitBehaviour",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "Wait(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_message": "Stayed in building for 3 seconds, leaving.",
+            "_isEnabled": false,
+            "_logType": 3,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 4,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtLeaveBuildingBehaviour",
+            "Status": 0,
+            "NodeId": 10,
+            "name": "Leave Building(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_waitTime": 3.0,
+            "SaveDataType": "BbbtWaitBehaviour",
+            "Status": 0,
+            "NodeId": 8,
+            "name": "Wait(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 520.0,
+      "Y": 372.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Wait",
+      "BaseBehaviourInstanceId": -17718,
+      "Behaviour": {
+        "_waitTime": 3.0,
+        "SaveDataType": "BbbtWaitBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Wait(Clone)",
+        "hideFlags": 0
+      },
+      "X": 537.0,
+      "Y": 556.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 8,
+      "BaseBehaviour": "Wait",
+      "BaseBehaviourInstanceId": -17718,
+      "Behaviour": {
+        "_waitTime": 3.0,
+        "SaveDataType": "BbbtWaitBehaviour",
+        "Status": 0,
+        "NodeId": 8,
+        "name": "Wait(Clone)",
+        "hideFlags": 0
+      },
+      "X": 951.0,
+      "Y": 550.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Enter Building",
+      "BaseBehaviourInstanceId": 6940,
+      "Behaviour": {
+        "SaveDataType": "BbbtEnterBuildingBehaviour",
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Enter Building(Clone)",
+        "hideFlags": 0
+      },
+      "X": 267.0,
+      "Y": 560.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "Leave Building",
+      "BaseBehaviourInstanceId": -38830,
+      "Behaviour": {
+        "SaveDataType": "BbbtLeaveBuildingBehaviour",
+        "Status": 0,
+        "NodeId": 10,
+        "name": "Leave Building(Clone)",
+        "hideFlags": 0
+      },
+      "X": 807.0,
+      "Y": 568.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "Debug Logger",
+      "BaseBehaviourInstanceId": 6220,
+      "Behaviour": {
+        "_message": "Stayed in building for 3 seconds, leaving.",
+        "_isEnabled": false,
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 674.0,
+      "Y": 548.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Debug Logger",
+      "BaseBehaviourInstanceId": 6220,
+      "Behaviour": {
+        "_message": "Entered building.",
+        "_isEnabled": false,
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 405.0,
+      "Y": 554.0,
+      "IsSelected": true
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 3,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 2,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 4,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 6,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 8,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 10,
+      "OutNodeId": 3
+    }
+  ],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}

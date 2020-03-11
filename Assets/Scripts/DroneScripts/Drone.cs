@@ -69,7 +69,16 @@ public class Drone : RTS.Actor
         Type = type;
         Script script = new Script();
         var droneTable = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
-        //Debug.Log("Health: " + Health);
+        string tree = droneTable.Get("_behaviourTree").String;
+
+        if (tree != null)
+        {
+            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(tree);
+        }
+        else
+        {
+            Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
+        }
     }
 
 

@@ -38,6 +38,12 @@ namespace Bbbt
         /// <param name="treeName">The name of the tree to use.</param>
         public void SetBehaviourTree(string treeName)
         {
+            if (treeName == null)
+            {
+                Debug.LogError(GetType().Name + ".SetBehaviourTree(): treeName was null. Aborting.", this);
+                return;
+            }
+
             // Build the tree.
             var sourceTree = BbbtBehaviourTree.FindBehaviourTreeWithName(treeName);
             Tree = Instantiate(sourceTree);

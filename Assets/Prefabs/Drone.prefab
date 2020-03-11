@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5531117861107271380}
   - component: {fileID: 5531117861107271400}
   - component: {fileID: 5531117861107271403}
+  - component: {fileID: 114519846212049400}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -106,7 +107,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccadf3efc7cc6ca4daa76d2618ef4b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  muzzle: {fileID: 0}
+  Target: {fileID: 0}
+  ProjectilePrefab: {fileID: 0}
+  _behavior: {fileID: 0}
+  BehaviorTree: {fileID: 0}
+  MyBbbtBehaviourTreeComponent: {fileID: 0}
+  LineOfSight: 30
+  EnemyInSight: 0
+  LastSighting: {x: 0, y: 0, z: 0}
+  VisibleEnemies: []
+  Waypoints: []
+  TargetDestination: {fileID: 0}
+  agent: {fileID: 0}
+  MyFaction: 0
+  messageList: []
 --- !u!195 &5531117861107271403
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -129,3 +144,16 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &114519846212049400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5531117861107271381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713b0c92dc71faa4ba60eb3cba4da9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tree: {fileID: 0}

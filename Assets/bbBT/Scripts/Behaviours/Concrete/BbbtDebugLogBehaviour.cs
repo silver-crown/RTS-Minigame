@@ -14,12 +14,17 @@ namespace Bbbt
         /// <summary>
         /// The message to print to log to the Unity console.
         /// </summary>
-        [JsonProperty][SerializeField] private string _message = "";
+        [JsonProperty, SerializeField] private string _message = "";
+
+        /// <summary>
+        /// Whether the message is enabled. For convenient switching off without having to remove/re-add nodes.
+        /// </summary>
+        [JsonProperty, SerializeField] private bool _isEnabled = true;
 
         /// <summary>
         /// The type of message to log.
         /// </summary>
-        [JsonProperty][SerializeField] private LogType _logType = LogType.Log;
+        [JsonProperty, SerializeField] private LogType _logType = LogType.Log;
 
 
         /// <summary>
@@ -44,23 +49,26 @@ namespace Bbbt
         /// <param name="gameObject">The game object that owns the behaviour.</param>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            switch (_logType)
+            if (_isEnabled)
             {
-                case LogType.Error:
-                    Debug.LogError(_message);
-                    break;
-                case LogType.Assert:
-                    Debug.LogAssertion(_message);
-                    break;
-                case LogType.Warning:
-                    Debug.LogWarning(_message);
-                    break;
-                case LogType.Log:
-                    Debug.Log(_message);
-                    break;
-                case LogType.Exception:
-                    Debug.LogException(new System.Exception(_message));
-                    break;
+                switch (_logType)
+                {
+                    case LogType.Error:
+                        Debug.LogError(_message);
+                        break;
+                    case LogType.Assert:
+                        Debug.LogAssertion(_message);
+                        break;
+                    case LogType.Warning:
+                        Debug.LogWarning(_message);
+                        break;
+                    case LogType.Log:
+                        Debug.Log(_message);
+                        break;
+                    case LogType.Exception:
+                        Debug.LogException(new System.Exception(_message));
+                        break;
+                }
             }
             return BbbtBehaviourStatus.Success;
         }
