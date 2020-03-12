@@ -13,6 +13,7 @@ public class CentralIntelligence : MonoBehaviour
     /// List of groups(which is a list of drones)
     /// </summary>
     List<List<Drone>> _group = new List<List<Drone>>();
+
     /// <summary>
     /// The prefab to use when instatiating new drones.
     /// </summary>
@@ -22,7 +23,6 @@ public class CentralIntelligence : MonoBehaviour
     /// CentralIntelligene's behavior tree 
     /// </summary>
     private BehaviorTree _behaviorTree;
-
 
     public Dictionary<string, int> Resources { get; protected set; }
 
@@ -267,9 +267,9 @@ public class CentralIntelligence : MonoBehaviour
 
     void CreateDroneGroup()
     {
-        //find some dumbass drones
-        //if they dont have a group script, give them a group script
-        //Give them a unique group ID
+        // find some drones
+        // if they dont have a group script, give them a group script
+        // Give them a unique group ID
     }
 
 }

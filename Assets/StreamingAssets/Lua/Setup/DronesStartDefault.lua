@@ -9,6 +9,6 @@ DronesStartDefault._resources["Metal"] = 100
 
 DronesStartDefault._drones["BaseDrone"] = 1
 DronesStartDefault._drones["WorkerDrone"] = 0
-DronesStartDefault._drones["FighterDrone"] = 5
+DronesStartDefault._drones["FighterDrone"] = 1
 
 return DronesStartDefault
