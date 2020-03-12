@@ -1,7 +1,7 @@
--- A fighter drone who goes pew pew.
+-- Combat Drone
 return
 {
-    _name               = "Fighter Drone",
+    _name               = "Combat Drone",
     _behaviourTree      = "Test",
     _maxHP              = 20,
     _attackRange        = 30.0,

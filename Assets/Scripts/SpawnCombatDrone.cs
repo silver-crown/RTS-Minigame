@@ -17,7 +17,7 @@ public class SpawnCombatDrone : MonoBehaviour
         {
             //string type = WorldInfo.DroneTypes[Random.Range(0, WorldInfo.DroneTypes.Count)];
             
-            string type = "FighterDrone";
+            string type = "CombatDrone";
             if (!_doNotSpawn) BuildDroneForFree(type);
         }
     }
