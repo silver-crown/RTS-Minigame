@@ -36,6 +36,7 @@ namespace Bbbt
         [JsonProperty] public List<BbbtBehaviour> Behaviours { get; protected set; }
 
 
+        #if UNITY_EDITOR
         /// <summary>
         /// Saves the behaviour tree's data to a json file of the same name as the tree.
         /// </summary>
@@ -43,6 +44,7 @@ namespace Bbbt
         /// <param name="saveData">The functional save data to be used.</param>
         public void Save(BbbtBehaviourTreeEditorSaveData editorSaveData, BbbtBehaviourTreeSaveData saveData)
         {
+           
             // Save editor data
             string parentDirectory = Path.GetDirectoryName(AssetDatabase.GetAssetPath(this));
 
@@ -66,7 +68,9 @@ namespace Bbbt
             }
 
             AssetDatabase.Refresh();
+            
         }
+        #endif
 
         /// <summary>
         /// Loads the behaviour tree save data from the json file of the same name in the json directory.
@@ -137,7 +141,8 @@ namespace Bbbt
                 Debug.LogWarning("Behaviour tree " + name + "'s root has no child.");
             }
         }
-        
+
+        #if UNITY_EDITOR
         /// <summary>
         /// Tries to find a beahaviour tree that matches a given query (case insensitive).
         /// </summary>
@@ -172,5 +177,6 @@ namespace Bbbt
             // No behaviour tree found with name matching the query.
             return null;
         }
+        #endif
     }
 }

@@ -104,6 +104,7 @@ public class Drone : RTS.Actor
         ListenToChannels();
     }
 
+
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>

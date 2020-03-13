@@ -18,6 +18,7 @@ namespace Bbbt
 
         private Vector2Int? _chunk;
         private Vector3 _destination;
+        private float _lastTimeChunkScouted;
 
         protected override void OnInitialize(GameObject gameObject)
         {
@@ -28,6 +29,7 @@ namespace Bbbt
             int y = int.Parse(parts[1]);
             _chunk = new Vector2Int(x, y);
             _destination = new Vector3((float)_chunk?.x, 0.0f, (float)_chunk?.y);
+            _lastTimeChunkScouted = (float)actor.GetValue("_lastTimeChunkWasScouted").Table.Get(chunkString).Number;
             gameObject.GetComponent<NavMeshAgent>().SetDestination(_destination);
         }
 
@@ -40,13 +42,12 @@ namespace Bbbt
             var actor = gameObject.GetComponent<Actor>();
             if (_chunk != null)
             {
-                if (Vector3.Distance(actor.transform.position, _destination) < actor.GetValue("_sightRange").Number)
+                if ((float)actor.GetValue("_lastTimeChunkWasScouted").Table.Get(_chunk.ToString()).Number !=
+                    _lastTimeChunkScouted)
                 {
-                    Debug.Log("oh yeah");
                     actor.GetValue("_lastTimeChunkWasScouted").Table.Set(
                         _chunk.ToString(),
                         DynValue.NewNumber(Time.time));
-                    actor.GetComponent<NavMeshAgent>().SetDestination(actor.transform.position);
                     return BbbtBehaviourStatus.Success;
                 }
                 else

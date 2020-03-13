@@ -24,14 +24,22 @@ namespace ssuai
         public override void UpdateUtility()
         {
             float e = (float)Math.E;
-            float d = Vector2.SqrMagnitude(
+            float dSqr = Vector2.SqrMagnitude(
                 _chunk - new Vector2(
                     _actor.transform.position.x,
                     _actor.transform.position.z
                 )
             );
-            float t = (float)_actor.GetValue("_lastTimeChunkWasScouted").Table.Get(_chunk.ToString()).Number;
-            _utility = 1.0f / (1.0f + Mathf.Pow(d, 2) / 5.0f * Mathf.Pow(e, -0.02f * t));
+            float t =
+                Time.time - (float)_actor.GetValue("_lastTimeChunkWasScouted").Table.Get(_chunk.ToString()).Number;
+            if (t == 0.0f)
+            {
+                _utility = 0.0f;
+            }
+            else
+            {
+                _utility = 1.0f / (1.0f + (100.0f + dSqr) * Mathf.Pow(e, -0.2f * t));
+            }
         }
     }
 }

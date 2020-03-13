@@ -8,6 +8,7 @@ using MoonSharp.Interpreter;
 using Bbbt;
 using UnityEditor;
 using System;
+using ssuai;
 
 namespace RTS
 {
@@ -265,7 +266,38 @@ namespace RTS
         // Update is called once per frame
         public virtual void Update()
         {
+            var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+            if (lastTimeScouted.IsNotNil())
+            // Update when the actor saw a chunk
+            foreach (var chunk in WorldInfo.Chunks)
+            {
+                var rect = new Rect(chunk, Vector2.one);
+                var pos = new Vector2(transform.position.x, transform.position.z);
+                var distances = new float[]
+                {
+                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMin)),
+                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMax)),
+                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMin)),
+                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMax))
+                };
+
+                bool inSightRange = true;
+                foreach (var distance in distances)
+                {
+                    if (distance > _table.Get("_sightRange").Number)
+                    {
+                        inSightRange = false;
+                    }
+                }
+
+                if (inSightRange)
+                {
+                    lastTimeScouted.Table.Set(chunk.ToString(), DynValue.NewNumber(Time.time));
+                }
+            }
         }
+
+
 
         /// <summary>
         /// Gets a value from the Actor's table.
@@ -297,29 +329,30 @@ namespace RTS
             return _table.Pairs;
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (_isSelected)
             {
                 // Draw sight/attack range.
                 Handles.color = Color.red;
-                Handles.DrawWireDisc(transform.position, Vector3.up, AttackRange);
+                Handles.DrawWireDisc(transform.position, Vector3.up, (float)_table.Get("_attackRange").Number);
                 Handles.color = Color.green;
-                Handles.DrawWireDisc(transform.position, Vector3.up, LineOfSight);
+                Handles.DrawWireDisc(transform.position, Vector3.up, (float)_table.Get("_sightRange").Number);
 
                 // Highlight actors in sight/attack range.
                 foreach (var actor in WorldInfo.Actors)
                 {
                     if (actor == gameObject) continue;
                     float distance = Vector3.Distance(transform.position, actor.transform.position);
-                    if (distance < AttackRange)
+                    if (distance < _table.Get("_attackRange").Number)
                     {
                         Handles.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
                         Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
                         //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
                         //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                     }
-                    else if (distance < LineOfSight)
+                    else if (distance < _table.Get("_sightRange").Number)
                     {
                         Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
                         Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
@@ -327,7 +360,35 @@ namespace RTS
                         //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                     }
                 }
+
+                // Visualise chunk scouting attractiveness
+                var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+                if (lastTimeScouted.IsNotNil())
+                {
+                    foreach (var chunk in WorldInfo.Chunks)
+                    {
+                        var factor = new ChunkScoutingAttractiveness(chunk, this);
+                        factor.UpdateUtility();
+                        var utility = factor.GetUtility();
+                        float r = utility;
+                        float g = 1.0f - utility;
+                        float b = 0.0f;
+                        //if (chunk.x == 1 && chunk.y == 1) Debug.Log(time + ", " + r + ", " + b);
+                        Handles.DrawSolidRectangleWithOutline(
+                            new Vector3[]
+                            {
+                                new Vector3(chunk.x,        0.0f, chunk.y),
+                                new Vector3(chunk.x + 1.0f, 0.0f, chunk.y),
+                                new Vector3(chunk.x + 1.0f, 0.0f, chunk.y + 1.0f),
+                                new Vector3(chunk.x,        0.0f, chunk.y + 1.0f)
+                            },
+                            new Color(r, g, b, 0.4f),
+                            new Color(r, g, b, 1.0f)
+                        );
+                    }
+                }
             }
         }
+#endif
     }
 }
