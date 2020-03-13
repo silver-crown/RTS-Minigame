@@ -210,6 +210,7 @@ public class CentralIntelligence : MonoBehaviour
     public void AddDrone(Drone drone)
     {
         _drones.Add(drone);
+        drone.CentralIntelligence = this;
         if (DroneTypeCount.ContainsKey(drone.Type))
         {
             DroneTypeCount[drone.Type]++;
@@ -243,6 +244,19 @@ public class CentralIntelligence : MonoBehaviour
     public bool SetUpBehaviorTreeFromFile()
     {
         return false;
+    }
+
+    /// <summary>
+    /// Updates the last time a chunk was scouted.
+    /// </summary>
+    /// <param name="chunk">The chunk to update.</param>
+    /// <param name="time">The time it was last scouted.</param>
+    public void SetLastTimeScouted(Vector2Int chunk, float time)
+    {
+        if (time > LastTimeChunkWasScouted[chunk])
+        {
+            LastTimeChunkWasScouted[chunk] = time;
+        }
     }
 
     private void _selectAction()

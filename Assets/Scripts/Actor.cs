@@ -266,35 +266,6 @@ namespace RTS
         // Update is called once per frame
         public virtual void Update()
         {
-            var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
-            if (lastTimeScouted.IsNotNil())
-            // Update when the actor saw a chunk
-            foreach (var chunk in WorldInfo.Chunks)
-            {
-                var rect = new Rect(chunk, Vector2.one);
-                var pos = new Vector2(transform.position.x, transform.position.z);
-                var distances = new float[]
-                {
-                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMin)),
-                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMax)),
-                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMin)),
-                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMax))
-                };
-
-                bool inSightRange = true;
-                foreach (var distance in distances)
-                {
-                    if (distance > _table.Get("_sightRange").Number)
-                    {
-                        inSightRange = false;
-                    }
-                }
-
-                if (inSightRange)
-                {
-                    lastTimeScouted.Table.Set(chunk.ToString(), DynValue.NewNumber(Time.time));
-                }
-            }
         }
 
 

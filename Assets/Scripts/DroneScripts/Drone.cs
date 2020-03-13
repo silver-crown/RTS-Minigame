@@ -52,6 +52,11 @@ public class Drone : RTS.Actor
     public int ID { get; protected set; }
 
     /// <summary>
+    /// The drone's central intelligence.
+    /// </summary>
+    public CentralIntelligence CentralIntelligence { get; set; }
+
+    /// <summary>
     /// Message Listening, with example functions below
     /// </summary>
     void ListenToChannels()
@@ -102,6 +107,42 @@ public class Drone : RTS.Actor
     {
         base.Update();
         ListenToChannels();
+
+        var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+        if (lastTimeScouted.IsNotNil())
+        {
+            // Update when the actor saw a chunk
+            foreach (var chunk in WorldInfo.Chunks)
+            {
+                var rect = new Rect(chunk, Vector2.one);
+                var pos = new Vector2(transform.position.x, transform.position.z);
+                var distances = new float[]
+                {
+                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMin)),
+                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMax)),
+                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMin)),
+                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMax))
+                };
+
+                bool inSightRange = true;
+                foreach (var distance in distances)
+                {
+                    if (distance > _table.Get("_sightRange").Number)
+                    {
+                        inSightRange = false;
+                    }
+                }
+
+                if (inSightRange)
+                {
+                    lastTimeScouted.Table.Set(chunk.ToString(), DynValue.NewNumber(Time.time));
+                    if (CentralIntelligence != null)
+                    {
+                        CentralIntelligence.SetLastTimeScouted(chunk, Time.time);
+                    }
+                }
+            }
+        }
     }
 
 
