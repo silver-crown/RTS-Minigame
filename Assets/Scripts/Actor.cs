@@ -204,6 +204,8 @@ namespace RTS
         {
         }
 
+        // ifdef used so project will build succsessfully
+        #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             // Draw sight/attack range.
@@ -233,5 +235,6 @@ namespace RTS
                 }
             }
         }
+        #endif
     }
 }

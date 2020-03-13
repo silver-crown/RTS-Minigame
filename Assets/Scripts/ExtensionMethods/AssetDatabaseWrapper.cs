@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ExtensionMethods
 {
+    #if UNITY_EDITOR
     /// <summary>
     /// Contains extension methods for UnityEditor.AssetDatabase.
     /// </summary>
@@ -20,4 +21,6 @@ namespace ExtensionMethods
             return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
         }
     }
+
+    #endif
 }
