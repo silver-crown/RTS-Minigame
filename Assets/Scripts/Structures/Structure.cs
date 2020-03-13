@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MoonSharp.Interpreter;
 
-public abstract class Structure : MonoBehaviour
+public class Structure : MonoBehaviour
 {
 
     public int MaxHP { get; protected set; }

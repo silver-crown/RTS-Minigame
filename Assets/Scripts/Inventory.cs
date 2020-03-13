@@ -5,13 +5,14 @@ using UnityEngine;
 /// <summary>
 /// Basic Inventory system for actors and structures. Just contains a dictionary of resource type and amount at present.
 /// </summary>
-public class Inventory
+public class Inventory : MonoBehaviour
 {
     /// <summary>
     /// The string will be resource type, the int will be amount.
     /// </summary>
     public Dictionary<string, int> Contents { get; private set; }
 
+    [SerializeField]
     /// <summary>
     /// How many resources the Inventory could hold
     /// </summary>
@@ -26,6 +27,8 @@ public class Inventory
     {
         Contents = new Dictionary<string, int>();
     }
+
+
 
     /// <summary>
     /// Put Amount of Resource ResourceType in the inventory.
