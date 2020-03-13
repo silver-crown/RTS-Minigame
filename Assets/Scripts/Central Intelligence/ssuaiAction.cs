@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bbbt;
+using System;
 
 namespace ssuai
 {
-    public class Action
+    public class UtilityAction
     {
         protected List<Factor> _factors;
-        public BbbtBehaviour Behaviour { get; protected set; }
+        public Action Behaviour { get; protected set; }
         private float _utility = 0.0f;
 
 
@@ -17,7 +18,7 @@ namespace ssuai
         /// </summary>
         /// <param name="factors"></param>
         /// <param name="behavior"></param>
-        public Action(List<Factor> factors, BbbtBehaviour behaviour)
+        public UtilityAction(List<Factor> factors, Action behaviour)
         {
             _factors = factors;
             Behaviour = behaviour;

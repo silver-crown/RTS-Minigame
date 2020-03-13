@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using UnityEditor;
+using System;
 
 namespace RTS
 {
@@ -14,8 +15,32 @@ namespace RTS
     /// <summary>
     /// Base class used by drones for sight, movement etc.
     /// </summary>
+    [RequireComponent(typeof(MouseClickRaycastTarget))]
     public abstract class Actor : MonoBehaviour
     {
+
+        /// <summary>
+        /// The table with the actor's stats.
+        /// </summary>
+        protected Table _table;
+
+        #region Events
+        /// <summary>
+        /// The actor's MouseClickRaycastTarget.
+        /// </summary>
+        protected MouseClickRaycastTarget _mouseClickRaycastTarget = null;
+
+        /// <summary>
+        /// Invoked when an actor spawns.
+        /// </summary>
+        public static Action<Actor> OnActorSpawned = null;
+
+        /// <summary>
+        /// Invoked when the Actor gets clicked on.
+        /// </summary>
+        public static Action<Actor> OnActorClicked = null;
+        #endregion
+
         #region Combat
 
         // 1. Base Stats
@@ -176,6 +201,20 @@ namespace RTS
 
         }
 
+
+        /// <summary>
+        /// Draws the laser line
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerator ShootLaser()
+        {
+            // _gunAudio.Play();
+            //LaserLine.enabled = true;
+            yield return ShotDuration;
+            //LaserLine.enabled = false;
+        }
+
+
         public virtual void  Awake()
         {
             WorldInfo.Actors.Add(gameObject);
@@ -183,6 +222,16 @@ namespace RTS
             if (GunEnd == null)
             {
                 Debug.LogError(name + ":  GunEnd was null. Set Gun End in the inspector.", this);
+            }
+
+            _mouseClickRaycastTarget = GetComponent<MouseClickRaycastTarget>();
+            if (_mouseClickRaycastTarget != null)
+            {
+                _mouseClickRaycastTarget.OnClick += () => { OnActorClicked?.Invoke(this); };
+            }
+            else
+            {
+                Debug.LogError(name + ": No MouseClickRaycastTarget component.");
             }
         }
 
@@ -197,11 +246,45 @@ namespace RTS
             }
             
             _gunAudio = GetComponent<AudioSource>();
+
+            OnActorSpawned?.Invoke(this);
         }
 
         // Update is called once per frame
         public virtual void Update()
         {
+        }
+
+
+
+        /// <summary>
+        /// Gets a value from the Actor's table.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>The value associated with the key.</returns>
+        public DynValue GetValue(string key)
+        {
+            return _table.Get(key);
+        }
+
+        /// <summary>
+        /// Sets a value in the Actor's table.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>Sets the value associated with the key.</returns>
+        public void SetValue(string key, string value)
+        {
+            _table.Set(key, DynValue.NewString(value));
+        }
+
+        /// <summary>
+        /// Returns every pair in the actor's table.
+        /// </summary>
+        /// <returns>The pairs.</returns>
+        public IEnumerable<TablePair> GetTablePairs()
+        {
+            return _table.Pairs;
         }
 
         // ifdef used so project will build succsessfully
