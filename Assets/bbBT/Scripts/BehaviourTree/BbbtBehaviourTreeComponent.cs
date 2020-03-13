@@ -32,6 +32,7 @@ namespace Bbbt
             }
         }
 
+        #if UNITY_EDITOR
         /// <summary>
         /// Awake is called before Start.
         /// </summary>
@@ -51,7 +52,7 @@ namespace Bbbt
             Tree.LoadSaveData(sourceTree);
             _rootNode = (Tree.RootBehaviour as BbbtRoot).Child;
         }
-
+        #endif
     }
-
+   
 }

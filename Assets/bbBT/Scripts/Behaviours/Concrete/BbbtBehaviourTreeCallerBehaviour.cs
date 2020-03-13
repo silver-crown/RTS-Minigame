@@ -28,14 +28,16 @@ namespace Bbbt
         /// The root of the behaviour tree to call. 
         /// </summary>
         private BbbtBehaviour _root = null;
-
-
+        
         /// <summary>
         /// OnInitialize gets called the first time the behaviour is called.
         /// </summary>
         /// <param name="gameObject">The game object that owns the behaviour.</param>
         protected override void OnInitialize(GameObject gameObject)
         {
+
+            // so we can test networking remove this ifdef after we have new save system for bbbt
+            #if UNITY_EDITOR
             if (_root == null && _behaviourTreeName != null)
             {
                 var originalTree = BbbtBehaviourTree.FindBehaviourTreeWithName(_behaviourTreeName);
@@ -48,7 +50,9 @@ namespace Bbbt
                     BehaviourTree.name = BehaviourTree.name + " (" + gameObject.name + ")";
                 }
             }
+            #endif
         }
+
 
         /// <summary>
         /// Doesn't have any termination logic.
