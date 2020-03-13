@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccadf3efc7cc6ca4daa76d2618ef4b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunEnd: {fileID: 1681382434638214938}
+  GunEnd: {fileID: 1681382434638214938}
   Target: {fileID: 0}
   ProjectilePrefab: {fileID: 0}
-  LaserLine: {fileID: 0}
+  NextFire: 0
   _behavior: {fileID: 0}
   BehaviorTree: {fileID: 0}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
@@ -125,6 +125,8 @@ MonoBehaviour:
   agent: {fileID: 0}
   MyFaction: 0
   messageList: []
+  groupID: 0
+  group: {fileID: 0}
 --- !u!195 &5531117861107271403
 NavMeshAgent:
   m_ObjectHideFlags: 0

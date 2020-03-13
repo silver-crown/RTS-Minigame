@@ -24,6 +24,11 @@ namespace RTS
         /// </summary>
         protected Table _table;
 
+        /// <summary>
+        /// Whether the actor is selected.
+        /// </summary>
+        private bool _isSelected = false;
+
         #region Events
         /// <summary>
         /// The actor's MouseClickRaycastTarget.
@@ -227,7 +232,14 @@ namespace RTS
             _mouseClickRaycastTarget = GetComponent<MouseClickRaycastTarget>();
             if (_mouseClickRaycastTarget != null)
             {
-                _mouseClickRaycastTarget.OnClick += () => { OnActorClicked?.Invoke(this); };
+                _mouseClickRaycastTarget.OnClick += () =>
+                {
+                    _isSelected = !_isSelected;
+                    if (_isSelected)
+                    {
+                        OnActorClicked?.Invoke(this);
+                    }
+                };
             }
             else
             {
@@ -285,32 +297,35 @@ namespace RTS
             return _table.Pairs;
         }
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
-            // Draw sight/attack range.
-            Handles.color = Color.red;
-            Handles.DrawWireDisc(transform.position, Vector3.up, AttackRange);
-            Handles.color = Color.green;
-            Handles.DrawWireDisc(transform.position, Vector3.up, LineOfSight);
-
-            // Highlight actors in sight/attack range.
-            foreach (var actor in WorldInfo.Actors)
+            if (_isSelected)
             {
-                if (actor == gameObject) continue;
-                float distance = Vector3.Distance(transform.position, actor.transform.position);
-                if (distance < AttackRange)
+                // Draw sight/attack range.
+                Handles.color = Color.red;
+                Handles.DrawWireDisc(transform.position, Vector3.up, AttackRange);
+                Handles.color = Color.green;
+                Handles.DrawWireDisc(transform.position, Vector3.up, LineOfSight);
+
+                // Highlight actors in sight/attack range.
+                foreach (var actor in WorldInfo.Actors)
                 {
-                    Handles.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
-                    Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
-                    //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
-                    //Gizmos.DrawSphere(actor.transform.position, 1.3f);
-                }
-                else if (distance < LineOfSight)
-                {
-                    Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
-                    Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
-                    //Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.4f);
-                    //Gizmos.DrawSphere(actor.transform.position, 1.3f);
+                    if (actor == gameObject) continue;
+                    float distance = Vector3.Distance(transform.position, actor.transform.position);
+                    if (distance < AttackRange)
+                    {
+                        Handles.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
+                        Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
+                        //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
+                        //Gizmos.DrawSphere(actor.transform.position, 1.3f);
+                    }
+                    else if (distance < LineOfSight)
+                    {
+                        Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
+                        Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
+                        //Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.4f);
+                        //Gizmos.DrawSphere(actor.transform.position, 1.3f);
+                    }
                 }
             }
         }
