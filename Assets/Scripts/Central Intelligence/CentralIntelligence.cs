@@ -14,6 +14,10 @@ public class CentralIntelligence : MonoBehaviour
     /// List of groups(which is a list of drones)
     /// </summary>
     private List<List<Drone>> _group = new List<List<Drone>>();
+    /// <summary>
+    /// The prefab to use when instatiating new drones.
+    /// </summary>
+    [SerializeField] GameObject _dronePrefab = null;
 
     /// <summary>
     /// CentralIntelligene's behavior tree 
@@ -283,6 +287,12 @@ public class CentralIntelligence : MonoBehaviour
         AddResource("Crystal", 10);
     }
 
+    void CreateDroneGroup()
+    {
+        // find some drones
+        // if they dont have a group script, give them a group script
+        // Give them a unique group ID
+    }
 
 }
 
