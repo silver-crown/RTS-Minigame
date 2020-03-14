@@ -12,16 +12,16 @@
           "hideFlags": 0
         },
         {
-          "SaveDataType": "BbbtHaveAdequateForces",
+          "SaveDataType": "BbbtGroupHaveAdequateForces",
           "Status": 0,
-          "NodeId": 8,
-          "name": "Have Adequate Forces(Clone)",
+          "NodeId": 5,
+          "name": "Group Have Adequate Forces(Clone)",
           "hideFlags": 0
         },
         {
           "SaveDataType": "BbbtGroupAttackEnemy",
           "Status": 0,
-          "NodeId": 9,
+          "NodeId": 6,
           "name": "Group Attack Enemy(Clone)",
           "hideFlags": 0
         }

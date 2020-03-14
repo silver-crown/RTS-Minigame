@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using RTS;
 
 public class Group : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Group : MonoBehaviour
     /// the unique ID of the group
     /// </summary>
     public int groupID;
+    /// <summary>
+    /// Number of members of the group in question
+    /// </summary>
+    public int groupSize;
     /// <summary>
     /// String used for listening to messages contained in the message list
     /// </summary>
@@ -22,7 +27,8 @@ public class Group : MonoBehaviour
     /// <summary>
     /// All the group members in the group
     /// </summary>
-    List<Drone> _groupMembers = new List<Drone>();
+    private List<GameObject> _groupMembers = new List<GameObject>();
+    public List<GameObject> enemyList = new List<GameObject>();
     bool _listening;
     /// <summary>
     /// A list of all messages currently sent to the group
@@ -32,6 +38,7 @@ public class Group : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        groupSize = _groupMembers.Count;
         if (!_listening)
         {
             if (leaderStatus)
@@ -40,7 +47,25 @@ public class Group : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Construct the list of enemies visible to the group
+    /// </summary>
+    void ConstructEnemyList()
+    {
+        //through each group member
+        for (int i = 0; i <= _groupMembers.Count; i++)
+        {
+            //iterate though the visible enemies list of each member
+            for (int j = 0; j <= _groupMembers[i].GetComponent<Actor>().VisibleEnemies.Count; j++)
+            {
+                //add them to the enemy list of the group if they're not already in it 
+                if (!enemyList.Contains(_groupMembers[i].GetComponent<Actor>().VisibleEnemies[j]))
+                {
+                    enemyList.Add(_groupMembers[i].GetComponent<Actor>().VisibleEnemies[j]);
+                }
+            }
+        }
+    }
     /// <summary>
     /// Make the leader listen in on the channel
     /// </summary>
@@ -71,7 +96,7 @@ public class Group : MonoBehaviour
         for(int i = 0; i<= _groupMembers.Count; i++)
         {
             //Listening on a private channel requires an id number, the Drone's own id should be provided here
-            EventManager.TriggerEvent(message, EventManager.MessageChannel.privateChannel, _groupMembers[i].ID);
+            EventManager.TriggerEvent(message, EventManager.MessageChannel.privateChannel, _groupMembers[i].GetComponent<Drone>().ID);
         }
     }
 
@@ -92,7 +117,7 @@ public class Group : MonoBehaviour
         {
             if (groupMember[i].groupID == groupID)
             {
-                _groupMembers.Add(groupMember[i]);
+                _groupMembers.Add(groupMember[i].gameObject);
             }
         }
     }

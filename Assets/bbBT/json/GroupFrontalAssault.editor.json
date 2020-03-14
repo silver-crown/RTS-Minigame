@@ -3,7 +3,7 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 18966,
+      "BaseBehaviourInstanceId": 36420,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -17,16 +17,16 @@
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtHaveAdequateForces",
+              "SaveDataType": "BbbtGroupHaveAdequateForces",
               "Status": 0,
-              "NodeId": 8,
-              "name": "Have Adequate Forces(Clone)",
+              "NodeId": 5,
+              "name": "Group Have Adequate Forces(Clone)",
               "hideFlags": 0
             },
             {
               "SaveDataType": "BbbtGroupAttackEnemy",
               "Status": 0,
-              "NodeId": 9,
+              "NodeId": 6,
               "name": "Group Attack Enemy(Clone)",
               "hideFlags": 0
             }
@@ -41,14 +41,14 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 246.0,
-      "Y": -123.0,
+      "X": 383.0,
+      "Y": 161.0,
       "IsSelected": false
     },
     {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 18318,
+      "BaseBehaviourInstanceId": 36862,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -60,16 +60,16 @@
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtHaveAdequateForces",
+            "SaveDataType": "BbbtGroupHaveAdequateForces",
             "Status": 0,
-            "NodeId": 8,
-            "name": "Have Adequate Forces(Clone)",
+            "NodeId": 5,
+            "name": "Group Have Adequate Forces(Clone)",
             "hideFlags": 0
           },
           {
             "SaveDataType": "BbbtGroupAttackEnemy",
             "Status": 0,
-            "NodeId": 9,
+            "NodeId": 6,
             "name": "Group Attack Enemy(Clone)",
             "hideFlags": 0
           }
@@ -79,14 +79,44 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 242.0,
-      "Y": 19.0,
+      "X": 405.0,
+      "Y": 335.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Group Attack Enemy",
+      "BaseBehaviourInstanceId": 36936,
+      "Behaviour": {
+        "SaveDataType": "BbbtGroupAttackEnemy",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Group Attack Enemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 556.0,
+      "Y": 476.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Group Have Adequate Forces",
+      "BaseBehaviourInstanceId": -146330,
+      "Behaviour": {
+        "SaveDataType": "BbbtGroupHaveAdequateForces",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Group Have Adequate Forces(Clone)",
+        "hideFlags": 0
+      },
+      "X": 430.0,
+      "Y": 476.0,
       "IsSelected": false
     },
     {
       "Id": 3,
       "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 20944,
+      "BaseBehaviourInstanceId": 36316,
       "Behaviour": {
         "SaveDataType": "BbbtCanSeeEnemyCheck",
         "Status": 0,
@@ -94,38 +124,8 @@
         "name": "CanSeeEnemy(Clone)",
         "hideFlags": 0
       },
-      "X": 136.0,
-      "Y": 159.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 9,
-      "BaseBehaviour": "Group Attack Enemy",
-      "BaseBehaviourInstanceId": -23368,
-      "Behaviour": {
-        "SaveDataType": "BbbtGroupAttackEnemy",
-        "Status": 0,
-        "NodeId": 9,
-        "name": "Group Attack Enemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 346.0,
-      "Y": 163.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 8,
-      "BaseBehaviour": "Have Adequate Forces",
-      "BaseBehaviourInstanceId": -22398,
-      "Behaviour": {
-        "SaveDataType": "BbbtHaveAdequateForces",
-        "Status": 0,
-        "NodeId": 8,
-        "name": "Have Adequate Forces(Clone)",
-        "hideFlags": 0
-      },
-      "X": 243.0,
-      "Y": 160.0,
+      "X": 256.0,
+      "Y": 482.0,
       "IsSelected": false
     }
   ],
@@ -139,14 +139,14 @@
       "OutNodeId": 2
     },
     {
-      "InNodeId": 8,
+      "InNodeId": 5,
       "OutNodeId": 2
     },
     {
-      "InNodeId": 9,
+      "InNodeId": 6,
       "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": 79.0,
+  "WindowOffsetY": -104.0
 }
