@@ -72,6 +72,8 @@ public class Drone : RTS.Actor
     void globalChannelTest()
     {
         Debug.Log("Drone " + ID + " received a message in the Global Channel!");
+        //The behaviour trees look for the messages in the message lists, they're added there once they're heard by the listener
+        messageList.Add(" received a message in the Global Channel!");
     }
 
     void PrivateChannelTest()

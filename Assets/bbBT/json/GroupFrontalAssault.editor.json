@@ -10,6 +10,13 @@
           "SaveDataType": "BbbtSequencer",
           "Children": [
             {
+              "SaveDataType": "BbbtGrouGotAttackMessageFromCI",
+              "Status": 0,
+              "NodeId": 8,
+              "name": "Group Got Attack Message From CI(Clone)",
+              "hideFlags": 0
+            },
+            {
               "SaveDataType": "BbbtCanSeeEnemyCheck",
               "Status": 0,
               "NodeId": 3,
@@ -24,10 +31,10 @@
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtGroupAttackEnemy",
+              "SaveDataType": "BbbtGroupAllDronesAttack",
               "Status": 0,
-              "NodeId": 6,
-              "name": "Group Attack Enemy(Clone)",
+              "NodeId": 9,
+              "name": "Group All Drones Attack(Clone)",
               "hideFlags": 0
             }
           ],
@@ -41,8 +48,8 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 383.0,
-      "Y": 161.0,
+      "X": 79.0,
+      "Y": -177.0,
       "IsSelected": false
     },
     {
@@ -56,8 +63,8 @@
         "name": "CanSeeEnemy(Clone)",
         "hideFlags": 0
       },
-      "X": 256.0,
-      "Y": 482.0,
+      "X": -67.0,
+      "Y": 165.0,
       "IsSelected": false
     },
     {
@@ -67,6 +74,13 @@
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
+          {
+            "SaveDataType": "BbbtGrouGotAttackMessageFromCI",
+            "Status": 0,
+            "NodeId": 8,
+            "name": "Group Got Attack Message From CI(Clone)",
+            "hideFlags": 0
+          },
           {
             "SaveDataType": "BbbtCanSeeEnemyCheck",
             "Status": 0,
@@ -82,10 +96,10 @@
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtGroupAttackEnemy",
+            "SaveDataType": "BbbtGroupAllDronesAttack",
             "Status": 0,
-            "NodeId": 6,
-            "name": "Group Attack Enemy(Clone)",
+            "NodeId": 9,
+            "name": "Group All Drones Attack(Clone)",
             "hideFlags": 0
           }
         ],
@@ -94,8 +108,23 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 405.0,
-      "Y": 335.0,
+      "X": 81.0,
+      "Y": 14.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 8,
+      "BaseBehaviour": "Group Got Attack Message From CI",
+      "BaseBehaviourInstanceId": -7664,
+      "Behaviour": {
+        "SaveDataType": "BbbtGrouGotAttackMessageFromCI",
+        "Status": 0,
+        "NodeId": 8,
+        "name": "Group Got Attack Message From CI(Clone)",
+        "hideFlags": 0
+      },
+      "X": -180.0,
+      "Y": 170.0,
       "IsSelected": false
     },
     {
@@ -109,30 +138,34 @@
         "name": "Group Have Adequate Forces(Clone)",
         "hideFlags": 0
       },
-      "X": 412.0,
-      "Y": 477.0,
+      "X": 89.0,
+      "Y": 160.0,
       "IsSelected": false
     },
     {
-      "Id": 6,
-      "BaseBehaviour": "Group Attack Enemy",
-      "BaseBehaviourInstanceId": 14882,
+      "Id": 9,
+      "BaseBehaviour": "Group All Drones Attack",
+      "BaseBehaviourInstanceId": -7734,
       "Behaviour": {
-        "SaveDataType": "BbbtGroupAttackEnemy",
+        "SaveDataType": "BbbtGroupAllDronesAttack",
         "Status": 0,
-        "NodeId": 6,
-        "name": "Group Attack Enemy(Clone)",
+        "NodeId": 9,
+        "name": "Group All Drones Attack(Clone)",
         "hideFlags": 0
       },
-      "X": 556.0,
-      "Y": 476.0,
-      "IsSelected": false
+      "X": 217.0,
+      "Y": 159.0,
+      "IsSelected": true
     }
   ],
   "Connections": [
     {
       "InNodeId": 2,
       "OutNodeId": 1
+    },
+    {
+      "InNodeId": 8,
+      "OutNodeId": 2
     },
     {
       "InNodeId": 3,
@@ -143,10 +176,10 @@
       "OutNodeId": 2
     },
     {
-      "InNodeId": 6,
+      "InNodeId": 9,
       "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": -307.0,
+  "WindowOffsetY": -497.0
 }

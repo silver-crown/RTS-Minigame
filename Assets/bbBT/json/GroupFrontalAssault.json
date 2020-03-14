@@ -5,6 +5,13 @@
       "SaveDataType": "BbbtSequencer",
       "Children": [
         {
+          "SaveDataType": "BbbtGrouGotAttackMessageFromCI",
+          "Status": 0,
+          "NodeId": 8,
+          "name": "Group Got Attack Message From CI(Clone)",
+          "hideFlags": 0
+        },
+        {
           "SaveDataType": "BbbtCanSeeEnemyCheck",
           "Status": 0,
           "NodeId": 3,
@@ -19,10 +26,10 @@
           "hideFlags": 0
         },
         {
-          "SaveDataType": "BbbtGroupAttackEnemy",
+          "SaveDataType": "BbbtGroupAllDronesAttack",
           "Status": 0,
-          "NodeId": 6,
-          "name": "Group Attack Enemy(Clone)",
+          "NodeId": 9,
+          "name": "Group All Drones Attack(Clone)",
           "hideFlags": 0
         }
       ],

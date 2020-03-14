@@ -15,10 +15,11 @@ public class Group : MonoBehaviour
     /// Number of members of the group in question
     /// </summary>
     public int groupSize;
+    int lastMessage;
     /// <summary>
     /// String used for listening to messages contained in the message list
     /// </summary>
-    string message;
+    string[] message;
     [SerializeField] Drone _leader;
     /// <summary>
     ///Leader status for the drone in question
@@ -27,7 +28,7 @@ public class Group : MonoBehaviour
     /// <summary>
     /// All the group members in the group
     /// </summary>
-    private List<GameObject> _groupMembers = new List<GameObject>();
+    public List<GameObject> _groupMembers = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
     bool _listening;
     /// <summary>
@@ -72,34 +73,32 @@ public class Group : MonoBehaviour
     void LeaderStartListening()
     {
         //Listen in on the messages sent to the group channel dictionary
-        for(int i = 0; i <= groupMessageList.Count; i++)
+        for(int i = 0; i <= message.Length; i++)
         {
-            message = groupMessageList[i];
-            EventManager.StartListening(message, LeaderIssueCommand, EventManager.MessageChannel.groupChannel, groupID);
+            lastMessage = i;
+            EventManager.StartListening(message[i], LeaderIssueCommand, EventManager.MessageChannel.groupChannel, groupID);
         }
     }
-
+    /// <summary>
+    /// sets up the message array and the strings it can listen for
+    /// </summary>
+    void SetupMessagesToListenTo()
+    {
+        int i = 0;
+        message[i++] = "Group Frontal Assault";
+        message[i++] = "Group Flanking Assault";
+    }
     /// <summary>
     /// Leader relays the message to the other drones with a proxy function 
     /// </summary>
     void LeaderIssueCommand()
     {
-        IssueCommand(message);
+        groupMessageList.Add(message[lastMessage]);
     }
-
+    
     /// <summary>
-    /// Issue commands to all the group members, (personal channels)
+    /// assign a new leader to the group, presumably because the previous one is dead.
     /// </summary>
-    void IssueCommand(string message)
-    {
-        //iterate through the group members and send the commands down to them, including yourself.
-        for(int i = 0; i<= _groupMembers.Count; i++)
-        {
-            //Listening on a private channel requires an id number, the Drone's own id should be provided here
-            EventManager.TriggerEvent(message, EventManager.MessageChannel.privateChannel, _groupMembers[i].GetComponent<Drone>().ID);
-        }
-    }
-
     void AssignNewLeader()
     {
         //Leader (or the whole group, depending on how I want to do this) assigns a new group leader.

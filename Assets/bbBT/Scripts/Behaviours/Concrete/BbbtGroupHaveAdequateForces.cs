@@ -7,7 +7,6 @@ namespace Bbbt
 {
     // Creates the menu option in the unity engine
     [CreateAssetMenu(fileName = "Group Have Adequate Forces", menuName = "bbBT/Behaviour/Leaf/Group Have Adequate Forces", order = 0)]
-
     /// <summary>
     ///  Attacks the actors current target using the actors attack method.
     /// </summary>
@@ -36,11 +35,11 @@ namespace Bbbt
         {
             if(_forces > _actor.GetComponent<Group>().enemyList.Count)
             {
+                Debug.Log("Group is big enough for an assault!");
                 return BbbtBehaviourStatus.Success;
             }
+            Debug.Log("There's not enough forces to attempt an attack");
             return BbbtBehaviourStatus.Failure;
         }
     }
-
-
 }
