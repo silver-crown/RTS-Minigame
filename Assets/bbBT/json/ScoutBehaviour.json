@@ -1,0 +1,32 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "SaveDataType": "BbbtFindBestChunkToScoutBehaviour",
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Find Best Chunk To Scout(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtScoutChunkBehaviour",
+          "Status": 0,
+          "NodeId": 5,
+          "name": "Scout Chunk(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 4,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}

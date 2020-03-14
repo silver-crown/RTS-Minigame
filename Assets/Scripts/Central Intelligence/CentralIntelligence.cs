@@ -4,6 +4,7 @@ using UnityEngine;
 using ssuai;
 using RTS.Test;
 using MoonSharp.Interpreter;
+using Bbbt;
 
 [RequireComponent(typeof(BehaviorTree))]
 public class CentralIntelligence : MonoBehaviour
@@ -12,7 +13,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// List of groups(which is a list of drones)
     /// </summary>
-    List<List<Drone>> _group = new List<List<Drone>>();
+   private List<List<Drone>> _group = new List<List<Drone>>();
     int lastGroupID = 0;
     /// <summary>
     /// The prefab to use when instatiating new drones.
@@ -24,25 +25,32 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     private BehaviorTree _behaviorTree;
 
+    /// <summary>
+    /// Different types of drones CI is capable of building
+    /// </summary>
+    private List<Drone> _drones = new List<Drone>();
 
+    /// <summary>
+    /// Resources in the CI's possession.
+    /// </summary>
     public Dictionary<string, int> Resources { get; protected set; }
+
+    /// <summary>
+    /// Drones of each type under the CI's control.
+    /// </summary>
+    public Dictionary<string, int> DroneTypeCount { get; protected set; }
+
+    /// <summary>
+    /// Maps chunks to the last time the chunk was scouted.
+    /// </summary>
+    public Dictionary<Vector2Int, float> LastTimeChunkWasScouted { get; protected set; }
 
     /// <summary>
     /// Total number of drones present in the army
     /// </summary>
     public int DroneCount { get => _drones.Count; }
-    public Dictionary<string, int> DroneTypeCount { get; protected set; }
+
     public const int MAXDRONES = 300;
-    //TODO Make separate counters for different types of drones
-
-    /// <summary>
-    /// Different types of drones CI is capable of building
-    /// </summary>
-    List<Drone> _drones = new List<Drone>();
-
-
-
-    private int _droneID = 0;
 
     enum DroneType
     {
@@ -55,10 +63,10 @@ public class CentralIntelligence : MonoBehaviour
 
     #region UtilityAI
 
-    private Action[] _actions;
+    private UtilityAction[] _actions;
 
     //the action that has been selected
-    private Action _selectedAction;
+    private UtilityAction _selectedAction;
 
     //The number of actions the AI is capable of doing in total
     private const int NUMOFACTIONS = 3;
@@ -76,20 +84,28 @@ public class CentralIntelligence : MonoBehaviour
     void Awake()
     {
         DroneTypeCount = new Dictionary<string, int>();
-        _drones = new List<Drone>();
+        LastTimeChunkWasScouted = new Dictionary<Vector2Int, float>();
         _behaviorTree = GetComponent<BehaviorTree>();
         // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
-        _actions = new Action[NUMOFACTIONS];
-
+        _actions = new UtilityAction[NUMOFACTIONS];
         //Contains the types of resources and the amounts the CI has of them
         Resources = new Dictionary<string, int>();
 
+        var gatherMetal = ScriptableObject.CreateInstance<CIGatherMetal>();
+        var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
+        var buildWorker = ScriptableObject.CreateInstance<CIBuildWorker>();
 
         //set up actions
-        _actions[0] = new Action(new List<Factor> { new GatherResourceAmount(this, "Metal") }, new CIGatherMetal());
-        _actions[1] = new Action(new List<Factor> { new GatherResourceAmount(this, "Crystal") }, new CIGatherCrystal());
-        _actions[2] = new Action(new List<Factor> { new WorkerNumber(this) }, new CIBuildWorker());
+        _actions[0] = new UtilityAction(
+            new List<Factor> { new GatherResourceAmount(this, "Metal") },
+            () => { gatherMetal.Tick(gameObject); });
+        _actions[1] = new UtilityAction(
+            new List<Factor> { new GatherResourceAmount(this, "Crystal") },
+            () => { gatherCrystal.Tick(gameObject); });
+        _actions[2] = new UtilityAction(
+            new List<Factor> { new WorkerNumber(this) },
+            () => { buildWorker.Tick(gameObject); });
 
         //run selectAction
         _selectAction();
@@ -104,6 +120,12 @@ public class CentralIntelligence : MonoBehaviour
             {
                 DroneTypeCount.Add(type, 0);
             }
+        }
+
+        // Populate the LastTimeChunkWasScouted dictionary.
+        foreach (var chunk in WorldInfo.Chunks)
+        {
+            LastTimeChunkWasScouted.Add(chunk, 0.0f);
         }
 
         // Build the starting drones and give starting resources.
@@ -159,7 +181,7 @@ public class CentralIntelligence : MonoBehaviour
             _selectAction();
 
             //tick selected action
-            _selectedAction.Behaviour.Tick(gameObject);
+            _selectedAction.Behaviour.Invoke();
 
             _timeOfLastAction = Time.time;
         }
@@ -189,6 +211,7 @@ public class CentralIntelligence : MonoBehaviour
     public void AddDrone(Drone drone)
     {
         _drones.Add(drone);
+        drone.CentralIntelligence = this;
         if (DroneTypeCount.ContainsKey(drone.Type))
         {
             DroneTypeCount[drone.Type]++;
@@ -224,9 +247,22 @@ public class CentralIntelligence : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Updates the last time a chunk was scouted.
+    /// </summary>
+    /// <param name="chunk">The chunk to update.</param>
+    /// <param name="time">The time it was last scouted.</param>
+    public void SetLastTimeScouted(Vector2Int chunk, float time)
+    {
+        if (time > LastTimeChunkWasScouted[chunk])
+        {
+            LastTimeChunkWasScouted[chunk] = time;
+        }
+    }
+
     private void _selectAction()
     {
-        Action chosenAction= _selectedAction;         //the currently best action at this point in the loop
+        UtilityAction chosenAction= _selectedAction;         //the currently best action at this point in the loop
         float chosenUtility = 0.0f;   //the utility of the currently best action
 
         //debug values to get information on chosen action
@@ -234,7 +270,7 @@ public class CentralIntelligence : MonoBehaviour
         int debugIndex = 0;
 
         //go through all actions, choose the one with the highest utility
-        foreach (Action action in _actions)
+        foreach (UtilityAction action in _actions)
         {
             float utility = action.GetUtility();
             //Debug.Log("Utility of action " + debugIndex + ": " + utility);

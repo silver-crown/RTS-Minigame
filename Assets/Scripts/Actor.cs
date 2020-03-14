@@ -7,6 +7,8 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using UnityEditor;
+using System;
+using ssuai;
 
 namespace RTS
 {
@@ -14,8 +16,37 @@ namespace RTS
     /// <summary>
     /// Base class used by drones for sight, movement etc.
     /// </summary>
+    [RequireComponent(typeof(MouseClickRaycastTarget))]
     public abstract class Actor : MonoBehaviour
     {
+
+        /// <summary>
+        /// The table with the actor's stats.
+        /// </summary>
+        protected Table _table;
+
+        /// <summary>
+        /// Whether the actor is selected.
+        /// </summary>
+        private bool _isSelected = false;
+
+        #region Events
+        /// <summary>
+        /// The actor's MouseClickRaycastTarget.
+        /// </summary>
+        protected MouseClickRaycastTarget _mouseClickRaycastTarget = null;
+
+        /// <summary>
+        /// Invoked when an actor spawns.
+        /// </summary>
+        public static Action<Actor> OnActorSpawned = null;
+
+        /// <summary>
+        /// Invoked when the Actor gets clicked on.
+        /// </summary>
+        public static Action<Actor> OnActorClicked = null;
+        #endregion
+
         #region Combat
 
         // 1. Base Stats
@@ -35,7 +66,7 @@ namespace RTS
         /// <summary>
         /// The muzzle is the end of the gun, from where the projectile will be shot
         /// </summary>
-        [SerializeField] protected Transform _gunEnd;
+        [SerializeField] public Transform GunEnd;
 
         /// <summary>
         /// How far the Actor can attack
@@ -70,18 +101,13 @@ namespace RTS
         /// <summary>
         /// How long the laser will be visible after it has been shot
         /// </summary>
-        private WaitForSeconds ShotDuration = new WaitForSeconds(0.6f);
-
-        /// <summary>
-        /// Draws a straight line between points given to it.
-        /// </summary>
-        public LineRenderer LaserLine;
+        public WaitForSeconds ShotDuration = new WaitForSeconds(0.6f);
 
         /// <summary>
         /// 
         /// </summary>
-        public float NextFire { get; protected set; }
- 
+        public float NextFire;
+
         #endregion
 
         #region AI
@@ -181,6 +207,7 @@ namespace RTS
 
         }
 
+
         /// <summary>
         /// Draws the laser line
         /// </summary>
@@ -188,10 +215,9 @@ namespace RTS
         protected IEnumerator ShootLaser()
         {
             // _gunAudio.Play();
-            LaserLine.enabled = true;
+            //LaserLine.enabled = true;
             yield return ShotDuration;
-            LaserLine.enabled = false;
-
+            //LaserLine.enabled = false;
         }
 
 
@@ -199,9 +225,26 @@ namespace RTS
         {
             WorldInfo.Actors.Add(gameObject);
 
-            if (_gunEnd == null)
+            if (GunEnd == null)
             {
-                Debug.LogError(name + ": _gunEnd was null. Set Gun End in the inspector.", this);
+                Debug.LogError(name + ":  GunEnd was null. Set Gun End in the inspector.", this);
+            }
+
+            _mouseClickRaycastTarget = GetComponent<MouseClickRaycastTarget>();
+            if (_mouseClickRaycastTarget != null)
+            {
+                _mouseClickRaycastTarget.OnClick += () =>
+                {
+                    _isSelected = !_isSelected;
+                    if (_isSelected)
+                    {
+                        OnActorClicked?.Invoke(this);
+                    }
+                };
+            }
+            else
+            {
+                Debug.LogError(name + ": No MouseClickRaycastTarget component.");
             }
         }
 
@@ -214,9 +257,10 @@ namespace RTS
             {
                 agent.SetDestination(TargetDestination.transform.position);
             }
-
-            LaserLine = GetComponent<LineRenderer>();
+            
             _gunAudio = GetComponent<AudioSource>();
+
+            OnActorSpawned?.Invoke(this);
         }
 
         // Update is called once per frame
@@ -224,34 +268,98 @@ namespace RTS
         {
         }
 
-        private void OnDrawGizmosSelected()
-        {
-            // Draw sight/attack range.
-            Handles.color = Color.red;
-            Handles.DrawWireDisc(transform.position, Vector3.up, AttackRange);
-            Handles.color = Color.green;
-            Handles.DrawWireDisc(transform.position, Vector3.up, LineOfSight);
 
-            // Highlight actors in sight/attack range.
-            foreach (var actor in WorldInfo.Actors)
+
+        /// <summary>
+        /// Gets a value from the Actor's table.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>The value associated with the key.</returns>
+        public DynValue GetValue(string key)
+        {
+            return _table.Get(key);
+        }
+
+        /// <summary>
+        /// Sets a value in the Actor's table.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>Sets the value associated with the key.</returns>
+        public void SetValue(string key, string value)
+        {
+            _table.Set(key, DynValue.NewString(value));
+        }
+
+        /// <summary>
+        /// Returns every pair in the actor's table.
+        /// </summary>
+        /// <returns>The pairs.</returns>
+        public IEnumerable<TablePair> GetTablePairs()
+        {
+            return _table.Pairs;
+        }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (_isSelected)
             {
-                if (actor == gameObject) continue;
-                float distance = Vector3.Distance(transform.position, actor.transform.position);
-                if (distance < AttackRange)
+                // Draw sight/attack range.
+                Handles.color = Color.red;
+                Handles.DrawWireDisc(transform.position, Vector3.up, (float)_table.Get("_attackRange").Number);
+                Handles.color = Color.green;
+                Handles.DrawWireDisc(transform.position, Vector3.up, (float)_table.Get("_sightRange").Number);
+
+                // Highlight actors in sight/attack range.
+                foreach (var actor in WorldInfo.Actors)
                 {
-                    Handles.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
-                    Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
-                    //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
-                    //Gizmos.DrawSphere(actor.transform.position, 1.3f);
+                    if (actor == gameObject) continue;
+                    float distance = Vector3.Distance(transform.position, actor.transform.position);
+                    if (distance < _table.Get("_attackRange").Number)
+                    {
+                        Handles.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
+                        Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
+                        //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
+                        //Gizmos.DrawSphere(actor.transform.position, 1.3f);
+                    }
+                    else if (distance < _table.Get("_sightRange").Number)
+                    {
+                        Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
+                        Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
+                        //Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.4f);
+                        //Gizmos.DrawSphere(actor.transform.position, 1.3f);
+                    }
                 }
-                else if (distance < LineOfSight)
+
+                // Visualise chunk scouting attractiveness
+                var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+                if (lastTimeScouted.IsNotNil())
                 {
-                    Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
-                    Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
-                    //Gizmos.color = new Color(0.0f, 1.0f, 0.0f, 0.4f);
-                    //Gizmos.DrawSphere(actor.transform.position, 1.3f);
+                    foreach (var chunk in WorldInfo.Chunks)
+                    {
+                        var factor = new ChunkScoutingAttractiveness(chunk, this);
+                        factor.UpdateUtility();
+                        var utility = factor.GetUtility();
+                        float r = utility;
+                        float g = 1.0f - utility;
+                        float b = 0.0f;
+                        //if (chunk.x == 1 && chunk.y == 1) Debug.Log(time + ", " + r + ", " + b);
+                        Handles.DrawSolidRectangleWithOutline(
+                            new Vector3[]
+                            {
+                                new Vector3(chunk.x,        0.0f, chunk.y),
+                                new Vector3(chunk.x + 1.0f, 0.0f, chunk.y),
+                                new Vector3(chunk.x + 1.0f, 0.0f, chunk.y + 1.0f),
+                                new Vector3(chunk.x,        0.0f, chunk.y + 1.0f)
+                            },
+                            new Color(r, g, b, 0.4f),
+                            new Color(r, g, b, 1.0f)
+                        );
+                    }
                 }
             }
         }
+#endif
     }
 }

@@ -2,30 +2,13 @@
   "Root": {
     "SaveDataType": "BbbtRoot",
     "Child": {
-      "SaveDataType": "BbbtSequencer",
-      "Children": [
-        {
-          "_message": "LMAOOOOOO",
-          "_logType": 3,
-          "SaveDataType": "BbbtDebugLogBehaviour",
-          "Status": 0,
-          "NodeId": 6,
-          "name": "Debug Logger(Clone)",
-          "hideFlags": 0
-        },
-        {
-          "_behaviourTreeName": "Test2",
-          "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-          "BehaviourTree": null,
-          "Status": 0,
-          "NodeId": 2,
-          "name": "Behaviour Tree Caller(Clone)",
-          "hideFlags": 0
-        }
-      ],
+      "_message": "Test was successfully called.",
+      "_isEnabled": true,
+      "_logType": 3,
+      "SaveDataType": "BbbtDebugLogBehaviour",
       "Status": 0,
-      "NodeId": 14,
-      "name": "Sequencer(Clone)",
+      "NodeId": 6,
+      "name": "Debug Logger(Clone)",
       "hideFlags": 0
     },
     "Status": 0,

@@ -1,105 +1,19 @@
 {
   "Nodes": [
     {
-      "Id": 6,
-      "BaseBehaviour": "Debug Logger",
-      "BaseBehaviourInstanceId": 5818,
-      "Behaviour": {
-        "_message": "LMAOOOOOO",
-        "_logType": 3,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 6,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 300.0,
-      "Y": 682.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 2,
-      "BaseBehaviour": "Behaviour Tree Caller",
-      "BaseBehaviourInstanceId": 6316,
-      "Behaviour": {
-        "_behaviourTreeName": "Test2",
-        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-        "BehaviourTree": null,
-        "Status": 0,
-        "NodeId": 2,
-        "name": "Behaviour Tree Caller(Clone)",
-        "hideFlags": 0
-      },
-      "X": 545.0,
-      "Y": 633.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 14,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 7430,
-      "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "_message": "LMAOOOOOO",
-            "_logType": 3,
-            "SaveDataType": "BbbtDebugLogBehaviour",
-            "Status": 0,
-            "NodeId": 6,
-            "name": "Debug Logger(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "_behaviourTreeName": "Test2",
-            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-            "BehaviourTree": null,
-            "Status": 0,
-            "NodeId": 2,
-            "name": "Behaviour Tree Caller(Clone)",
-            "hideFlags": 0
-          }
-        ],
-        "Status": 0,
-        "NodeId": 14,
-        "name": "Sequencer(Clone)",
-        "hideFlags": 0
-      },
-      "X": 431.0,
-      "Y": 450.0,
-      "IsSelected": false
-    },
-    {
       "Id": 11,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 8022,
+      "BaseBehaviourInstanceId": 8528,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
-          "SaveDataType": "BbbtSequencer",
-          "Children": [
-            {
-              "_message": "LMAOOOOOO",
-              "_logType": 3,
-              "SaveDataType": "BbbtDebugLogBehaviour",
-              "Status": 0,
-              "NodeId": 6,
-              "name": "Debug Logger(Clone)",
-              "hideFlags": 0
-            },
-            {
-              "_behaviourTreeName": "Test2",
-              "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-              "BehaviourTree": null,
-              "Status": 0,
-              "NodeId": 2,
-              "name": "Behaviour Tree Caller(Clone)",
-              "hideFlags": 0
-            }
-          ],
+          "_message": "Test was successfully called.",
+          "_isEnabled": true,
+          "_logType": 3,
+          "SaveDataType": "BbbtDebugLogBehaviour",
           "Status": 0,
-          "NodeId": 14,
-          "name": "Sequencer(Clone)",
+          "NodeId": 6,
+          "name": "Debug Logger(Clone)",
           "hideFlags": 0
         },
         "Status": 0,
@@ -109,23 +23,33 @@
       },
       "X": 369.0,
       "Y": 277.0,
-      "IsSelected": true
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Debug Logger",
+      "BaseBehaviourInstanceId": 6220,
+      "Behaviour": {
+        "_message": "Test was successfully called.",
+        "_isEnabled": true,
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
+      "X": 385.0,
+      "Y": 418.0,
+      "IsSelected": false
     }
   ],
   "Connections": [
     {
-      "InNodeId": 14,
-      "OutNodeId": 11
-    },
-    {
-      "InNodeId": 2,
-      "OutNodeId": 14
-    },
-    {
       "InNodeId": 6,
-      "OutNodeId": 14
+      "OutNodeId": 11
     }
   ],
-  "WindowOffsetX": -26.0,
-  "WindowOffsetY": -3.0
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
 }

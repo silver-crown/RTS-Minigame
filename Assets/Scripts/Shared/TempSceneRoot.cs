@@ -7,6 +7,11 @@ using System.Linq;
 
 public class TempSceneRoot : MonoBehaviour
 {
+
+    /*
+     * Just commented out this code so project would build 
+     * 
+    
     [System.Serializable]
     public class AllScenesLoaded : UnityEvent<bool>
     {
@@ -96,5 +101,7 @@ public class TempSceneRoot : MonoBehaviour
         // the OnScenesLoaded method will be called after Awake and Start
         if (_onAllScenesLoaded != null)
             _onAllScenesLoaded.Invoke(!hasError);
-}
+} 
+
+ */
 }

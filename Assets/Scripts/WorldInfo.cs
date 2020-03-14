@@ -21,17 +21,19 @@ public static class WorldInfo
     /// <summary>
     /// List of all enterable buildings in the game.
     /// </summary>
+    public static List<Vector2Int> Chunks { get; private set; }
+    /// <summary>
+    /// List of all enterable buildings in the game.
+    /// </summary>
     public static List<EnterableBuilding> EnterableBuildings { get; private set; }
     /// <summary>
     /// List of all actors in the game.
     /// </summary>
     public static List<GameObject> Actors { get; private set; }
-
     /// <summary>
     /// List of marines 
     /// </summary>
-    public static List<GameObject> Marines { get; private set; }
-         
+    public static List<GameObject> Marines { get; private set; }   
     /// <summary>
     /// List of all resources in the game.
     /// </summary>
@@ -41,6 +43,7 @@ public static class WorldInfo
     {
         DroneTypes = new List<string>();
         ResourceTypes = new List<string>();
+        Chunks = new List<Vector2Int>();
         EnterableBuildings = new List<EnterableBuilding>();
         Actors = new List<GameObject>();
         Marines = new List<GameObject>();
@@ -68,6 +71,16 @@ public static class WorldInfo
                 string type = Path.GetFileNameWithoutExtension(file);
                 ResourceTypes.Add(Path.GetFileNameWithoutExtension(file));
                 Debug.Log("\t" + type);
+            }
+        }
+
+        // Populate the Chunks list with an arbitraty amount of chunks.
+        // TODO: We want to be able to define chunk count in a reasonable manner.
+        for (int x = 0; x < 100; x++)
+        {
+            for (int y = 0; y < 100; y++)
+            {
+                Chunks.Add(new Vector2Int(x, y));
             }
         }
     }

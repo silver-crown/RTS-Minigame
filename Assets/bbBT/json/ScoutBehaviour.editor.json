@@ -1,0 +1,119 @@
+{
+  "Nodes": [
+    {
+      "Id": 2,
+      "BaseBehaviour": "Find Best Chunk To Scout",
+      "BaseBehaviourInstanceId": 10516,
+      "Behaviour": {
+        "SaveDataType": "BbbtFindBestChunkToScoutBehaviour",
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Find Best Chunk To Scout(Clone)",
+        "hideFlags": 0
+      },
+      "X": 344.0,
+      "Y": 480.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 7698,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtFindBestChunkToScoutBehaviour",
+              "Status": 0,
+              "NodeId": 2,
+              "name": "Find Best Chunk To Scout(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtScoutChunkBehaviour",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "Scout Chunk(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 4,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 413.0,
+      "Y": 218.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 7056,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtFindBestChunkToScoutBehaviour",
+            "Status": 0,
+            "NodeId": 2,
+            "name": "Find Best Chunk To Scout(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtScoutChunkBehaviour",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "Scout Chunk(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 4,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 425.0,
+      "Y": 337.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Scout Chunk",
+      "BaseBehaviourInstanceId": -37246,
+      "Behaviour": {
+        "SaveDataType": "BbbtScoutChunkBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Scout Chunk(Clone)",
+        "hideFlags": 0
+      },
+      "X": 500.0,
+      "Y": 482.0,
+      "IsSelected": true
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 4,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 2,
+      "OutNodeId": 4
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 4
+    }
+  ],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}

@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Bbbt
 {
+
+    #if UNITY_EDITOR
     /// <summary>
     /// Used for testing the bbBT behaviour tree system.
     /// </summary>
@@ -17,4 +19,5 @@ namespace Bbbt
             GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(tree);
         }
     }
+    #endif
 }
