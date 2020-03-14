@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6d97611ef21e054db1dde712cdabd75, type: 3}
+  m_Script: {fileID: 11500000, guid: 2097d054e0d406b4292b61a38f6efc8e, type: 3}
   m_Name: Group Have Adequate Forces
   m_EditorClassIdentifier: 

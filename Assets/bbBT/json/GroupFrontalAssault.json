@@ -14,7 +14,7 @@
         {
           "SaveDataType": "BbbtGroupHaveAdequateForces",
           "Status": 0,
-          "NodeId": 5,
+          "NodeId": 7,
           "name": "Group Have Adequate Forces(Clone)",
           "hideFlags": 0
         },

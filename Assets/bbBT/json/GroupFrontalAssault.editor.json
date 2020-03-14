@@ -3,7 +3,7 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 36420,
+      "BaseBehaviourInstanceId": 16242,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -19,7 +19,7 @@
             {
               "SaveDataType": "BbbtGroupHaveAdequateForces",
               "Status": 0,
-              "NodeId": 5,
+              "NodeId": 7,
               "name": "Group Have Adequate Forces(Clone)",
               "hideFlags": 0
             },
@@ -46,9 +46,24 @@
       "IsSelected": false
     },
     {
+      "Id": 3,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18300,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 256.0,
+      "Y": 482.0,
+      "IsSelected": false
+    },
+    {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 36862,
+      "BaseBehaviourInstanceId": 15566,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -62,7 +77,7 @@
           {
             "SaveDataType": "BbbtGroupHaveAdequateForces",
             "Status": 0,
-            "NodeId": 5,
+            "NodeId": 7,
             "name": "Group Have Adequate Forces(Clone)",
             "hideFlags": 0
           },
@@ -84,9 +99,24 @@
       "IsSelected": false
     },
     {
+      "Id": 7,
+      "BaseBehaviour": "Group Have Adequate Forces",
+      "BaseBehaviourInstanceId": -4038,
+      "Behaviour": {
+        "SaveDataType": "BbbtGroupHaveAdequateForces",
+        "Status": 0,
+        "NodeId": 7,
+        "name": "Group Have Adequate Forces(Clone)",
+        "hideFlags": 0
+      },
+      "X": 412.0,
+      "Y": 477.0,
+      "IsSelected": false
+    },
+    {
       "Id": 6,
       "BaseBehaviour": "Group Attack Enemy",
-      "BaseBehaviourInstanceId": 36936,
+      "BaseBehaviourInstanceId": 14882,
       "Behaviour": {
         "SaveDataType": "BbbtGroupAttackEnemy",
         "Status": 0,
@@ -96,36 +126,6 @@
       },
       "X": 556.0,
       "Y": 476.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 5,
-      "BaseBehaviour": "Group Have Adequate Forces",
-      "BaseBehaviourInstanceId": -146330,
-      "Behaviour": {
-        "SaveDataType": "BbbtGroupHaveAdequateForces",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "Group Have Adequate Forces(Clone)",
-        "hideFlags": 0
-      },
-      "X": 430.0,
-      "Y": 476.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 3,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 36316,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 3,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 256.0,
-      "Y": 482.0,
       "IsSelected": false
     }
   ],
@@ -139,7 +139,7 @@
       "OutNodeId": 2
     },
     {
-      "InNodeId": 5,
+      "InNodeId": 7,
       "OutNodeId": 2
     },
     {
@@ -147,6 +147,6 @@
       "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": 79.0,
-  "WindowOffsetY": -104.0
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
 }
