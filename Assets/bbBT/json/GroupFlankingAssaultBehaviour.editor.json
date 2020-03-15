@@ -3,7 +3,7 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 16236,
+      "BaseBehaviourInstanceId": 16456,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -55,7 +55,7 @@
     {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 15560,
+      "BaseBehaviourInstanceId": 15772,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -100,7 +100,7 @@
     {
       "Id": 3,
       "BaseBehaviour": "Group Got Flanking Message From CI",
-      "BaseBehaviourInstanceId": -12240,
+      "BaseBehaviourInstanceId": 15670,
       "Behaviour": {
         "SaveDataType": "BbbtGroupGotFlankingMessageFromCI",
         "Status": 0,
@@ -113,24 +113,9 @@
       "IsSelected": false
     },
     {
-      "Id": 4,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 18294,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 4,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 296.0,
-      "Y": 302.0,
-      "IsSelected": false
-    },
-    {
       "Id": 6,
       "BaseBehaviour": "Group Have Adequate Forces",
-      "BaseBehaviourInstanceId": 22028,
+      "BaseBehaviourInstanceId": 22264,
       "Behaviour": {
         "SaveDataType": "BbbtGroupHaveAdequateForces",
         "Status": 0,
@@ -145,7 +130,7 @@
     {
       "Id": 8,
       "BaseBehaviour": "Group All Drones Flank Enemy",
-      "BaseBehaviourInstanceId": -13248,
+      "BaseBehaviourInstanceId": 18294,
       "Behaviour": {
         "SaveDataType": "BbbtGroupAllDronesFlankEnemy",
         "Status": 0,
@@ -155,6 +140,21 @@
       },
       "X": 516.0,
       "Y": 309.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "Group All Drones Flank Enemy",
+      "BaseBehaviourInstanceId": 18294,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 296.0,
+      "Y": 302.0,
       "IsSelected": true
     }
   ],
@@ -180,6 +180,6 @@
       "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": 9.0,
-  "WindowOffsetY": 19.0
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
 }

@@ -3,7 +3,7 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 16236,
+      "BaseBehaviourInstanceId": 16456,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -21,13 +21,6 @@
               "Status": 0,
               "NodeId": 4,
               "name": "CanSeeEnemy(Clone)",
-              "hideFlags": 0
-            },
-            {
-              "SaveDataType": "BbbtAttackTarget",
-              "Status": 0,
-              "NodeId": 5,
-              "name": "Attack Target(Clone)",
               "hideFlags": 0
             }
           ],
@@ -48,7 +41,7 @@
     {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 15560,
+      "BaseBehaviourInstanceId": 15772,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -65,13 +58,6 @@
             "NodeId": 4,
             "name": "CanSeeEnemy(Clone)",
             "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtAttackTarget",
-            "Status": 0,
-            "NodeId": 5,
-            "name": "Attack Target(Clone)",
-            "hideFlags": 0
           }
         ],
         "Status": 0,
@@ -84,24 +70,9 @@
       "IsSelected": false
     },
     {
-      "Id": 5,
-      "BaseBehaviour": "Attack Target",
-      "BaseBehaviourInstanceId": 15346,
-      "Behaviour": {
-        "SaveDataType": "BbbtAttackTarget",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "Attack Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 503.0,
-      "Y": 422.0,
-      "IsSelected": false
-    },
-    {
       "Id": 3,
       "BaseBehaviour": "Got Flanking Message",
-      "BaseBehaviourInstanceId": -33290,
+      "BaseBehaviourInstanceId": 19686,
       "Behaviour": {
         "SaveDataType": "BbbtGotFlankingMessage",
         "Status": 0,
@@ -115,7 +86,7 @@
     },
     {
       "Id": 4,
-      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviour": "Group All Drones Flank Enemy",
       "BaseBehaviourInstanceId": 18294,
       "Behaviour": {
         "SaveDataType": "BbbtCanSeeEnemyCheck",
@@ -124,9 +95,9 @@
         "name": "CanSeeEnemy(Clone)",
         "hideFlags": 0
       },
-      "X": 387.0,
+      "X": 386.0,
       "Y": 423.0,
-      "IsSelected": true
+      "IsSelected": false
     }
   ],
   "Connections": [
@@ -140,10 +111,6 @@
     },
     {
       "InNodeId": 4,
-      "OutNodeId": 2
-    },
-    {
-      "InNodeId": 5,
       "OutNodeId": 2
     }
   ],

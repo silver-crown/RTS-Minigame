@@ -3,7 +3,7 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 16236,
+      "BaseBehaviourInstanceId": 16456,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -21,6 +21,20 @@
               "Status": 0,
               "NodeId": 4,
               "name": "CanSeeEnemy(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "Move In Range Of Target(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtAttackTarget",
+              "Status": 0,
+              "NodeId": 6,
+              "name": "Attack Target(Clone)",
               "hideFlags": 0
             }
           ],
@@ -41,7 +55,7 @@
     {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 15560,
+      "BaseBehaviourInstanceId": 15772,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -58,6 +72,20 @@
             "NodeId": 4,
             "name": "CanSeeEnemy(Clone)",
             "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "Move In Range Of Target(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 6,
+            "name": "Attack Target(Clone)",
+            "hideFlags": 0
           }
         ],
         "Status": 0,
@@ -72,7 +100,7 @@
     {
       "Id": 3,
       "BaseBehaviour": "Got Flanking Message",
-      "BaseBehaviourInstanceId": -33290,
+      "BaseBehaviourInstanceId": 19686,
       "Behaviour": {
         "SaveDataType": "BbbtGotFlankingMessage",
         "Status": 0,
@@ -86,7 +114,7 @@
     },
     {
       "Id": 4,
-      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviour": "Group All Drones Flank Enemy",
       "BaseBehaviourInstanceId": 18294,
       "Behaviour": {
         "SaveDataType": "BbbtCanSeeEnemyCheck",
@@ -95,8 +123,38 @@
         "name": "CanSeeEnemy(Clone)",
         "hideFlags": 0
       },
-      "X": 355.0,
-      "Y": 352.0,
+      "X": 352.0,
+      "Y": 349.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Move In Range Of Target",
+      "BaseBehaviourInstanceId": 14764,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Move In Range Of Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 469.0,
+      "Y": 349.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 15556,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 574.0,
+      "Y": 350.0,
       "IsSelected": false
     }
   ],
@@ -112,8 +170,16 @@
     {
       "InNodeId": 4,
       "OutNodeId": 2
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 6,
+      "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": 53.0,
-  "WindowOffsetY": -218.0
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
 }
