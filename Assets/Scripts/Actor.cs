@@ -210,6 +210,7 @@ namespace RTS
         public virtual void Attack()
         {
             Target.GetComponent<Actor>().TakeDamage((int)_table.Get("_damage").Number);
+            Debug.DrawLine(transform.position, Target.transform.position, Color.red, 0.15f);
         }
 
         /// <summary>
