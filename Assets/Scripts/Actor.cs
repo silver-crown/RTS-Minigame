@@ -311,9 +311,9 @@ namespace RTS
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>Sets the value associated with the key.</returns>
-        public void SetValue(string key, string value)
+        public void SetValue(string key, DynValue value)
         {
-            _table.Set(key, DynValue.NewString(value));
+            _table.Set(key, value);
         }
 
         /// <summary>
