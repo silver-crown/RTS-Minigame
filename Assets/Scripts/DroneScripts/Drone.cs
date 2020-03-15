@@ -7,7 +7,6 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using System.IO;
-using RTS;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
@@ -64,7 +63,7 @@ public class Drone : RTS.Actor
     }
     void globalChannelTest()
     {
-        Debug.Log("Drone " + ID + " received a message in the Global Channel!");
+        //Debug.Log("Drone " + ID + " received a message in the Global Channel!");
     }
 
     void PrivateChannelTest()

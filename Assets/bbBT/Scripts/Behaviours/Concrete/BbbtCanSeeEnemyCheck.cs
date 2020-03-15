@@ -48,7 +48,7 @@ namespace Bbbt
                         if (Vector3.Distance(_actor.transform.position, WorldInfo.Actors[i].transform.position) <= _actor.LineOfSight)
                         {
                             // Inn here we have spotted a player
-                            Debug.Log("Spotted player!");
+                            //Debug.Log("Spotted player!");
 
                             // Records last sighting of the player
                             _actor.LastSighting = WorldInfo.Actors[i].transform.position;

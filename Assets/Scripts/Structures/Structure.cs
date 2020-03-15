@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MoonSharp.Interpreter;
+using System.IO;
 
 public class Structure : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Structure : MonoBehaviour
     [SerializeField]
     private string _luaFile;
 
-    public string BuildingType { get; protected set; }
+    public string BuildingType { get; protected set; } = "UNSETBUILDINGNAME";   //TODO fix this
 
     //What do you do
     //Can be built
@@ -46,10 +47,10 @@ public class Structure : MonoBehaviour
         //open lua file
         Script script = new Script();
         var buildingTable = script.DoFile(_luaFile).Table;
-        HP = (int)buildingTable.Get("HP").Number;
-        MaxHP = (int)buildingTable.Get("HP").Number;
+        HP = (int)buildingTable.Get("_hp").Number;
+        MaxHP = (int)buildingTable.Get("_hp").Number;
 
-        BuildingType = script.Globals.Get("BuildingType").String;
+
     }
 
     public void Die()
