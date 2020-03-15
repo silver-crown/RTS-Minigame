@@ -222,10 +222,7 @@ namespace RTS
             if ((int)_table.Get("_hp").Number <= 0)
             {
                 Destroy(gameObject);
-                Debug.Log(name + ": Ich bin deddo :).");
             }
-
-            Debug.Log(name + ": Ich habe " + _table.Get("_hp").Number + " hitsupointsu :).");
         }
 
 
