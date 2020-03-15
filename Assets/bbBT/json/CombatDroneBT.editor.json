@@ -69,36 +69,6 @@
       "IsSelected": false
     },
     {
-      "Id": 4,
-      "BaseBehaviour": "AllEnemiesInSight",
-      "BaseBehaviourInstanceId": 11768,
-      "Behaviour": {
-        "SaveDataType": "BbbtAllEnemiesInSight",
-        "Status": 0,
-        "NodeId": 4,
-        "name": "AllEnemiesInSight(Clone)",
-        "hideFlags": 0
-      },
-      "X": 253.0,
-      "Y": 612.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 3,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 10932,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 3,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 164.0,
-      "Y": 613.0,
-      "IsSelected": false
-    },
-    {
       "Id": 8,
       "BaseBehaviour": "Selector",
       "BaseBehaviourInstanceId": 9456,
@@ -212,6 +182,36 @@
       "IsSelected": false
     },
     {
+      "Id": 3,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 10932,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 164.0,
+      "Y": 613.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "AllEnemiesInSight",
+      "BaseBehaviourInstanceId": 11768,
+      "Behaviour": {
+        "SaveDataType": "BbbtAllEnemiesInSight",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "AllEnemiesInSight(Clone)",
+        "hideFlags": 0
+      },
+      "X": 253.0,
+      "Y": 612.0,
+      "IsSelected": false
+    },
+    {
       "Id": 5,
       "BaseBehaviour": "TargetNearest",
       "BaseBehaviourInstanceId": 14606,
@@ -227,21 +227,6 @@
       "IsSelected": false
     },
     {
-      "Id": 7,
-      "BaseBehaviour": "Attack Target",
-      "BaseBehaviourInstanceId": 7988,
-      "Behaviour": {
-        "SaveDataType": "BbbtAttackTarget",
-        "Status": 0,
-        "NodeId": 7,
-        "name": "Attack Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 556.0,
-      "Y": 617.0,
-      "IsSelected": false
-    },
-    {
       "Id": 10,
       "BaseBehaviour": "Move In Range Of Target",
       "BaseBehaviourInstanceId": -90100,
@@ -254,7 +239,22 @@
       },
       "X": 456.0,
       "Y": 618.0,
-      "IsSelected": true
+      "IsSelected": false
+    },
+    {
+      "Id": 7,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 7988,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 7,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 557.0,
+      "Y": 618.0,
+      "IsSelected": false
     }
   ],
   "Connections": [

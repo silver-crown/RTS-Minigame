@@ -1,4 +1,5 @@
-﻿using RTS;
+﻿using MoonSharp.Interpreter;
+using RTS;
 using ssuai;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace Bbbt
         {
             if (_chunk != null)
             {
-                gameObject.GetComponent<Actor>().SetValue("_chunkToScout", _chunk.ToString());
+                gameObject.GetComponent<Actor>().SetValue("_chunkToScout", DynValue.NewString(_chunk.ToString()));
                 return BbbtBehaviourStatus.Success;
             }
             else
