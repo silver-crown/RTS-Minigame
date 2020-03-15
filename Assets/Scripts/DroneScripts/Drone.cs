@@ -105,7 +105,6 @@ public class Drone : RTS.Actor
     public override void Update()
     {
         base.Update();
-        ListenToChannels();
 
         var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
         if (lastTimeScouted.IsNotNil())
