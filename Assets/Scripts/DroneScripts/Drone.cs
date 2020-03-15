@@ -24,11 +24,6 @@ public class Drone : RTS.Actor
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
 
-    /// <summary>
-    /// The drone's type.
-    /// </summary>
-    public string Type { get; protected set; }
-
     ///<summary>
     ///List of all the messages the drone will me listening after
     /// </summary>
@@ -78,18 +73,18 @@ public class Drone : RTS.Actor
     }
     void globalChannelTest()
     {
-        Debug.Log("Drone " + ID + " received a message in the Global Channel!");
+        //Debug.Log("Drone " + ID + " received a message in the Global Channel!");
         //The behaviour trees look for the messages in the message lists, they're added there once they're heard by the listener
         messageList.Add(" received a message in the Global Channel!");
     }
 
     void PrivateChannelTest()
     {
-        Debug.Log("Drone " + ID + " received a message in the Private Channel!");
+        //Debug.Log("Drone " + ID + " received a message in the Private Channel!");
     }
     void groupChannelTest()
     {
-        Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
+        //Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
     }
 
     public override void Awake()
@@ -118,7 +113,6 @@ public class Drone : RTS.Actor
     public override void Update()
     {
         base.Update();
-        ListenToChannels();
 
         var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
         if (lastTimeScouted.IsNotNil())
@@ -157,8 +151,13 @@ public class Drone : RTS.Actor
         }
     }
 
+    public override void Attack()
+    {
+        base.Attack();
+    }
 
-    #if UNITY_EDITOR
+
+#if UNITY_EDITOR
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>

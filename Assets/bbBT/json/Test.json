@@ -3,7 +3,7 @@
     "SaveDataType": "BbbtRoot",
     "Child": {
       "_message": "Test was successfully called.",
-      "_isEnabled": true,
+      "_isEnabled": false,
       "_logType": 3,
       "SaveDataType": "BbbtDebugLogBehaviour",
       "Status": 0,
