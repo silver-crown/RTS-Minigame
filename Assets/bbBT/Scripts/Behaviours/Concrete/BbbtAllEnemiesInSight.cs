@@ -51,7 +51,7 @@ namespace Bbbt
 
                     for (int i = 0; i < WorldInfo.Marines.Count; i++)
                     {
-                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Marines[i].transform.position) <= _actor.LineOfSight)
+                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Marines[i].transform.position) <= (float)_actor.GetValue("_sightRange").Number)
                         {
                             // Records last sighting of the player
                             _actor.LastSighting = WorldInfo.Marines[i].transform.position;
@@ -75,7 +75,6 @@ namespace Bbbt
                     }
                     else
                     {
-                        Debug.Log("Drone spotted " + _actor.VisibleEnemies.Count + " Number of players");
                         return BbbtBehaviourStatus.Success;
                     }
 
@@ -90,7 +89,6 @@ namespace Bbbt
                     }
                     else
                     {
-                        Debug.Log("Drone spotted " + _actor.VisibleEnemies.Count + " Number of players");
                         return BbbtBehaviourStatus.Success;
                     }
 
@@ -105,7 +103,6 @@ namespace Bbbt
                     }
                     else
                     {
-                        Debug.Log("Drone spotted " + _actor.VisibleEnemies.Count + " Number of players");
                         return BbbtBehaviourStatus.Success;
                     }
 

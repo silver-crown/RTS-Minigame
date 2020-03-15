@@ -30,6 +30,11 @@ namespace RTS
         /// </summary>
         private bool _isSelected = false;
 
+        /// <summary>
+        /// The actor's type.
+        /// </summary>
+        public string Type { get; protected set; }
+
         #region Events
         /// <summary>
         /// The actor's MouseClickRaycastTarget.
@@ -204,7 +209,23 @@ namespace RTS
         /// </summary>
         public virtual void Attack()
         {
+            Target.GetComponent<Actor>().TakeDamage((int)_table.Get("_damage").Number);
+        }
 
+        /// <summary>
+        /// Causes the actor to take damage.
+        /// </summary>
+        /// <param name="damage">The damage taken.</param>
+        public virtual void TakeDamage(int damage)
+        {
+            _table.Set("_hp", DynValue.NewNumber((int)_table.Get("_hp").Number - damage));
+            if ((int)_table.Get("_hp").Number <= 0)
+            {
+                Destroy(gameObject);
+                Debug.Log(name + ": Ich bin deddo :).");
+            }
+
+            Debug.Log(name + ": Ich habe " + _table.Get("_hp").Number + " hitsupointsu :).");
         }
 
 
@@ -223,7 +244,7 @@ namespace RTS
 
         public virtual void  Awake()
         {
-            WorldInfo.Actors.Add(gameObject);
+            WorldInfo.Actors.Add(this);
 
             if (GunEnd == null)
             {
@@ -266,6 +287,12 @@ namespace RTS
         // Update is called once per frame
         public virtual void Update()
         {
+        }
+
+        private void OnDestroy()
+        {
+            WorldInfo.Actors.Remove(this);
+            if (this as Marine != null) WorldInfo.Marines.Remove(gameObject);
         }
 
 

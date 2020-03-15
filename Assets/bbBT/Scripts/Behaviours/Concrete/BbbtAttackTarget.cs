@@ -36,17 +36,14 @@ namespace Bbbt
 
             if(_actor.Target == null)
             {
-                Debug.Log("Attack Failed: no target is assigned");
                 return BbbtBehaviourStatus.Failure;
             }
 
-            if(Vector3.Distance(_actor.Target.transform.position, _actor.transform.position) > _actor.AttackRange)
+            var attackRange = (float)_actor.GetValue("_attackRange").Number;
+            if(Vector3.Distance(_actor.Target.transform.position, _actor.transform.position) > attackRange)
             {
-                Debug.Log("Attack Failed: target is out of range");
                 return BbbtBehaviourStatus.Failure;
             }
-
-            Debug.Log("Attacked target!");
 
             _actor.Attack();
 

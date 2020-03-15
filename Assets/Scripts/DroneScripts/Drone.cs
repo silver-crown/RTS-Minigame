@@ -24,11 +24,6 @@ public class Drone : RTS.Actor
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
 
-    /// <summary>
-    /// The drone's type.
-    /// </summary>
-    public string Type { get; protected set; }
-
     ///<summary>
     ///List of all the messages the drone will me listening after
     /// </summary>
@@ -149,8 +144,13 @@ public class Drone : RTS.Actor
         }
     }
 
+    public override void Attack()
+    {
+        base.Attack();
+    }
 
-    #if UNITY_EDITOR
+
+#if UNITY_EDITOR
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>

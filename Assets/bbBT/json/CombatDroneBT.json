@@ -2,47 +2,56 @@
   "Root": {
     "SaveDataType": "BbbtRoot",
     "Child": {
-      "SaveDataType": "BbbtSequencer",
+      "SaveDataType": "BbbtSelector",
       "Children": [
         {
-          "SaveDataType": "BbbtCanSeeEnemyCheck",
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtCanSeeEnemyCheck",
+              "Status": 0,
+              "NodeId": 3,
+              "name": "CanSeeEnemy(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtAllEnemiesInSight",
+              "Status": 0,
+              "NodeId": 4,
+              "name": "AllEnemiesInSight(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtTargetNearest",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "TargetNearest(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtAttackDistanceCheck",
+              "Status": 0,
+              "NodeId": 6,
+              "name": "Attack Distance Check(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtAttackTarget",
+              "Status": 0,
+              "NodeId": 7,
+              "name": "Attack Target(Clone)",
+              "hideFlags": 0
+            }
+          ],
           "Status": 0,
-          "NodeId": 3,
-          "name": "CanSeeEnemy(Clone)",
-          "hideFlags": 0
-        },
-        {
-          "SaveDataType": "BbbtAllEnemiesInSight",
-          "Status": 0,
-          "NodeId": 4,
-          "name": "AllEnemiesInSight(Clone)",
-          "hideFlags": 0
-        },
-        {
-          "SaveDataType": "BbbtTargetNearest",
-          "Status": 0,
-          "NodeId": 5,
-          "name": "TargetNearest(Clone)",
-          "hideFlags": 0
-        },
-        {
-          "SaveDataType": "BbbtAttackDistanceCheck",
-          "Status": 0,
-          "NodeId": 6,
-          "name": "Attack Distance Check(Clone)",
-          "hideFlags": 0
-        },
-        {
-          "SaveDataType": "BbbtAttackTarget",
-          "Status": 0,
-          "NodeId": 7,
-          "name": "Attack Target(Clone)",
+          "NodeId": 2,
+          "name": "Sequencer(Clone)",
           "hideFlags": 0
         }
       ],
       "Status": 0,
-      "NodeId": 2,
-      "name": "Sequencer(Clone)",
+      "NodeId": 8,
+      "name": "Selector(Clone)",
       "hideFlags": 0
     },
     "Status": 0,

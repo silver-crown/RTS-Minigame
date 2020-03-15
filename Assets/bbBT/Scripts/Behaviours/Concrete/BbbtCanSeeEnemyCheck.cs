@@ -42,14 +42,11 @@ namespace Bbbt
             switch (_actor.MyFaction)
             {
                 case Factions.Drone:
-
-                    for (int i = 0; i < WorldInfo.Actors.Count; i++)
+                    for (int i = 0; i < WorldInfo.Marines.Count; i++)
                     {
-                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Actors[i].transform.position) <= _actor.LineOfSight)
+                        if (Vector3.Distance(_actor.transform.position, WorldInfo.Actors[i].transform.position)
+                            <= (float)_actor.GetValue("_sightRange").Number)
                         {
-                            // Inn here we have spotted a player
-                            Debug.Log("Spotted player!");
-
                             // Records last sighting of the player
                             _actor.LastSighting = WorldInfo.Actors[i].transform.position;
 
@@ -57,7 +54,6 @@ namespace Bbbt
                             return BbbtBehaviourStatus.Success;
                         }
                     }
-
                     break;
 
                 case Factions.Elders:

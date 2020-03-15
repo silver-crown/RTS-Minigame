@@ -29,7 +29,7 @@ public static class WorldInfo
     /// <summary>
     /// List of all actors in the game.
     /// </summary>
-    public static List<GameObject> Actors { get; private set; }
+    public static List<Actor> Actors { get; private set; }
     /// <summary>
     /// List of marines 
     /// </summary>
@@ -45,7 +45,7 @@ public static class WorldInfo
         ResourceTypes = new List<string>();
         Chunks = new List<Vector2Int>();
         EnterableBuildings = new List<EnterableBuilding>();
-        Actors = new List<GameObject>();
+        Actors = new List<Actor>();
         Marines = new List<GameObject>();
         Resources = new List<GameObject>();
 
