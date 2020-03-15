@@ -1,0 +1,119 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 16236,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtGotFlankingMessage",
+              "Status": 0,
+              "NodeId": 3,
+              "name": "Got Flanking Message(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtCanSeeEnemyCheck",
+              "Status": 0,
+              "NodeId": 4,
+              "name": "CanSeeEnemy(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 364.0,
+      "Y": 28.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 15560,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtGotFlankingMessage",
+            "Status": 0,
+            "NodeId": 3,
+            "name": "Got Flanking Message(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 4,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 355.0,
+      "Y": 181.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Got Flanking Message",
+      "BaseBehaviourInstanceId": -33290,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingMessage",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Got Flanking Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": 217.0,
+      "Y": 348.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18294,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 355.0,
+      "Y": 352.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 2,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 3,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 4,
+      "OutNodeId": 2
+    }
+  ],
+  "WindowOffsetX": 53.0,
+  "WindowOffsetY": -218.0
+}

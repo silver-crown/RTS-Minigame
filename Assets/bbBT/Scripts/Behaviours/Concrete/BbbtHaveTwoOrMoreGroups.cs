@@ -11,6 +11,8 @@ namespace Bbbt
     public class BbbtHaveTwoOrMoreGroups : BbbtLeafBehaviour
     {
 
+        private RTS.Actor _actor;
+
         public override string SaveDataType { get; } = "BbbtHaveTwoOrMoreGroups";
 
         protected override void OnInitialize(GameObject gameObject)

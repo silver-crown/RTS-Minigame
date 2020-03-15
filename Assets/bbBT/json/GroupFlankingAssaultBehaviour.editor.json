@@ -3,38 +3,38 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 16242,
+      "BaseBehaviourInstanceId": 16236,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
           "SaveDataType": "BbbtSequencer",
           "Children": [
             {
-              "SaveDataType": "BbbtGrouGotAttackMessageFromCI",
+              "SaveDataType": "BbbtGroupGotFlankingMessageFromCI",
               "Status": 0,
-              "NodeId": 8,
-              "name": "Group Got Attack Message From CI(Clone)",
+              "NodeId": 3,
+              "name": "Group Got Flanking Message From CI(Clone)",
               "hideFlags": 0
             },
             {
               "SaveDataType": "BbbtCanSeeEnemyCheck",
               "Status": 0,
-              "NodeId": 3,
+              "NodeId": 4,
               "name": "CanSeeEnemy(Clone)",
               "hideFlags": 0
             },
             {
               "SaveDataType": "BbbtGroupHaveAdequateForces",
               "Status": 0,
-              "NodeId": 7,
+              "NodeId": 6,
               "name": "Group Have Adequate Forces(Clone)",
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtGroupAllDronesAttack",
+              "SaveDataType": "BbbtGroupAllDronesFlankEnemy",
               "Status": 0,
-              "NodeId": 9,
-              "name": "Group All Drones Attack(Clone)",
+              "NodeId": 8,
+              "name": "Group All Drones Flank Enemy(Clone)",
               "hideFlags": 0
             }
           ],
@@ -48,58 +48,43 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 79.0,
-      "Y": -177.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 3,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 18300,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 3,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": -67.0,
-      "Y": 165.0,
+      "X": 288.0,
+      "Y": 17.0,
       "IsSelected": false
     },
     {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 15566,
+      "BaseBehaviourInstanceId": 15560,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
           {
-            "SaveDataType": "BbbtGrouGotAttackMessageFromCI",
+            "SaveDataType": "BbbtGroupGotFlankingMessageFromCI",
             "Status": 0,
-            "NodeId": 8,
-            "name": "Group Got Attack Message From CI(Clone)",
+            "NodeId": 3,
+            "name": "Group Got Flanking Message From CI(Clone)",
             "hideFlags": 0
           },
           {
             "SaveDataType": "BbbtCanSeeEnemyCheck",
             "Status": 0,
-            "NodeId": 3,
+            "NodeId": 4,
             "name": "CanSeeEnemy(Clone)",
             "hideFlags": 0
           },
           {
             "SaveDataType": "BbbtGroupHaveAdequateForces",
             "Status": 0,
-            "NodeId": 7,
+            "NodeId": 6,
             "name": "Group Have Adequate Forces(Clone)",
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtGroupAllDronesAttack",
+            "SaveDataType": "BbbtGroupAllDronesFlankEnemy",
             "Status": 0,
-            "NodeId": 9,
-            "name": "Group All Drones Attack(Clone)",
+            "NodeId": 8,
+            "name": "Group All Drones Flank Enemy(Clone)",
             "hideFlags": 0
           }
         ],
@@ -108,53 +93,68 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 81.0,
-      "Y": 14.0,
+      "X": 322.0,
+      "Y": 159.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Group Got Flanking Message From CI",
+      "BaseBehaviourInstanceId": -12240,
+      "Behaviour": {
+        "SaveDataType": "BbbtGroupGotFlankingMessageFromCI",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Group Got Flanking Message From CI(Clone)",
+        "hideFlags": 0
+      },
+      "X": 171.0,
+      "Y": 304.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18294,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 296.0,
+      "Y": 302.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Group Have Adequate Forces",
+      "BaseBehaviourInstanceId": 22028,
+      "Behaviour": {
+        "SaveDataType": "BbbtGroupHaveAdequateForces",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Group Have Adequate Forces(Clone)",
+        "hideFlags": 0
+      },
+      "X": 406.0,
+      "Y": 309.0,
       "IsSelected": false
     },
     {
       "Id": 8,
-      "BaseBehaviour": "Group Got Attack Message From CI",
-      "BaseBehaviourInstanceId": -7664,
+      "BaseBehaviour": "Group All Drones Flank Enemy",
+      "BaseBehaviourInstanceId": -13248,
       "Behaviour": {
-        "SaveDataType": "BbbtGrouGotAttackMessageFromCI",
+        "SaveDataType": "BbbtGroupAllDronesFlankEnemy",
         "Status": 0,
         "NodeId": 8,
-        "name": "Group Got Attack Message From CI(Clone)",
+        "name": "Group All Drones Flank Enemy(Clone)",
         "hideFlags": 0
       },
-      "X": -180.0,
-      "Y": 170.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 7,
-      "BaseBehaviour": "Group Have Adequate Forces",
-      "BaseBehaviourInstanceId": -4038,
-      "Behaviour": {
-        "SaveDataType": "BbbtGroupHaveAdequateForces",
-        "Status": 0,
-        "NodeId": 7,
-        "name": "Group Have Adequate Forces(Clone)",
-        "hideFlags": 0
-      },
-      "X": 89.0,
-      "Y": 160.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 9,
-      "BaseBehaviour": "Group All Drones Attack",
-      "BaseBehaviourInstanceId": -7734,
-      "Behaviour": {
-        "SaveDataType": "BbbtGroupAllDronesAttack",
-        "Status": 0,
-        "NodeId": 9,
-        "name": "Group All Drones Attack(Clone)",
-        "hideFlags": 0
-      },
-      "X": 217.0,
-      "Y": 159.0,
+      "X": 516.0,
+      "Y": 309.0,
       "IsSelected": true
     }
   ],
@@ -164,22 +164,22 @@
       "OutNodeId": 1
     },
     {
-      "InNodeId": 8,
-      "OutNodeId": 2
-    },
-    {
       "InNodeId": 3,
       "OutNodeId": 2
     },
     {
-      "InNodeId": 7,
+      "InNodeId": 4,
       "OutNodeId": 2
     },
     {
-      "InNodeId": 9,
+      "InNodeId": 6,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 8,
       "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": -307.0,
-  "WindowOffsetY": -497.0
+  "WindowOffsetX": 9.0,
+  "WindowOffsetY": 19.0
 }
