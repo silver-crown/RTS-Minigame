@@ -66,18 +66,18 @@ public class Drone : RTS.Actor
     }
     void globalChannelTest()
     {
-        Debug.Log("Drone " + ID + " received a message in the Global Channel!");
+        //Debug.Log("Drone " + ID + " received a message in the Global Channel!");
         //The behaviour trees look for the messages in the message lists, they're added there once they're heard by the listener
         messageList.Add(" received a message in the Global Channel!");
     }
 
     void PrivateChannelTest()
     {
-        Debug.Log("Drone " + ID + " received a message in the Private Channel!");
+        //Debug.Log("Drone " + ID + " received a message in the Private Channel!");
     }
     void groupChannelTest()
     {
-        Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
+        //Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
     }
 
     public override void Awake()
