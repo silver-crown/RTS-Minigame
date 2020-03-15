@@ -39,6 +39,7 @@ namespace RTS.Test
             var go = Instantiate(_dronePrefab, transform.position + distance, Quaternion.identity, null);
             var drone = go.GetComponent<Drone>();
             drone.SetType(type);
+            drone.name = type;
             _timeSinceLastSpawn = 0.0f;
             GetComponent<CentralIntelligence>().AddDrone(drone);
             #endif

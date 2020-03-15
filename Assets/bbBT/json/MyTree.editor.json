@@ -1,0 +1,49 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 8878,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtAttackTarget",
+          "Status": 0,
+          "NodeId": 6,
+          "name": "Attack Target(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 564.0,
+      "Y": 223.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 7988,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 589.0,
+      "Y": 397.0,
+      "IsSelected": true
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 6,
+      "OutNodeId": 1
+    }
+  ],
+  "WindowOffsetX": 110.0,
+  "WindowOffsetY": 69.0
+}

@@ -34,10 +34,10 @@
                   "hideFlags": 0
                 },
                 {
-                  "SaveDataType": "BbbtAttackDistanceCheck",
+                  "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                   "Status": 0,
-                  "NodeId": 6,
-                  "name": "Attack Distance Check(Clone)",
+                  "NodeId": 10,
+                  "name": "Move In Range Of Target(Clone)",
                   "hideFlags": 0
                 },
                 {
@@ -130,10 +130,10 @@
                 "hideFlags": 0
               },
               {
-                "SaveDataType": "BbbtAttackDistanceCheck",
+                "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                 "Status": 0,
-                "NodeId": 6,
-                "name": "Attack Distance Check(Clone)",
+                "NodeId": 10,
+                "name": "Move In Range Of Target(Clone)",
                 "hideFlags": 0
               },
               {
@@ -188,10 +188,10 @@
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtAttackDistanceCheck",
+            "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
             "Status": 0,
-            "NodeId": 6,
-            "name": "Attack Distance Check(Clone)",
+            "NodeId": 10,
+            "name": "Move In Range Of Target(Clone)",
             "hideFlags": 0
           },
           {
@@ -227,21 +227,6 @@
       "IsSelected": false
     },
     {
-      "Id": 6,
-      "BaseBehaviour": "Attack Distance Check",
-      "BaseBehaviourInstanceId": 12710,
-      "Behaviour": {
-        "SaveDataType": "BbbtAttackDistanceCheck",
-        "Status": 0,
-        "NodeId": 6,
-        "name": "Attack Distance Check(Clone)",
-        "hideFlags": 0
-      },
-      "X": 457.0,
-      "Y": 612.0,
-      "IsSelected": false
-    },
-    {
       "Id": 7,
       "BaseBehaviour": "Attack Target",
       "BaseBehaviourInstanceId": 7988,
@@ -254,6 +239,21 @@
       },
       "X": 556.0,
       "Y": 617.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "Move In Range Of Target",
+      "BaseBehaviourInstanceId": -90100,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+        "Status": 0,
+        "NodeId": 10,
+        "name": "Move In Range Of Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 456.0,
+      "Y": 618.0,
       "IsSelected": true
     }
   ],
@@ -279,14 +279,14 @@
       "OutNodeId": 8
     },
     {
-      "InNodeId": 6,
+      "InNodeId": 7,
       "OutNodeId": 2
     },
     {
-      "InNodeId": 7,
+      "InNodeId": 10,
       "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": 53.0,
-  "WindowOffsetY": -143.0
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
 }

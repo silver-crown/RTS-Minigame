@@ -29,10 +29,10 @@
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtAttackDistanceCheck",
+              "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
               "Status": 0,
-              "NodeId": 6,
-              "name": "Attack Distance Check(Clone)",
+              "NodeId": 10,
+              "name": "Move In Range Of Target(Clone)",
               "hideFlags": 0
             },
             {
