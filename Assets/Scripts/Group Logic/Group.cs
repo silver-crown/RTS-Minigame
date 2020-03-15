@@ -36,6 +36,10 @@ public class Group : MonoBehaviour
     /// </summary>
     public List<string> groupMessageList = new List<string>();
 
+    private void Start()
+    {
+        SetupMessagesToListenTo();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -76,7 +80,7 @@ public class Group : MonoBehaviour
         for(int i = 0; i <= message.Length; i++)
         {
             lastMessage = i;
-            EventManager.StartListening(message[i], LeaderIssueCommand, EventManager.MessageChannel.groupChannel, groupID);
+            EventManager.StartListening(message[i], () => { groupMessageList.Add(message[lastMessage]);},EventManager.MessageChannel.groupChannel, groupID);
         }
     }
     /// <summary>
@@ -88,14 +92,6 @@ public class Group : MonoBehaviour
         message[i++] = "Group Frontal Assault";
         message[i++] = "Group Flanking Assault";
     }
-    /// <summary>
-    /// Leader relays the message to the other drones with a proxy function 
-    /// </summary>
-    void LeaderIssueCommand()
-    {
-        groupMessageList.Add(message[lastMessage]);
-    }
-    
     /// <summary>
     /// assign a new leader to the group, presumably because the previous one is dead.
     /// </summary>

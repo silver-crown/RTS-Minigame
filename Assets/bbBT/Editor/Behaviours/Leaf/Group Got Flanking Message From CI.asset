@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba643b200d93e2458b9180c0fab7960, type: 3}
-  m_Name: Is In Building Check
+  m_Script: {fileID: 11500000, guid: 7d5bf3d9ef58aa14ea569df70c9a09ad, type: 3}
+  m_Name: Group Got Flanking Message From CI
   m_EditorClassIdentifier: 

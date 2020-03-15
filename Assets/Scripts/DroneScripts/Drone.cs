@@ -29,11 +29,18 @@ public class Drone : RTS.Actor
     /// </summary>
     public List<string> messageList = new List<string>();
     /// <summary>
+    /// String used for listening to messages contained in the message list
+    /// </summary>
+    string[] message;
+    int lastMessage;
+    /// <summary>
     /// Drone Group and it's ID
     /// </summary>
     [System.NonSerialized] public int groupID;
     [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] Group group;
+
+
     /// <summary>
     /// set the group script's id to match that of the drone
     /// </summary>
@@ -97,8 +104,9 @@ public class Drone : RTS.Actor
     }
 
     public override void Start()
-    {
+    {  
         base.Start();
+        SetupMessagesToListenTo();
     }
 
     // Update is called once per frame
@@ -191,5 +199,22 @@ public class Drone : RTS.Actor
                     break;
                 }
         }
+    }
+    void ListenToMessages()
+    {
+        for(int i = 0; i <= message.Length; i++)
+        {
+            lastMessage = i;
+            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]);}, EventManager.MessageChannel.privateChannel, ID);
+        }
+    }
+    /// <summary>
+    /// sets up the message array and the strings it can listen for
+    /// </summary>
+    void SetupMessagesToListenTo()
+    {
+        int i = 0;
+        message[i++] = "Frontal Assault";
+        message[i++] = "Flanking Assault";
     }
 }
