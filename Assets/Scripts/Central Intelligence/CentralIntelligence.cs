@@ -26,7 +26,7 @@ public class CentralIntelligence : MonoBehaviour
     private BehaviorTree _behaviorTree;
 
     /// <summary>
-    /// Different types of drones CI is capable of building
+    /// All drones under CI's control.
     /// </summary>
     private List<Drone> _drones = new List<Drone>();
 
@@ -327,7 +327,7 @@ public class CentralIntelligence : MonoBehaviour
                         switch (groupMember[i].Type)
                         {
                             //get the fighters
-                            case ("Fighter Drone"):
+                            case ("FighterDrone"):
                                 {
                                     //something something utility AI
                                     //*********************************************************
@@ -354,7 +354,7 @@ public class CentralIntelligence : MonoBehaviour
                         switch (groupMember[i].Type)
                         {
                             //get the workers
-                            case ("Worker Drone"):
+                            case ("WorkerDrone"):
                                 {
                                     //something something utility AI
                                     //*********************************************************

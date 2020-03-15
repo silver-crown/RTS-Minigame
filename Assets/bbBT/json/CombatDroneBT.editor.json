@@ -64,53 +64,8 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 553.0,
-      "Y": 320.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 7,
-      "BaseBehaviour": "Attack Target",
-      "BaseBehaviourInstanceId": 7988,
-      "Behaviour": {
-        "SaveDataType": "BbbtAttackTarget",
-        "Status": 0,
-        "NodeId": 7,
-        "name": "Attack Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 469.0,
-      "Y": 755.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 6,
-      "BaseBehaviour": "Attack Distance Check",
-      "BaseBehaviourInstanceId": 12710,
-      "Behaviour": {
-        "SaveDataType": "BbbtAttackDistanceCheck",
-        "Status": 0,
-        "NodeId": 6,
-        "name": "Attack Distance Check(Clone)",
-        "hideFlags": 0
-      },
-      "X": 379.0,
-      "Y": 754.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 5,
-      "BaseBehaviour": "TargetNearest",
-      "BaseBehaviourInstanceId": 14606,
-      "Behaviour": {
-        "SaveDataType": "BbbtTargetNearest",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "TargetNearest(Clone)",
-        "hideFlags": 0
-      },
-      "X": 289.0,
-      "Y": 755.0,
+      "X": 606.0,
+      "Y": 177.0,
       "IsSelected": false
     },
     {
@@ -124,8 +79,8 @@
         "name": "AllEnemiesInSight(Clone)",
         "hideFlags": 0
       },
-      "X": 200.0,
-      "Y": 755.0,
+      "X": 253.0,
+      "Y": 612.0,
       "IsSelected": false
     },
     {
@@ -139,8 +94,8 @@
         "name": "CanSeeEnemy(Clone)",
         "hideFlags": 0
       },
-      "X": 111.0,
-      "Y": 756.0,
+      "X": 164.0,
+      "Y": 613.0,
       "IsSelected": false
     },
     {
@@ -200,8 +155,8 @@
         "name": "Selector(Clone)",
         "hideFlags": 0
       },
-      "X": 496.0,
-      "Y": 465.0,
+      "X": 549.0,
+      "Y": 322.0,
       "IsSelected": false
     },
     {
@@ -252,8 +207,53 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 390.0,
-      "Y": 599.0,
+      "X": 443.0,
+      "Y": 456.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "TargetNearest",
+      "BaseBehaviourInstanceId": 14606,
+      "Behaviour": {
+        "SaveDataType": "BbbtTargetNearest",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "TargetNearest(Clone)",
+        "hideFlags": 0
+      },
+      "X": 342.0,
+      "Y": 612.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Attack Distance Check",
+      "BaseBehaviourInstanceId": 12710,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackDistanceCheck",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Attack Distance Check(Clone)",
+        "hideFlags": 0
+      },
+      "X": 457.0,
+      "Y": 612.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 7,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 7988,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 7,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 556.0,
+      "Y": 617.0,
       "IsSelected": true
     }
   ],
@@ -267,14 +267,6 @@
       "OutNodeId": 2
     },
     {
-      "InNodeId": 6,
-      "OutNodeId": 2
-    },
-    {
-      "InNodeId": 7,
-      "OutNodeId": 2
-    },
-    {
       "InNodeId": 3,
       "OutNodeId": 2
     },
@@ -285,8 +277,16 @@
     {
       "InNodeId": 2,
       "OutNodeId": 8
+    },
+    {
+      "InNodeId": 6,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 7,
+      "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": -489.0,
-  "WindowOffsetY": 191.0
+  "WindowOffsetX": 53.0,
+  "WindowOffsetY": -143.0
 }
