@@ -1356,7 +1356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showGUI: 1
   offsetX: 0
-  offsetY: 0
+  offsetY: 350
 --- !u!114 &2122856025
 MonoBehaviour:
   m_ObjectHideFlags: 0
