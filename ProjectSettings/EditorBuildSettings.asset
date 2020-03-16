@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Networking.unity
     guid: 22514ded56d7022468a175f10fe94b2d
   - enabled: 0
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainSceneLogic.unity
     guid: 940715dee589fae4aa832494f55ad630
+  - enabled: 1
+    path: Assets/Scenes/GameStartTestScene.unity
+    guid: bc5d61537f48f95408976e9db417a699
   m_configObjects: {}

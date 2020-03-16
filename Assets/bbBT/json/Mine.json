@@ -1,0 +1,32 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "SaveDataType": "FindNearestResource",
+          "Status": 0,
+          "NodeId": 3,
+          "name": "FindNearestResource(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+          "Status": 0,
+          "NodeId": 4,
+          "name": "Move In Range Of Resource(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 2,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}

@@ -1,20 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
-using System.IO;
-using RTS;
 using RTS.Lua;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
 public class Drone : RTS.Actor
 {
-    
     /// <summary>
     /// The id to assign to the next instantiated drone.
     /// </summary>
@@ -46,7 +40,7 @@ public class Drone : RTS.Actor
     /// set the group script's id to match that of the drone
     /// </summary>
     void SetupGroup()
-    { 
+    {
         group.groupID = groupID;
         group.leaderStatus = leaderStatus;
     }
@@ -74,9 +68,9 @@ public class Drone : RTS.Actor
     }
     void globalChannelTest()
     {
-        //Debug.Log("Drone " + ID + " received a message in the Global Channel!");
-        //The behaviour trees look for the messages in the message lists, they're added there once they're heard by the listener
+
         messageList.Add(" received a message in the Global Channel!");
+
     }
 
     void PrivateChannelTest()
@@ -103,7 +97,7 @@ public class Drone : RTS.Actor
     }
 
     public override void Start()
-    {  
+    {
         base.Start();
         SetupMessagesToListenTo();
     }
@@ -177,7 +171,7 @@ public class Drone : RTS.Actor
             Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
         }
     }
-    #endif
+#endif
 
     public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
     {
@@ -201,10 +195,10 @@ public class Drone : RTS.Actor
     }
     void ListenToMessages()
     {
-        for(int i = 0; i <= message.Length; i++)
+        for (int i = 0; i <= message.Length; i++)
         {
             lastMessage = i;
-            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]);}, EventManager.MessageChannel.privateChannel, ID);
+            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]); }, EventManager.MessageChannel.privateChannel, ID);
         }
     }
     /// <summary>
