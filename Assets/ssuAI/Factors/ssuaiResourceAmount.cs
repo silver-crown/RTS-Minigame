@@ -1,43 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using org.mariuszgromada.math.mxparser;
 
 
 namespace ssuai
 {
 
     /// <summary>
-    /// Factor for the GatherResource action for the amount of a resource currently held, for the purpose of gathering more
+    /// Factor for the amount of a resource currently held.
     /// </summary>
-    public class GatherResourceAmount : Factor
+    public class ResourceAmount : Factor
     {
-        CentralIntelligence _centralIntelligence;
+        private CentralIntelligence _centralIntelligence;
         string _resource;
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         /// <param name="CI">The central intelligence gathering the resources</param>
         /// <param name="Resource">The string representation (as in the resources dictionary) of the resource </param>
-        public GatherResourceAmount(CentralIntelligence CI, string resource)
+        /// <param name="function">The function string. Should only have one parameter, which will be the amount of the resource specified. </param>
+        public ResourceAmount(CentralIntelligence CI, string resource, string function)
         {
+            MathFunction = new Function(function);
             _centralIntelligence = CI;
             _resource = resource;
-        }
-        public override float GetUtility()
-        {
-            Validate();
-            return _utility;
         }
 
         public override void UpdateUtility()
         {
-            //Logistic curve that is high when the resource is near 0 and curves down when it approaches 100
+            //if we have some of the resource, calculate utility
             if (_centralIntelligence.Resources.ContainsKey(_resource))
             {
-                _utility = (float)(1 / (1 + System.Math.Pow(System.Math.E, (_centralIntelligence.Resources[_resource] - 50 / 10))));
+                _utility = (float)MathFunction.calculate(_centralIntelligence.Resources[_resource]);
             }
-            else
+            else //otherwise, well, we really need some.
             {
                 _utility = 1.0f;
             }
