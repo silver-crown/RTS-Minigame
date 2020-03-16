@@ -1,4 +1,9 @@
 -- Combat Drone
+
+function Update()
+    return "hello"
+end
+
 return
 {
     _name               = "Combat Drone",

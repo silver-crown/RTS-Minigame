@@ -227,21 +227,6 @@
       "IsSelected": false
     },
     {
-      "Id": 10,
-      "BaseBehaviour": "Move In Range Of Target",
-      "BaseBehaviourInstanceId": -90100,
-      "Behaviour": {
-        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
-        "Status": 0,
-        "NodeId": 10,
-        "name": "Move In Range Of Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 456.0,
-      "Y": 618.0,
-      "IsSelected": false
-    },
-    {
       "Id": 7,
       "BaseBehaviour": "Attack Target",
       "BaseBehaviourInstanceId": 7988,
@@ -254,6 +239,21 @@
       },
       "X": 557.0,
       "Y": 618.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "Move In Range Of Target",
+      "BaseBehaviourInstanceId": -90100,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+        "Status": 0,
+        "NodeId": 10,
+        "name": "Move In Range Of Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 459.0,
+      "Y": 632.0,
       "IsSelected": false
     }
   ],

@@ -8,6 +8,7 @@ using MoonSharp.Interpreter;
 using Bbbt;
 using System.IO;
 using RTS;
+using RTS.Lua;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
@@ -96,8 +97,6 @@ public class Drone : RTS.Actor
             _personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
 
-        SetDroneType();
-
         ID = _nextId++;
 
         EventManager.AddPrivateChannel(_personalChannelDictionary);
@@ -113,8 +112,9 @@ public class Drone : RTS.Actor
     public override void Update()
     {
         base.Update();
+        //Debug.Log(_script.Call(_script.Globals["Update"]));
 
-        var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+        var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
         if (lastTimeScouted.IsNotNil())
         {
             // Update when the actor saw a chunk
@@ -133,7 +133,7 @@ public class Drone : RTS.Actor
                 bool inSightRange = true;
                 foreach (var distance in distances)
                 {
-                    if (distance > _table.Get("_sightRange").Number)
+                    if (distance > GetValue("_sightRange").Number)
                     {
                         inSightRange = false;
                     }
@@ -165,9 +165,8 @@ public class Drone : RTS.Actor
     public void SetType(string type)
     {
         Type = type;
-        Script script = new Script();
-        _table = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
-        string tree = _table.Get("_behaviourTree").String;
+        _luaObject = LuaManager.CreateLuaObject("Actors/Drones/" + type);
+        string tree = GetValue("_behaviourTree").String;
 
         if (tree != null)
         {
@@ -213,6 +212,7 @@ public class Drone : RTS.Actor
     /// </summary>
     void SetupMessagesToListenTo()
     {
+        if (message == null) return;
         int i = 0;
         message[i++] = "Frontal Assault";
         message[i++] = "Flanking Assault";

@@ -9,21 +9,20 @@ using Bbbt;
 using UnityEditor;
 using System;
 using ssuai;
+using RTS.Lua;
 
 namespace RTS
 {
-
     /// <summary>
     /// Base class used by drones for sight, movement etc.
     /// </summary>
     [RequireComponent(typeof(MouseClickRaycastTarget))]
     public abstract class Actor : MonoBehaviour
     {
-
         /// <summary>
-        /// The table with the actor's stats.
+        /// Contains the actor's lua script and table.
         /// </summary>
-        protected Table _table;
+        protected LuaObject _luaObject;
 
         /// <summary>
         /// Whether the actor is selected.
@@ -199,17 +198,12 @@ namespace RTS
 
         #endregion
 
-        public virtual void SetDroneType()
-        {
-
-        }
-
         /// <summary>
         /// Speciacations of the actor class determines how to attack
         /// </summary>
         public virtual void Attack()
         {
-            Target.GetComponent<Actor>().TakeDamage((int)_table.Get("_damage").Number);
+            Target.GetComponent<Actor>().TakeDamage((int)GetValue("_damage").Number);
             Debug.DrawLine(transform.position, Target.transform.position, Color.red, 0.15f);
         }
 
@@ -219,8 +213,8 @@ namespace RTS
         /// <param name="damage">The damage taken.</param>
         public virtual void TakeDamage(int damage)
         {
-            _table.Set("_hp", DynValue.NewNumber((int)_table.Get("_hp").Number - damage));
-            if ((int)_table.Get("_hp").Number <= 0)
+            SetValue("_hp", DynValue.NewNumber((int)GetValue("_hp").Number - damage));
+            if ((int)_luaObject.Table.Get("_hp").Number <= 0)
             {
                 Destroy(gameObject);
             }
@@ -240,7 +234,7 @@ namespace RTS
         }
 
 
-        public virtual void  Awake()
+        public virtual void Awake()
         {
             WorldInfo.Actors.Add(this);
 
@@ -285,6 +279,11 @@ namespace RTS
         // Update is called once per frame
         public virtual void Update()
         {
+            var update = _luaObject.Script.Globals.Get("Update");
+            if (update.IsNotNil())
+            {
+                _luaObject.Script.Call(update, _luaObject.Id);
+            }
         }
 
         private void OnDestroy()
@@ -302,7 +301,7 @@ namespace RTS
         /// <returns>The value associated with the key.</returns>
         public DynValue GetValue(string key)
         {
-            return _table.Get(key);
+            return _luaObject.Table.Get(key);
         }
 
         /// <summary>
@@ -313,7 +312,7 @@ namespace RTS
         /// <returns>Sets the value associated with the key.</returns>
         public void SetValue(string key, DynValue value)
         {
-            _table.Set(key, value);
+            _luaObject.Table.Set(key, value);
         }
 
         /// <summary>
@@ -322,7 +321,7 @@ namespace RTS
         /// <returns>The pairs.</returns>
         public IEnumerable<TablePair> GetTablePairs()
         {
-            return _table.Pairs;
+            return _luaObject.Table.Pairs;
         }
 
 #if UNITY_EDITOR
@@ -332,23 +331,24 @@ namespace RTS
             {
                 // Draw sight/attack range.
                 Handles.color = Color.red;
-                Handles.DrawWireDisc(transform.position, Vector3.up, (float)_table.Get("_attackRange").Number);
+                Handles.DrawWireDisc(transform.position, Vector3.up, (float)GetValue("_attackRange").Number);
+
                 Handles.color = Color.green;
-                Handles.DrawWireDisc(transform.position, Vector3.up, (float)_table.Get("_sightRange").Number);
+                Handles.DrawWireDisc(transform.position, Vector3.up, (float)GetValue("_sightRange").Number);
 
                 // Highlight actors in sight/attack range.
                 foreach (var actor in WorldInfo.Actors)
                 {
                     if (actor == gameObject) continue;
                     float distance = Vector3.Distance(transform.position, actor.transform.position);
-                    if (distance < _table.Get("_attackRange").Number)
+                    if (distance < GetValue("_attackRange").Number)
                     {
                         Handles.color = new Color(1.0f, 0.0f, 0.0f, 0.2f);
                         Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
                         //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
                         //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                     }
-                    else if (distance < _table.Get("_sightRange").Number)
+                    else if (distance < _luaObject.Table.Get("_sightRange").Number)
                     {
                         Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
                         Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);
@@ -358,7 +358,7 @@ namespace RTS
                 }
 
                 // Visualise chunk scouting attractiveness
-                var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+                var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
                 if (lastTimeScouted.IsNotNil())
                 {
                     foreach (var chunk in WorldInfo.Chunks)

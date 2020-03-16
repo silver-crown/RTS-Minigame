@@ -5,6 +5,7 @@ using UnityEngine;
 using RTS;
 using MoonSharp.Interpreter;
 using UnityEngine.AI;
+using RTS.Lua;
 
 public class Marine : RTS.Actor
 {
@@ -13,8 +14,7 @@ public class Marine : RTS.Actor
     {
         base.Awake();
         MyFaction = Factions.Marine;
-        var script = new Script();
-        _table = script.DoFile("Actors/Marines/BaseMarine").Table;
+        _luaObject = LuaManager.CreateLuaObject("Actors/Marines/BaseMarine");
     }
     
     // Start is called before the first frame update

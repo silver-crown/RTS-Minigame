@@ -21,8 +21,8 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 369.0,
-      "Y": 277.0,
+      "X": 431.0,
+      "Y": 276.0,
       "IsSelected": false
     },
     {
@@ -39,8 +39,8 @@
         "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 385.0,
-      "Y": 418.0,
+      "X": 436.0,
+      "Y": 558.0,
       "IsSelected": false
     }
   ],
@@ -50,6 +50,6 @@
       "OutNodeId": 11
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": -7.0,
+  "WindowOffsetY": 22.0
 }
