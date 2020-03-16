@@ -4,18 +4,17 @@ using UnityEngine;
 using RTS;
 namespace Bbbt
 {
-
     ///  // Creates the menu option in the unity engine
-    [CreateAssetMenu(fileName = "Got Flanking Message", menuName = "bbBT/Behaviour/Leaf/Got Flanking Message", order = 0)]
+    [CreateAssetMenu(fileName = "Got Flanking Behind Message", menuName = "bbBT/Behaviour/Leaf/Got Flanking Behind Message", order = 0)]
     /// <summary>
     /// Leaf node for checking if there's enough forces to risk attacking an enemy
     /// </summary>
-    public class BbbtGotFlankingMessage : BbbtLeafBehaviour
+    public class BbbtGotFlankingBehindMessage : BbbtLeafBehaviour
     {
         private RTS.Actor _actor;
         private Drone _drone;
 
-        public override string SaveDataType { get; } = "BbbtGotFlankingMessage";
+        public override string SaveDataType { get; } = "BbbtGotFlankingBehindMessage";
 
         protected override void OnInitialize(GameObject gameObject)
         {
@@ -37,7 +36,7 @@ namespace Bbbt
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             //Get the attack message from CI and return success, assuming it's the newest message received from CI           
-            if (_drone.messageList[_drone.messageList.Count - 1] == "Flanking Assault")
+            if (_drone.messageList[_drone.messageList.Count - 1] == "Flanking Assault Behind")
             {
                 return BbbtBehaviourStatus.Success;
             }

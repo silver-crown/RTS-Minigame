@@ -34,6 +34,7 @@ namespace Bbbt
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             //send the attack message to the drones in the group and return success
+            //Get the strongest in your force and get them in front, send others to the sides
             for (int i = 0; i <= _group.groupSize; i++)
             {
                 EventManager.TriggerEvent("Flanking Assault", EventManager.MessageChannel.groupChannel, _group._groupMembers[i].GetComponent<Drone>().ID);

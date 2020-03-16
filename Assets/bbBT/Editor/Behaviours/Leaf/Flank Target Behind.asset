@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 793ff7df05cc82e4abebe79e2173d4fb, type: 3}
-  m_Name: Got Flanking Message
+  m_Script: {fileID: 11500000, guid: 712a73f4590a7e142a1aecbb10b88fe5, type: 3}
+  m_Name: Flank Target Behind
   m_EditorClassIdentifier: 
