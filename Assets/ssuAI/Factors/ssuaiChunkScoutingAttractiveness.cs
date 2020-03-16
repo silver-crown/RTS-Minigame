@@ -15,12 +15,6 @@ namespace ssuai
             _actor = actor;
         }
 
-        public override float GetUtility()
-        {
-            Validate();
-            return _utility;
-        }
-
         public override void UpdateUtility()
         {
             float e = (float)Math.E;

@@ -20,6 +20,14 @@ namespace ssuai
         /// <param name="behavior"></param>
         public UtilityAction(List<Factor> factors, Action behaviour)
         {
+            foreach (Factor factor in factors)
+            {
+                //verify everything was read successfully.
+                if (factor.MathFunction.getFunctionExpressionString() == "")
+                {
+                    Debug.LogError("Factor no. " + factors.IndexOf(factor) + ", is the Lua value read correctly?");
+                }
+            }
             _factors = factors;
             Behaviour = behaviour;
         }

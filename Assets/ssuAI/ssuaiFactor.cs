@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using org.mariuszgromada.math.mxparser;
 
 
 namespace ssuai
@@ -13,11 +14,19 @@ namespace ssuai
         //normalized utility value MUST be between 0 and 1.
         protected float _utility = 0.0f;
 
+
+        //mxparser function to calculate utility
+        public Function MathFunction { get; protected set; }
+
         /// <summary>
         /// Returns the utility value of the Factor
         /// </summary>
         /// <returns></returns>
-        public abstract float GetUtility();
+        public float GetUtility()
+        {
+            Validate();
+            return _utility;
+        }
 
         /// <summary>
         /// Update the Factor's utility by whatever metric the derived class uses
@@ -29,7 +38,7 @@ namespace ssuai
         /// </summary>
         protected void Validate()
         {
-            Debug.Assert(_utility >= 0.0f || _utility <= 1.0f);
+            Debug.Assert(_utility >= 0.0f || _utility <= 1.0f, "utility was " + _utility +", function was " + MathFunction.getFunctionExpressionString());
         }
     }
 }
