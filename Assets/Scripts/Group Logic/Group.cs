@@ -28,7 +28,7 @@ public class Group : MonoBehaviour
     /// <summary>
     /// All the group members in the group
     /// </summary>
-    public List<GameObject> _groupMembers = new List<GameObject>();
+    public List<GameObject> groupMembers = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
     bool _listening;
     /// <summary>
@@ -43,7 +43,7 @@ public class Group : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        groupSize = _groupMembers.Count;
+        groupSize = groupMembers.Count;
         if (!_listening)
         {
             if (leaderStatus)
@@ -58,15 +58,15 @@ public class Group : MonoBehaviour
     void ConstructEnemyList()
     {
         //through each group member
-        for (int i = 0; i <= _groupMembers.Count; i++)
+        for (int i = 0; i <= groupMembers.Count; i++)
         {
             //iterate though the visible enemies list of each member
-            for (int j = 0; j <= _groupMembers[i].GetComponent<Actor>().VisibleEnemies.Count; j++)
+            for (int j = 0; j <= groupMembers[i].GetComponent<Actor>().VisibleEnemies.Count; j++)
             {
                 //add them to the enemy list of the group if they're not already in it 
-                if (!enemyList.Contains(_groupMembers[i].GetComponent<Actor>().VisibleEnemies[j]))
+                if (!enemyList.Contains(groupMembers[i].GetComponent<Actor>().VisibleEnemies[j]))
                 {
-                    enemyList.Add(_groupMembers[i].GetComponent<Actor>().VisibleEnemies[j]);
+                    enemyList.Add(groupMembers[i].GetComponent<Actor>().VisibleEnemies[j]);
                 }
             }
         }
@@ -112,7 +112,7 @@ public class Group : MonoBehaviour
         {
             if (groupMember[i].groupID == groupID)
             {
-                _groupMembers.Add(groupMember[i].gameObject);
+                groupMembers.Add(groupMember[i].gameObject);
             }
         }
     }
@@ -128,10 +128,10 @@ public class Group : MonoBehaviour
         Vector3 longestYard = new Vector3(0.0f, 0.0f, 0.0f);
         float dist = 0.0f;
         List <Transform> targets = new List<Transform>();
-        for (int i = 0; i <= _groupMembers.Count; i++)
+        for (int i = 0; i <= groupMembers.Count; i++)
         {
             //for every group member, take their targets's positions
-            targets.Add(_groupMembers[i].GetComponent<Actor>().Target.transform);
+            targets.Add(groupMembers[i].GetComponent<Actor>().Target.transform);
         }
         // and produce a radius based on this
         //Get the origin by first getting the 4 outermost points
@@ -270,80 +270,156 @@ public class Group : MonoBehaviour
     /// into sub-units later as needed
     /// </summary>
     /// <returns></returns>
-    private List<Drone> AssignAlphaDrones()
+    private void AssignAlphaDrones()
     {
-        List<Drone> alphaDrones = new List<Drone>();
         //Assign everyone as alpha to begin with
-        for (int i = 0; i <= _groupMembers.Count; i++)
+        for (int i = 0; i <= groupMembers.Count; i++)
         {
-            _groupMembers[i].GetComponent<Drone>().myUnit = Drone.GroupUnit.Alpha;
-            alphaDrones.Add(_groupMembers[i].GetComponent<Drone>());
+            groupMembers[i].GetComponent<Drone>().myUnit = Drone.GroupUnit.Alpha;
         }
-        return alphaDrones;
     }
     /// <summary>
     /// Assign drones to the bravo unit, these are the second-most powerful force of the group, and the primary backup unit for flanking
     /// </summary>
     /// <returns></returns>
-    private List<Drone> AssignBravoDrones()
+    private void AssignBravoDrones()
     {
-        List<Drone> bravoDrones = new List<Drone>();
-        //fucking hooooooooow
-        return bravoDrones;
+        //get the size of the group(alpha unit)
+        int alphas = 0;
+        for (int i = 0; i <= groupMembers.Count; i++)
+        {
+            if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Alpha)
+            {
+                alphas++;
+            }
+        }
+        int third = alphas / 3;
+        //divide it by 3
+        //1/3 should be assigned as Bravo drones, the rest remain untouched
+        //thus, find the weakest third of the alpha unit, and make them bravos.
+        //how? Utility AI prolly, same way leader status will be decided.
     } 
     /// <summary>
     /// Assign drones to the charlie unit, the second weakest unit of the group, they provide support for bravo unit
     /// </summary>
     /// <returns></returns>
-    private List<Drone> AssignCharlieDrones()
+    private void AssignCharlieDrones()
     {
-        List<Drone> drones = new List<Drone>();
-        //fucking hooooooooow
-        return drones;
+        int bravos = 0;
+        for (int i = 0; i <= groupMembers.Count; i++)
+        {
+            if(groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Bravo)
+            {
+                bravos++;
+            }
+        }
+        int third = bravos / 3;
+        //get the size of the Bravo unit
+        //divide it by 3
+        //1/3 should be assigned as Charlie drones, the rest remain untouched
+        //thus, find the weakest third of the Bravo unit, and make them Charlies.
+        //how? Utility AI prolly, same way leader status will be decided.
     }
     /// <summary>
     /// Assign drones to the delta unit, the smallest and weakest unit of the group, they're dependant on the others for success in maneuvers
     /// </summary>
     /// <returns></returns>
-    private List<Drone> AssignDeltaDrones()
+    private void AssignDeltaDrones()
     {
-        List<Drone> drones = new List<Drone>();
-        //fucking hooooooooow
+        int charlies = 0;
+        for (int i = 0; i <= groupMembers.Count; i++)
+        {
+            if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Delta)
+            {
+                charlies++;
+            }
+        }
+        int third = charlies / 3;
+        //get the size of the charlie unit
+        //divide it by 3
+        //1/3 should be assigned as Deltas drones, the rest remain untouched
+        //thus, find the weakest third of the Charlie unit, and make them Deltas.
+        //how? Utility AI prolly, same way leader status will be decided.
+    }
+
+    /// <summary>
+    /// For use in two-way flanking maneuvers, divide the army up into different tactical units up to four times
+    /// </summary>
+    /// <param name="divisions"></param>
+    private void DivideArmy(int divisions)
+    {
+        switch (divisions)
+        {
+            case (2):
+                AssignAlphaDrones();
+                AssignBravoDrones();
+                break;
+            case (3):
+                AssignAlphaDrones();
+                AssignBravoDrones();
+                AssignCharlieDrones();
+                break;
+            case (4):
+                AssignAlphaDrones();
+                AssignBravoDrones();
+                AssignCharlieDrones();
+                AssignDeltaDrones();
+                break;
+            default:
+                Debug.Log("Tried dividing the group up more than what's allowed");
+                break;
+        }
+    }
+
+    /// <summary>
+    /// return the group unit specified in the argument
+    /// </summary>
+    /// <param name="unit"></param>
+    /// <returns></returns>
+    public List<GameObject> GetGroupUnits(Drone.GroupUnit unit)
+    {
+        List<GameObject> drones = new List<GameObject>();
+
+        switch (unit)
+        {
+            case Drone.GroupUnit.Alpha:
+                for(int i = 0; i<= groupMembers.Count; i++)
+                {
+                    if(groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Alpha)
+                    {
+                        drones.Add(groupMembers[i]);
+                    }
+                }
+                break;
+            case Drone.GroupUnit.Bravo:
+                for (int i = 0; i <= groupMembers.Count; i++)
+                {
+                    if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Bravo)
+                    {
+                        drones.Add(groupMembers[i]);
+                    }
+                }
+                break;
+            case Drone.GroupUnit.Charlie:
+                for (int i = 0; i <= groupMembers.Count; i++)
+                {
+                    if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Charlie)
+                    {
+                        drones.Add(groupMembers[i]);
+                    }
+                }
+                break;
+            case Drone.GroupUnit.Delta:
+                for (int i = 0; i <= groupMembers.Count; i++)
+                {
+                    if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Delta)
+                    {
+                        drones.Add(groupMembers[i]);
+                    }
+                }
+                break;
+        }
         return drones;
-    }
-    /// <summary>
-    /// For use in two-way flanking maneuvers 
-    /// </summary>
-    /// <returns></returns>
-    private List<List<Drone>> DivideArmyInTwo()
-    {
-        List<List<Drone>> dividedArmy = new List<List<Drone>>();
-        dividedArmy.Add(AssignAlphaDrones());
-        dividedArmy.Add(AssignBravoDrones());
-        //fucking hooooooooow
-        return dividedArmy;
-    }
-    /// <summary>
-    /// For use in three-way flanking maneuvers
-    /// </summary>
-    /// <returns></returns>
-    private List<List<Drone>> DivideArmyInThree()
-    {
-        List<Drone> drones = new List<Drone>();
-        List<List<Drone>> ArmyStrength = new List<List<Drone>>();
-        //fucking hooooooooow
-        return ArmyStrength;
-    }
-    /// <summary>
-    /// For use in four-way flanking maneuvers
-    /// </summary>
-    /// <returns></returns>
-    private List<List<Drone>> DivideArmyInFour()
-    {
-        List<Drone> drones = new List<Drone>();
-        List<List<Drone>> ArmyStrength = new List<List<Drone>>();
-        //fucking hooooooooow
-        return ArmyStrength;
     }
 }
 

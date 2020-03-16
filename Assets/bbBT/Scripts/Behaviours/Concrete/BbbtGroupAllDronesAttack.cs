@@ -38,7 +38,7 @@ namespace Bbbt
             //send the attack message to the drones in the group and return success
             for(int i = 0; i <= _group.groupSize; i++)
             {
-                EventManager.TriggerEvent("Full Frontal Assault", EventManager.MessageChannel.groupChannel,_group._groupMembers[i].GetComponent<Drone>().ID);
+                EventManager.TriggerEvent("Full Frontal Assault", EventManager.MessageChannel.groupChannel,_group.groupMembers[i].GetComponent<Drone>().ID);
             }
             return BbbtBehaviourStatus.Success;
         }

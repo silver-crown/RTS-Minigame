@@ -34,11 +34,37 @@ namespace Bbbt
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             //send the attack message to the drones in the group and return success
-            //Get the strongest in your force and get them in front, send others to the sides
-            for (int i = 0; i <= _group.groupSize; i++)
+
+            //*************************************************************************************************************
+            //A four-way encirclement flank, need to find a way to select flank types in here, probably a utility AI thing.
+            //*************************************************************************************************************
+
+            //Get the Alpha unit, and send them to the frontlines
+            for(int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Alpha).Count; i++)
             {
-                EventManager.TriggerEvent("Flanking Assault", EventManager.MessageChannel.groupChannel, _group._groupMembers[i].GetComponent<Drone>().ID);
+                EventManager.TriggerEvent("Flanking Assault Frontal", EventManager.MessageChannel.groupChannel,
+                    _group.GetGroupUnits(Drone.GroupUnit.Alpha)[i].GetComponent<Drone>().ID);
             }
+            //Get the Bravo unit, send them left
+            for (int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Bravo).Count; i++)
+            {
+                EventManager.TriggerEvent("Flanking Assault Left", EventManager.MessageChannel.groupChannel,
+                    _group.GetGroupUnits(Drone.GroupUnit.Bravo)[i].GetComponent<Drone>().ID);
+            }
+
+            //Get the Charlie unit, send them right
+            for (int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Charlie).Count; i++)
+            {
+                EventManager.TriggerEvent("Flanking Assault Right", EventManager.MessageChannel.groupChannel,
+                    _group.GetGroupUnits(Drone.GroupUnit.Charlie)[i].GetComponent<Drone>().ID);
+            }
+            //Send the Delta unit behind the enemies 
+            for (int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Delta).Count; i++)
+            {
+                EventManager.TriggerEvent("Flanking Assault Behind", EventManager.MessageChannel.groupChannel,
+                    _group.GetGroupUnits(Drone.GroupUnit.Delta)[i].GetComponent<Drone>().ID);
+            }
+
             return BbbtBehaviourStatus.Success;
         }
     }
