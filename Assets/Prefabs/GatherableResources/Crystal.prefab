@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba8f686b52ab61418f12e2facf94e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _luaFile: ResourceCrystal.lua
+  _luaFile: Resources/Crystal
 --- !u!1001 &603724846678785967
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -355,7 +355,7 @@ public class EventManager : MonoBehaviour
     /// <param name="channel"></param>
     public static void RemovePrivateChannel(Dictionary<string, UnityEvent> channel)
     {
-        Debug.Log("removing a private channel to the list");
+        Debug.Log("removing a private channel from the list");
         instance._privateChannelList.Remove(channel);
     }
 }

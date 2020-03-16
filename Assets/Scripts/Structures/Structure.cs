@@ -30,7 +30,11 @@ public class Structure : MonoBehaviour
         //initialize data
         _readStatsFromFile();
 
-        //add self to building list
+        //If I have an inventory add me to the list of buildings with inventories
+        if (gameObject.GetComponent<Inventory>() != null)
+        {
+            WorldInfo.Depots.Add(gameObject);
+        }
     }
 
     private void Update()

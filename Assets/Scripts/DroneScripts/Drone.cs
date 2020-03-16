@@ -23,32 +23,41 @@ public class Drone : RTS.Actor
     /// </summary>
     private Dictionary<string, UnityEvent> _personalChannelDictionary;
 
-    /// <summary>
-    /// The drone's type.
-    /// </summary>
-    public string Type { get; protected set; }
-
     ///<summary>
     ///List of all the messages the drone will me listening after
     /// </summary>
     public List<string> messageList = new List<string>();
     /// <summary>
+    /// String used for listening to messages contained in the message list
+    /// </summary>
+    string[] message;
+    int lastMessage;
+    /// <summary>
     /// Drone Group and it's ID
     /// </summary>
-    public int groupID;
+    [System.NonSerialized] public int groupID;
+    [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] Group group;
+
 
     /// <summary>
     /// set the group script's id to match that of the drone
     /// </summary>
-    void SetGroupID()
+    void SetupGroup()
     { 
         group.groupID = groupID;
+        group.leaderStatus = leaderStatus;
     }
     /// <summary>
     /// Unique ID of the drone
     /// </summary>
     public int ID { get; protected set; }
+    public int killCount;
+
+    /// <summary>
+    /// The drone's central intelligence.
+    /// </summary>
+    public CentralIntelligence CentralIntelligence { get; set; }
 
     /// <summary>
     /// Message Listening, with example functions below
@@ -63,16 +72,18 @@ public class Drone : RTS.Actor
     }
     void globalChannelTest()
     {
-        //Debug.Log("Drone " + ID + " received a message in the Global Channel!");
+
+        messageList.Add(" received a message in the Global Channel!");
+
     }
 
     void PrivateChannelTest()
     {
-        Debug.Log("Drone " + ID + " received a message in the Private Channel!");
+        //Debug.Log("Drone " + ID + " received a message in the Private Channel!");
     }
     void groupChannelTest()
     {
-        Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
+        //Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
     }
 
     public override void Awake()
@@ -92,17 +103,60 @@ public class Drone : RTS.Actor
     }
 
     public override void Start()
-    {
+    {  
         base.Start();
+        SetupMessagesToListenTo();
     }
 
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
-        ListenToChannels();
+
+        var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+        if (lastTimeScouted.IsNotNil())
+        {
+            // Update when the actor saw a chunk
+            foreach (var chunk in WorldInfo.Chunks)
+            {
+                var rect = new Rect(chunk, Vector2.one);
+                var pos = new Vector2(transform.position.x, transform.position.z);
+                var distances = new float[]
+                {
+                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMin)),
+                    Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMax)),
+                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMin)),
+                    Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMax))
+                };
+
+                bool inSightRange = true;
+                foreach (var distance in distances)
+                {
+                    if (distance > _table.Get("_sightRange").Number)
+                    {
+                        inSightRange = false;
+                    }
+                }
+
+                if (inSightRange)
+                {
+                    lastTimeScouted.Table.Set(chunk.ToString(), DynValue.NewNumber(Time.time));
+                    if (CentralIntelligence != null)
+                    {
+                        CentralIntelligence.SetLastTimeScouted(chunk, Time.time);
+                    }
+                }
+            }
+        }
     }
 
+    public override void Attack()
+    {
+        base.Attack();
+    }
+
+
+#if UNITY_EDITOR
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>
@@ -123,6 +177,7 @@ public class Drone : RTS.Actor
             Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
         }
     }
+    #endif
 
     public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
     {
@@ -143,5 +198,22 @@ public class Drone : RTS.Actor
                     break;
                 }
         }
+    }
+    void ListenToMessages()
+    {
+        for(int i = 0; i <= message.Length; i++)
+        {
+            lastMessage = i;
+            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]);}, EventManager.MessageChannel.privateChannel, ID);
+        }
+    }
+    /// <summary>
+    /// sets up the message array and the strings it can listen for
+    /// </summary>
+    void SetupMessagesToListenTo()
+    {
+        int i = 0;
+        message[i++] = "Frontal Assault";
+        message[i++] = "Flanking Assault";
     }
 }

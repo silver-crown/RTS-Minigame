@@ -1,0 +1,46 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "SaveDataType": "BbbtGotFlankingMessage",
+          "Status": 0,
+          "NodeId": 3,
+          "name": "Got Flanking Message(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtCanSeeEnemyCheck",
+          "Status": 0,
+          "NodeId": 4,
+          "name": "CanSeeEnemy(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+          "Status": 0,
+          "NodeId": 5,
+          "name": "Move In Range Of Target(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtAttackTarget",
+          "Status": 0,
+          "NodeId": 6,
+          "name": "Attack Target(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 2,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 8042,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "FindNearestResource",
+              "Status": 0,
+              "NodeId": 3,
+              "name": "FindNearestResource(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+              "Status": 0,
+              "NodeId": 4,
+              "name": "Move In Range Of Resource(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 423.0,
+      "Y": 129.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 7356,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "FindNearestResource",
+            "Status": 0,
+            "NodeId": 3,
+            "name": "FindNearestResource(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+            "Status": 0,
+            "NodeId": 4,
+            "name": "Move In Range Of Resource(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 429.0,
+      "Y": 329.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "FindNearestResource",
+      "BaseBehaviourInstanceId": -3274,
+      "Behaviour": {
+        "SaveDataType": "FindNearestResource",
+        "Status": 0,
+        "NodeId": 3,
+        "name": "FindNearestResource(Clone)",
+        "hideFlags": 0
+      },
+      "X": 211.0,
+      "Y": 511.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "Move In Range Of Resource",
+      "BaseBehaviourInstanceId": -3364,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+        "Status": 0,
+        "NodeId": 4,
+        "name": "Move In Range Of Resource(Clone)",
+        "hideFlags": 0
+      },
+      "X": 420.0,
+      "Y": 496.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 2,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 3,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 4,
+      "OutNodeId": 2
+    }
+  ],
+  "WindowOffsetX": 0.0,
+  "WindowOffsetY": 0.0
+}

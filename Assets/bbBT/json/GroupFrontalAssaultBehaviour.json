@@ -1,0 +1,46 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "SaveDataType": "BbbtGroupGotAttackMessageFromCI",
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Group Got Attack Message From CI(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtCanSeeEnemyCheck",
+          "Status": 0,
+          "NodeId": 6,
+          "name": "CanSeeEnemy(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtGroupHaveAdequateForces",
+          "Status": 0,
+          "NodeId": 4,
+          "name": "Group Have Adequate Forces(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtGroupAllDronesAttack",
+          "Status": 0,
+          "NodeId": 7,
+          "name": "Group All Drones Attack(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 5,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}

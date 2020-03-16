@@ -160,6 +160,7 @@ namespace Bbbt
             return Status == BbbtBehaviourStatus.Success || Status == BbbtBehaviourStatus.Failure;
         }
 
+        #if UNITY_EDITOR
         /// <summary>
         /// Tries to find a behaviour that matches a given query.
         /// </summary>
@@ -190,7 +191,11 @@ namespace Bbbt
             // No behaviour found with name matching the query.
             return null;
         }
+        #endif
 
+
+        
+        #if UNITY_EDITOR
         /// <summary>
         /// Get all instances of a type of BbbtBehaviour.
         /// </summary>
@@ -209,5 +214,6 @@ namespace Bbbt
 
             return behaviours;
         }
+        #endif
     }
 }

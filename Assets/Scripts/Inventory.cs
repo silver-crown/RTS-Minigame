@@ -31,32 +31,29 @@ public class Inventory : MonoBehaviour
 
 
     /// <summary>
-    /// Put Amount of Resource ResourceType in the inventory.
+    /// Put Amount of Resource ResourceType in the inventory. Returns the amount that could be deposited.
     /// </summary>
     /// <param name="resourceType"></param>
     /// <param name="amount"></param>
-    public bool Deposit(string resourceType, int amount)
+    public int Deposit(string resourceType, int amount)
     {
-        //if we don't have space
-        if (GetAvailableSpace() < amount)
-        {
-            //the deposit fails
-            return false;
-        }
+        //find out if we have space for everything, and if not figure out how much we can deposit
+        int amountToDeposit = Mathf.Min(amount, GetAvailableSpace());
         //if the resource is already there
         if (Contents.ContainsKey(resourceType))
         {
             //add to the amount we have of it
-            _amountInInventory += amount;
-            Contents[resourceType] += amount;
+            _amountInInventory += amountToDeposit;
+            Contents[resourceType] += amountToDeposit;
         } else //if not,
         {
             //add it to Contents.
-            _amountInInventory += amount;
-            Contents.Add(resourceType, amount);
+            _amountInInventory += amountToDeposit;
+            Contents.Add(resourceType, amountToDeposit);
         }
 
-        return true;
+        //return how much we managed to deposit
+        return amountToDeposit;
     }
 
     /// <summary>

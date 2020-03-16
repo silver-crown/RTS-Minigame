@@ -21,13 +21,14 @@ public class Resource : MonoBehaviour
 
     //Action used to update health bar
     public System.Action OnMined;
+    public System.Action OnDestroyed;
 
     private void Awake()
     {
         //initialize data
-        _readStatsFromFile();
+        ReadStatsFromFile();
 
-        //add self to resource lsit
+        //add self to resource list
         WorldInfo.Resources.Add(gameObject);
     }
 
@@ -48,13 +49,14 @@ public class Resource : MonoBehaviour
     /// <summary>
     /// Read the resources stats from the lua file specified in the _luaFile field.
     /// </summary>
-    private void _readStatsFromFile()
+    private void ReadStatsFromFile()
     {
         //open lua file
         Script script = new Script();
         var resourceTable = script.DoFile(_luaFile).Table;
-        HP = (int)resourceTable.Get("HP").Number;
-        MaxHP = (int)resourceTable.Get("HP").Number;
+        HP = (int)resourceTable.Get("_hp").Number;
+        MaxHP = HP;
+        Debug.Log(HP);
 
         ResourceType = script.Globals.Get("ResourceType").String;
     }
@@ -85,6 +87,8 @@ public class Resource : MonoBehaviour
     {
         //remove resource from global resource list
         WorldInfo.Resources.Remove(gameObject);
+
+        OnDestroyed?.Invoke();
 
         //destroy the gameobject
         Destroy(gameObject);

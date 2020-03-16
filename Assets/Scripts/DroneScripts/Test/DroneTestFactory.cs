@@ -22,13 +22,15 @@ namespace RTS.Test
                 if (!_doNotSpawn) BuildDroneForFree(type);
             }
         }
-
+      
         /// <summary>
         /// Builds a drone.
         /// </summary>
         /// <param name="type">The type of the drone.</param>
         public void BuildDroneForFree(string type)
         {
+            #if UNITY_EDITOR // temporary if def so networking can be tested
+
             var distance = new Vector3(
                 Random.Range(-_radius, _radius),
                 0.0f,
@@ -37,8 +39,10 @@ namespace RTS.Test
             var go = Instantiate(_dronePrefab, transform.position + distance, Quaternion.identity, null);
             var drone = go.GetComponent<Drone>();
             drone.SetType(type);
+            drone.name = type;
             _timeSinceLastSpawn = 0.0f;
             GetComponent<CentralIntelligence>().AddDrone(drone);
+            #endif
         }
     }
 }

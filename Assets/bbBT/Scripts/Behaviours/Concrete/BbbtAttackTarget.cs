@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using RTS;
+using MoonSharp.Interpreter;
 
 namespace Bbbt
 {
@@ -34,23 +35,27 @@ namespace Bbbt
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
 
-            if(_actor.Target == null)
+            if (_actor.Target == null)
             {
-                Debug.Log("Attack Failed: no target is assigned");
+                return BbbtBehaviourStatus.Failure;
+            }
+            var attackRange = (float)_actor.GetValue("_attackRange").Number;
+            if (Vector3.Distance(_actor.Target.transform.position, _actor.transform.position) > attackRange)
+            {
                 return BbbtBehaviourStatus.Failure;
             }
 
-            if(Vector3.Distance(_actor.Target.transform.position, _actor.transform.position) > _actor.AttackRange)
+            var lastAttackTime = (float)_actor.GetValue("_lastAttackTime").Number;
+            if (Time.time >= lastAttackTime + 1.0f / _actor.GetValue("_fireRate").Number)
             {
-                Debug.Log("Attack Failed: target is out of range");
-                return BbbtBehaviourStatus.Failure;
+                _actor.Attack();
+                _actor.SetValue("_lastAttackTime", DynValue.NewNumber(Time.time));
+                return BbbtBehaviourStatus.Success;
             }
-
-            Debug.Log("Attacked target!");
-
-            _actor.Attack();
-
-            return BbbtBehaviourStatus.Success;
+            else
+            {
+                return BbbtBehaviourStatus.Running;
+            }
         }
     }
 
