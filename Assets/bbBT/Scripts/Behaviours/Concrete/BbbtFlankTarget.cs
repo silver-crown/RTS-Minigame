@@ -42,12 +42,31 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
+            Bounds dumbo = _group.CreateTargetRadius();
             //Flank the enemy and attack
             //take the group's target radius, and go to one of the four points
-           /* if (_group.CreateTargetRadius())
-            {
-                //move to flanking positions
-            }*/
+            //x position of the centerpoint of the bounds
+            float width = dumbo.size.x;
+            float height = dumbo.size.y;
+
+            Vector3 topRight = dumbo.center;
+            Vector3 topLeft = dumbo.center;
+            Vector3 bottomRight = dumbo.center;
+            Vector3 bottomLeft = dumbo.center;
+
+            //Set the top right of the bounds
+            topRight.x += width / 2;
+            topRight.y += height / 2;
+            //Set the top left of the bounds
+            topLeft.x = width / 2;
+            topLeft.y = height / 2;
+            //Set the bottom right of the bounds
+            bottomRight.x = width / 2;
+            bottomRight.y = height / 2;
+            //Set the bottom left of the bounds
+            bottomLeft.x = width / 2;
+            bottomLeft.y = height / 2;
+            //victory!
             return BbbtBehaviourStatus.Failure;
         }
     }
