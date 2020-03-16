@@ -38,6 +38,10 @@ public static class WorldInfo
     /// List of all resources in the game.
     /// </summary>
     public static List<GameObject> Resources { get; private set; }
+    /// <summary>
+    /// List of all buildings that can hold resources in the game.
+    /// </summary>
+    public static List<GameObject> Depots { get; private set; }
 
     static WorldInfo()
     {

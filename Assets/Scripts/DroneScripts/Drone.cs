@@ -1,19 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
-using System.IO;
-using RTS;
+using RTS.Lua;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
 public class Drone : RTS.Actor
 {
-    
     /// <summary>
     /// The id to assign to the next instantiated drone.
     /// </summary>
@@ -45,7 +40,7 @@ public class Drone : RTS.Actor
     /// set the group script's id to match that of the drone
     /// </summary>
     void SetupGroup()
-    { 
+    {
         group.groupID = groupID;
         group.leaderStatus = leaderStatus;
     }
@@ -73,9 +68,9 @@ public class Drone : RTS.Actor
     }
     void globalChannelTest()
     {
-        //Debug.Log("Drone " + ID + " received a message in the Global Channel!");
-        //The behaviour trees look for the messages in the message lists, they're added there once they're heard by the listener
+
         messageList.Add(" received a message in the Global Channel!");
+
     }
 
     void PrivateChannelTest()
@@ -96,15 +91,13 @@ public class Drone : RTS.Actor
             _personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
 
-        SetDroneType();
-
         ID = _nextId++;
 
         EventManager.AddPrivateChannel(_personalChannelDictionary);
     }
 
     public override void Start()
-    {  
+    {
         base.Start();
         SetupMessagesToListenTo();
     }
@@ -113,8 +106,9 @@ public class Drone : RTS.Actor
     public override void Update()
     {
         base.Update();
+        //Debug.Log(_script.Call(_script.Globals["Update"]));
 
-        var lastTimeScouted = _table.Get("_lastTimeChunkWasScouted");
+        var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
         if (lastTimeScouted.IsNotNil())
         {
             // Update when the actor saw a chunk
@@ -133,7 +127,7 @@ public class Drone : RTS.Actor
                 bool inSightRange = true;
                 foreach (var distance in distances)
                 {
-                    if (distance > _table.Get("_sightRange").Number)
+                    if (distance > GetValue("_sightRange").Number)
                     {
                         inSightRange = false;
                     }
@@ -165,9 +159,8 @@ public class Drone : RTS.Actor
     public void SetType(string type)
     {
         Type = type;
-        Script script = new Script();
-        _table = script.DoFile(Path.Combine("Actors", "Drones", type)).Table;
-        string tree = _table.Get("_behaviourTree").String;
+        _luaObject = LuaManager.CreateLuaObject("Actors/Drones/" + type);
+        string tree = GetValue("_behaviourTree").String;
 
         if (tree != null)
         {
@@ -178,7 +171,7 @@ public class Drone : RTS.Actor
             Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
         }
     }
-    #endif
+#endif
 
     public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
     {
@@ -202,10 +195,10 @@ public class Drone : RTS.Actor
     }
     void ListenToMessages()
     {
-        for(int i = 0; i <= message.Length; i++)
+        for (int i = 0; i <= message.Length; i++)
         {
             lastMessage = i;
-            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]);}, EventManager.MessageChannel.privateChannel, ID);
+            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]); }, EventManager.MessageChannel.privateChannel, ID);
         }
     }
     /// <summary>
@@ -213,6 +206,7 @@ public class Drone : RTS.Actor
     /// </summary>
     void SetupMessagesToListenTo()
     {
+        if (message == null) return;
         int i = 0;
         message[i++] = "Frontal Assault";
         message[i++] = "Flanking Assault Frontal";

@@ -21,6 +21,7 @@ public class Resource : MonoBehaviour
 
     //Action used to update health bar
     public System.Action OnMined;
+    public System.Action OnDestroyed;
 
     private void Awake()
     {
@@ -86,6 +87,8 @@ public class Resource : MonoBehaviour
     {
         //remove resource from global resource list
         WorldInfo.Resources.Remove(gameObject);
+
+        OnDestroyed?.Invoke();
 
         //destroy the gameobject
         Destroy(gameObject);

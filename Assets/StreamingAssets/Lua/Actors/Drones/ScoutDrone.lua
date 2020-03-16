@@ -1,3 +1,7 @@
+function Update()
+    return "hello"
+end
+
 return
 {
     -- general drone stats
@@ -9,5 +13,5 @@ return
     _attacksPerSecond   = 1.0,
 
     -- scout stats
-    _lastTimeChunkWasScouted = {}
+    _lastTimeChunkWasScouted = {},
 }
