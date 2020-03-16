@@ -264,6 +264,87 @@ public class Group : MonoBehaviour
     {
         return ProduceCornersOfBounds(CreateTargetBounds());
     }
+
+    /// <summary>
+    /// Assign drones to the alpha unit, the primary fighting force of the group. Everyone starts in this unit and are diverged
+    /// into sub-units later as needed
+    /// </summary>
+    /// <returns></returns>
+    private List<Drone> AssignAlphaDrones()
+    {
+        List<Drone> alphaDrones = new List<Drone>();
+        //Assign everyone as alpha to begin with
+        for (int i = 0; i <= _groupMembers.Count; i++)
+        {
+            _groupMembers[i].GetComponent<Drone>().myUnit = Drone.GroupUnit.Alpha;
+            alphaDrones.Add(_groupMembers[i].GetComponent<Drone>());
+        }
+        return alphaDrones;
+    }
+    /// <summary>
+    /// Assign drones to the bravo unit, these are the second-most powerful force of the group, and the primary backup unit for flanking
+    /// </summary>
+    /// <returns></returns>
+    private List<Drone> AssignBravoDrones()
+    {
+        List<Drone> bravoDrones = new List<Drone>();
+        //fucking hooooooooow
+        return bravoDrones;
+    } 
+    /// <summary>
+    /// Assign drones to the charlie unit, the second weakest unit of the group, they provide support for bravo unit
+    /// </summary>
+    /// <returns></returns>
+    private List<Drone> AssignCharlieDrones()
+    {
+        List<Drone> drones = new List<Drone>();
+        //fucking hooooooooow
+        return drones;
+    }
+    /// <summary>
+    /// Assign drones to the delta unit, the smallest and weakest unit of the group, they're dependant on the others for success in maneuvers
+    /// </summary>
+    /// <returns></returns>
+    private List<Drone> AssignDeltaDrones()
+    {
+        List<Drone> drones = new List<Drone>();
+        //fucking hooooooooow
+        return drones;
+    }
+    /// <summary>
+    /// For use in two-way flanking maneuvers 
+    /// </summary>
+    /// <returns></returns>
+    private List<List<Drone>> DivideArmyInTwo()
+    {
+        List<List<Drone>> dividedArmy = new List<List<Drone>>();
+        dividedArmy.Add(AssignAlphaDrones());
+        dividedArmy.Add(AssignBravoDrones());
+        //fucking hooooooooow
+        return dividedArmy;
+    }
+    /// <summary>
+    /// For use in three-way flanking maneuvers
+    /// </summary>
+    /// <returns></returns>
+    private List<List<Drone>> DivideArmyInThree()
+    {
+        List<Drone> drones = new List<Drone>();
+        List<List<Drone>> ArmyStrength = new List<List<Drone>>();
+        //fucking hooooooooow
+        return ArmyStrength;
+    }
+    /// <summary>
+    /// For use in four-way flanking maneuvers
+    /// </summary>
+    /// <returns></returns>
+    private List<List<Drone>> DivideArmyInFour()
+    {
+        List<Drone> drones = new List<Drone>();
+        List<List<Drone>> ArmyStrength = new List<List<Drone>>();
+        //fucking hooooooooow
+        return ArmyStrength;
+    }
 }
 
 

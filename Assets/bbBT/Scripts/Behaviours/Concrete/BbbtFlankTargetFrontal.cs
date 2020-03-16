@@ -48,12 +48,6 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            //seperate the group, make some of them attack on front
-            //Others should attack on the left and right
-            //maybe do this in the group tree?
-            //hm yeah maybe. we'll need seperate, nearly identical trees for this through
-            //is all gon b k
-
             //attack the target force from the front
 
             if (_actor.Target == null)

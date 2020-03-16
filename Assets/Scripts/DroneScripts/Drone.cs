@@ -35,7 +35,14 @@ public class Drone : RTS.Actor
     [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] Group group;
 
-
+    public enum GroupUnit
+    {
+        Alpha,
+        Bravo,
+        Charlie,
+        Delta
+    }
+    public GroupUnit myUnit;
     /// <summary>
     /// set the group script's id to match that of the drone
     /// </summary>
@@ -214,4 +221,6 @@ public class Drone : RTS.Actor
         message[i++] = "Flanking Assault Right";
         message[i++] = "Flanking Assault Left";
     }
+
+
 }
