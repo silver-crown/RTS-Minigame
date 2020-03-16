@@ -215,6 +215,9 @@ public class Drone : RTS.Actor
     {
         int i = 0;
         message[i++] = "Frontal Assault";
-        message[i++] = "Flanking Assault";
+        message[i++] = "Flanking Assault Frontal";
+        message[i++] = "Flanking Assault Behind";
+        message[i++] = "Flanking Assault Right";
+        message[i++] = "Flanking Assault Left";
     }
 }

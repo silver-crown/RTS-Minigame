@@ -179,7 +179,6 @@ public class Group : MonoBehaviour
         }
         return myBounds;
     }
-
     /// <summary>
     /// Produces four corners from bounds passed as an argument
     /// </summary>
@@ -247,9 +246,9 @@ public class Group : MonoBehaviour
 
         return sides;
     }
-
     /// <summary>
     /// Gets the sides of the group target's bounds
+    /// 0 is top, 1 is bottom, 2 is right, 3 is left
     /// </summary>
     /// <returns></returns>
     public List<Vector3> GetGroupTargetSides()
@@ -258,6 +257,7 @@ public class Group : MonoBehaviour
     }
     /// <summary>
     /// Gets the corners of the group's target bounds
+    /// 0 is top right, 1 is top left, 2 is bottom right, 3 is bottom left
     /// </summary>
     /// <returns></returns>
     public List<Vector3> GetGroupTargetCorners()
