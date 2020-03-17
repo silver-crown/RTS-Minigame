@@ -30,7 +30,17 @@ public class Group : MonoBehaviour
     /// </summary>
     public List<GameObject> groupMembers = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
+
+
+    // The units the group is divided into
+    private List<Drone> _alphaDrones = new List<Drone>();
+    private List<Drone> _bravoDrones = new List<Drone>();
+    private List<Drone> _charlieDrones = new List<Drone>();
+    private List<Drone> _deltaDrones = new List<Drone>();
     bool _listening;
+
+    public Bounds targetBounds;
+    public float targetRadius;
     /// <summary>
     /// A list of all messages currently sent to the group
     /// </summary>
@@ -120,12 +130,13 @@ public class Group : MonoBehaviour
     /// Create the radius of all the targets the group members are currently assigned to
     /// this is used for flanking behaviour
     /// </summary>
-    private Bounds CreateTargetBounds()
+    public void CreateTargetBounds()
     {
         //gusto 1 is north (positive y), gusto 2 is east (positive x), gusto 3 is south(negative y), gusto 4 is west(negative x)
         Vector4 fourWayTemp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
         Vector3 origin = new Vector3(0.0f, 0.0f, 0.0f);
         Vector3 longestYard = new Vector3(0.0f, 0.0f, 0.0f);
+        float radius = 0.0f;
         float dist = 0.0f;
         List <Transform> targets = new List<Transform>();
         for (int i = 0; i <= groupMembers.Count; i++)
@@ -159,8 +170,8 @@ public class Group : MonoBehaviour
                 fourWayTemp.w = targets[i].position.y;
             }
             //get the longest distance from origin 
-            float temp = Vector3.Distance(targets[i].position, longestYard);
-            if(temp > dist)
+            radius = Vector3.Distance(targets[i].position, longestYard);
+            if(radius > dist)
             {
                 longestYard = targets[i].position;
             }
@@ -177,94 +188,9 @@ public class Group : MonoBehaviour
         {
             myBounds.Encapsulate(nextCollider.bounds);
         }
-        return myBounds;
+        targetBounds = myBounds;
+        targetRadius = radius;
     }
-    /// <summary>
-    /// Produces four corners from bounds passed as an argument
-    /// </summary>
-    /// <param name="bounds"></param>
-    /// <returns></returns>
-    private List<Vector3> ProduceCornersOfBounds(Bounds bounds)
-    {
-        //take the group's target radius, and produces four corner points
-        List<Vector3> corners = new List<Vector3>();
-        float width = bounds.size.x;
-        float height = bounds.size.y;
-
-        Vector3 topRight = bounds.center;
-        Vector3 topLeft = bounds.center;
-        Vector3 bottomRight = bounds.center;
-        Vector3 bottomLeft = bounds.center;
-
-        //Set the top right of the bounds
-        topRight.x += width / 2;
-        topRight.y += height / 2;
-        //Set the top left of the bounds
-        topLeft.x = width / 2;
-        topLeft.y = height / 2;
-        //Set the bottom right of the bounds
-        bottomRight.x = width / 2;
-        bottomRight.y = height / 2;
-        //Set the bottom left of the bounds
-        bottomLeft.x = width / 2;
-        bottomLeft.y = height / 2;
-
-        corners.Add(topRight);
-        corners.Add(topLeft);
-        corners.Add(bottomRight);
-        corners.Add(bottomLeft);
-
-        return corners;
-    }
-    /// <summary>
-    /// Produces four sides from bounds pass as an argument
-    /// </summary>
-    /// <param name="bounds"></param>
-    /// <returns></returns>
-    private List<Vector3> ProduceSidesOfBounds(Bounds bounds)
-    {
-
-        float width = bounds.size.x;
-        float height = bounds.size.y;
-
-        List<Vector3> sides = new List<Vector3>();
-
-        Vector3 top = bounds.center;
-        Vector3 bottom = bounds.center;
-        Vector3 right = bounds.center;
-        Vector3 left = bounds.center;
-
-        top.y += height / 2;
-        bottom.y += height / 2;
-        right.x += width / 2;
-        left.x += width / 2;
-
-        sides.Add(top);
-        sides.Add(bottom);
-        sides.Add(right);
-        sides.Add(left);
-
-        return sides;
-    }
-    /// <summary>
-    /// Gets the sides of the group target's bounds
-    /// 0 is top, 1 is bottom, 2 is right, 3 is left
-    /// </summary>
-    /// <returns></returns>
-    public List<Vector3> GetGroupTargetSides()
-    {
-        return ProduceSidesOfBounds(CreateTargetBounds());
-    }
-    /// <summary>
-    /// Gets the corners of the group's target bounds
-    /// 0 is top right, 1 is top left, 2 is bottom right, 3 is bottom left
-    /// </summary>
-    /// <returns></returns>
-    public List<Vector3> GetGroupTargetCorners()
-    {
-        return ProduceCornersOfBounds(CreateTargetBounds());
-    }
-
     /// <summary>
     /// Assign drones to the alpha unit, the primary fighting force of the group. Everyone starts in this unit and are diverged
     /// into sub-units later as needed
@@ -275,7 +201,10 @@ public class Group : MonoBehaviour
         //Assign everyone as alpha to begin with
         for (int i = 0; i <= groupMembers.Count; i++)
         {
+            //assign the drone as an alpha unit
             groupMembers[i].GetComponent<Drone>().myUnit = Drone.GroupUnit.Alpha;
+            //add them to the list of alphas
+            _alphaDrones.Add(groupMembers[i].GetComponent<Drone>());
         }
     }
     /// <summary>
@@ -285,19 +214,29 @@ public class Group : MonoBehaviour
     private void AssignBravoDrones()
     {
         //get the size of the group(alpha unit)
-        int alphas = 0;
-        for (int i = 0; i <= groupMembers.Count; i++)
+        //divide it by 3
+        int alphas = _alphaDrones.Count;
+        int third = alphas / 3;
+        
+        //1/3 should be assigned as Bravo drones, the rest remain untouched
+        for (int i = 0; i <= third; i++)
         {
-            if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Alpha)
+            //go through all of them and find the weakest guy, asign him to bravo unit
+            for (int j = 0; j <= _alphaDrones.Count; j++)
             {
-                alphas++;
+                double lowestGuy = _alphaDrones.Min(_alphaDrones => _alphaDrones.powerLevel);
+                //go through all the alphas, if they're the lowestGuy, add them to bravos and remove them from alphas
+                for (int k = 0; k <= _alphaDrones.Count; k++)
+                {
+                    if (_alphaDrones[k].powerLevel == lowestGuy)
+                    {
+                        _bravoDrones.Add(_alphaDrones[k]);
+                        _alphaDrones.Remove(_alphaDrones[k]);
+                        break;
+                    }
+                }
             }
         }
-        int third = alphas / 3;
-        //divide it by 3
-        //1/3 should be assigned as Bravo drones, the rest remain untouched
-        //thus, find the weakest third of the alpha unit, and make them bravos.
-        //how? Utility AI prolly, same way leader status will be decided.
     } 
     /// <summary>
     /// Assign drones to the charlie unit, the second weakest unit of the group, they provide support for bravo unit
@@ -305,20 +244,30 @@ public class Group : MonoBehaviour
     /// <returns></returns>
     private void AssignCharlieDrones()
     {
-        int bravos = 0;
-        for (int i = 0; i <= groupMembers.Count; i++)
-        {
-            if(groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Bravo)
-            {
-                bravos++;
-            }
-        }
-        int third = bravos / 3;
         //get the size of the Bravo unit
         //divide it by 3
+        int bravos = _bravoDrones.Count;
+        int third = bravos / 3;
+      
         //1/3 should be assigned as Charlie drones, the rest remain untouched
-        //thus, find the weakest third of the Bravo unit, and make them Charlies.
-        //how? Utility AI prolly, same way leader status will be decided.
+        for (int i = 0; i <= third; i++)
+        {
+            //go through all of them and find the weakest guy, asign him to bravo unit
+            for (int j = 0; j <= _bravoDrones.Count; j++)
+            {
+                double lowestGuy = _bravoDrones.Min(_bravoDrones => _bravoDrones.powerLevel);
+                //go through all the alphas, if they're the lowestGuy, add them to bravos and remove them from alphas
+                for (int k = 0; k <= _bravoDrones.Count; k++)
+                {
+                    if (_bravoDrones[k].powerLevel == lowestGuy)
+                    {
+                        _charlieDrones.Add(_bravoDrones[k]);
+                        _bravoDrones.Remove(_bravoDrones[k]);
+                        break;
+                    }
+                }
+            }
+        }
     }
     /// <summary>
     /// Assign drones to the delta unit, the smallest and weakest unit of the group, they're dependant on the others for success in maneuvers
@@ -326,28 +275,42 @@ public class Group : MonoBehaviour
     /// <returns></returns>
     private void AssignDeltaDrones()
     {
-        int charlies = 0;
-        for (int i = 0; i <= groupMembers.Count; i++)
-        {
-            if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Delta)
-            {
-                charlies++;
-            }
-        }
-        int third = charlies / 3;
         //get the size of the charlie unit
         //divide it by 3
+        int charlies = _charlieDrones.Count;
+        int third = charlies / 3;
+
         //1/3 should be assigned as Deltas drones, the rest remain untouched
-        //thus, find the weakest third of the Charlie unit, and make them Deltas.
-        //how? Utility AI prolly, same way leader status will be decided.
+        for (int i = 0; i <= third; i++)
+        {
+            //go through all of them and find the weakest guy, asign him to bravo unit
+            for (int j = 0; j <= _charlieDrones.Count; j++)
+            {
+                double lowestGuy = _charlieDrones.Min(_charlieDrones => _charlieDrones.powerLevel);
+                //go through all the alphas, if they're the lowestGuy, add them to bravos and remove them from alphas
+                for (int k = 0; k <= _charlieDrones.Count; k++)
+                {
+                    if (_charlieDrones[k].powerLevel == lowestGuy)
+                    {
+                        _deltaDrones.Add(_charlieDrones[k]);
+                        _charlieDrones.Remove(_charlieDrones[k]);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>
     /// For use in two-way flanking maneuvers, divide the army up into different tactical units up to four times
     /// </summary>
     /// <param name="divisions"></param>
-    private void DivideArmy(int divisions)
+    public void DivideArmy(int divisions)
     {
+        for(int i = 0; i<= groupMembers.Count; i++)
+        {
+            groupMembers[i].GetComponent<Drone>().CalculatePowerLevel();
+        }
         switch (divisions)
         {
             case (2):

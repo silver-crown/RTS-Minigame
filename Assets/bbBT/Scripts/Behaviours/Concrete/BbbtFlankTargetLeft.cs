@@ -47,25 +47,29 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            //seperate the group, make some of them attack on front
-            //Others should attack on the left and right
-            //maybe do this in the group tree?
-            //hm yeah maybe. we'll need seperate, nearly identical trees for this through
-            //is all gon b k
-
-            //attack the target force from the left
+            int angle = -90;
+            //attack the target force from left
+            _group.CreateTargetBounds();
+            Vector3 initialPosition = _group.transform.position;
+            Vector3 center = _group.targetBounds.center;
+            float radius = _group.targetRadius;
+            float moveRadius = radius * 1.7f;
 
             if (_actor.Target == null)
             {
                 return BbbtBehaviourStatus.Failure;
             }
-            float attackRange = (float)_actor.GetValue("_attackRange").Number;
-            if (attackRange >= Vector3.Distance(gameObject.transform.position, _actor.Target.transform.position))
+
+            //if you're not on the left, go to the left
+            //encircle the center until you reach the back, then move towards the target and return success.
+            while (_actor.transform.position != (initialPosition + center + new Vector3(radius + Mathf.Cos(angle), radius + Mathf.Sin(angle))))
             {
-                _navMeshAgent.SetDestination(_actor.transform.position);
+                _navMeshAgent.SetDestination(center + new Vector3(radius * Mathf.Cos(-Time.deltaTime), radius * Mathf.Sin(-Time.deltaTime)));
+            }
+            if (_actor.transform.position == (initialPosition + center + new Vector3(radius + Mathf.Cos(angle), radius + Mathf.Sin(angle))))
+            {
                 return BbbtBehaviourStatus.Success;
             }
-            //victory!
             return BbbtBehaviourStatus.Failure;
         }
     }

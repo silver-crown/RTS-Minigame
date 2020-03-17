@@ -5,10 +5,10 @@
       "SaveDataType": "BbbtSequencer",
       "Children": [
         {
-          "SaveDataType": "BbbtGotFlankingMessage",
+          "SaveDataType": "BbbtGotFrontalAssaultMessage",
           "Status": 0,
           "NodeId": 3,
-          "name": "Got Flanking Message(Clone)",
+          "name": "Got Frontal Assault Message(Clone)",
           "hideFlags": 0
         },
         {
@@ -16,6 +16,20 @@
           "Status": 0,
           "NodeId": 4,
           "name": "CanSeeEnemy(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+          "Status": 0,
+          "NodeId": 5,
+          "name": "Move In Range Of Target(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtAttackTarget",
+          "Status": 0,
+          "NodeId": 6,
+          "name": "Attack Target(Clone)",
           "hideFlags": 0
         }
       ],

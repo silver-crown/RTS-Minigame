@@ -29,9 +29,23 @@
               "hideFlags": 0
             },
             {
+              "SaveDataType": "BbbtTargetNearest",
+              "Status": 0,
+              "NodeId": 38,
+              "name": "TargetNearest(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+              "Status": 0,
+              "NodeId": 39,
+              "name": "Move In Range Of Target(Clone)",
+              "hideFlags": 0
+            },
+            {
               "SaveDataType": "BbbtAttackTarget",
               "Status": 0,
-              "NodeId": 13,
+              "NodeId": 40,
               "name": "Attack Target(Clone)",
               "hideFlags": 0
             }
@@ -66,9 +80,23 @@
               "hideFlags": 0
             },
             {
+              "SaveDataType": "BbbtTargetNearest",
+              "Status": 0,
+              "NodeId": 41,
+              "name": "TargetNearest(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+              "Status": 0,
+              "NodeId": 42,
+              "name": "Move In Range Of Target(Clone)",
+              "hideFlags": 0
+            },
+            {
               "SaveDataType": "BbbtAttackTarget",
               "Status": 0,
-              "NodeId": 25,
+              "NodeId": 43,
               "name": "Attack Target(Clone)",
               "hideFlags": 0
             }
@@ -103,9 +131,23 @@
               "hideFlags": 0
             },
             {
+              "SaveDataType": "BbbtTargetNearest",
+              "Status": 0,
+              "NodeId": 44,
+              "name": "TargetNearest(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+              "Status": 0,
+              "NodeId": 45,
+              "name": "Move In Range Of Target(Clone)",
+              "hideFlags": 0
+            },
+            {
               "SaveDataType": "BbbtAttackTarget",
               "Status": 0,
-              "NodeId": 27,
+              "NodeId": 46,
               "name": "Attack Target(Clone)",
               "hideFlags": 0
             }
@@ -140,9 +182,23 @@
               "hideFlags": 0
             },
             {
+              "SaveDataType": "BbbtTargetNearest",
+              "Status": 0,
+              "NodeId": 47,
+              "name": "TargetNearest(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+              "Status": 0,
+              "NodeId": 48,
+              "name": "Move In Range Of Target(Clone)",
+              "hideFlags": 0
+            },
+            {
               "SaveDataType": "BbbtAttackTarget",
               "Status": 0,
-              "NodeId": 29,
+              "NodeId": 49,
               "name": "Attack Target(Clone)",
               "hideFlags": 0
             }

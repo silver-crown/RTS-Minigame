@@ -2,19 +2,21 @@
   "Root": {
     "SaveDataType": "BbbtRoot",
     "Child": {
-      "SaveDataType": "BbbtSequencer",
-      "Children": [
-        {
-          "SaveDataType": "BbbtAttackDistanceCheck",
-          "Status": 0,
-          "NodeId": 3,
-          "name": "Attack Distance Check(Clone)",
-          "hideFlags": 0
-        }
-      ],
+      "Count": 0,
+      "SaveDataType": "BbbtRepeater",
+      "Child": {
+        "_message": "A message.",
+        "_isEnabled": true,
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Debug Logger(Clone)",
+        "hideFlags": 0
+      },
       "Status": 0,
-      "NodeId": 2,
-      "name": "Sequencer(Clone)",
+      "NodeId": 4,
+      "name": "Repeater(Clone)",
       "hideFlags": 0
     },
     "Status": 0,

@@ -39,6 +39,9 @@ namespace Bbbt
             //A four-way encirclement flank, need to find a way to select flank types in here, probably a utility AI thing.
             //*************************************************************************************************************
 
+            //Divide the group into four units
+            _group.DivideArmy(4);
+
             //Get the Alpha unit, and send them to the frontlines
             for(int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Alpha).Count; i++)
             {
