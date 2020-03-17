@@ -68,17 +68,6 @@ public class Drone : RTS.Actor
     /// </summary>
     public CentralIntelligence CentralIntelligence { get; set; }
 
-    /// <summary>
-    /// Message Listening, with example functions below
-    /// </summary>
-    void ListenToChannels()
-    {
-        //listening on a public channel
-        EventManager.StartListening("Testing Worker Channel", globalChannelTest, EventManager.MessageChannel.workerChannel);
-
-        //Listening on a private channel requires an id number, the Drone's own id should be provided here
-        EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
-    }
     void globalChannelTest()
     {
 
@@ -112,7 +101,6 @@ public class Drone : RTS.Actor
     public override void Start()
     {
         base.Start();
-        SetupMessagesToListenTo();
     }
 
     // Update is called once per frame
@@ -185,26 +173,11 @@ public class Drone : RTS.Actor
 
         InGameDebug.Log(Type + " boy reporting for duty.");
     }
-
-    public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
+    //add message to the message list. 
+    public void ReceiveMessage(string message)
     {
-        //a switch for the channel
-        switch (channel)
-        {
-            case (EventManager.MessageChannel.globalChannel):
-                {
-                    //and a nested one for the message itself
-                    switch (message)
-                    {
-                        //a test message
-                        case ("Test message"):
-                            {
-                                break;
-                            }
-                    }
-                    break;
-                }
-        }
+        //add the received message to the list of messages, for use in other functions later.
+        messageList.Add(message);
     }
     void ListenToMessages()
     {
@@ -213,19 +186,6 @@ public class Drone : RTS.Actor
             lastMessage = i;
             EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]); }, EventManager.MessageChannel.privateChannel, ID);
         }
-    }
-    /// <summary>
-    /// sets up the message array and the strings it can listen for
-    /// </summary>
-    void SetupMessagesToListenTo()
-    {
-        if (message == null) return;
-        int i = 0;
-        message[i++] = "Frontal Assault";
-        message[i++] = "Flanking Assault Frontal";
-        message[i++] = "Flanking Assault Behind";
-        message[i++] = "Flanking Assault Right";
-        message[i++] = "Flanking Assault Left";
     }
 
     public void CalculatePowerLevel()

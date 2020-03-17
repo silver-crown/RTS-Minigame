@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SendMessageToChannel : MonoBehaviour
 {
-    [SerializeField] EventManager.MessageChannel channel;
-    private string message;
+    [SerializeField] private EventManager.MessageChannel _channel;
+    private string _message;
     [SerializeField] bool sending;
     // Start is called before the first frame update
     void Start()
     {
-        if(message == null)
+        if(_message == null)
         {
-            message = "Test message";
+            _message = "Test message";
         }
     }
 
@@ -21,14 +21,16 @@ public class SendMessageToChannel : MonoBehaviour
     {
         if (sending)
         {
-            SendMessage(message, channel);
+            SendMessage (_message);
         }
     }
     /// <summary>
     /// Send a message to the channel in question
     /// </summary>
-    void SendMessage()
+    public void Send(string message, EventManager.MessageChannel channel, int ID = -1)
     {
-        EventManager.TriggerEvent(message, channel);
+        _channel = channel;
+        _message = message;
+        EventManager.TriggerEvent(_message, _channel, ID);
     }
 }

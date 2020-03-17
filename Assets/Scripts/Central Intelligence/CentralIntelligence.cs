@@ -149,34 +149,10 @@ public class CentralIntelligence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //test the worker channel
-        if (Input.GetKeyDown("w"))
-        {
-            EventManager.TriggerEvent("Testing Worker Channel", EventManager.MessageChannel.workerChannel);
-        }
-        //test the private channel
-        if (Input.GetKeyDown("p"))
-        {
-            EventManager.TriggerEvent("Testing Private Channel", EventManager.MessageChannel.privateChannel, 0);
-        }
         // Test building combat drone
         if (Input.GetKeyDown(KeyCode.C))
         {
             GetComponent<DroneTestFactory>().BuildDroneForFree("CombatDrone");
-        }
-
-        //test the group channels
-        if (Input.GetKeyDown("k"))
-        {
-            string m = "this is a test message to group 0";
-            //add the command to the group's list of messages
-            GetComponent<Group>().groupMessageList.Add(m);
-            //Fire off the event
-            //!!!NOTE!!!
-            //The group gets the message into it's list and then does a bunch of stuff, but there's no guarantee
-            //They're able to listen for the message before the event is triggered if it's done like this. 
-            //Sending and triggering should happen seperately
-            EventManager.TriggerEvent(m, EventManager.MessageChannel.groupChannel, 0);
         }
 
         //if enough time has passed since last time do AI decision making
