@@ -34,16 +34,23 @@
                   "hideFlags": 0
                 },
                 {
+                  "SaveDataType": "BbbtTargetNearest",
+                  "Status": 0,
+                  "NodeId": 38,
+                  "name": "TargetNearest(Clone)",
+                  "hideFlags": 0
+                },
+                {
                   "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                   "Status": 0,
-                  "NodeId": 30,
+                  "NodeId": 39,
                   "name": "Move In Range Of Target(Clone)",
                   "hideFlags": 0
                 },
                 {
                   "SaveDataType": "BbbtAttackTarget",
                   "Status": 0,
-                  "NodeId": 31,
+                  "NodeId": 40,
                   "name": "Attack Target(Clone)",
                   "hideFlags": 0
                 }
@@ -78,16 +85,23 @@
                   "hideFlags": 0
                 },
                 {
+                  "SaveDataType": "BbbtTargetNearest",
+                  "Status": 0,
+                  "NodeId": 41,
+                  "name": "TargetNearest(Clone)",
+                  "hideFlags": 0
+                },
+                {
                   "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                   "Status": 0,
-                  "NodeId": 32,
+                  "NodeId": 42,
                   "name": "Move In Range Of Target(Clone)",
                   "hideFlags": 0
                 },
                 {
                   "SaveDataType": "BbbtAttackTarget",
                   "Status": 0,
-                  "NodeId": 33,
+                  "NodeId": 43,
                   "name": "Attack Target(Clone)",
                   "hideFlags": 0
                 }
@@ -122,16 +136,23 @@
                   "hideFlags": 0
                 },
                 {
+                  "SaveDataType": "BbbtTargetNearest",
+                  "Status": 0,
+                  "NodeId": 44,
+                  "name": "TargetNearest(Clone)",
+                  "hideFlags": 0
+                },
+                {
                   "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                   "Status": 0,
-                  "NodeId": 34,
+                  "NodeId": 45,
                   "name": "Move In Range Of Target(Clone)",
                   "hideFlags": 0
                 },
                 {
                   "SaveDataType": "BbbtAttackTarget",
                   "Status": 0,
-                  "NodeId": 35,
+                  "NodeId": 46,
                   "name": "Attack Target(Clone)",
                   "hideFlags": 0
                 }
@@ -166,16 +187,23 @@
                   "hideFlags": 0
                 },
                 {
+                  "SaveDataType": "BbbtTargetNearest",
+                  "Status": 0,
+                  "NodeId": 47,
+                  "name": "TargetNearest(Clone)",
+                  "hideFlags": 0
+                },
+                {
                   "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                   "Status": 0,
-                  "NodeId": 36,
+                  "NodeId": 48,
                   "name": "Move In Range Of Target(Clone)",
                   "hideFlags": 0
                 },
                 {
                   "SaveDataType": "BbbtAttackTarget",
                   "Status": 0,
-                  "NodeId": 37,
+                  "NodeId": 49,
                   "name": "Attack Target(Clone)",
                   "hideFlags": 0
                 }
@@ -196,8 +224,8 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 654.0,
-      "Y": -37.0,
+      "X": 441.0,
+      "Y": 56.0,
       "IsSelected": false
     },
     {
@@ -232,16 +260,23 @@
                 "hideFlags": 0
               },
               {
+                "SaveDataType": "BbbtTargetNearest",
+                "Status": 0,
+                "NodeId": 38,
+                "name": "TargetNearest(Clone)",
+                "hideFlags": 0
+              },
+              {
                 "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                 "Status": 0,
-                "NodeId": 30,
+                "NodeId": 39,
                 "name": "Move In Range Of Target(Clone)",
                 "hideFlags": 0
               },
               {
                 "SaveDataType": "BbbtAttackTarget",
                 "Status": 0,
-                "NodeId": 31,
+                "NodeId": 40,
                 "name": "Attack Target(Clone)",
                 "hideFlags": 0
               }
@@ -276,16 +311,23 @@
                 "hideFlags": 0
               },
               {
+                "SaveDataType": "BbbtTargetNearest",
+                "Status": 0,
+                "NodeId": 41,
+                "name": "TargetNearest(Clone)",
+                "hideFlags": 0
+              },
+              {
                 "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                 "Status": 0,
-                "NodeId": 32,
+                "NodeId": 42,
                 "name": "Move In Range Of Target(Clone)",
                 "hideFlags": 0
               },
               {
                 "SaveDataType": "BbbtAttackTarget",
                 "Status": 0,
-                "NodeId": 33,
+                "NodeId": 43,
                 "name": "Attack Target(Clone)",
                 "hideFlags": 0
               }
@@ -320,16 +362,23 @@
                 "hideFlags": 0
               },
               {
+                "SaveDataType": "BbbtTargetNearest",
+                "Status": 0,
+                "NodeId": 44,
+                "name": "TargetNearest(Clone)",
+                "hideFlags": 0
+              },
+              {
                 "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                 "Status": 0,
-                "NodeId": 34,
+                "NodeId": 45,
                 "name": "Move In Range Of Target(Clone)",
                 "hideFlags": 0
               },
               {
                 "SaveDataType": "BbbtAttackTarget",
                 "Status": 0,
-                "NodeId": 35,
+                "NodeId": 46,
                 "name": "Attack Target(Clone)",
                 "hideFlags": 0
               }
@@ -364,16 +413,23 @@
                 "hideFlags": 0
               },
               {
+                "SaveDataType": "BbbtTargetNearest",
+                "Status": 0,
+                "NodeId": 47,
+                "name": "TargetNearest(Clone)",
+                "hideFlags": 0
+              },
+              {
                 "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
                 "Status": 0,
-                "NodeId": 36,
+                "NodeId": 48,
                 "name": "Move In Range Of Target(Clone)",
                 "hideFlags": 0
               },
               {
                 "SaveDataType": "BbbtAttackTarget",
                 "Status": 0,
-                "NodeId": 37,
+                "NodeId": 49,
                 "name": "Attack Target(Clone)",
                 "hideFlags": 0
               }
@@ -389,307 +445,8 @@
         "name": "Selector(Clone)",
         "hideFlags": 0
       },
-      "X": 653.0,
-      "Y": 119.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 9,
-      "BaseBehaviour": "Got Flanking Frontal Message",
-      "BaseBehaviourInstanceId": 16304,
-      "Behaviour": {
-        "SaveDataType": "BbbtGotFlankingFrontalMessage",
-        "Status": 0,
-        "NodeId": 9,
-        "name": "Got Flanking Frontal Message(Clone)",
-        "hideFlags": 0
-      },
-      "X": 63.0,
-      "Y": 476.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 10,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 18454,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 10,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 149.0,
-      "Y": 474.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 8,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 15700,
-      "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "SaveDataType": "BbbtGotFlankingFrontalMessage",
-            "Status": 0,
-            "NodeId": 9,
-            "name": "Got Flanking Frontal Message(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtCanSeeEnemyCheck",
-            "Status": 0,
-            "NodeId": 10,
-            "name": "CanSeeEnemy(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtFlankTargetFrontal",
-            "Status": 0,
-            "NodeId": 12,
-            "name": "Flank Target Frontal(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
-            "Status": 0,
-            "NodeId": 30,
-            "name": "Move In Range Of Target(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtAttackTarget",
-            "Status": 0,
-            "NodeId": 31,
-            "name": "Attack Target(Clone)",
-            "hideFlags": 0
-          }
-        ],
-        "Status": 0,
-        "NodeId": 8,
-        "name": "Sequencer(Clone)",
-        "hideFlags": 0
-      },
-      "X": 227.0,
-      "Y": 279.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 12,
-      "BaseBehaviour": "Flank Target Frontal",
-      "BaseBehaviourInstanceId": 21314,
-      "Behaviour": {
-        "SaveDataType": "BbbtFlankTargetFrontal",
-        "Status": 0,
-        "NodeId": 12,
-        "name": "Flank Target Frontal(Clone)",
-        "hideFlags": 0
-      },
-      "X": 235.0,
-      "Y": 474.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 30,
-      "BaseBehaviour": "Move In Range Of Target",
-      "BaseBehaviourInstanceId": 14696,
-      "Behaviour": {
-        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
-        "Status": 0,
-        "NodeId": 30,
-        "name": "Move In Range Of Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 313.0,
-      "Y": 475.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 31,
-      "BaseBehaviour": "Attack Target",
-      "BaseBehaviourInstanceId": 15482,
-      "Behaviour": {
-        "SaveDataType": "BbbtAttackTarget",
-        "Status": 0,
-        "NodeId": 31,
-        "name": "Attack Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 397.0,
-      "Y": 476.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 14,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 15700,
-      "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "SaveDataType": "BbbtGotFlankingBehindMessage",
-            "Status": 0,
-            "NodeId": 15,
-            "name": "Got Flanking Behind Message(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtCanSeeEnemyCheck",
-            "Status": 0,
-            "NodeId": 16,
-            "name": "CanSeeEnemy(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtFlankTargetBehind",
-            "Status": 0,
-            "NodeId": 24,
-            "name": "Flank Target Behind(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
-            "Status": 0,
-            "NodeId": 32,
-            "name": "Move In Range Of Target(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtAttackTarget",
-            "Status": 0,
-            "NodeId": 33,
-            "name": "Attack Target(Clone)",
-            "hideFlags": 0
-          }
-        ],
-        "Status": 0,
-        "NodeId": 14,
-        "name": "Sequencer(Clone)",
-        "hideFlags": 0
-      },
-      "X": 574.0,
-      "Y": 279.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 15,
-      "BaseBehaviour": "Got Flanking Behind Message",
-      "BaseBehaviourInstanceId": 19862,
-      "Behaviour": {
-        "SaveDataType": "BbbtGotFlankingBehindMessage",
-        "Status": 0,
-        "NodeId": 15,
-        "name": "Got Flanking Behind Message(Clone)",
-        "hideFlags": 0
-      },
-      "X": 483.0,
-      "Y": 474.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 16,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 18454,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 16,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 569.0,
-      "Y": 475.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 24,
-      "BaseBehaviour": "Flank Target Behind",
-      "BaseBehaviourInstanceId": 22400,
-      "Behaviour": {
-        "SaveDataType": "BbbtFlankTargetBehind",
-        "Status": 0,
-        "NodeId": 24,
-        "name": "Flank Target Behind(Clone)",
-        "hideFlags": 0
-      },
-      "X": 653.0,
-      "Y": 476.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 32,
-      "BaseBehaviour": "Move In Range Of Target",
-      "BaseBehaviourInstanceId": 14696,
-      "Behaviour": {
-        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
-        "Status": 0,
-        "NodeId": 32,
-        "name": "Move In Range Of Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 740.0,
-      "Y": 477.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 33,
-      "BaseBehaviour": "Attack Target",
-      "BaseBehaviourInstanceId": 15482,
-      "Behaviour": {
-        "SaveDataType": "BbbtAttackTarget",
-        "Status": 0,
-        "NodeId": 33,
-        "name": "Attack Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 823.0,
-      "Y": 475.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 19,
-      "BaseBehaviour": "Got Flanking Left Message",
-      "BaseBehaviourInstanceId": 20728,
-      "Behaviour": {
-        "SaveDataType": "BbbtGotFlankingLeftMessage",
-        "Status": 0,
-        "NodeId": 19,
-        "name": "Got Flanking Left Message(Clone)",
-        "hideFlags": 0
-      },
-      "X": 908.0,
-      "Y": 475.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 20,
-      "BaseBehaviour": "CanSeeEnemy",
-      "BaseBehaviourInstanceId": 18454,
-      "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
-        "Status": 0,
-        "NodeId": 20,
-        "name": "CanSeeEnemy(Clone)",
-        "hideFlags": 0
-      },
-      "X": 994.0,
-      "Y": 474.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 26,
-      "BaseBehaviour": "Flank Target Left",
-      "BaseBehaviourInstanceId": 13846,
-      "Behaviour": {
-        "SaveDataType": "BbbtFlankTargetLeft",
-        "Status": 0,
-        "NodeId": 26,
-        "name": "Flank Target Left(Clone)",
-        "hideFlags": 0
-      },
-      "X": 1078.0,
-      "Y": 473.0,
+      "X": 440.0,
+      "Y": 212.0,
       "IsSelected": false
     },
     {
@@ -721,16 +478,23 @@
             "hideFlags": 0
           },
           {
+            "SaveDataType": "BbbtTargetNearest",
+            "Status": 0,
+            "NodeId": 47,
+            "name": "TargetNearest(Clone)",
+            "hideFlags": 0
+          },
+          {
             "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
             "Status": 0,
-            "NodeId": 36,
+            "NodeId": 48,
             "name": "Move In Range Of Target(Clone)",
             "hideFlags": 0
           },
           {
             "SaveDataType": "BbbtAttackTarget",
             "Status": 0,
-            "NodeId": 37,
+            "NodeId": 49,
             "name": "Attack Target(Clone)",
             "hideFlags": 0
           }
@@ -740,38 +504,366 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 1486.0,
-      "Y": 289.0,
+      "X": 1273.0,
+      "Y": 382.0,
       "IsSelected": false
     },
     {
-      "Id": 34,
+      "Id": 22,
+      "BaseBehaviour": "Got Flanking Right Message",
+      "BaseBehaviourInstanceId": 17282,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingRightMessage",
+        "Status": 0,
+        "NodeId": 22,
+        "name": "Got Flanking Right Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1121.0,
+      "Y": 566.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 23,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18454,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 23,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1206.0,
+      "Y": 566.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 28,
+      "BaseBehaviour": "Flank Target Right",
+      "BaseBehaviourInstanceId": 21332,
+      "Behaviour": {
+        "SaveDataType": "BbbtFlankTargetRight",
+        "Status": 0,
+        "NodeId": 28,
+        "name": "Flank Target Right(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1290.0,
+      "Y": 567.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 8,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 15700,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtGotFlankingFrontalMessage",
+            "Status": 0,
+            "NodeId": 9,
+            "name": "Got Flanking Frontal Message(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 10,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtFlankTargetFrontal",
+            "Status": 0,
+            "NodeId": 12,
+            "name": "Flank Target Frontal(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtTargetNearest",
+            "Status": 0,
+            "NodeId": 38,
+            "name": "TargetNearest(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+            "Status": 0,
+            "NodeId": 39,
+            "name": "Move In Range Of Target(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 40,
+            "name": "Attack Target(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 8,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": -273.0,
+      "Y": 283.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 9,
+      "BaseBehaviour": "Got Flanking Frontal Message",
+      "BaseBehaviourInstanceId": 16304,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingFrontalMessage",
+        "Status": 0,
+        "NodeId": 9,
+        "name": "Got Flanking Frontal Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": -536.0,
+      "Y": 425.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18454,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 10,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": -445.0,
+      "Y": 426.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 12,
+      "BaseBehaviour": "Flank Target Frontal",
+      "BaseBehaviourInstanceId": 21314,
+      "Behaviour": {
+        "SaveDataType": "BbbtFlankTargetFrontal",
+        "Status": 0,
+        "NodeId": 12,
+        "name": "Flank Target Frontal(Clone)",
+        "hideFlags": 0
+      },
+      "X": -355.0,
+      "Y": 430.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 38,
+      "BaseBehaviour": "TargetNearest",
+      "BaseBehaviourInstanceId": 22152,
+      "Behaviour": {
+        "SaveDataType": "BbbtTargetNearest",
+        "Status": 0,
+        "NodeId": 38,
+        "name": "TargetNearest(Clone)",
+        "hideFlags": 0
+      },
+      "X": -268.0,
+      "Y": 430.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 39,
       "BaseBehaviour": "Move In Range Of Target",
       "BaseBehaviourInstanceId": 14696,
       "Behaviour": {
         "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
         "Status": 0,
-        "NodeId": 34,
+        "NodeId": 39,
         "name": "Move In Range Of Target(Clone)",
         "hideFlags": 0
       },
-      "X": 1163.0,
-      "Y": 472.0,
+      "X": -182.0,
+      "Y": 429.0,
       "IsSelected": false
     },
     {
-      "Id": 35,
+      "Id": 40,
       "BaseBehaviour": "Attack Target",
       "BaseBehaviourInstanceId": 15482,
       "Behaviour": {
         "SaveDataType": "BbbtAttackTarget",
         "Status": 0,
-        "NodeId": 35,
+        "NodeId": 40,
         "name": "Attack Target(Clone)",
         "hideFlags": 0
       },
-      "X": 1248.0,
-      "Y": 472.0,
+      "X": -97.0,
+      "Y": 426.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 14,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 15700,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtGotFlankingBehindMessage",
+            "Status": 0,
+            "NodeId": 15,
+            "name": "Got Flanking Behind Message(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 16,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtFlankTargetBehind",
+            "Status": 0,
+            "NodeId": 24,
+            "name": "Flank Target Behind(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtTargetNearest",
+            "Status": 0,
+            "NodeId": 41,
+            "name": "TargetNearest(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+            "Status": 0,
+            "NodeId": 42,
+            "name": "Move In Range Of Target(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 43,
+            "name": "Attack Target(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 14,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 88.0,
+      "Y": 433.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 15,
+      "BaseBehaviour": "Got Flanking Behind Message",
+      "BaseBehaviourInstanceId": 19862,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingBehindMessage",
+        "Status": 0,
+        "NodeId": 15,
+        "name": "Got Flanking Behind Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": -118.0,
+      "Y": 571.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 16,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18454,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 16,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": -16.0,
+      "Y": 574.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 24,
+      "BaseBehaviour": "Flank Target Behind",
+      "BaseBehaviourInstanceId": 22400,
+      "Behaviour": {
+        "SaveDataType": "BbbtFlankTargetBehind",
+        "Status": 0,
+        "NodeId": 24,
+        "name": "Flank Target Behind(Clone)",
+        "hideFlags": 0
+      },
+      "X": 79.0,
+      "Y": 575.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 41,
+      "BaseBehaviour": "TargetNearest",
+      "BaseBehaviourInstanceId": 22152,
+      "Behaviour": {
+        "SaveDataType": "BbbtTargetNearest",
+        "Status": 0,
+        "NodeId": 41,
+        "name": "TargetNearest(Clone)",
+        "hideFlags": 0
+      },
+      "X": 171.0,
+      "Y": 578.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 42,
+      "BaseBehaviour": "Move In Range Of Target",
+      "BaseBehaviourInstanceId": 14696,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+        "Status": 0,
+        "NodeId": 42,
+        "name": "Move In Range Of Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 265.0,
+      "Y": 576.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 43,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 15482,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 43,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 351.0,
+      "Y": 577.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 19,
+      "BaseBehaviour": "Got Flanking Left Message",
+      "BaseBehaviourInstanceId": 20728,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingLeftMessage",
+        "Status": 0,
+        "NodeId": 19,
+        "name": "Got Flanking Left Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": 480.0,
+      "Y": 573.0,
       "IsSelected": false
     },
     {
@@ -803,16 +895,23 @@
             "hideFlags": 0
           },
           {
+            "SaveDataType": "BbbtTargetNearest",
+            "Status": 0,
+            "NodeId": 44,
+            "name": "TargetNearest(Clone)",
+            "hideFlags": 0
+          },
+          {
             "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
             "Status": 0,
-            "NodeId": 34,
+            "NodeId": 45,
             "name": "Move In Range Of Target(Clone)",
             "hideFlags": 0
           },
           {
             "SaveDataType": "BbbtAttackTarget",
             "Status": 0,
-            "NodeId": 35,
+            "NodeId": 46,
             "name": "Attack Target(Clone)",
             "hideFlags": 0
           }
@@ -822,84 +921,129 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 968.0,
-      "Y": 295.0,
+      "X": 604.0,
+      "Y": 426.0,
       "IsSelected": false
     },
     {
-      "Id": 22,
-      "BaseBehaviour": "Got Flanking Right Message",
-      "BaseBehaviourInstanceId": 17282,
-      "Behaviour": {
-        "SaveDataType": "BbbtGotFlankingRightMessage",
-        "Status": 0,
-        "NodeId": 22,
-        "name": "Got Flanking Right Message(Clone)",
-        "hideFlags": 0
-      },
-      "X": 1334.0,
-      "Y": 473.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 23,
+      "Id": 20,
       "BaseBehaviour": "CanSeeEnemy",
       "BaseBehaviourInstanceId": 18454,
       "Behaviour": {
         "SaveDataType": "BbbtCanSeeEnemyCheck",
         "Status": 0,
-        "NodeId": 23,
+        "NodeId": 20,
         "name": "CanSeeEnemy(Clone)",
         "hideFlags": 0
       },
-      "X": 1419.0,
-      "Y": 473.0,
+      "X": 573.0,
+      "Y": 576.0,
       "IsSelected": false
     },
     {
-      "Id": 36,
+      "Id": 26,
+      "BaseBehaviour": "Flank Target Left",
+      "BaseBehaviourInstanceId": 13846,
+      "Behaviour": {
+        "SaveDataType": "BbbtFlankTargetLeft",
+        "Status": 0,
+        "NodeId": 26,
+        "name": "Flank Target Left(Clone)",
+        "hideFlags": 0
+      },
+      "X": 671.0,
+      "Y": 580.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 44,
+      "BaseBehaviour": "TargetNearest",
+      "BaseBehaviourInstanceId": 22152,
+      "Behaviour": {
+        "SaveDataType": "BbbtTargetNearest",
+        "Status": 0,
+        "NodeId": 44,
+        "name": "TargetNearest(Clone)",
+        "hideFlags": 0
+      },
+      "X": 755.0,
+      "Y": 581.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 45,
       "BaseBehaviour": "Move In Range Of Target",
       "BaseBehaviourInstanceId": 14696,
       "Behaviour": {
         "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
         "Status": 0,
-        "NodeId": 36,
+        "NodeId": 45,
         "name": "Move In Range Of Target(Clone)",
         "hideFlags": 0
       },
-      "X": 1587.0,
-      "Y": 473.0,
+      "X": 843.0,
+      "Y": 582.0,
       "IsSelected": false
     },
     {
-      "Id": 28,
-      "BaseBehaviour": "Flank Target Right",
-      "BaseBehaviourInstanceId": 21332,
-      "Behaviour": {
-        "SaveDataType": "BbbtFlankTargetRight",
-        "Status": 0,
-        "NodeId": 28,
-        "name": "Flank Target Right(Clone)",
-        "hideFlags": 0
-      },
-      "X": 1503.0,
-      "Y": 474.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 37,
+      "Id": 46,
       "BaseBehaviour": "Attack Target",
       "BaseBehaviourInstanceId": 15482,
       "Behaviour": {
         "SaveDataType": "BbbtAttackTarget",
         "Status": 0,
-        "NodeId": 37,
+        "NodeId": 46,
         "name": "Attack Target(Clone)",
         "hideFlags": 0
       },
-      "X": 1671.0,
-      "Y": 473.0,
+      "X": 932.0,
+      "Y": 585.0,
       "IsSelected": false
+    },
+    {
+      "Id": 47,
+      "BaseBehaviour": "TargetNearest",
+      "BaseBehaviourInstanceId": 22152,
+      "Behaviour": {
+        "SaveDataType": "BbbtTargetNearest",
+        "Status": 0,
+        "NodeId": 47,
+        "name": "TargetNearest(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1377.0,
+      "Y": 570.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 48,
+      "BaseBehaviour": "Move In Range Of Target",
+      "BaseBehaviourInstanceId": 14696,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+        "Status": 0,
+        "NodeId": 48,
+        "name": "Move In Range Of Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1466.0,
+      "Y": 567.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 49,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 15482,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 49,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1560.0,
+      "Y": 562.0,
+      "IsSelected": true
     }
   ],
   "Connections": [
@@ -972,38 +1116,54 @@
       "OutNodeId": 21
     },
     {
-      "InNodeId": 30,
+      "InNodeId": 38,
       "OutNodeId": 8
     },
     {
-      "InNodeId": 31,
+      "InNodeId": 39,
       "OutNodeId": 8
     },
     {
-      "InNodeId": 32,
+      "InNodeId": 40,
+      "OutNodeId": 8
+    },
+    {
+      "InNodeId": 41,
       "OutNodeId": 14
     },
     {
-      "InNodeId": 33,
+      "InNodeId": 42,
       "OutNodeId": 14
     },
     {
-      "InNodeId": 34,
+      "InNodeId": 43,
+      "OutNodeId": 14
+    },
+    {
+      "InNodeId": 44,
       "OutNodeId": 18
     },
     {
-      "InNodeId": 35,
+      "InNodeId": 45,
       "OutNodeId": 18
     },
     {
-      "InNodeId": 36,
+      "InNodeId": 46,
+      "OutNodeId": 18
+    },
+    {
+      "InNodeId": 47,
       "OutNodeId": 21
     },
     {
-      "InNodeId": 37,
+      "InNodeId": 48,
+      "OutNodeId": 21
+    },
+    {
+      "InNodeId": 49,
       "OutNodeId": 21
     }
   ],
-  "WindowOffsetX": 231.0,
-  "WindowOffsetY": 63.0
+  "WindowOffsetX": -213.0,
+  "WindowOffsetY": 93.0
 }
