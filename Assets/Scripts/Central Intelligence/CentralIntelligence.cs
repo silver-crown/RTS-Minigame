@@ -20,6 +20,12 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     [SerializeField] GameObject _dronePrefab = null;
 
+
+    [Tooltip("file path for the Lua file that gives the utility function for gatherResourceAmount")]
+    [SerializeField] string gatherAmountScriptPath;
+    [Tooltip("equivalent for buildWorkerNumber")]
+    [SerializeField] string buildDroneNumberPath;
+
     /// <summary>
     /// CentralIntelligene's behavior tree 
     /// </summary>
@@ -94,21 +100,18 @@ public class CentralIntelligence : MonoBehaviour
 
         var gatherMetal = ScriptableObject.CreateInstance<CIGatherMetal>();
         var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
-        var buildWorker = ScriptableObject.CreateInstance<CIBuildWorker>();
+        var buildDrone = ScriptableObject.CreateInstance<CIBuildDrone>();
 
         //set up actions
         _actions[0] = new UtilityAction(
-            new List<Factor> { new GatherResourceAmount(this, "Metal") },
+            new List<Factor> { new ResourceAmount(this, "Metal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherMetal.Tick(gameObject); });
         _actions[1] = new UtilityAction(
-            new List<Factor> { new GatherResourceAmount(this, "Crystal") },
+            new List<Factor> { new ResourceAmount(this, "Crystal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherCrystal.Tick(gameObject); });
         _actions[2] = new UtilityAction(
-            new List<Factor> { new WorkerNumber(this) },
-            () => { buildWorker.Tick(gameObject); });
-
-        //run selectAction
-        _selectAction();
+            new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
+            () => { buildDrone.Tick(gameObject); });
     }
 
     private void Start()
@@ -146,6 +149,8 @@ public class CentralIntelligence : MonoBehaviour
             Debug.Log("\t" + type.Key.String + " : " + (int)type.Value.Number, this);
             AddResource(type.Key.String, (int)type.Value.Number);
         }
+
+        SelectAction();
     }
 
     // Update is called once per frame
@@ -184,7 +189,7 @@ public class CentralIntelligence : MonoBehaviour
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {
-            _selectAction();
+            SelectAction();
 
             //tick selected action
             _selectedAction.Behaviour.Invoke();
@@ -266,7 +271,7 @@ public class CentralIntelligence : MonoBehaviour
         }
     }
 
-    private void _selectAction()
+    private void SelectAction()
     {
         UtilityAction chosenAction= _selectedAction;         //the currently best action at this point in the loop
         float chosenUtility = 0.0f;   //the utility of the currently best action
@@ -394,6 +399,18 @@ public class CentralIntelligence : MonoBehaviour
                 break;
         }
         lastGroupID++;
+    }
+
+    /// <summary>
+    /// Reads a utility function from the provided lua filepath.
+    /// </summary>
+    /// <param name="filepath"></param>
+    /// <returns></returns>
+    private string readUtilityFunctionFromFile(string filepath)
+    {
+        Script script = new Script();
+        var table = script.DoFile(filepath).Table;
+        return (string)table.Get("_utilityFunction").String;
     }
 
 }

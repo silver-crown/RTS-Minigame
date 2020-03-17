@@ -3,44 +3,164 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 16456,
+      "BaseBehaviourInstanceId": 16264,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
-          "SaveDataType": "BbbtSequencer",
+          "SaveDataType": "BbbtSelector",
           "Children": [
             {
-              "SaveDataType": "BbbtGotFlankingMessage",
+              "SaveDataType": "BbbtSequencer",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtGotFlankingFrontalMessage",
+                  "Status": 0,
+                  "NodeId": 9,
+                  "name": "Got Flanking Frontal Message(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtCanSeeEnemyCheck",
+                  "Status": 0,
+                  "NodeId": 10,
+                  "name": "CanSeeEnemy(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtFlankTargetFrontal",
+                  "Status": 0,
+                  "NodeId": 12,
+                  "name": "Flank Target Frontal(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtAttackTarget",
+                  "Status": 0,
+                  "NodeId": 13,
+                  "name": "Attack Target(Clone)",
+                  "hideFlags": 0
+                }
+              ],
               "Status": 0,
-              "NodeId": 3,
-              "name": "Got Flanking Message(Clone)",
+              "NodeId": 8,
+              "name": "Sequencer(Clone)",
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtCanSeeEnemyCheck",
+              "SaveDataType": "BbbtSequencer",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtGotFlankingBehindMessage",
+                  "Status": 0,
+                  "NodeId": 15,
+                  "name": "Got Flanking Behind Message(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtCanSeeEnemyCheck",
+                  "Status": 0,
+                  "NodeId": 16,
+                  "name": "CanSeeEnemy(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtFlankTargetBehind",
+                  "Status": 0,
+                  "NodeId": 24,
+                  "name": "Flank Target Behind(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtAttackTarget",
+                  "Status": 0,
+                  "NodeId": 25,
+                  "name": "Attack Target(Clone)",
+                  "hideFlags": 0
+                }
+              ],
               "Status": 0,
-              "NodeId": 4,
-              "name": "CanSeeEnemy(Clone)",
+              "NodeId": 14,
+              "name": "Sequencer(Clone)",
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+              "SaveDataType": "BbbtSequencer",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtGotFlankingLeftMessage",
+                  "Status": 0,
+                  "NodeId": 19,
+                  "name": "Got Flanking Left Message(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtCanSeeEnemyCheck",
+                  "Status": 0,
+                  "NodeId": 20,
+                  "name": "CanSeeEnemy(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtFlankTargetLeft",
+                  "Status": 0,
+                  "NodeId": 26,
+                  "name": "Flank Target Left(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtAttackTarget",
+                  "Status": 0,
+                  "NodeId": 27,
+                  "name": "Attack Target(Clone)",
+                  "hideFlags": 0
+                }
+              ],
               "Status": 0,
-              "NodeId": 5,
-              "name": "Move In Range Of Target(Clone)",
+              "NodeId": 18,
+              "name": "Sequencer(Clone)",
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtAttackTarget",
+              "SaveDataType": "BbbtSequencer",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtGotFlankingRightMessage",
+                  "Status": 0,
+                  "NodeId": 22,
+                  "name": "Got Flanking Right Message(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtCanSeeEnemyCheck",
+                  "Status": 0,
+                  "NodeId": 23,
+                  "name": "CanSeeEnemy(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtFlankTargetRight",
+                  "Status": 0,
+                  "NodeId": 28,
+                  "name": "Flank Target Right(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtAttackTarget",
+                  "Status": 0,
+                  "NodeId": 29,
+                  "name": "Attack Target(Clone)",
+                  "hideFlags": 0
+                }
+              ],
               "Status": 0,
-              "NodeId": 6,
-              "name": "Attack Target(Clone)",
+              "NodeId": 21,
+              "name": "Sequencer(Clone)",
               "hideFlags": 0
             }
           ],
           "Status": 0,
           "NodeId": 2,
-          "name": "Sequencer(Clone)",
+          "name": "Selector(Clone)",
           "hideFlags": 0
         },
         "Status": 0,
@@ -48,113 +168,593 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 364.0,
-      "Y": 28.0,
+      "X": 593.0,
+      "Y": 18.0,
       "IsSelected": false
     },
     {
       "Id": 2,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 15772,
+      "BaseBehaviour": "Selector",
+      "BaseBehaviourInstanceId": 16844,
       "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
+        "SaveDataType": "BbbtSelector",
         "Children": [
           {
-            "SaveDataType": "BbbtGotFlankingMessage",
+            "SaveDataType": "BbbtSequencer",
+            "Children": [
+              {
+                "SaveDataType": "BbbtGotFlankingFrontalMessage",
+                "Status": 0,
+                "NodeId": 9,
+                "name": "Got Flanking Frontal Message(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtCanSeeEnemyCheck",
+                "Status": 0,
+                "NodeId": 10,
+                "name": "CanSeeEnemy(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtFlankTargetFrontal",
+                "Status": 0,
+                "NodeId": 12,
+                "name": "Flank Target Frontal(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtAttackTarget",
+                "Status": 0,
+                "NodeId": 13,
+                "name": "Attack Target(Clone)",
+                "hideFlags": 0
+              }
+            ],
             "Status": 0,
-            "NodeId": 3,
-            "name": "Got Flanking Message(Clone)",
+            "NodeId": 8,
+            "name": "Sequencer(Clone)",
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "SaveDataType": "BbbtSequencer",
+            "Children": [
+              {
+                "SaveDataType": "BbbtGotFlankingBehindMessage",
+                "Status": 0,
+                "NodeId": 15,
+                "name": "Got Flanking Behind Message(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtCanSeeEnemyCheck",
+                "Status": 0,
+                "NodeId": 16,
+                "name": "CanSeeEnemy(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtFlankTargetBehind",
+                "Status": 0,
+                "NodeId": 24,
+                "name": "Flank Target Behind(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtAttackTarget",
+                "Status": 0,
+                "NodeId": 25,
+                "name": "Attack Target(Clone)",
+                "hideFlags": 0
+              }
+            ],
             "Status": 0,
-            "NodeId": 4,
-            "name": "CanSeeEnemy(Clone)",
+            "NodeId": 14,
+            "name": "Sequencer(Clone)",
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
+            "SaveDataType": "BbbtSequencer",
+            "Children": [
+              {
+                "SaveDataType": "BbbtGotFlankingLeftMessage",
+                "Status": 0,
+                "NodeId": 19,
+                "name": "Got Flanking Left Message(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtCanSeeEnemyCheck",
+                "Status": 0,
+                "NodeId": 20,
+                "name": "CanSeeEnemy(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtFlankTargetLeft",
+                "Status": 0,
+                "NodeId": 26,
+                "name": "Flank Target Left(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtAttackTarget",
+                "Status": 0,
+                "NodeId": 27,
+                "name": "Attack Target(Clone)",
+                "hideFlags": 0
+              }
+            ],
             "Status": 0,
-            "NodeId": 5,
-            "name": "Move In Range Of Target(Clone)",
+            "NodeId": 18,
+            "name": "Sequencer(Clone)",
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtAttackTarget",
+            "SaveDataType": "BbbtSequencer",
+            "Children": [
+              {
+                "SaveDataType": "BbbtGotFlankingRightMessage",
+                "Status": 0,
+                "NodeId": 22,
+                "name": "Got Flanking Right Message(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtCanSeeEnemyCheck",
+                "Status": 0,
+                "NodeId": 23,
+                "name": "CanSeeEnemy(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtFlankTargetRight",
+                "Status": 0,
+                "NodeId": 28,
+                "name": "Flank Target Right(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtAttackTarget",
+                "Status": 0,
+                "NodeId": 29,
+                "name": "Attack Target(Clone)",
+                "hideFlags": 0
+              }
+            ],
             "Status": 0,
-            "NodeId": 6,
-            "name": "Attack Target(Clone)",
+            "NodeId": 21,
+            "name": "Sequencer(Clone)",
             "hideFlags": 0
           }
         ],
         "Status": 0,
         "NodeId": 2,
+        "name": "Selector(Clone)",
+        "hideFlags": 0
+      },
+      "X": 592.0,
+      "Y": 174.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 8,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 15580,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtGotFlankingFrontalMessage",
+            "Status": 0,
+            "NodeId": 9,
+            "name": "Got Flanking Frontal Message(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 10,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtFlankTargetFrontal",
+            "Status": 0,
+            "NodeId": 12,
+            "name": "Flank Target Frontal(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 13,
+            "name": "Attack Target(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 8,
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 355.0,
-      "Y": 181.0,
+      "X": 271.0,
+      "Y": 336.0,
       "IsSelected": false
     },
     {
-      "Id": 3,
-      "BaseBehaviour": "Got Flanking Message",
-      "BaseBehaviourInstanceId": 19686,
+      "Id": 9,
+      "BaseBehaviour": "Got Flanking Frontal Message",
+      "BaseBehaviourInstanceId": -4890,
       "Behaviour": {
-        "SaveDataType": "BbbtGotFlankingMessage",
+        "SaveDataType": "BbbtGotFlankingFrontalMessage",
         "Status": 0,
-        "NodeId": 3,
-        "name": "Got Flanking Message(Clone)",
+        "NodeId": 9,
+        "name": "Got Flanking Frontal Message(Clone)",
         "hideFlags": 0
       },
-      "X": 217.0,
-      "Y": 348.0,
+      "X": 45.0,
+      "Y": 531.0,
       "IsSelected": false
     },
     {
-      "Id": 4,
-      "BaseBehaviour": "Group All Drones Flank Enemy",
-      "BaseBehaviourInstanceId": 18294,
+      "Id": 12,
+      "BaseBehaviour": "Flank Target Frontal",
+      "BaseBehaviourInstanceId": -6562,
       "Behaviour": {
-        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "SaveDataType": "BbbtFlankTargetFrontal",
         "Status": 0,
-        "NodeId": 4,
-        "name": "CanSeeEnemy(Clone)",
+        "NodeId": 12,
+        "name": "Flank Target Frontal(Clone)",
         "hideFlags": 0
       },
-      "X": 352.0,
-      "Y": 349.0,
+      "X": 257.0,
+      "Y": 531.0,
       "IsSelected": false
     },
     {
-      "Id": 5,
-      "BaseBehaviour": "Move In Range Of Target",
-      "BaseBehaviourInstanceId": 14764,
-      "Behaviour": {
-        "SaveDataType": "BbbtMoveInRangeOfTargetBehaviour",
-        "Status": 0,
-        "NodeId": 5,
-        "name": "Move In Range Of Target(Clone)",
-        "hideFlags": 0
-      },
-      "X": 469.0,
-      "Y": 349.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 6,
+      "Id": 13,
       "BaseBehaviour": "Attack Target",
-      "BaseBehaviourInstanceId": 15556,
+      "BaseBehaviourInstanceId": 15364,
       "Behaviour": {
         "SaveDataType": "BbbtAttackTarget",
         "Status": 0,
-        "NodeId": 6,
+        "NodeId": 13,
         "name": "Attack Target(Clone)",
         "hideFlags": 0
       },
-      "X": 574.0,
+      "X": 362.0,
+      "Y": 537.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 14,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 15580,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtGotFlankingBehindMessage",
+            "Status": 0,
+            "NodeId": 15,
+            "name": "Got Flanking Behind Message(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 16,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtFlankTargetBehind",
+            "Status": 0,
+            "NodeId": 24,
+            "name": "Flank Target Behind(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 25,
+            "name": "Attack Target(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 14,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 596.0,
+      "Y": 344.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 15,
+      "BaseBehaviour": "Got Flanking Behind Message",
+      "BaseBehaviourInstanceId": -5286,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingBehindMessage",
+        "Status": 0,
+        "NodeId": 15,
+        "name": "Got Flanking Behind Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": 476.0,
+      "Y": 543.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 16,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18330,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 16,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 579.0,
+      "Y": 543.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 18,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 15580,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtGotFlankingLeftMessage",
+            "Status": 0,
+            "NodeId": 19,
+            "name": "Got Flanking Left Message(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 20,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtFlankTargetLeft",
+            "Status": 0,
+            "NodeId": 26,
+            "name": "Flank Target Left(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 27,
+            "name": "Attack Target(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 18,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 907.0,
       "Y": 350.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 24,
+      "BaseBehaviour": "Flank Target Behind",
+      "BaseBehaviourInstanceId": -10446,
+      "Behaviour": {
+        "SaveDataType": "BbbtFlankTargetBehind",
+        "Status": 0,
+        "NodeId": 24,
+        "name": "Flank Target Behind(Clone)",
+        "hideFlags": 0
+      },
+      "X": 673.0,
+      "Y": 545.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 25,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 15364,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 25,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 760.0,
+      "Y": 544.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 19,
+      "BaseBehaviour": "Got Flanking Left Message",
+      "BaseBehaviourInstanceId": -5412,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingLeftMessage",
+        "Status": 0,
+        "NodeId": 19,
+        "name": "Got Flanking Left Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": 853.0,
+      "Y": 544.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 20,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18330,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 20,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 944.0,
+      "Y": 543.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 26,
+      "BaseBehaviour": "Flank Target Left",
+      "BaseBehaviourInstanceId": -10884,
+      "Behaviour": {
+        "SaveDataType": "BbbtFlankTargetLeft",
+        "Status": 0,
+        "NodeId": 26,
+        "name": "Flank Target Left(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1033.0,
+      "Y": 544.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 27,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 15364,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 27,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1127.0,
+      "Y": 545.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 22,
+      "BaseBehaviour": "Got Flanking Right Message",
+      "BaseBehaviourInstanceId": -4952,
+      "Behaviour": {
+        "SaveDataType": "BbbtGotFlankingRightMessage",
+        "Status": 0,
+        "NodeId": 22,
+        "name": "Got Flanking Right Message(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1222.0,
+      "Y": 546.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 23,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18330,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 23,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1308.0,
+      "Y": 543.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 21,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 15580,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtGotFlankingRightMessage",
+            "Status": 0,
+            "NodeId": 22,
+            "name": "Got Flanking Right Message(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtCanSeeEnemyCheck",
+            "Status": 0,
+            "NodeId": 23,
+            "name": "CanSeeEnemy(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtFlankTargetRight",
+            "Status": 0,
+            "NodeId": 28,
+            "name": "Flank Target Right(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtAttackTarget",
+            "Status": 0,
+            "NodeId": 29,
+            "name": "Attack Target(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 21,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1301.0,
+      "Y": 362.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 28,
+      "BaseBehaviour": "Flank Target Right",
+      "BaseBehaviourInstanceId": -10376,
+      "Behaviour": {
+        "SaveDataType": "BbbtFlankTargetRight",
+        "Status": 0,
+        "NodeId": 28,
+        "name": "Flank Target Right(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1395.0,
+      "Y": 543.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 29,
+      "BaseBehaviour": "Attack Target",
+      "BaseBehaviourInstanceId": 15364,
+      "Behaviour": {
+        "SaveDataType": "BbbtAttackTarget",
+        "Status": 0,
+        "NodeId": 29,
+        "name": "Attack Target(Clone)",
+        "hideFlags": 0
+      },
+      "X": 1484.0,
+      "Y": 545.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "CanSeeEnemy",
+      "BaseBehaviourInstanceId": 18330,
+      "Behaviour": {
+        "SaveDataType": "BbbtCanSeeEnemyCheck",
+        "Status": 0,
+        "NodeId": 10,
+        "name": "CanSeeEnemy(Clone)",
+        "hideFlags": 0
+      },
+      "X": 156.0,
+      "Y": 529.0,
       "IsSelected": false
     }
   ],
@@ -164,22 +764,86 @@
       "OutNodeId": 1
     },
     {
-      "InNodeId": 3,
+      "InNodeId": 8,
       "OutNodeId": 2
     },
     {
-      "InNodeId": 4,
+      "InNodeId": 9,
+      "OutNodeId": 8
+    },
+    {
+      "InNodeId": 10,
+      "OutNodeId": 8
+    },
+    {
+      "InNodeId": 12,
+      "OutNodeId": 8
+    },
+    {
+      "InNodeId": 13,
+      "OutNodeId": 8
+    },
+    {
+      "InNodeId": 14,
       "OutNodeId": 2
     },
     {
-      "InNodeId": 5,
+      "InNodeId": 15,
+      "OutNodeId": 14
+    },
+    {
+      "InNodeId": 16,
+      "OutNodeId": 14
+    },
+    {
+      "InNodeId": 18,
       "OutNodeId": 2
     },
     {
-      "InNodeId": 6,
+      "InNodeId": 19,
+      "OutNodeId": 18
+    },
+    {
+      "InNodeId": 20,
+      "OutNodeId": 18
+    },
+    {
+      "InNodeId": 21,
       "OutNodeId": 2
+    },
+    {
+      "InNodeId": 22,
+      "OutNodeId": 21
+    },
+    {
+      "InNodeId": 23,
+      "OutNodeId": 21
+    },
+    {
+      "InNodeId": 24,
+      "OutNodeId": 14
+    },
+    {
+      "InNodeId": 25,
+      "OutNodeId": 14
+    },
+    {
+      "InNodeId": 26,
+      "OutNodeId": 18
+    },
+    {
+      "InNodeId": 27,
+      "OutNodeId": 18
+    },
+    {
+      "InNodeId": 28,
+      "OutNodeId": 21
+    },
+    {
+      "InNodeId": 29,
+      "OutNodeId": 21
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": 97.0,
+  "WindowOffsetY": 79.0
 }

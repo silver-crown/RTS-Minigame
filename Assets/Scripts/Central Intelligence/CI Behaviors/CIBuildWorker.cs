@@ -9,7 +9,7 @@ namespace ssuai
     /// <summary>
     /// Central intelligence behavior node for gathering crystal
     /// </summary>
-    public class CIBuildWorker : BbbtBehaviour
+    public class CIBuildDrone : BbbtBehaviour
     {
         public override string SaveDataType => throw new System.NotImplementedException();
 

@@ -41,6 +41,7 @@ public class Factory : MonoBehaviour
             }
             else if (Time.time >= _buildingDoneTime)
             {
+                #if UNITY_EDITOR
                 _currentlyBuilding = false;
                 //pop the queue
                 DroneOrder finishedProduct = BuildQueue.Dequeue();
@@ -52,6 +53,7 @@ public class Factory : MonoBehaviour
 
 
                 Debug.Log("I just finished a drone of type " + finishedProduct.Type + " in " + finishedProduct.BuildTime + " seconds bro");
+                #endif
             }
         }
 
