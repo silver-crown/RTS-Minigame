@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using RTS.Lua;
+
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
@@ -169,6 +170,8 @@ public class Drone : RTS.Actor
         {
             Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
         }
+
+        InGameDebug.Log(Type + " boy reporting for duty.");
     }
     //add message to the message list. 
     public void ReceiveMessage(string message)

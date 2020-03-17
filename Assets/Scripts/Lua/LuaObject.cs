@@ -1,5 +1,4 @@
 ﻿using MoonSharp.Interpreter;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RTS.Lua
@@ -42,6 +41,7 @@ namespace RTS.Lua
             Script = new Script();
             Script.Globals["LuaManager"] = new LuaManager();
             Script.Globals["Debug"] = new Debug();
+            Script.Globals["InGameDebug"] = new InGameDebug();
             Table = Script.DoFile(path).Table;
         }
     }

@@ -79,5 +79,16 @@ namespace RTS.Lua
             
             return value;
         }
+
+        public static DynValue DoString(string code)
+        {
+            UserData.RegisterAssembly();
+            UserData.RegisterType<Debug>();
+            var script = new Script();
+            script.Globals["LuaManager"] = new LuaManager();
+            script.Globals["Debug"] = new Debug();
+            script.Globals["InGameDebug"] = new InGameDebug();
+            return script.DoString(code);
+        }
     }
 }
