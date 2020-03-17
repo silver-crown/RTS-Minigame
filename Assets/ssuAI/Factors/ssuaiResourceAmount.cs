@@ -19,7 +19,7 @@ namespace ssuai
         /// Constructor.
         /// </summary>
         /// <param name="CI">The central intelligence gathering the resources</param>
-        /// <param name="Resource">The string representation (as in the resources dictionary) of the resource </param>
+        /// <param name="resource">The string representation (as in the resources dictionary) of the resource </param>
         /// <param name="function">The function string. Should only have one parameter, which will be the amount of the resource specified. </param>
         public ResourceAmount(CentralIntelligence CI, string resource, string function)
         {
