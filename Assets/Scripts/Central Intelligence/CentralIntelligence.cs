@@ -161,6 +161,12 @@ public class CentralIntelligence : MonoBehaviour
         {
             EventManager.TriggerEvent("Testing Private Channel", EventManager.MessageChannel.privateChannel, 0);
         }
+        // Test building combat drone
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GetComponent<DroneTestFactory>().BuildDroneForFree("CombatDrone");
+        }
+
         //test the group channels
         if (Input.GetKeyDown("k"))
         {
