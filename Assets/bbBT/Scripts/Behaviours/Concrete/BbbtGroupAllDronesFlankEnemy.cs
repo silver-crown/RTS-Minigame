@@ -42,29 +42,31 @@ namespace Bbbt
             //Divide the group into four units
             _group.DivideArmy(4);
 
+            //send the individual units in the direction you want
+
             //Get the Alpha unit, and send them to the frontlines
             for(int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Alpha).Count; i++)
             {
-                EventManager.TriggerEvent("Flanking Assault Frontal", EventManager.MessageChannel.groupChannel,
-                    _group.GetGroupUnits(Drone.GroupUnit.Alpha)[i].GetComponent<Drone>().ID);
+                _actor.GetComponent<SendMessageToChannel>().Send("Flanking Assault Frontal", EventManager.MessageChannel.privateChannel,
+                    _group.GetGroupUnits(Drone.GroupUnit.Bravo)[i].GetComponent<Drone>().ID);
             }
             //Get the Bravo unit, send them left
             for (int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Bravo).Count; i++)
             {
-                EventManager.TriggerEvent("Flanking Assault Left", EventManager.MessageChannel.groupChannel,
+                _actor.GetComponent<SendMessageToChannel>().Send("Flanking Assault Left", EventManager.MessageChannel.privateChannel,
                     _group.GetGroupUnits(Drone.GroupUnit.Bravo)[i].GetComponent<Drone>().ID);
             }
 
             //Get the Charlie unit, send them right
             for (int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Charlie).Count; i++)
             {
-                EventManager.TriggerEvent("Flanking Assault Right", EventManager.MessageChannel.groupChannel,
+                _actor.GetComponent<SendMessageToChannel>().Send("Flanking Assault Right", EventManager.MessageChannel.privateChannel,
                     _group.GetGroupUnits(Drone.GroupUnit.Charlie)[i].GetComponent<Drone>().ID);
             }
             //Send the Delta unit behind the enemies 
             for (int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Delta).Count; i++)
             {
-                EventManager.TriggerEvent("Flanking Assault Behind", EventManager.MessageChannel.groupChannel,
+                _actor.GetComponent<SendMessageToChannel>().Send("Flanking Assault Behind", EventManager.MessageChannel.privateChannel,
                     _group.GetGroupUnits(Drone.GroupUnit.Delta)[i].GetComponent<Drone>().ID);
             }
 

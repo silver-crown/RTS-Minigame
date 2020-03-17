@@ -9,7 +9,7 @@ public class ListenToChannel : MonoBehaviour
     private Drone drone;
     [SerializeField] bool listening;
     [SerializeField] EventManager.MessageChannel _channel;
-    private string _message;
+    [SerializeField] private string _message;
     private int _lastMessage;
 
 
@@ -44,8 +44,9 @@ public class ListenToChannel : MonoBehaviour
     /// <summary>
     /// Listen continually for messages on the channel provided in the enumerator
     /// </summary>
-    public void ListenInOnChannel()
+    public void ListenToMessage(string message)
     {
+        _message = message;
         if (MessageList().Contains(_message))
         {
             EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
@@ -86,8 +87,6 @@ public class ListenToChannel : MonoBehaviour
     {
         List<string> messages = new List<string>();
         int i = 0;
-        messages[i++] = "Group Frontal Assault";
-        messages[i++] = "Group Flanking Assault";
         messages[i++] = "Frontal Assault";
         messages[i++] = "Flanking Assault Frontal";
         messages[i++] = "Flanking Assault Behind";

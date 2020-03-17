@@ -67,17 +67,6 @@ public class Drone : RTS.Actor
     /// </summary>
     public CentralIntelligence CentralIntelligence { get; set; }
 
-    /// <summary>
-    /// Message Listening, with example functions below
-    /// </summary>
-    void ListenToChannels()
-    {
-        //listening on a public channel
-        EventManager.StartListening("Testing Worker Channel", globalChannelTest, EventManager.MessageChannel.workerChannel);
-
-        //Listening on a private channel requires an id number, the Drone's own id should be provided here
-        EventManager.StartListening("Testing Private Channel", PrivateChannelTest, EventManager.MessageChannel.privateChannel, ID);
-    }
     void globalChannelTest()
     {
 
@@ -111,7 +100,6 @@ public class Drone : RTS.Actor
     public override void Start()
     {
         base.Start();
-        SetupMessagesToListenTo();
     }
 
     // Update is called once per frame
