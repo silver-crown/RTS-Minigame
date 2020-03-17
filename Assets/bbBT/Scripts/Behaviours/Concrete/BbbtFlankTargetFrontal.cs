@@ -49,7 +49,6 @@ namespace Bbbt
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             //attack the target force from the front
-
             if (_actor.Target == null)
             {
                 return BbbtBehaviourStatus.Failure;

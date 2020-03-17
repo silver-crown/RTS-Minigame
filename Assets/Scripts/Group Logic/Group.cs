@@ -31,6 +31,9 @@ public class Group : MonoBehaviour
     public List<GameObject> groupMembers = new List<GameObject>();
     public List<GameObject> enemyList = new List<GameObject>();
     bool _listening;
+
+    public Bounds targetBounds;
+    public float targetRadius;
     /// <summary>
     /// A list of all messages currently sent to the group
     /// </summary>
@@ -120,12 +123,13 @@ public class Group : MonoBehaviour
     /// Create the radius of all the targets the group members are currently assigned to
     /// this is used for flanking behaviour
     /// </summary>
-    private Bounds CreateTargetBounds()
+    public void CreateTargetBounds()
     {
         //gusto 1 is north (positive y), gusto 2 is east (positive x), gusto 3 is south(negative y), gusto 4 is west(negative x)
         Vector4 fourWayTemp = new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
         Vector3 origin = new Vector3(0.0f, 0.0f, 0.0f);
         Vector3 longestYard = new Vector3(0.0f, 0.0f, 0.0f);
+        float radius = 0.0f;
         float dist = 0.0f;
         List <Transform> targets = new List<Transform>();
         for (int i = 0; i <= groupMembers.Count; i++)
@@ -159,8 +163,8 @@ public class Group : MonoBehaviour
                 fourWayTemp.w = targets[i].position.y;
             }
             //get the longest distance from origin 
-            float temp = Vector3.Distance(targets[i].position, longestYard);
-            if(temp > dist)
+            radius = Vector3.Distance(targets[i].position, longestYard);
+            if(radius > dist)
             {
                 longestYard = targets[i].position;
             }
@@ -177,94 +181,9 @@ public class Group : MonoBehaviour
         {
             myBounds.Encapsulate(nextCollider.bounds);
         }
-        return myBounds;
+        targetBounds = myBounds;
+        targetRadius = radius;
     }
-    /// <summary>
-    /// Produces four corners from bounds passed as an argument
-    /// </summary>
-    /// <param name="bounds"></param>
-    /// <returns></returns>
-    private List<Vector3> ProduceCornersOfBounds(Bounds bounds)
-    {
-        //take the group's target radius, and produces four corner points
-        List<Vector3> corners = new List<Vector3>();
-        float width = bounds.size.x;
-        float height = bounds.size.y;
-
-        Vector3 topRight = bounds.center;
-        Vector3 topLeft = bounds.center;
-        Vector3 bottomRight = bounds.center;
-        Vector3 bottomLeft = bounds.center;
-
-        //Set the top right of the bounds
-        topRight.x += width / 2;
-        topRight.y += height / 2;
-        //Set the top left of the bounds
-        topLeft.x = width / 2;
-        topLeft.y = height / 2;
-        //Set the bottom right of the bounds
-        bottomRight.x = width / 2;
-        bottomRight.y = height / 2;
-        //Set the bottom left of the bounds
-        bottomLeft.x = width / 2;
-        bottomLeft.y = height / 2;
-
-        corners.Add(topRight);
-        corners.Add(topLeft);
-        corners.Add(bottomRight);
-        corners.Add(bottomLeft);
-
-        return corners;
-    }
-    /// <summary>
-    /// Produces four sides from bounds pass as an argument
-    /// </summary>
-    /// <param name="bounds"></param>
-    /// <returns></returns>
-    private List<Vector3> ProduceSidesOfBounds(Bounds bounds)
-    {
-
-        float width = bounds.size.x;
-        float height = bounds.size.y;
-
-        List<Vector3> sides = new List<Vector3>();
-
-        Vector3 top = bounds.center;
-        Vector3 bottom = bounds.center;
-        Vector3 right = bounds.center;
-        Vector3 left = bounds.center;
-
-        top.y += height / 2;
-        bottom.y += height / 2;
-        right.x += width / 2;
-        left.x += width / 2;
-
-        sides.Add(top);
-        sides.Add(bottom);
-        sides.Add(right);
-        sides.Add(left);
-
-        return sides;
-    }
-    /// <summary>
-    /// Gets the sides of the group target's bounds
-    /// 0 is top, 1 is bottom, 2 is right, 3 is left
-    /// </summary>
-    /// <returns></returns>
-    public List<Vector3> GetGroupTargetSides()
-    {
-        return ProduceSidesOfBounds(CreateTargetBounds());
-    }
-    /// <summary>
-    /// Gets the corners of the group's target bounds
-    /// 0 is top right, 1 is top left, 2 is bottom right, 3 is bottom left
-    /// </summary>
-    /// <returns></returns>
-    public List<Vector3> GetGroupTargetCorners()
-    {
-        return ProduceCornersOfBounds(CreateTargetBounds());
-    }
-
     /// <summary>
     /// Assign drones to the alpha unit, the primary fighting force of the group. Everyone starts in this unit and are diverged
     /// into sub-units later as needed
@@ -346,7 +265,7 @@ public class Group : MonoBehaviour
     /// For use in two-way flanking maneuvers, divide the army up into different tactical units up to four times
     /// </summary>
     /// <param name="divisions"></param>
-    private void DivideArmy(int divisions)
+    public void DivideArmy(int divisions)
     {
         switch (divisions)
         {
