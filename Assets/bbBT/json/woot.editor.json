@@ -3,23 +3,25 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 36034,
+      "BaseBehaviourInstanceId": 8930,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
-          "SaveDataType": "BbbtSequencer",
-          "Children": [
-            {
-              "SaveDataType": "BbbtAttackDistanceCheck",
-              "Status": 0,
-              "NodeId": 3,
-              "name": "Attack Distance Check(Clone)",
-              "hideFlags": 0
-            }
-          ],
+          "Count": 0,
+          "SaveDataType": "BbbtRepeater",
+          "Child": {
+            "_message": "A message.",
+            "_isEnabled": true,
+            "_logType": 3,
+            "SaveDataType": "BbbtDebugLogBehaviour",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "Debug Logger(Clone)",
+            "hideFlags": 0
+          },
           "Status": 0,
-          "NodeId": 2,
-          "name": "Sequencer(Clone)",
+          "NodeId": 4,
+          "name": "Repeater(Clone)",
           "hideFlags": 0
         },
         "Status": 0,
@@ -32,53 +34,58 @@
       "IsSelected": false
     },
     {
-      "Id": 2,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 36432,
+      "Id": 4,
+      "BaseBehaviour": "Repeater",
+      "BaseBehaviourInstanceId": -16470,
       "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "SaveDataType": "BbbtAttackDistanceCheck",
-            "Status": 0,
-            "NodeId": 3,
-            "name": "Attack Distance Check(Clone)",
-            "hideFlags": 0
-          }
-        ],
+        "Count": 0,
+        "SaveDataType": "BbbtRepeater",
+        "Child": {
+          "_message": "A message.",
+          "_isEnabled": true,
+          "_logType": 3,
+          "SaveDataType": "BbbtDebugLogBehaviour",
+          "Status": 0,
+          "NodeId": 5,
+          "name": "Debug Logger(Clone)",
+          "hideFlags": 0
+        },
         "Status": 0,
-        "NodeId": 2,
-        "name": "Sequencer(Clone)",
+        "NodeId": 4,
+        "name": "Repeater(Clone)",
         "hideFlags": 0
       },
-      "X": 645.0,
-      "Y": 369.0,
+      "X": 646.0,
+      "Y": 402.0,
       "IsSelected": false
     },
     {
-      "Id": 3,
-      "BaseBehaviour": "Attack Distance Check",
-      "BaseBehaviourInstanceId": -135842,
+      "Id": 5,
+      "BaseBehaviour": "Debug Logger",
+      "BaseBehaviourInstanceId": 6354,
       "Behaviour": {
-        "SaveDataType": "BbbtAttackDistanceCheck",
+        "_message": "A message.",
+        "_isEnabled": true,
+        "_logType": 3,
+        "SaveDataType": "BbbtDebugLogBehaviour",
         "Status": 0,
-        "NodeId": 3,
-        "name": "Attack Distance Check(Clone)",
+        "NodeId": 5,
+        "name": "Debug Logger(Clone)",
         "hideFlags": 0
       },
-      "X": 616.0,
-      "Y": 537.0,
+      "X": 510.0,
+      "Y": 589.0,
       "IsSelected": true
     }
   ],
   "Connections": [
     {
-      "InNodeId": 2,
-      "OutNodeId": 1
+      "InNodeId": 5,
+      "OutNodeId": 4
     },
     {
-      "InNodeId": 3,
-      "OutNodeId": 2
+      "InNodeId": 4,
+      "OutNodeId": 1
     }
   ],
   "WindowOffsetX": 0.0,
