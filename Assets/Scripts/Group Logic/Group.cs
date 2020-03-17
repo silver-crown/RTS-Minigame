@@ -46,10 +46,6 @@ public class Group : MonoBehaviour
     /// </summary>
     public List<string> groupMessageList = new List<string>();
 
-    private void Start()
-    {
-        SetupMessagesToListenTo();
-    }
     // Update is called once per frame
     void Update()
     {
@@ -92,15 +88,6 @@ public class Group : MonoBehaviour
             lastMessage = i;
             EventManager.StartListening(message[i], () => { groupMessageList.Add(message[lastMessage]);},EventManager.MessageChannel.groupChannel, groupID);
         }
-    }
-    /// <summary>
-    /// sets up the message array and the strings it can listen for
-    /// </summary>
-    void SetupMessagesToListenTo()
-    {
-        int i = 0;
-        message[i++] = "Group Frontal Assault";
-        message[i++] = "Group Flanking Assault";
     }
     /// <summary>
     /// assign a new leader to the group, presumably because the previous one is dead.

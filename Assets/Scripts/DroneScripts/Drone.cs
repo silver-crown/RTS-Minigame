@@ -182,26 +182,11 @@ public class Drone : RTS.Actor
             Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
         }
     }
-
-    public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
+    //add message to the message list. 
+    public void ReceiveMessage(string message)
     {
-        //a switch for the channel
-        switch (channel)
-        {
-            case (EventManager.MessageChannel.globalChannel):
-                {
-                    //and a nested one for the message itself
-                    switch (message)
-                    {
-                        //a test message
-                        case ("Test message"):
-                            {
-                                break;
-                            }
-                    }
-                    break;
-                }
-        }
+        //add the received message to the list of messages, for use in other functions later.
+        messageList.Add(message);
     }
     void ListenToMessages()
     {
@@ -210,19 +195,6 @@ public class Drone : RTS.Actor
             lastMessage = i;
             EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]); }, EventManager.MessageChannel.privateChannel, ID);
         }
-    }
-    /// <summary>
-    /// sets up the message array and the strings it can listen for
-    /// </summary>
-    void SetupMessagesToListenTo()
-    {
-        if (message == null) return;
-        int i = 0;
-        message[i++] = "Frontal Assault";
-        message[i++] = "Flanking Assault Frontal";
-        message[i++] = "Flanking Assault Behind";
-        message[i++] = "Flanking Assault Right";
-        message[i++] = "Flanking Assault Left";
     }
 
     public void CalculatePowerLevel()

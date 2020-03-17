@@ -6,10 +6,12 @@ using UnityEngine.Events;
 
 public class ListenToChannel : MonoBehaviour
 {
-    [SerializeField] Drone drone;
+    private Drone drone;
     [SerializeField] bool listening;
     [SerializeField] EventManager.MessageChannel _channel;
-    private string message;
+    private string _message;
+    private int _lastMessage;
+
 
     ListenToChannel()
     {
@@ -28,49 +30,80 @@ public class ListenToChannel : MonoBehaviour
 
     void Start()
     {
-        if(message == null)
+        if(GetComponent<Drone>() != null)
         {
-            message = "Test message";
+            drone = GetComponent<Drone>();
         }
-    }
-    void Update()
-    {
-        if (listening)
+
+        if(_message == null)
         {
-            ListenInOnChannel();
+            _message = "Test message";
         }
     }
 
     /// <summary>
     /// Listen continually for messages on the channel provided in the enumerator
     /// </summary>
-    void ListenInOnChannel()
+    public void ListenInOnChannel()
     {
-        EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
-        for (int i = 0; i<= drone.messageList.Count; i++)
+        if (MessageList().Contains(_message))
         {
-            //Listen in on the global channel
-            EventManager.StartListening(drone.messageList[i], ProxyMessageReceiver, global);
-            //set message to be the current message
-            message = drone.messageList[i];
-            //listen in on the private channel
-            if (_channel == EventManager.MessageChannel.privateChannel)
+            EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
+            for (int i = 0; i <= drone.messageList.Count; i++)
             {
-                EventManager.StartListening(drone.messageList[i], ProxyMessageReceiver, _channel, drone.ID);
+                //Listen in on the global channel
+                EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, global);
+
+                //listen in on the private channel
+                if (_channel == EventManager.MessageChannel.privateChannel)
+                {
+                    EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel, drone.ID);
+                }
+                else
+                {
+                    EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel);
+                }
             }
-            else
+        }
+        if (GroupMessageList().Contains(_message))
+        {
+            if (drone.leaderStatus == true)
             {
-                EventManager.StartListening(drone.messageList[i], ProxyMessageReceiver, _channel);
+                for (int i = 0; i <= drone.GetComponent<Group>().groupMessageList.Count; i++)
+                {
+                    //set message to be the current message
+                    _message = drone.GetComponent<Group>().groupMessageList[i];
+                    EventManager.StartListening(_message, () => { drone.GetComponent<Group>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, drone.groupID);
+                }
             }
         }
     }
+
     /// <summary>
-    /// A proxy function used to invoke the secondary function in the listener
-    /// StartListening does not take parameters on the UnityAction, so a proxy was necessary to avoid complications.
+    /// The list of messages individual drones can listen to
     /// </summary>
-    void ProxyMessageReceiver()
+    private List<string> MessageList()
     {
-        //if the function is invoked, it'll send the message it was currently listening for
-        drone.ReceiveMessageOnChannel(message, _channel);
+        List<string> messages = new List<string>();
+        int i = 0;
+        messages[i++] = "Group Frontal Assault";
+        messages[i++] = "Group Flanking Assault";
+        messages[i++] = "Frontal Assault";
+        messages[i++] = "Flanking Assault Frontal";
+        messages[i++] = "Flanking Assault Behind";
+        messages[i++] = "Flanking Assault Right";
+        messages[i++] = "Flanking Assault Left";
+        return messages;
+    }
+    /// <summary>
+    ///  The list of messages a group can listen to
+    /// </summary>
+    private List<string> GroupMessageList()
+    {
+        List<string> messages = new List<string>();
+        int i = 0;
+        messages[i++] = "Group Frontal Assault";
+        messages[i++] = "Group Flanking Assault";
+        return messages;
     }
 }
