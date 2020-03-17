@@ -125,11 +125,6 @@ namespace RTS
         /// </summary>
 
         /// <summary>
-        /// Old Behavior Tree
-        /// </summary>
-        public BehaviorTree BehaviorTree;
-
-        /// <summary>
         /// Add this script to the game object in unity
         /// </summary>
         public BbbtBehaviourTreeComponent MyBbbtBehaviourTreeComponent;

@@ -3,29 +3,117 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 8042,
+      "BaseBehaviourInstanceId": 9050,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
           "SaveDataType": "BbbtSequencer",
           "Children": [
             {
-              "SaveDataType": "FindNearestResource",
+              "SaveDataType": "BbbtRepeatUntillFail",
+              "Child": {
+                "SaveDataType": "BbbtInverter",
+                "Child": {
+                  "SaveDataType": "BbbtSequencer",
+                  "Children": [
+                    {
+                      "SaveDataType": "BbbtFindNearestResource",
+                      "Status": 0,
+                      "NodeId": 8,
+                      "name": "Find Nearest Resource(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+                      "Status": 0,
+                      "NodeId": 9,
+                      "name": "Move In Range Of Resource(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtRepeatUntillFail",
+                      "Child": {
+                        "SaveDataType": "BbbtMineBehaviour",
+                        "Status": 0,
+                        "NodeId": 11,
+                        "name": "Mine(Clone)",
+                        "hideFlags": 0
+                      },
+                      "Status": 0,
+                      "NodeId": 10,
+                      "name": "RepeatUntillFail(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtInventoryFullCheck",
+                      "Status": 0,
+                      "NodeId": 12,
+                      "name": "Inventory Full Check(Clone)",
+                      "hideFlags": 0
+                    }
+                  ],
+                  "Status": 0,
+                  "NodeId": 7,
+                  "name": "Sequencer(Clone)",
+                  "hideFlags": 0
+                },
+                "Status": 0,
+                "NodeId": 6,
+                "name": "Inverter(Clone)",
+                "hideFlags": 0
+              },
               "Status": 0,
-              "NodeId": 3,
-              "name": "FindNearestResource(Clone)",
+              "NodeId": 5,
+              "name": "RepeatUntillFail(Clone)",
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+              "SaveDataType": "BbbtRepeatUntillFail",
+              "Child": {
+                "SaveDataType": "BbbtInverter",
+                "Child": {
+                  "SaveDataType": "BbbtSequencer",
+                  "Children": [
+                    {
+                      "SaveDataType": "BbbtFindNearestDepot",
+                      "Status": 0,
+                      "NodeId": 16,
+                      "name": "Find Nearest Depot(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+                      "Status": 0,
+                      "NodeId": 17,
+                      "name": "Move To Depot(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtDepositBehaviour",
+                      "Status": 0,
+                      "NodeId": 18,
+                      "name": "Deposit(Clone)",
+                      "hideFlags": 0
+                    }
+                  ],
+                  "Status": 0,
+                  "NodeId": 15,
+                  "name": "Sequencer(Clone)",
+                  "hideFlags": 0
+                },
+                "Status": 0,
+                "NodeId": 14,
+                "name": "Inverter(Clone)",
+                "hideFlags": 0
+              },
               "Status": 0,
-              "NodeId": 4,
-              "name": "Move In Range Of Resource(Clone)",
+              "NodeId": 13,
+              "name": "RepeatUntillFail(Clone)",
               "hideFlags": 0
             }
           ],
           "Status": 0,
-          "NodeId": 2,
+          "NodeId": 4,
           "name": "Sequencer(Clone)",
           "hideFlags": 0
         },
@@ -34,84 +122,629 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 423.0,
-      "Y": 129.0,
+      "X": 387.0,
+      "Y": 28.0,
       "IsSelected": false
     },
     {
-      "Id": 2,
+      "Id": 4,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 7356,
+      "BaseBehaviourInstanceId": 8362,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
           {
-            "SaveDataType": "FindNearestResource",
+            "SaveDataType": "BbbtRepeatUntillFail",
+            "Child": {
+              "SaveDataType": "BbbtInverter",
+              "Child": {
+                "SaveDataType": "BbbtSequencer",
+                "Children": [
+                  {
+                    "SaveDataType": "BbbtFindNearestResource",
+                    "Status": 0,
+                    "NodeId": 8,
+                    "name": "Find Nearest Resource(Clone)",
+                    "hideFlags": 0
+                  },
+                  {
+                    "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+                    "Status": 0,
+                    "NodeId": 9,
+                    "name": "Move In Range Of Resource(Clone)",
+                    "hideFlags": 0
+                  },
+                  {
+                    "SaveDataType": "BbbtRepeatUntillFail",
+                    "Child": {
+                      "SaveDataType": "BbbtMineBehaviour",
+                      "Status": 0,
+                      "NodeId": 11,
+                      "name": "Mine(Clone)",
+                      "hideFlags": 0
+                    },
+                    "Status": 0,
+                    "NodeId": 10,
+                    "name": "RepeatUntillFail(Clone)",
+                    "hideFlags": 0
+                  },
+                  {
+                    "SaveDataType": "BbbtInventoryFullCheck",
+                    "Status": 0,
+                    "NodeId": 12,
+                    "name": "Inventory Full Check(Clone)",
+                    "hideFlags": 0
+                  }
+                ],
+                "Status": 0,
+                "NodeId": 7,
+                "name": "Sequencer(Clone)",
+                "hideFlags": 0
+              },
+              "Status": 0,
+              "NodeId": 6,
+              "name": "Inverter(Clone)",
+              "hideFlags": 0
+            },
             "Status": 0,
-            "NodeId": 3,
-            "name": "FindNearestResource(Clone)",
+            "NodeId": 5,
+            "name": "RepeatUntillFail(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtRepeatUntillFail",
+            "Child": {
+              "SaveDataType": "BbbtInverter",
+              "Child": {
+                "SaveDataType": "BbbtSequencer",
+                "Children": [
+                  {
+                    "SaveDataType": "BbbtFindNearestDepot",
+                    "Status": 0,
+                    "NodeId": 16,
+                    "name": "Find Nearest Depot(Clone)",
+                    "hideFlags": 0
+                  },
+                  {
+                    "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+                    "Status": 0,
+                    "NodeId": 17,
+                    "name": "Move To Depot(Clone)",
+                    "hideFlags": 0
+                  },
+                  {
+                    "SaveDataType": "BbbtDepositBehaviour",
+                    "Status": 0,
+                    "NodeId": 18,
+                    "name": "Deposit(Clone)",
+                    "hideFlags": 0
+                  }
+                ],
+                "Status": 0,
+                "NodeId": 15,
+                "name": "Sequencer(Clone)",
+                "hideFlags": 0
+              },
+              "Status": 0,
+              "NodeId": 14,
+              "name": "Inverter(Clone)",
+              "hideFlags": 0
+            },
+            "Status": 0,
+            "NodeId": 13,
+            "name": "RepeatUntillFail(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 4,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 383.0,
+      "Y": 183.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "RepeatUntillFail",
+      "BaseBehaviourInstanceId": 24576,
+      "Behaviour": {
+        "SaveDataType": "BbbtRepeatUntillFail",
+        "Child": {
+          "SaveDataType": "BbbtInverter",
+          "Child": {
+            "SaveDataType": "BbbtSequencer",
+            "Children": [
+              {
+                "SaveDataType": "BbbtFindNearestResource",
+                "Status": 0,
+                "NodeId": 8,
+                "name": "Find Nearest Resource(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+                "Status": 0,
+                "NodeId": 9,
+                "name": "Move In Range Of Resource(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtRepeatUntillFail",
+                "Child": {
+                  "SaveDataType": "BbbtMineBehaviour",
+                  "Status": 0,
+                  "NodeId": 11,
+                  "name": "Mine(Clone)",
+                  "hideFlags": 0
+                },
+                "Status": 0,
+                "NodeId": 10,
+                "name": "RepeatUntillFail(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtInventoryFullCheck",
+                "Status": 0,
+                "NodeId": 12,
+                "name": "Inventory Full Check(Clone)",
+                "hideFlags": 0
+              }
+            ],
+            "Status": 0,
+            "NodeId": 7,
+            "name": "Sequencer(Clone)",
+            "hideFlags": 0
+          },
+          "Status": 0,
+          "NodeId": 6,
+          "name": "Inverter(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 5,
+        "name": "RepeatUntillFail(Clone)",
+        "hideFlags": 0
+      },
+      "X": 164.0,
+      "Y": 216.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Inverter",
+      "BaseBehaviourInstanceId": 24510,
+      "Behaviour": {
+        "SaveDataType": "BbbtInverter",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtFindNearestResource",
+              "Status": 0,
+              "NodeId": 8,
+              "name": "Find Nearest Resource(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+              "Status": 0,
+              "NodeId": 9,
+              "name": "Move In Range Of Resource(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtRepeatUntillFail",
+              "Child": {
+                "SaveDataType": "BbbtMineBehaviour",
+                "Status": 0,
+                "NodeId": 11,
+                "name": "Mine(Clone)",
+                "hideFlags": 0
+              },
+              "Status": 0,
+              "NodeId": 10,
+              "name": "RepeatUntillFail(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtInventoryFullCheck",
+              "Status": 0,
+              "NodeId": 12,
+              "name": "Inventory Full Check(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 7,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Inverter(Clone)",
+        "hideFlags": 0
+      },
+      "X": 141.0,
+      "Y": 377.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 7,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 8362,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtFindNearestResource",
+            "Status": 0,
+            "NodeId": 8,
+            "name": "Find Nearest Resource(Clone)",
             "hideFlags": 0
           },
           {
             "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
             "Status": 0,
-            "NodeId": 4,
+            "NodeId": 9,
             "name": "Move In Range Of Resource(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtRepeatUntillFail",
+            "Child": {
+              "SaveDataType": "BbbtMineBehaviour",
+              "Status": 0,
+              "NodeId": 11,
+              "name": "Mine(Clone)",
+              "hideFlags": 0
+            },
+            "Status": 0,
+            "NodeId": 10,
+            "name": "RepeatUntillFail(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtInventoryFullCheck",
+            "Status": 0,
+            "NodeId": 12,
+            "name": "Inventory Full Check(Clone)",
             "hideFlags": 0
           }
         ],
         "Status": 0,
-        "NodeId": 2,
+        "NodeId": 7,
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 429.0,
-      "Y": 329.0,
+      "X": 237.0,
+      "Y": 459.0,
       "IsSelected": false
     },
     {
-      "Id": 3,
-      "BaseBehaviour": "FindNearestResource",
-      "BaseBehaviourInstanceId": -3274,
+      "Id": 8,
+      "BaseBehaviour": "Find Nearest Resource",
+      "BaseBehaviourInstanceId": -5210,
       "Behaviour": {
-        "SaveDataType": "FindNearestResource",
+        "SaveDataType": "BbbtFindNearestResource",
         "Status": 0,
-        "NodeId": 3,
-        "name": "FindNearestResource(Clone)",
+        "NodeId": 8,
+        "name": "Find Nearest Resource(Clone)",
         "hideFlags": 0
       },
-      "X": 211.0,
-      "Y": 511.0,
+      "X": 70.0,
+      "Y": 628.0,
       "IsSelected": false
     },
     {
-      "Id": 4,
+      "Id": 9,
       "BaseBehaviour": "Move In Range Of Resource",
-      "BaseBehaviourInstanceId": -3364,
+      "BaseBehaviourInstanceId": 8358,
       "Behaviour": {
         "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
         "Status": 0,
-        "NodeId": 4,
+        "NodeId": 9,
         "name": "Move In Range Of Resource(Clone)",
         "hideFlags": 0
       },
-      "X": 420.0,
-      "Y": 496.0,
+      "X": 158.0,
+      "Y": 643.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "RepeatUntillFail",
+      "BaseBehaviourInstanceId": 24576,
+      "Behaviour": {
+        "SaveDataType": "BbbtRepeatUntillFail",
+        "Child": {
+          "SaveDataType": "BbbtMineBehaviour",
+          "Status": 0,
+          "NodeId": 11,
+          "name": "Mine(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 10,
+        "name": "RepeatUntillFail(Clone)",
+        "hideFlags": 0
+      },
+      "X": 325.0,
+      "Y": 542.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 11,
+      "BaseBehaviour": "Mine",
+      "BaseBehaviourInstanceId": 9896,
+      "Behaviour": {
+        "SaveDataType": "BbbtMineBehaviour",
+        "Status": 0,
+        "NodeId": 11,
+        "name": "Mine(Clone)",
+        "hideFlags": 0
+      },
+      "X": 319.0,
+      "Y": 671.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 12,
+      "BaseBehaviour": "Inventory Full Check",
+      "BaseBehaviourInstanceId": -3514,
+      "Behaviour": {
+        "SaveDataType": "BbbtInventoryFullCheck",
+        "Status": 0,
+        "NodeId": 12,
+        "name": "Inventory Full Check(Clone)",
+        "hideFlags": 0
+      },
+      "X": 444.0,
+      "Y": 584.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 13,
+      "BaseBehaviour": "RepeatUntillFail",
+      "BaseBehaviourInstanceId": 24576,
+      "Behaviour": {
+        "SaveDataType": "BbbtRepeatUntillFail",
+        "Child": {
+          "SaveDataType": "BbbtInverter",
+          "Child": {
+            "SaveDataType": "BbbtSequencer",
+            "Children": [
+              {
+                "SaveDataType": "BbbtFindNearestDepot",
+                "Status": 0,
+                "NodeId": 16,
+                "name": "Find Nearest Depot(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+                "Status": 0,
+                "NodeId": 17,
+                "name": "Move To Depot(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtDepositBehaviour",
+                "Status": 0,
+                "NodeId": 18,
+                "name": "Deposit(Clone)",
+                "hideFlags": 0
+              }
+            ],
+            "Status": 0,
+            "NodeId": 15,
+            "name": "Sequencer(Clone)",
+            "hideFlags": 0
+          },
+          "Status": 0,
+          "NodeId": 14,
+          "name": "Inverter(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 13,
+        "name": "RepeatUntillFail(Clone)",
+        "hideFlags": 0
+      },
+      "X": 646.0,
+      "Y": 165.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 14,
+      "BaseBehaviour": "Inverter",
+      "BaseBehaviourInstanceId": 24510,
+      "Behaviour": {
+        "SaveDataType": "BbbtInverter",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtFindNearestDepot",
+              "Status": 0,
+              "NodeId": 16,
+              "name": "Find Nearest Depot(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+              "Status": 0,
+              "NodeId": 17,
+              "name": "Move To Depot(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtDepositBehaviour",
+              "Status": 0,
+              "NodeId": 18,
+              "name": "Deposit(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 15,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 14,
+        "name": "Inverter(Clone)",
+        "hideFlags": 0
+      },
+      "X": 655.0,
+      "Y": 311.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 15,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 8362,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtFindNearestDepot",
+            "Status": 0,
+            "NodeId": 16,
+            "name": "Find Nearest Depot(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+            "Status": 0,
+            "NodeId": 17,
+            "name": "Move To Depot(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtDepositBehaviour",
+            "Status": 0,
+            "NodeId": 18,
+            "name": "Deposit(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 15,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 665.0,
+      "Y": 443.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 16,
+      "BaseBehaviour": "Find Nearest Depot",
+      "BaseBehaviourInstanceId": 8720,
+      "Behaviour": {
+        "SaveDataType": "BbbtFindNearestDepot",
+        "Status": 0,
+        "NodeId": 16,
+        "name": "Find Nearest Depot(Clone)",
+        "hideFlags": 0
+      },
+      "X": 562.0,
+      "Y": 605.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 17,
+      "BaseBehaviour": "Move To Depot",
+      "BaseBehaviourInstanceId": 9354,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+        "Status": 0,
+        "NodeId": 17,
+        "name": "Move To Depot(Clone)",
+        "hideFlags": 0
+      },
+      "X": 678.0,
+      "Y": 602.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 18,
+      "BaseBehaviour": "Deposit",
+      "BaseBehaviourInstanceId": 15056,
+      "Behaviour": {
+        "SaveDataType": "BbbtDepositBehaviour",
+        "Status": 0,
+        "NodeId": 18,
+        "name": "Deposit(Clone)",
+        "hideFlags": 0
+      },
+      "X": 787.0,
+      "Y": 586.0,
       "IsSelected": false
     }
   ],
   "Connections": [
     {
-      "InNodeId": 2,
+      "InNodeId": 4,
       "OutNodeId": 1
     },
     {
-      "InNodeId": 3,
-      "OutNodeId": 2
+      "InNodeId": 5,
+      "OutNodeId": 4
     },
     {
-      "InNodeId": 4,
-      "OutNodeId": 2
+      "InNodeId": 6,
+      "OutNodeId": 5
+    },
+    {
+      "InNodeId": 7,
+      "OutNodeId": 6
+    },
+    {
+      "InNodeId": 8,
+      "OutNodeId": 7
+    },
+    {
+      "InNodeId": 9,
+      "OutNodeId": 7
+    },
+    {
+      "InNodeId": 10,
+      "OutNodeId": 7
+    },
+    {
+      "InNodeId": 11,
+      "OutNodeId": 10
+    },
+    {
+      "InNodeId": 12,
+      "OutNodeId": 7
+    },
+    {
+      "InNodeId": 13,
+      "OutNodeId": 4
+    },
+    {
+      "InNodeId": 14,
+      "OutNodeId": 13
+    },
+    {
+      "InNodeId": 15,
+      "OutNodeId": 14
+    },
+    {
+      "InNodeId": 16,
+      "OutNodeId": 15
+    },
+    {
+      "InNodeId": 17,
+      "OutNodeId": 15
+    },
+    {
+      "InNodeId": 18,
+      "OutNodeId": 15
     }
   ],
   "WindowOffsetX": 0.0,

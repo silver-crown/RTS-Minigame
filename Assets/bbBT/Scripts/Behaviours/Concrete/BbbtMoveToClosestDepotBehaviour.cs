@@ -20,7 +20,7 @@ namespace Bbbt
         [SerializeField]
         float depositRange=0.5f;
 
-        public override string SaveDataType { get; } = "BbbtMoveToDepotBehaviour";
+        public override string SaveDataType { get; } = "BbbtMoveToClosestDepotBehaviour";
 
         protected override void OnInitialize(GameObject gameObject)
         {

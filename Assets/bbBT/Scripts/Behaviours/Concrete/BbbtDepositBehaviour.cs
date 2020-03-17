@@ -16,7 +16,7 @@ namespace Bbbt
         private Inventory _inventory;
         private Inventory _depot;
 
-        public override string SaveDataType { get; } = "Mine";
+        public override string SaveDataType { get; } = "BbbtDepositBehaviour";
 
         protected override void OnInitialize(GameObject gameObject)
         {

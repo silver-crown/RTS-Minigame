@@ -6,14 +6,14 @@ using RTS;
 namespace Bbbt
 {
     [CreateAssetMenu(
-        fileName = "FindNearestResource",
-        menuName = "bbBT/Behaviour/Leaf/FindNearestResource",
+        fileName = "Find Nearest Resource",
+        menuName = "bbBT/Behaviour/Leaf/Find Nearest Resource",
         order = 0)]
     public class BbbtFindNearestResource : BbbtLeafBehaviour
     {
         private Miner _miner;
 
-        public override string SaveDataType { get; } = "FindNearestResource";
+        public override string SaveDataType { get; } = "BbbtFindNearestResource";
 
         protected override void OnInitialize(GameObject go)
         {
@@ -56,6 +56,7 @@ namespace Bbbt
             } else
             {
                 //otherwise we're a failure
+                //TODO make this tell the boss that we can't see any of that resource
                 return BbbtBehaviourStatus.Failure;
             }
         }

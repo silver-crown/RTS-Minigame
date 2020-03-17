@@ -291,19 +291,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538b47d0fe650e34fa47f007443241cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1067003803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1067003797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0653ca21702d404e814aff998af937c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dronePrefab: {fileID: 0}
 --- !u!114 &1067003804
 MonoBehaviour:
   m_ObjectHideFlags: 0

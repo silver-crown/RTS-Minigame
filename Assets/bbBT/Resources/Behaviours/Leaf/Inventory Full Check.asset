@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbbcf01e5d881214283b7a2474b4aa03, type: 3}
-  m_Name: FindNearestResource
+  m_Script: {fileID: 11500000, guid: 1c34a3925c57fa449800ebeff95dce67, type: 3}
+  m_Name: Inventory Full Check
   m_EditorClassIdentifier: 

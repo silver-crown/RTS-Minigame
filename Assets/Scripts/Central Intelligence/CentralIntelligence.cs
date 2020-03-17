@@ -7,7 +7,6 @@ using MoonSharp.Interpreter;
 using Bbbt;
 using System;
 
-[RequireComponent(typeof(BehaviorTree))]
 public class CentralIntelligence : MonoBehaviour
 {
     /// <summary>
@@ -25,11 +24,6 @@ public class CentralIntelligence : MonoBehaviour
     [SerializeField] string gatherAmountScriptPath;
     [Tooltip("equivalent for buildWorkerNumber")]
     [SerializeField] string buildDroneNumberPath;
-
-    /// <summary>
-    /// CentralIntelligene's behavior tree 
-    /// </summary>
-    private BehaviorTree _behaviorTree;
 
     /// <summary>
     /// All drones under CI's control.
@@ -91,7 +85,6 @@ public class CentralIntelligence : MonoBehaviour
     {
         DroneTypeCount = new Dictionary<string, int>();
         LastTimeChunkWasScouted = new Dictionary<Vector2Int, float>();
-        _behaviorTree = GetComponent<BehaviorTree>();
         // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
         _actions = new UtilityAction[NUMOFACTIONS];
@@ -199,23 +192,6 @@ public class CentralIntelligence : MonoBehaviour
     }
 
     /// <summary>
-    /// Creates a behavior tree for the Central Intelligence base on a predefined code
-    /// </summary>
-    public void SetUpTreeFromCode()
-    {
-        Selector rootNode = new Selector();
-
-
-        GatherResources gatherResources = new GatherResources();
-        
-
-        // SendMessageToDronesBehavior collectResources = new SendMessageToDronesBehavior();
-        // rootNode.AddChild(collectResources);
-        
-        _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree 
-    }
-
-    /// <summary>
     /// Adds a drone to the CI's hivemind.
     /// </summary>
     /// <param name="drone"></param>
@@ -248,14 +224,6 @@ public class CentralIntelligence : MonoBehaviour
         {
             Resources[type] = count;
         }
-    }
-
-    /// <summary>
-    /// Creates a behavior tree from a file.
-    /// </summary>
-    public bool SetUpBehaviorTreeFromFile()
-    {
-        return false;
     }
 
     /// <summary>

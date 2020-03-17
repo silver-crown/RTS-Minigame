@@ -13,7 +13,7 @@ namespace Bbbt
     {
         private Miner _miner;
 
-        public override string SaveDataType { get; } = "FindNearestDepot";
+        public override string SaveDataType { get; } = "BbbtFindNearestDepot";
 
         protected override void OnInitialize(GameObject go)
         {

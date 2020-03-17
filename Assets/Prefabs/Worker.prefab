@@ -17,8 +17,9 @@ GameObject:
   - component: {fileID: 114519846212049400}
   - component: {fileID: 114719967461506966}
   - component: {fileID: 114580399605065290}
+  - component: {fileID: 114252051511281778}
   m_Layer: 0
-  m_Name: Drone
+  m_Name: Worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +115,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   ProjectilePrefab: {fileID: 0}
   NextFire: 0
-  _behavior: {fileID: 0}
+  _behavior: {fileID: 11400000, guid: e1a4ac37b4eaa9e4aa89ac86f7439aa6, type: 2}
   MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
   EnemyInSight: 0
@@ -189,6 +190,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _capacity: 20
+--- !u!114 &114252051511281778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5531117861107271381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f850e45d6191347b256b3ee194dd77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7105153084479403556
 GameObject:
   m_ObjectHideFlags: 0
