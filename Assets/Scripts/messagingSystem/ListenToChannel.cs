@@ -68,7 +68,7 @@ public class ListenToChannel : MonoBehaviour
         }
         if (GroupMessageList().Contains(_message))
         {
-            if (drone.leaderStatus == true)
+            if (drone.leaderStatus)
             {
                 for (int i = 0; i <= drone.GetComponent<Group>().groupMessageList.Count; i++)
                 {

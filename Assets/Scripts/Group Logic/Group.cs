@@ -82,11 +82,14 @@ public class Group : MonoBehaviour
     /// </summary>
     void LeaderStartListening()
     {
-        //Listen in on the messages sent to the group channel dictionary
-        for(int i = 0; i <= message.Length; i++)
+        if (GetComponent<Drone>().leaderStatus)
         {
-            lastMessage = i;
-            EventManager.StartListening(message[i], () => { groupMessageList.Add(message[lastMessage]);},EventManager.MessageChannel.groupChannel, groupID);
+            //Listen in on the messages sent to the group channel dictionary
+            for (int i = 0; i <= message.Length; i++)
+            {
+                lastMessage = i;
+                GetComponent<ListenToChannel>().ListenToMessage("This is a message that will be added to the message list once someone sends it.");
+            }
         }
     }
     /// <summary>
