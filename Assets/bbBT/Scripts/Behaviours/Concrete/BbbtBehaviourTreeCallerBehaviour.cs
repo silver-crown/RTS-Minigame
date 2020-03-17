@@ -37,7 +37,6 @@ namespace Bbbt
         {
 
             // so we can test networking remove this ifdef after we have new save system for bbbt
-            #if UNITY_EDITOR
             if (_root == null && _behaviourTreeName != null)
             {
                 var originalTree = BbbtBehaviourTree.FindBehaviourTreeWithName(_behaviourTreeName);
@@ -50,7 +49,6 @@ namespace Bbbt
                     BehaviourTree.name = BehaviourTree.name + " (" + gameObject.name + ")";
                 }
             }
-            #endif
         }
 
 

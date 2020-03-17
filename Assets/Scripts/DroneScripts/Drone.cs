@@ -163,7 +163,6 @@ public class Drone : RTS.Actor
     }
 
 
-#if UNITY_EDITOR
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>
@@ -183,7 +182,6 @@ public class Drone : RTS.Actor
             Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
         }
     }
-#endif
 
     public void ReceiveMessageOnChannel(string message, EventManager.MessageChannel channel)
     {

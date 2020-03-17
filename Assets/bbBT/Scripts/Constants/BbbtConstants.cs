@@ -11,6 +11,10 @@ namespace Bbbt.Constants
         /// <summary>
         /// The directory which contains behaviour tree json save data.
         /// </summary>
-        public static string JsonDirectory { get; } = Path.Combine(Application.dataPath, "bbBT", "json");
+        public static string JsonDirectory { get; } = Path.Combine(
+            Application.streamingAssetsPath,
+            "AI",
+            "BehaviourTrees",
+            "Json");
     }
 }

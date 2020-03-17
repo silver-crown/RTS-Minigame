@@ -44,6 +44,8 @@ namespace Bbbt
     [JsonConverter(typeof(JsonSubtypes), "SaveDataType")]
     public abstract class BbbtBehaviour : ScriptableObject
     {
+        private static Dictionary<string, BbbtBehaviour> _behaviours;
+
         /// <summary>
         /// The name of the save data type used for identifying type during serialisation.
         /// </summary>
@@ -160,7 +162,6 @@ namespace Bbbt
             return Status == BbbtBehaviourStatus.Success || Status == BbbtBehaviourStatus.Failure;
         }
 
-        #if UNITY_EDITOR
         /// <summary>
         /// Tries to find a behaviour that matches a given query.
         /// </summary>
@@ -171,6 +172,20 @@ namespace Bbbt
         /// <returns>The behaviour that maches the query, if found. Null otherwise.</returns>
         public static BbbtBehaviour FindBehaviourWithName(string query)
         {
+#if UNITY_EDITOR
+            if (Application.isPlaying)
+            {
+                if (_behaviours == null)
+                {
+                    _behaviours = new Dictionary<string, BbbtBehaviour>();
+                    foreach (var behaviour in Resources.FindObjectsOfTypeAll<BbbtBehaviour>())
+                    {
+                        Debug.Log(behaviour.name.ToLower());
+                        _behaviours[behaviour.name.ToLower()] = behaviour;
+                    }
+                }
+                return _behaviours[query.ToLower()];
+            }
             // Try to find a behaviour with name matching the query.
             var guids = AssetDatabase.FindAssets(query);
             foreach (var guid in guids)
@@ -190,8 +205,19 @@ namespace Bbbt
 
             // No behaviour found with name matching the query.
             return null;
+#else
+            if (_behaviours == null)
+            {
+                _behaviours = new Dictionary<string, BbbtBehaviour>();
+                foreach (var behaviour in Resources.FindObjectsOfTypeAll<BbbtBehaviour>())
+                {
+                    Debug.Log(behaviour.name.ToLower());
+                    _behaviours[behaviour.name.ToLower()] = behaviour;
+                }
+            }
+            return _behaviours[query.ToLower()];
+#endif
         }
-        #endif
 
 
         

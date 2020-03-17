@@ -112,9 +112,6 @@ public class CentralIntelligence : MonoBehaviour
         _actions[2] = new UtilityAction(
             new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
             () => { buildDrone.Tick(gameObject); });
-
-        //run selectAction
-        _selectAction();
     }
 
     private void Start()
@@ -152,6 +149,8 @@ public class CentralIntelligence : MonoBehaviour
             Debug.Log("\t" + type.Key.String + " : " + (int)type.Value.Number, this);
             AddResource(type.Key.String, (int)type.Value.Number);
         }
+
+        SelectAction();
     }
 
     // Update is called once per frame
@@ -167,6 +166,12 @@ public class CentralIntelligence : MonoBehaviour
         {
             EventManager.TriggerEvent("Testing Private Channel", EventManager.MessageChannel.privateChannel, 0);
         }
+        // Test building combat drone
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            GetComponent<DroneTestFactory>().BuildDroneForFree("CombatDrone");
+        }
+
         //test the group channels
         if (Input.GetKeyDown("k"))
         {
@@ -184,7 +189,7 @@ public class CentralIntelligence : MonoBehaviour
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {
-            _selectAction();
+            SelectAction();
 
             //tick selected action
             _selectedAction.Behaviour.Invoke();
@@ -266,7 +271,7 @@ public class CentralIntelligence : MonoBehaviour
         }
     }
 
-    private void _selectAction()
+    private void SelectAction()
     {
         UtilityAction chosenAction= _selectedAction;         //the currently best action at this point in the loop
         float chosenUtility = 0.0f;   //the utility of the currently best action
