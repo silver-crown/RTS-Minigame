@@ -58,6 +58,11 @@ public class Drone : RTS.Actor
     public int killCount;
 
     /// <summary>
+    /// The absolute strength of the drone
+    /// </summary>
+    public double powerLevel;
+
+    /// <summary>
     /// The drone's central intelligence.
     /// </summary>
     public CentralIntelligence CentralIntelligence { get; set; }
@@ -222,5 +227,11 @@ public class Drone : RTS.Actor
         message[i++] = "Flanking Assault Left";
     }
 
+    public void CalculatePowerLevel()
+    {
+        double dps = GetValue("_attacksPerSecond").Number;
+        double range = GetValue("_attackRange").Number;
 
+        powerLevel = killCount + dps + range + Health;
+    }
 }
