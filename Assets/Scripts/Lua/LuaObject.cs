@@ -35,14 +35,9 @@ namespace RTS.Lua
         public LuaObject(uint id, string path)
         {
             Id = id;
-
-            UserData.RegisterAssembly();
-            UserData.RegisterType<Debug>();
-            Script = new Script();
-            Script.Globals["LuaManager"] = new LuaManager();
-            Script.Globals["Debug"] = new Debug();
-            Script.Globals["InGameDebug"] = new InGameDebug();
+            Script = LuaManager.CreateScript();
             Table = Script.DoFile(path).Table;
+            Table.Set("_id", DynValue.NewNumber(id));
         }
     }
 }
