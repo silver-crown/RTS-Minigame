@@ -1,4 +1,6 @@
--- work boy
+function Start(id)
+    InGameDebug.Log("It's time to work baby!!!")
+end
 function Update(id)
     if id == nil then
         Debug.Log("WorkerDrone: id was nil")

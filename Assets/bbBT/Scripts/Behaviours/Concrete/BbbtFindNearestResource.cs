@@ -52,11 +52,12 @@ namespace Bbbt
             //if we found a resource to target, we did it, woo
             if (currentTarget != null)
             {
-                Debug.Log("Found resource at " + currentTarget.transform);
+                //Debug.Log("Found resource at " + currentTarget.transform);
                 _miner.SetTargetResource(currentTarget);
                 return BbbtBehaviourStatus.Success;
             } else
             {
+                //Debug.Log("No resources of type " + _miner.TargetResourceType);
                 //otherwise we're a failure
                 //TODO make this tell the boss that we can't see any of that resource
                 return BbbtBehaviourStatus.Failure;

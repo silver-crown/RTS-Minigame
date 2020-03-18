@@ -1,0 +1,120 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "SaveDataType": "BbbtRepeatUntilFail",
+          "Child": {
+            "SaveDataType": "BbbtInverter",
+            "Child": {
+              "SaveDataType": "BbbtSequencer",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtFindNearestResource",
+                  "Status": 0,
+                  "NodeId": 5,
+                  "name": "Find Nearest Resource(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+                  "Status": 0,
+                  "NodeId": 6,
+                  "name": "Move In Range Of Resource(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtRepeatUntilFail",
+                  "Child": {
+                    "SaveDataType": "BbbtMineBehaviour",
+                    "Status": 0,
+                    "NodeId": 8,
+                    "name": "Mine(Clone)",
+                    "hideFlags": 0
+                  },
+                  "Status": 0,
+                  "NodeId": 7,
+                  "name": "Repeat Until Fail(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtInventoryFullCheck",
+                  "Status": 0,
+                  "NodeId": 9,
+                  "name": "Inventory Full Check(Clone)",
+                  "hideFlags": 0
+                }
+              ],
+              "Status": 0,
+              "NodeId": 12,
+              "name": "Sequencer(Clone)",
+              "hideFlags": 0
+            },
+            "Status": 0,
+            "NodeId": 13,
+            "name": "Inverter(Clone)",
+            "hideFlags": 0
+          },
+          "Status": 0,
+          "NodeId": 3,
+          "name": "Repeat Until Fail(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtRepeatUntilFail",
+          "Child": {
+            "SaveDataType": "BbbtInverter",
+            "Child": {
+              "SaveDataType": "BbbtSequencer",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtFindNearestDepot",
+                  "Status": 0,
+                  "NodeId": 16,
+                  "name": "Find Nearest Depot(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+                  "Status": 0,
+                  "NodeId": 15,
+                  "name": "Move To Depot(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "SaveDataType": "BbbtDepositBehaviour",
+                  "Status": 0,
+                  "NodeId": 17,
+                  "name": "Deposit(Clone)",
+                  "hideFlags": 0
+                }
+              ],
+              "Status": 0,
+              "NodeId": 14,
+              "name": "Sequencer(Clone)",
+              "hideFlags": 0
+            },
+            "Status": 0,
+            "NodeId": 11,
+            "name": "Inverter(Clone)",
+            "hideFlags": 0
+          },
+          "Status": 0,
+          "NodeId": 10,
+          "name": "Repeat Until Fail(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 2,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}

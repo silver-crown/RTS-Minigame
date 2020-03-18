@@ -20,7 +20,7 @@ namespace Bbbt
 
         protected override void OnInitialize(GameObject gameObject)
         {
-            _inventory.gameObject.GetComponent<Inventory>();
+            _inventory = gameObject.GetComponent<Inventory>();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)

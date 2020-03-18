@@ -19,8 +19,8 @@ namespace RTS
         [SerializeField] public Resource TargetResource { get; private set; } = null;
         [SerializeField] public GameObject TargetDepot { get; private set; } = null;
 
-        // Start is called before the first frame update
-        void Start()
+
+        void Awake()
         {
             _worker = GetComponent<Actor>();
             _inventory = GetComponent<Inventory>();
@@ -55,7 +55,7 @@ namespace RTS
                     int amountToMine = Mathf.Min(_miningDamage, _inventory.GetAvailableSpace());
 
                     //mine for as much as we can
-                    _inventory.Deposit(TargetResource.ResourceType, TargetResource.Mine(amountToMine));
+                    _inventory.Deposit(TargetResourceType, TargetResource.Mine(amountToMine));
 
                     //update when our mining cooldown will be done
                     _timeLastMined = Time.time + _miningCooldown;
