@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RTS.Lua;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RTS.UI.Debugging
@@ -17,7 +18,7 @@ namespace RTS.UI.Debugging
             }
             else
             {
-                Actor.OnActorClicked += (Actor actor) =>
+                LuaObjectComponent.OnClick += (LuaObjectComponent component) =>
                 {
                     if (_entries != null)
                     {
@@ -28,19 +29,19 @@ namespace RTS.UI.Debugging
                         _entries = null;
                     }
                     _entries = new List<DroneTableDebugUIElementEntry>();
-                    foreach (var pair in actor.GetTablePairs())
+                    foreach (var pair in component.GetTablePairs())
                     {
-                        AddEntry(pair.Key.ToString().Trim(new char[] { '\"' }), actor);
+                        AddEntry(pair.Key.ToString().Trim(new char[] { '\"' }), component);
                     }
                 };
             }
         }
 
-        private void AddEntry(string key, Actor actor)
+        private void AddEntry(string key, LuaObjectComponent component)
         {
             var entry = Instantiate(_entryPrefab, transform).GetComponent<DroneTableDebugUIElementEntry>();
             entry.Key = key;
-            entry.Actor = actor;
+            entry.Component = component;
             _entries.Add(entry);
         }
     }

@@ -16,7 +16,6 @@ namespace RTS
     /// <summary>
     /// Base class used by drones for sight, movement etc.
     /// </summary>
-    [RequireComponent(typeof(MouseClickRaycastTarget))]
     [RequireComponent(typeof(LuaObjectComponent))]
     public abstract class Actor : MonoBehaviour
     {
@@ -34,23 +33,6 @@ namespace RTS
         /// The actor's type.
         /// </summary>
         public string Type { get; protected set; }
-
-        #region Events
-        /// <summary>
-        /// The actor's MouseClickRaycastTarget.
-        /// </summary>
-        protected MouseClickRaycastTarget _mouseClickRaycastTarget = null;
-
-        /// <summary>
-        /// Invoked when an actor spawns.
-        /// </summary>
-        public static Action<Actor> OnActorSpawned = null;
-
-        /// <summary>
-        /// Invoked when the Actor gets clicked on.
-        /// </summary>
-        public static Action<Actor> OnActorClicked = null;
-        #endregion
 
         #region Combat
 
@@ -243,23 +225,6 @@ namespace RTS
             {
                 Debug.LogError(name + ":  GunEnd was null. Set Gun End in the inspector.", this);
             }
-
-            _mouseClickRaycastTarget = GetComponent<MouseClickRaycastTarget>();
-            if (_mouseClickRaycastTarget != null)
-            {
-                _mouseClickRaycastTarget.OnClick += () =>
-                {
-                    _isSelected = !_isSelected;
-                    if (_isSelected)
-                    {
-                        OnActorClicked?.Invoke(this);
-                    }
-                };
-            }
-            else
-            {
-                Debug.LogError(name + ": No MouseClickRaycastTarget component.");
-            }
         }
 
         // Start is called before the first frame update
@@ -271,10 +236,8 @@ namespace RTS
             {
                 agent.SetDestination(TargetDestination.transform.position);
             }
-            
-            _gunAudio = GetComponent<AudioSource>();
 
-            OnActorSpawned?.Invoke(this);
+            _gunAudio = GetComponent<AudioSource>();
         }
 
         private void OnDestroy()

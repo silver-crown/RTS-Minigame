@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RTS.Lua;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace RTS.UI.Debugging
@@ -11,7 +12,7 @@ namespace RTS.UI.Debugging
         private bool error = false;
 
         public string Key { get; set; }
-        public Actor Actor { get; set; }
+        public LuaObjectComponent Component { get; set; }
 
         private void Start()
         {
@@ -25,9 +26,10 @@ namespace RTS.UI.Debugging
                 Debug.LogError(GetType().Name + ": _valueText was null. Set Value Text in the inspector.");
                 error = true;
             }
-            if (Actor == null)
+            if (Component == null)
             {
-                Debug.LogError(GetType().Name + ": Actor was null. Set Actor immedieately after instantiation.");
+                Debug.LogError(GetType().Name +
+                    ": Component was null. Set Component immedieately after instantiation.");
             }
         }
 
@@ -36,7 +38,7 @@ namespace RTS.UI.Debugging
             if (!error)
             {
                 _keyText.text = Key;
-                _valueText.text = Actor.GetValue(Key).CastToString();
+                _valueText.text = Component.Get(Key).CastToString();
             }
         }
     }
