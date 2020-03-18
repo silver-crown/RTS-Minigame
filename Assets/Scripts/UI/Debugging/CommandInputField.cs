@@ -23,10 +23,13 @@ namespace RTS.UI.Debugging
 
         private void OnCommandEntered()
         {
-            if (EventSystem.current.currentSelectedGameObject != gameObject) return;
-            if (_text.text == null || _text.text == "") return;
-            LuaManager.DoString("InGameDebug.Log(" + _text.text + ")");
+            string code = _text.text;
             _text.text = "";
+            _field.text = "";
+            if (EventSystem.current.currentSelectedGameObject != gameObject) return;
+            if (code == null || code == "") return;
+            LuaManager.DoString("InGameDebug.Log(" + code + ")");
+            EventSystem.current.SetSelectedGameObject(gameObject);
         }
 
         private void StealBBInputFocus()

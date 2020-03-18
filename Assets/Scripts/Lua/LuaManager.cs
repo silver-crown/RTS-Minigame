@@ -102,6 +102,7 @@ namespace RTS.Lua
             script.Globals["LuaManager"] = new LuaManager();
             script.Globals["Debug"] = new Debug();
             script.Globals["InGameDebug"] = new InGameDebug();
+            script.Globals["Drone"] = new DroneStaticMethods();
             return script;
         }
     }

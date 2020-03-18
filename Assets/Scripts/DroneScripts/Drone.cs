@@ -8,6 +8,7 @@ using RTS.Lua;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
+[MoonSharpUserData]
 public class Drone : RTS.Actor
 {
     /// <summary>
