@@ -214,11 +214,6 @@ namespace RTS
             {
                 agent.SetDestination(TargetDestination.transform.position);
             }
-<<<<<<< HEAD
-
-            _gunAudio = GetComponent<AudioSource>();
-=======
->>>>>>> 43795581f4c814a0e0a1b0dae2b6603827c256bf
 
             _gunAudio = GetComponent<AudioSource>();
         }

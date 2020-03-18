@@ -149,15 +149,13 @@ public class CentralIntelligence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
-        // Test building combat drone
+
+        // Test building worker drone
         if (Input.GetKeyDown(KeyCode.C))
         {
             GetComponent<DroneTestFactory>().BuildDroneForFree("WorkerDrone");
         }
 
-=======
->>>>>>> 43795581f4c814a0e0a1b0dae2b6603827c256bf
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {
