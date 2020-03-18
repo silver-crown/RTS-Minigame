@@ -14,7 +14,8 @@ public class Marine : RTS.Actor
     {
         base.Awake();
         MyFaction = Factions.Marine;
-        _luaObject = LuaManager.CreateLuaObject("Actors/Marines/BaseMarine");
+        _luaObject = gameObject.AddComponent<LuaObjectComponent>();
+        _luaObject.Load("Actors/Marines/BaseMarine");
     }
     
     // Start is called before the first frame update
@@ -25,9 +26,8 @@ public class Marine : RTS.Actor
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         // Marine move towards combat drone. For testing purposes.
         foreach (var actor in WorldInfo.Actors)
         {

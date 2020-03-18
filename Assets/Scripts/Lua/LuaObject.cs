@@ -21,6 +21,7 @@ namespace RTS.Lua
         /// </summary>
         public Table Table { get; protected set; }
 
+
         /// <summary>
         /// Constructs a new LuaObject from a path.
         /// </summary>

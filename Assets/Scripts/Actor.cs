@@ -17,12 +17,13 @@ namespace RTS
     /// Base class used by drones for sight, movement etc.
     /// </summary>
     [RequireComponent(typeof(MouseClickRaycastTarget))]
+    [RequireComponent(typeof(LuaObjectComponent))]
     public abstract class Actor : MonoBehaviour
     {
         /// <summary>
         /// Contains the actor's lua script and table.
         /// </summary>
-        protected LuaObject _luaObject;
+        protected LuaObjectComponent _luaObject;
 
         /// <summary>
         /// Whether the actor is selected.
@@ -214,7 +215,7 @@ namespace RTS
         public virtual void TakeDamage(int damage)
         {
             SetValue("_hp", DynValue.NewNumber((int)GetValue("_hp").Number - damage));
-            if ((int)_luaObject.Table.Get("_hp").Number <= 0)
+            if ((int)_luaObject.LuaObject.Table.Get("_hp").Number <= 0)
             {
                 Destroy(gameObject);
             }
@@ -276,16 +277,6 @@ namespace RTS
             OnActorSpawned?.Invoke(this);
         }
 
-        // Update is called once per frame
-        public virtual void Update()
-        {
-            var update = _luaObject.Script.Globals.Get("Update");
-            if (update.IsNotNil())
-            {
-                _luaObject.Script.Call(update, _luaObject.Id);
-            }
-        }
-
         private void OnDestroy()
         {
             WorldInfo.Actors.Remove(this);
@@ -301,7 +292,7 @@ namespace RTS
         /// <returns>The value associated with the key.</returns>
         public DynValue GetValue(string key)
         {
-            return _luaObject.Table.Get(key);
+            return _luaObject.LuaObject.Table.Get(key);
         }
 
         /// <summary>
@@ -312,7 +303,7 @@ namespace RTS
         /// <returns>Sets the value associated with the key.</returns>
         public void SetValue(string key, DynValue value)
         {
-            _luaObject.Table.Set(key, value);
+            _luaObject.LuaObject.Table.Set(key, value);
         }
 
         /// <summary>
@@ -321,7 +312,7 @@ namespace RTS
         /// <returns>The pairs.</returns>
         public IEnumerable<TablePair> GetTablePairs()
         {
-            return _luaObject.Table.Pairs;
+            return _luaObject.LuaObject.Table.Pairs;
         }
 
 #if UNITY_EDITOR
@@ -348,7 +339,7 @@ namespace RTS
                         //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
                         //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                     }
-                    else if (distance < _luaObject.Table.Get("_sightRange").Number)
+                    else if (distance < _luaObject.LuaObject.Table.Get("_sightRange").Number)
                     {
                         Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
                         Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);

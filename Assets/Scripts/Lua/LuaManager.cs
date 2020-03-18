@@ -80,15 +80,20 @@ namespace RTS.Lua
             return value;
         }
 
+        /// <summary>
+        /// Does a lua string.
+        /// </summary>
+        /// <param name="code">The code to do.</param>
+        /// <returns>The return value from the code. Is Nil if the code doesn't have a return statement.</returns>
         public static DynValue DoString(string code)
         {
             return CreateScript().DoString(code);
         }
 
         /// <summary>
-        /// 
+        /// Creates a MoonSharp.Interpreter.Script set up to accept our awesome scripting API.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The created script.</returns>
         public static Script CreateScript()
         {
             UserData.RegisterAssembly();
