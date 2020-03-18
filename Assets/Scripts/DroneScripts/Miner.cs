@@ -15,9 +15,9 @@ namespace RTS
 
         private Actor _worker;
         private Inventory _inventory;
-        public string TargetResourceType { get; private set; } = "Metal";
-        public Resource TargetResource { get; private set; } = null;
-        public GameObject TargetDepot { get; private set; } = null;
+        [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
+        [SerializeField] public Resource TargetResource { get; private set; } = null;
+        [SerializeField] public GameObject TargetDepot { get; private set; } = null;
 
         // Start is called before the first frame update
         void Start()

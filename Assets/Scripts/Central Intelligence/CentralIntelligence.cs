@@ -152,7 +152,7 @@ public class CentralIntelligence : MonoBehaviour
         // Test building combat drone
         if (Input.GetKeyDown(KeyCode.C))
         {
-            GetComponent<DroneTestFactory>().BuildDroneForFree("CombatDrone");
+            GetComponent<DroneTestFactory>().BuildDroneForFree("WorkerDrone");
         }
 
         //if enough time has passed since last time do AI decision making

@@ -6,25 +6,25 @@ namespace Bbbt
 {
     // Creates the menu option in the unity engine
     [CreateAssetMenu(
-        fileName = "RepeatUntillFail",
-        menuName = "bbBT/Behaviour/Decorator/RepeatUntillFail",
+        fileName = "Repeat Until Fail",
+        menuName = "bbBT/Behaviour/Decorator/Repeat Until Fail",
         order = 0)]
 
     /// <summary>
     /// Repeats the child nodes untills it returns BbbtBehaviourStatus.Failure
     /// </summary>
-    public class BbbtRepeatUntillFail : BbbtDecoratorBehaviour
+    public class BbbtRepeatUntilFail : BbbtDecoratorBehaviour
     {
-        public override string SaveDataType { get; } = "BbbtRepeatUntillFail";
+        public override string SaveDataType { get; } = "BbbtRepeatUntilFail";
 
         protected override void OnInitialize(GameObject gameObject)
         {
-           
+
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
-            
+
         }
 
         /// <summary>
@@ -34,21 +34,16 @@ namespace Bbbt
         /// <returns></returns>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
+            //Debug.Log("Mordi");
             BbbtBehaviourStatus childStatus;
-            while(true)
+            childStatus = Child.Tick(gameObject);
+
+            if (childStatus == BbbtBehaviourStatus.Failure)
             {
-                childStatus = Child.Tick(gameObject);
-
-                if(childStatus == BbbtBehaviourStatus.Failure)
-                {
-                    return BbbtBehaviourStatus.Success;
-                }
-
-                if(childStatus == BbbtBehaviourStatus.Running)
-                {
-                    return BbbtBehaviourStatus.Running;
-                }
+                return BbbtBehaviourStatus.Success;
             }
+
+            return BbbtBehaviourStatus.Running;
         }
     }
 }

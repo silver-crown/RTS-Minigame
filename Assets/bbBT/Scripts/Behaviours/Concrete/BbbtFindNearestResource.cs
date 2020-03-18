@@ -27,6 +27,7 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
+            //Debug.Log("Hello!");
             GameObject currentTarget = null;
             float distanceToCurrentTarget = Mathf.Infinity;
 
@@ -51,6 +52,7 @@ namespace Bbbt
             //if we found a resource to target, we did it, woo
             if (currentTarget != null)
             {
+                Debug.Log("Found resource at " + currentTarget.transform);
                 _miner.SetTargetResource(currentTarget);
                 return BbbtBehaviourStatus.Success;
             } else

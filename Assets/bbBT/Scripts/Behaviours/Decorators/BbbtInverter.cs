@@ -39,6 +39,7 @@ namespace Bbbt
         /// </returns>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
+            Debug.Log("I am trash man");
             BbbtBehaviourStatus childStatus = Child.Tick(gameObject);
 
             if(childStatus == BbbtBehaviourStatus.Failure)
