@@ -31,9 +31,9 @@ namespace ssuai
         public override void UpdateUtility()
         {
             //if we have some of the resource, calculate utility
-            if (_centralIntelligence.Resources.ContainsKey(_resource))
+            if (_centralIntelligence.Inventory.Contents.ContainsKey(_resource))
             {
-                _utility = (float)MathFunction.calculate(_centralIntelligence.Resources[_resource]);
+                _utility = (float)MathFunction.calculate(_centralIntelligence.Inventory.Contents[_resource]);
             }
             else //otherwise, well, we really need some.
             {
