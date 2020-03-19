@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8174738508489425090}
   - component: {fileID: 114865717062581478}
+  - component: {fileID: 114256830933123514}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Untagged
@@ -179,6 +180,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _luaFile: Resources/Crystal
+--- !u!114 &114256830933123514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834966358389622861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f43e663ea14d20419ed4d1251a0c69e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &603724846678785967
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ using RTS.Lua;
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
+[MoonSharpUserData]
 public class Drone : RTS.Actor
 {
     /// <summary>
@@ -104,9 +105,8 @@ public class Drone : RTS.Actor
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
         //Debug.Log(_script.Call(_script.Globals["Update"]));
 
         var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
@@ -159,7 +159,12 @@ public class Drone : RTS.Actor
     public void SetType(string type)
     {
         Type = type;
-        _luaObject = LuaManager.CreateLuaObject("Actors/Drones/" + type);
+        _luaObject = GetComponent<LuaObjectComponent>();
+        if (_luaObject == null)
+        {
+            _luaObject = gameObject.AddComponent<LuaObjectComponent>();
+        }
+        _luaObject.Load("Actors/Drones/" + type);
         string tree = GetValue("_behaviourTree").String;
 
         if (tree != null)

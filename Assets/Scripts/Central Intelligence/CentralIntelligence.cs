@@ -7,7 +7,6 @@ using MoonSharp.Interpreter;
 using Bbbt;
 using System;
 
-[RequireComponent(typeof(BehaviorTree))]
 public class CentralIntelligence : MonoBehaviour
 {
     /// <summary>
@@ -27,19 +26,9 @@ public class CentralIntelligence : MonoBehaviour
     [SerializeField] string buildDroneNumberPath;
 
     /// <summary>
-    /// CentralIntelligene's behavior tree 
-    /// </summary>
-    private BehaviorTree _behaviorTree;
-
-    /// <summary>
     /// All drones under CI's control.
     /// </summary>
     private List<Drone> _drones = new List<Drone>();
-
-    /// <summary>
-    /// Resources in the CI's possession.
-    /// </summary>
-    public Dictionary<string, int> Resources { get; protected set; }
 
     /// <summary>
     /// Drones of each type under the CI's control.
@@ -50,6 +39,8 @@ public class CentralIntelligence : MonoBehaviour
     /// Maps chunks to the last time the chunk was scouted.
     /// </summary>
     public Dictionary<Vector2Int, float> LastTimeChunkWasScouted { get; protected set; }
+
+    public Inventory Inventory { get; protected set; }
 
     /// <summary>
     /// Total number of drones present in the army
@@ -91,12 +82,11 @@ public class CentralIntelligence : MonoBehaviour
     {
         DroneTypeCount = new Dictionary<string, int>();
         LastTimeChunkWasScouted = new Dictionary<Vector2Int, float>();
-        _behaviorTree = GetComponent<BehaviorTree>();
         // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
         _actions = new UtilityAction[NUMOFACTIONS];
         //Contains the types of resources and the amounts the CI has of them
-        Resources = new Dictionary<string, int>();
+        Inventory = GetComponent<Inventory>();
 
         var gatherMetal = ScriptableObject.CreateInstance<CIGatherMetal>();
         var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
@@ -147,7 +137,7 @@ public class CentralIntelligence : MonoBehaviour
         foreach (var type in dronesStart.Get("_resources").Table.Pairs)
         {
             Debug.Log("\t" + type.Key.String + " : " + (int)type.Value.Number, this);
-            AddResource(type.Key.String, (int)type.Value.Number);
+            Inventory.Deposit(type.Key.String, (int)type.Value.Number);
         }
 
         SelectAction();
@@ -156,10 +146,11 @@ public class CentralIntelligence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Test building combat drone
+
+        // Test building worker drone
         if (Input.GetKeyDown(KeyCode.C))
         {
-            GetComponent<DroneTestFactory>().BuildDroneForFree("CombatDrone");
+            GetComponent<DroneTestFactory>().BuildDroneForFree("WorkerDrone");
         }
 
         //if enough time has passed since last time do AI decision making
@@ -172,23 +163,6 @@ public class CentralIntelligence : MonoBehaviour
 
             _timeOfLastAction = Time.time;
         }
-    }
-
-    /// <summary>
-    /// Creates a behavior tree for the Central Intelligence base on a predefined code
-    /// </summary>
-    public void SetUpTreeFromCode()
-    {
-        Selector rootNode = new Selector();
-
-
-        GatherResources gatherResources = new GatherResources();
-        
-
-        // SendMessageToDronesBehavior collectResources = new SendMessageToDronesBehavior();
-        // rootNode.AddChild(collectResources);
-        
-        _behaviorTree.SetRootNode(rootNode); // Creating the root node of the tree 
     }
 
     /// <summary>
@@ -207,31 +181,6 @@ public class CentralIntelligence : MonoBehaviour
         {
             DroneTypeCount[drone.Type] = 1;
         }
-    }
-
-    /// <summary>
-    /// Adds a resource to the CI's resource pool.
-    /// </summary>
-    /// <param name="type">The type of the resource to add.</param>
-    /// <param name="count">The amount to add of the resource.</param>
-    public void AddResource(string type, int count)
-    {
-        if (Resources.ContainsKey(type))
-        {
-            Resources[type] += count;
-        }
-        else
-        {
-            Resources[type] = count;
-        }
-    }
-
-    /// <summary>
-    /// Creates a behavior tree from a file.
-    /// </summary>
-    public bool SetUpBehaviorTreeFromFile()
-    {
-        return false;
     }
 
     /// <summary>
@@ -275,18 +224,18 @@ public class CentralIntelligence : MonoBehaviour
 
     public void TestBuildDrone()
     {
-        AddResource("Metal", -10);
-        AddResource("Crystal", -8);
+        Inventory.Withdraw("Metal", 10);
+        Inventory.Withdraw("Crystal", 8);
     }
 
     public void TestGatherMetal()
     {
-        AddResource("Metal", 10);
+        Inventory.Deposit("Metal", 10);
     }
 
     public void TestGatherCrystal()
     {
-        AddResource("Crystal", 10);
+        Inventory.Deposit("Crystal", 10);
     }
 
     enum GroupType

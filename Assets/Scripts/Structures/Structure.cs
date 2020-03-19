@@ -33,7 +33,7 @@ public class Structure : MonoBehaviour
         //If I have an inventory add me to the list of buildings with inventories
         if (gameObject.GetComponent<Inventory>() != null)
         {
-            WorldInfo.Depots.Add(gameObject);
+            WorldInfo.Depots.Add(this.gameObject);
         }
     }
 

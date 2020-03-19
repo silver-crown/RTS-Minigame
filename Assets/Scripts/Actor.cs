@@ -16,13 +16,13 @@ namespace RTS
     /// <summary>
     /// Base class used by drones for sight, movement etc.
     /// </summary>
-    [RequireComponent(typeof(MouseClickRaycastTarget))]
+    [RequireComponent(typeof(LuaObjectComponent))]
     public abstract class Actor : MonoBehaviour
     {
         /// <summary>
         /// Contains the actor's lua script and table.
         /// </summary>
-        protected LuaObject _luaObject;
+        protected LuaObjectComponent _luaObject;
 
         /// <summary>
         /// Whether the actor is selected.
@@ -33,23 +33,6 @@ namespace RTS
         /// The actor's type.
         /// </summary>
         public string Type { get; protected set; }
-
-        #region Events
-        /// <summary>
-        /// The actor's MouseClickRaycastTarget.
-        /// </summary>
-        protected MouseClickRaycastTarget _mouseClickRaycastTarget = null;
-
-        /// <summary>
-        /// Invoked when an actor spawns.
-        /// </summary>
-        public static Action<Actor> OnActorSpawned = null;
-
-        /// <summary>
-        /// Invoked when the Actor gets clicked on.
-        /// </summary>
-        public static Action<Actor> OnActorClicked = null;
-        #endregion
 
         #region Combat
 
@@ -113,29 +96,6 @@ namespace RTS
         public float NextFire;
 
         #endregion
-
-        #region AI
-        /// <summary>
-        /// The behaviour tree used for the Actor
-        /// </summary>
-        [SerializeField] BbbtBehaviourTree _behavior = null;
-
-        /// <summary>
-        /// The actor's NavMeshAgent. Used for making the actor move.
-        /// </summary>
-
-        /// <summary>
-        /// Old Behavior Tree
-        /// </summary>
-        public BehaviorTree BehaviorTree;
-
-        /// <summary>
-        /// Add this script to the game object in unity
-        /// </summary>
-        public BbbtBehaviourTreeComponent MyBbbtBehaviourTreeComponent;
-
-
-        #endregion AI
 
         #region Vision
 
@@ -214,7 +174,7 @@ namespace RTS
         public virtual void TakeDamage(int damage)
         {
             SetValue("_hp", DynValue.NewNumber((int)GetValue("_hp").Number - damage));
-            if ((int)_luaObject.Table.Get("_hp").Number <= 0)
+            if ((int)_luaObject.LuaObject.Table.Get("_hp").Number <= 0)
             {
                 Destroy(gameObject);
             }
@@ -242,48 +202,20 @@ namespace RTS
             {
                 Debug.LogError(name + ":  GunEnd was null. Set Gun End in the inspector.", this);
             }
-
-            _mouseClickRaycastTarget = GetComponent<MouseClickRaycastTarget>();
-            if (_mouseClickRaycastTarget != null)
-            {
-                _mouseClickRaycastTarget.OnClick += () =>
-                {
-                    _isSelected = !_isSelected;
-                    if (_isSelected)
-                    {
-                        OnActorClicked?.Invoke(this);
-                    }
-                };
-            }
-            else
-            {
-                Debug.LogError(name + ": No MouseClickRaycastTarget component.");
-            }
         }
 
         // Start is called before the first frame update
         public virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+            //_luaObject = LuaManager.CreateLuaObject("Actors\\Drones\\WorkerDrone");
 
             if (TargetDestination != null)
             {
                 agent.SetDestination(TargetDestination.transform.position);
             }
-            
+
             _gunAudio = GetComponent<AudioSource>();
-
-            OnActorSpawned?.Invoke(this);
-        }
-
-        // Update is called once per frame
-        public virtual void Update()
-        {
-            var update = _luaObject.Script.Globals.Get("Update");
-            if (update.IsNotNil())
-            {
-                _luaObject.Script.Call(update, _luaObject.Id);
-            }
         }
 
         private void OnDestroy()
@@ -301,7 +233,7 @@ namespace RTS
         /// <returns>The value associated with the key.</returns>
         public DynValue GetValue(string key)
         {
-            return _luaObject.Table.Get(key);
+            return _luaObject.LuaObject.Table.Get(key);
         }
 
         /// <summary>
@@ -312,7 +244,7 @@ namespace RTS
         /// <returns>Sets the value associated with the key.</returns>
         public void SetValue(string key, DynValue value)
         {
-            _luaObject.Table.Set(key, value);
+            _luaObject.LuaObject.Table.Set(key, value);
         }
 
         /// <summary>
@@ -321,7 +253,7 @@ namespace RTS
         /// <returns>The pairs.</returns>
         public IEnumerable<TablePair> GetTablePairs()
         {
-            return _luaObject.Table.Pairs;
+            return _luaObject.LuaObject.Table.Pairs;
         }
 
 #if UNITY_EDITOR
@@ -348,7 +280,7 @@ namespace RTS
                         //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
                         //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                     }
-                    else if (distance < _luaObject.Table.Get("_sightRange").Number)
+                    else if (distance < _luaObject.LuaObject.Table.Get("_sightRange").Number)
                     {
                         Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
                         Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);

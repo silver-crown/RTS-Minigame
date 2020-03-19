@@ -2,34 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Manages health bar component of Resources
-/// </summary>
-public class ResourceHealthbar : MonoBehaviour
+namespace RTS.UI.Debugging
 {
-    Transform bar;
-    Resource parent;
-
-    void Start()
+    /// <summary>
+    /// Manages health bar component of Resources
+    /// </summary>
+    public class ResourceHealthbar : MonoBehaviour
     {
-        parent = transform.parent.gameObject.GetComponent<Resource>();
-        bar = transform.GetComponent<ResourceHealthbar>().transform; //find HealthBar component
-        parent.OnMined += OnMined;
-    }
+        Transform bar;
+        Resource parent;
 
-    void Update()
-    {
-        //face the healthbar towards the camera
-        transform.rotation = Camera.main.transform.rotation;
-    }
+        void Start()
+        {
+            parent = transform.parent.gameObject.GetComponent<Resource>();
+            bar = transform.GetComponent<ResourceHealthbar>().transform; //find HealthBar component
+            parent.OnMined += OnMined;
+        }
 
-    //When parent takes damage
-    void OnMined()
-    {
-        //calculate HP percentage
-        float HealthPercentage = (float)parent.HP / (float)parent.MaxHP;
-        Debug.Log(HealthPercentage);
-        //set bar to that full
-        bar.localScale = new Vector3(HealthPercentage, 1f, 1f);
+        void Update()
+        {
+            //face the healthbar towards the camera
+            transform.rotation = Camera.main.transform.rotation;
+        }
+
+        //When parent takes damage
+        void OnMined()
+        {
+            //calculate HP percentage
+            float HealthPercentage = (float)parent.HP / (float)parent.MaxHP;
+            //Debug.Log(HealthPercentage);
+            //set bar to that full
+            bar.localScale = new Vector3(HealthPercentage, 1f, 1f);
+        }
     }
 }

@@ -8,30 +8,37 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _sensitivity = 2.0f;
     [SerializeField] private float _minHeight = 3.6f;
 
-    private Camera _cam;
-
+    // Controlled by input
     private float _yaw;
     private float _pitch;
+    private bool _doubleSpeed = false;
+    private Vector3 _movementDirection = Vector3.zero;
 
     void Awake()
     {
-        _cam = GetComponent<Camera>();
         _yaw = transform.eulerAngles.y;
         _pitch = transform.eulerAngles.x;
+
+        // Double speed
+        BBInput.AddOnKeyDown(KeyCode.LeftShift, () => { _doubleSpeed = true; });
+        BBInput.AddOnKeyUp(KeyCode.LeftShift,   () => { _doubleSpeed = false; });
+
+        // Movement direction
+        BBInput.AddOnKey(KeyCode.A, () => { _movementDirection.x = -1.0f; }, 2);
+        BBInput.AddOnKey(KeyCode.D, () => { _movementDirection.x =  1.0f; }, 2);
+        BBInput.AddOnKey(KeyCode.W, () => { _movementDirection.z =  1.0f; }, 2);
+        BBInput.AddOnKey(KeyCode.S, () => { _movementDirection.z = -1.0f; }, 2);
+        BBInput.AddOnKeyUp(KeyCode.A, () => { _movementDirection.x = 0.0f; }, 1);
+        BBInput.AddOnKeyUp(KeyCode.D, () => { _movementDirection.x = 0.0f; }, 1);
+        BBInput.AddOnKeyUp(KeyCode.W, () => { _movementDirection.z = 0.0f; }, 1);
+        BBInput.AddOnKeyUp(KeyCode.S, () => { _movementDirection.z = 0.0f; }, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Handle movement
-        Vector3 movementDirection = new Vector3(
-            Input.GetAxisRaw("Horizontal"),
-            0.0f,
-            Input.GetAxisRaw("Vertical")
-        ).normalized;
-
-        Vector3 toMove = movementDirection * Time.deltaTime * _speed;
-        if (Input.GetKey(KeyCode.LeftShift))
+        Vector3 toMove = _movementDirection.normalized * Time.deltaTime * _speed;
+        if (_doubleSpeed)
         {
             toMove *= 2.0f;
         }

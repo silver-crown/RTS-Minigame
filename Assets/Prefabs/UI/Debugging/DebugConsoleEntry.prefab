@@ -78,9 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '$TEST
-
-    $MULTILINE_TEST'
+  m_Text: INVALID
 --- !u!114 &7047823398174397971
 MonoBehaviour:
   m_ObjectHideFlags: 0

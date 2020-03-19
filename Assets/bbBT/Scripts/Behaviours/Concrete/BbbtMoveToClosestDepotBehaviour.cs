@@ -18,9 +18,9 @@ namespace Bbbt
 
 
         [SerializeField]
-        float depositRange=0.5f;
+        float depositRange=5.0f;
 
-        public override string SaveDataType { get; } = "BbbtMoveToDepotBehaviour";
+        public override string SaveDataType { get; } = "BbbtMoveToClosestDepotBehaviour";
 
         protected override void OnInitialize(GameObject gameObject)
         {
@@ -36,6 +36,8 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
+
+
             if (_miner.TargetDepot == null)
             {
                 return BbbtBehaviourStatus.Failure;
@@ -45,6 +47,7 @@ namespace Bbbt
                 _navMeshAgent.SetDestination(_miner.transform.position);
                 return BbbtBehaviourStatus.Success;
             }
+            //Debug.Log(Vector3.Distance(gameObject.transform.position, _miner.TargetDepot.transform.position));
             return BbbtBehaviourStatus.Failure;
         }
     }

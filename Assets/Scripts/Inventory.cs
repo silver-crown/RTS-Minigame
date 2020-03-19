@@ -23,13 +23,11 @@ public class Inventory : MonoBehaviour
     /// </summary>
     private int _amountInInventory;
 
-    public Inventory(int Capacity)
+
+    private void Awake()
     {
         Contents = new Dictionary<string, int>();
     }
-
-
-
     /// <summary>
     /// Put Amount of Resource ResourceType in the inventory. Returns the amount that could be deposited.
     /// </summary>
@@ -39,6 +37,10 @@ public class Inventory : MonoBehaviour
     {
         //find out if we have space for everything, and if not figure out how much we can deposit
         int amountToDeposit = Mathf.Min(amount, GetAvailableSpace());
+
+        //Debug.Log(Contents);
+        //Debug.Log(resourceType);
+
         //if the resource is already there
         if (Contents.ContainsKey(resourceType))
         {

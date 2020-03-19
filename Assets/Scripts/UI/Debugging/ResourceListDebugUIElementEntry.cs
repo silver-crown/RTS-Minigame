@@ -44,9 +44,9 @@ namespace RTS.UI.Debugging
             if (!error)
             {
                 _resourceTypeText.text = Type;
-                if (CentralIntelligence.Resources.ContainsKey(Type))
+                if (CentralIntelligence.Inventory.Contents.ContainsKey(Type))
                 {
-                    _resourceCountText.text = CentralIntelligence.Resources[Type].ToString();
+                    _resourceCountText.text = CentralIntelligence.Inventory.Contents[Type].ToString();
                 }
                 else
                 {

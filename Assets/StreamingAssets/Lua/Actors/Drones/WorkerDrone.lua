@@ -1,4 +1,6 @@
--- work boy
+function Start(id)
+    InGameDebug.Log("It's time to work baby!!!")
+end
 function Update(id)
     if id == nil then
         Debug.Log("WorkerDrone: id was nil")
@@ -11,7 +13,7 @@ end
 return
 {
     _name               = "Worker Drone",
-    _behaviourTree      = "Test",
+    _behaviourTree      = "Mine",
     _maxHP              = 20,
     _attackRange        = 30.0,
     _sightRange         = 15.0,

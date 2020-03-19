@@ -16,7 +16,7 @@ namespace Bbbt
         private Inventory _inventory;
         private Inventory _depot;
 
-        public override string SaveDataType { get; } = "Mine";
+        public override string SaveDataType { get; } = "BbbtDepositBehaviour";
 
         protected override void OnInitialize(GameObject gameObject)
         {
@@ -32,10 +32,15 @@ namespace Bbbt
         //deposit
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
+            //Debug.Log("Henlo");
+
             string typeToDeposit = _miner.TargetResourceType;
             //Withdraw all items in our inventory of our current target resource type, and put them in the depot's inventory.
             int amountToDeposit = _inventory.Withdraw(typeToDeposit, _inventory.Contents[typeToDeposit]);
             int remainder = amountToDeposit - _depot.Deposit(typeToDeposit, amountToDeposit);
+
+           
+            //Debug.Log(amountToDeposit + " " + remainder);
 
             //if there's nothing left over, we succeeded.
             if (remainder == 0)
