@@ -30,6 +30,6 @@ public class InGameDebug
         {
             Debug.Log(message);
         }
-        Console.AddEntry(message, context);
+        DebugConsole.StaticAddEntry(message, context);
     }
 }

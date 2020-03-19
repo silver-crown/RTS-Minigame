@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,42 +10,54 @@ namespace RTS.UI.Debugging
     /// </summary>
     public class DebugConsole : MonoBehaviour
     {
-        [Tooltip("The prefab for entries that will appear in the console." +
-            "Must contain a DebugConsoleEntry and Text component.")]
-        [SerializeField] private GameObject _entryPrefab;
-        [Tooltip("The area where debug entries will appear. Must have a Vertical Layout Group.")]
-        [SerializeField] private Transform _textArea;
+        private static List<KeyValuePair<object, object>> _staticEntries = new List<KeyValuePair<object, object>>();
+        private static Action<object, object> _onAddStaticEntry;
+
+        [SerializeField] private GameObject _entryPrefab = null;
+        [SerializeField] private Transform _textArea = null;
+        [SerializeField] private Scrollbar _scrollbar = null;
+        [SerializeField] private VerticalLayoutGroup _verticalLayoutGroup = null;
 
         private List<DebugConsoleEntry> _entries = new List<DebugConsoleEntry>();
+        float _timeRemainingWhenScrollbarShouldBeForcedToZero = 0.0f;
 
         private void Awake()
         {
-            if (_entryPrefab == null)
+            foreach (var pair in _staticEntries)
             {
-                Debug.LogError(GetType().Name + ": _entryPrefab was null. Set Entry Prefab in the inspector.");
+                AddEntry(pair.Key, pair.Value);
             }
-            else if (_entryPrefab.GetComponent<DebugConsoleEntry>() == null)
+            _onAddStaticEntry += (object message, object context) => { AddEntry(message, context); };
+            DebugConsoleEntry.OnSetupComplete += (DebugConsoleEntry entry) =>
             {
-                Debug.LogError(
-                    GetType().Name + ": _entryPrefab had no DebugConsoleEntry component. " +
-                    "Add the component to the prefab in the inspector.");
-            }
-            if (_textArea == null)
-            {
-                Debug.LogError(GetType().Name + ": _entryPrefab was null. Set Entry Prefab in the inspector.", this);
-            }
+                Canvas.ForceUpdateCanvases();
+                _verticalLayoutGroup.enabled = false;
+                _verticalLayoutGroup.enabled = true;
+                _timeRemainingWhenScrollbarShouldBeForcedToZero = 0.5f;
+            };
         }
 
         private void Update()
         {
+            while (_timeRemainingWhenScrollbarShouldBeForcedToZero > 0)
+            {
+                _scrollbar.value = 0.0f;
+                _timeRemainingWhenScrollbarShouldBeForcedToZero -= Time.deltaTime;
+            }
         }
 
-        public void AddEntry(object message, object context)
+        private void AddEntry(object message, object context)
         {
             var entry = Instantiate(_entryPrefab, _textArea).GetComponent<DebugConsoleEntry>();
-            entry.Message = message.ToString();
+            entry.Message = message != null ? message.ToString() : "null";
             entry.Context = context;
             _entries.Add(entry);
+        }
+
+        public static void StaticAddEntry(object message, object context)
+        {
+            _staticEntries.Add(new KeyValuePair<object, object>(message, context));
+            _onAddStaticEntry?.Invoke(message, context);
         }
     }
 }
