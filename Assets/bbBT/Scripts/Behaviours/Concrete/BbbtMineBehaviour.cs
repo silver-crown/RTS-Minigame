@@ -7,14 +7,14 @@ namespace Bbbt
 {
 
     [CreateAssetMenu(
-        fileName = "Mine ",
+        fileName = "Mine",
         menuName = "bbBT/Behaviour/Leaf/Mine",
         order = 0)]
     public class BbbtMineBehaviour : BbbtLeafBehaviour
     {
         private Miner _miner;
 
-        public override string SaveDataType { get; } = "Mine";
+        public override string SaveDataType { get; } = "BbbtMineBehaviour";
 
         protected override void OnInitialize(GameObject gameObject)
         {

@@ -3,7 +3,15 @@ guid: ccadf3efc7cc6ca4daa76d2618ef4b18
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - GunEnd: {instanceID: 0}
+  - Target: {instanceID: 0}
+  - ProjectilePrefab: {instanceID: 0}
+  - _behavior: {fileID: 11400000, guid: e1a4ac37b4eaa9e4aa89ac86f7439aa6, type: 2}
+  - MyBbbtBehaviourTreeComponent: {instanceID: 0}
+  - TargetDestination: {instanceID: 0}
+  - agent: {instanceID: 0}
+  - group: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

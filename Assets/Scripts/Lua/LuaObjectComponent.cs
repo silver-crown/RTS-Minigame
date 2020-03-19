@@ -44,7 +44,7 @@ namespace RTS.Lua
         {
             if (_start == null)
             {
-                Debug.LogError("LuaObjectComponent instantiated without calling Load()");
+                Debug.LogError("LuaObjectComponent instantiated without calling Load() on " + gameObject.name);
             }
             if (_start.IsNotNil())
             {
@@ -57,6 +57,9 @@ namespace RTS.Lua
             if (_update.IsNotNil())
             {
                 LuaObject.Script.Call(_update, LuaObject.Id);
+            } else
+            {
+                Debug.LogError("LuaObjectComponent is null on " + gameObject.name);
             }
         }
 

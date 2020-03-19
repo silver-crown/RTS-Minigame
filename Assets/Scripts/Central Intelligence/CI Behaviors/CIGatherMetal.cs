@@ -38,7 +38,7 @@ namespace ssuai {
             CentralIntelligence CI = gameObject.GetComponent<CentralIntelligence>();
 
             CI.TestGatherMetal();
-            Debug.Log("Gathering metal, new total: " + CI.Resources["Metal"]);
+            Debug.Log("Gathering metal, new total: " + CI.Inventory.Contents["Metal"]);
 
 
 

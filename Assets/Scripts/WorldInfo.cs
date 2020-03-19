@@ -52,6 +52,7 @@ public static class WorldInfo
         Actors = new List<Actor>();
         Marines = new List<GameObject>();
         Resources = new List<GameObject>();
+        Depots = new List<GameObject>();
 
         // Read all drone types.
         var droneFiles = Directory.GetFiles(Path.Combine(Application.streamingAssetsPath, "Lua", "Actors", "Drones"));

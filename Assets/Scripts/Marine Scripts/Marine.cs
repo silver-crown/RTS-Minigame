@@ -14,7 +14,7 @@ public class Marine : RTS.Actor
     {
         base.Awake();
         MyFaction = Factions.Marine;
-        _luaObject = gameObject.AddComponent<LuaObjectComponent>();
+        _luaObject = gameObject.GetComponent<LuaObjectComponent>();
         _luaObject.Load("Actors/Marines/BaseMarine");
     }
     

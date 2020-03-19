@@ -97,29 +97,6 @@ namespace RTS
 
         #endregion
 
-        #region AI
-        /// <summary>
-        /// The behaviour tree used for the Actor
-        /// </summary>
-        [SerializeField] BbbtBehaviourTree _behavior = null;
-
-        /// <summary>
-        /// The actor's NavMeshAgent. Used for making the actor move.
-        /// </summary>
-
-        /// <summary>
-        /// Old Behavior Tree
-        /// </summary>
-        public BehaviorTree BehaviorTree;
-
-        /// <summary>
-        /// Add this script to the game object in unity
-        /// </summary>
-        public BbbtBehaviourTreeComponent MyBbbtBehaviourTreeComponent;
-
-
-        #endregion AI
-
         #region Vision
 
         [Header("vision settings")]
@@ -231,6 +208,7 @@ namespace RTS
         public virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+            //_luaObject = LuaManager.CreateLuaObject("Actors\\Drones\\WorkerDrone");
 
             if (TargetDestination != null)
             {
