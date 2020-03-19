@@ -13,7 +13,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// List of groups(which is a list of drones)
     /// </summary>
-   private List<List<Drone>> _group = new List<List<Drone>>();
+   private List<List<Drone>> _groups = new List<List<Drone>>();
     int lastGroupID = 0;
     /// <summary>
     /// The prefab to use when instatiating new drones.
@@ -389,6 +389,40 @@ public class CentralIntelligence : MonoBehaviour
         return (string)table.Get("_utilityFunction").String;
     }
 
+        
+    /// <summary>
+    /// Create the drone groups
+    /// </summary>
+    private void CreateGroup(GroupType type)
+    {
+        List<Drone> groupedDrones = new List<Drone>();
+
+        ++lastGroupID;
+    }
+    /// <summary>
+    /// assign drones to groups, this is where utility happens and drones are added to the list based on their usability 
+    /// </summary>
+    /// <returns></returns>
+    private List<Drone> AddDroneToGroup()
+    {
+        List<Drone> groupedDrones = new List<Drone>();
+
+        //Go through the drones, construct the group based on your current needs 
+        //so yeah, utility AI
+
+        return groupedDrones;
+    }
+    public Drone GetDrone( int ID)
+    {
+        for (int i = 0; i<= _drones.Count; i++)
+        {
+            if(_drones[i].ID == ID)
+            {
+                return _drones[i];
+            }
+        }
+        return null;
+    }
 }
 
 
