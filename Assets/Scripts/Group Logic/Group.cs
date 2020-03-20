@@ -11,6 +11,13 @@ public class Group : MonoBehaviour
     /// the unique ID of the group
     /// </summary>
     public int groupID;
+    public enum GroupType
+    {
+        Fighter,
+        Worker,
+        Scout
+    }
+    public GroupType groupType;
     /// <summary>
     /// Number of members of the group in question
     /// </summary>

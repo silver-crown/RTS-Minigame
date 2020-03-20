@@ -12,9 +12,10 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// List of groups(which is a list of drones)
     /// </summary>
-    public List<List<Drone>> groups = new List<List<Drone>>();
+    public List<Group> groups = new List<Group>();
     int lastGroupID = 0;
     public int maxGroups = 20;
+
     /// <summary>
     /// The prefab to use when instatiating new drones.
     /// </summary>
@@ -252,94 +253,6 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
-    enum GroupType
-    {
-        Assault,
-        Mining,
-        Mixed,
-        Scouting,
-        Defense,
-    }
-    void CreateDroneGroup(GroupType type)
-    {
-        //pick out some dumbass drones depending on what type of group I want to make
-        //Give them a unique group ID and a leader
-        //Group script does the rest
-        Drone[] groupMember = FindObjectsOfType(typeof(Drone)) as Drone[];
-        int leader = 0;
-        switch (type)
-        {
-            //Assault group, for combat scenarios
-            case GroupType.Assault:
-                {
-                    for (int i = 0; i <= groupMember.Length; i++)
-                    {
-                        switch (groupMember[i].Type)
-                        {
-                            //get the fighters
-                            case ("FighterDrone"):
-                                {
-                                    //something something utility AI
-                                    //*********************************************************
-                                    //give the group member a unique group number
-                                    groupMember[i].groupID = lastGroupID+1;
-                                    //assign a leader based on killcount
-                                    if (groupMember[i].killCount > groupMember[leader].killCount)
-                                    {
-                                        leader = i;
-                                    }
-                                    break;
-                                }
-                            default:
-                                break;
-                        }
-                    }
-                    groupMember[leader].leaderStatus = true;
-                }
-                break;
-            case GroupType.Mining:
-                {
-                    for (int i = 0; i <= groupMember.Length; i++)
-                    {
-                        switch (groupMember[i].Type)
-                        {
-                            //get the workers
-                            case ("WorkerDrone"):
-                                {
-                                    //something something utility AI
-                                    //*********************************************************
-                                    //give the group member a unique group number
-                                    groupMember[i].groupID = lastGroupID + 1;
-                                    //assign a leader based on something
-                                    break;
-                                }
-                            default:
-                                break;
-                        }
-                    }
-                }
-                break;
-            case GroupType.Mixed:
-                {
-
-                }
-                break;
-            case GroupType.Scouting:
-                {
-
-                }
-                break;
-            case GroupType.Defense:
-                {
-
-                }
-                break;
-            default:
-                break;
-        }
-        lastGroupID++;
-    }
-
     /// <summary>
     /// Reads a utility function from the provided lua filepath.
     /// </summary>
@@ -385,6 +298,22 @@ public class CentralIntelligence : MonoBehaviour
             }
         }
         return null;
+    }
+    /// <summary>
+    /// Get all the fighter groups present in the army
+    /// </summary>
+    /// <returns></returns>
+    public List<Group> GetFighterGroups()
+    {
+        List<Group> fighterGroups = new List<Group>();
+        for(int i = 0; i<= groups.Count; i++)
+        {
+            if(groups[i].groupType == Group.GroupType.Fighter)
+            {
+                fighterGroups.Add(groups[i]);
+            }
+        }
+        return fighterGroups;
     }
 }
 

@@ -17,24 +17,15 @@ namespace ssuai
 
         public override void UpdateUtility()
         {
-            float groupCount = _actor.GetComponent<CentralIntelligence>().groups.Count;
-            float maxGroups = _actor.GetComponent<CentralIntelligence>().maxGroups;
+            int groupCount = _centralIntelligence.groups.Count;
+            int maxGroups = _centralIntelligence.maxGroups;
             //a curve that rises quickly in the beginning
             double k = 0.333;
 
-            if (groupCount == 0.0f)
-            {
-                _utility = 1.0f; // ???
-                //i want the utility to get smaller with the closer it gets to maxgroups
-            }
-            else
-            {
-                // _utility = (value - min(value)) / (max(value) - min(value));
-                //it gets closer to zero the more groups it has
-                _utility = 1-(float)Math.Pow(groupCount/maxGroups, k);
-            }
+            // utility = 1-(value - min(value)) / (max(value) - min(value));
+             //it gets closer to zero the more groups it has ^
+            _utility = 1-(float)Math.Pow(groupCount/maxGroups, k);
 
-            throw new System.NotImplementedException();
         }
     }
 }
