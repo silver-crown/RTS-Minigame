@@ -437,7 +437,7 @@ RectTransform:
   m_Children:
   - {fileID: 4581301081678095260}
   - {fileID: 1491696375917595323}
-  - {fileID: 3452388034170165905}
+  - {fileID: 8007435753163059634}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -506,7 +506,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1001 &7724871748589168295
+--- !u!1001 &3169752561273392516
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -581,17 +581,17 @@ PrefabInstance:
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 560
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 320
+      value: 311.8
       objectReference: {fileID: 0}
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
@@ -611,7 +611,7 @@ PrefabInstance:
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
@@ -635,9 +635,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2badfef76fb2a094b9657b8b7a6d60f1, type: 3}
---- !u!224 &3452388034170165905 stripped
+--- !u!224 &8007435753163059634 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
     type: 3}
-  m_PrefabInstance: {fileID: 7724871748589168295}
+  m_PrefabInstance: {fileID: 3169752561273392516}
   m_PrefabAsset: {fileID: 0}

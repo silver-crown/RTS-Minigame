@@ -1,6 +1,7 @@
 ﻿using RTS.Lua;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -36,9 +37,25 @@ namespace RTS.UI.Debugging
             if (EventSystem.current.currentSelectedGameObject != gameObject) return;
             _field.OnSelect(new BaseEventData(EventSystem.current));
             if (code == null || code == "") return;
+
             InGameDebug.Log("> " + code);
-            LuaManager.DoString(code);
-            _commandsBelow = new Stack<string>();
+
+            // Check if this is a custom command. Only help for now.
+            string directCommand = code.ToLowerInvariant().Trim();
+            if (directCommand == "help" || directCommand == "?")
+            {
+                InGameDebug.Help();
+            }
+            else if (directCommand == "clear")
+            {
+                InGameDebug.Clear();
+            }
+            else
+            {
+                // Lua script, let LuaManager handle this.
+                LuaManager.DoString(code);
+                _commandsBelow = new Stack<string>();
+            }
         }
 
         private void GoUp()

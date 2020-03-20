@@ -1,4 +1,6 @@
--- The following uses Benjamin's LUA Documentation Format (bldf? bluadoc?)
+commands:
+    help:   Displays the contents of StreamingAssets/Lua/Help.txt.
+    clear:  Clears the console.
 
 ObjectBuilder
     -- Info --
@@ -54,6 +56,10 @@ Console (alias InGameDebug)
     Console.Log(message)
         summary:    Logs a message to the console (in-game and Unity editor).
         message:    The message to log.     type: String.
+    Console.Help()
+        summary:    Prints the contents of StreamingAssets/Lua/Help.
+    Console.Clear()
+        summary:    Clears the console.
 Done
     -- Info --
     Provides methods for creating new drones.
