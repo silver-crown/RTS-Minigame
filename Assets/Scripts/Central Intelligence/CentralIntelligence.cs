@@ -140,19 +140,14 @@ public class CentralIntelligence : MonoBehaviour
             Inventory.Deposit(type.Key.String, (int)type.Value.Number);
         }
 
+        BBInput.AddOnKeyDown(KeyCode.C, () => GetComponent<DroneTestFactory>().BuildDroneForFree("WorkerDrone"));
+
         SelectAction();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        // Test building worker drone
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GetComponent<DroneTestFactory>().BuildDroneForFree("WorkerDrone");
-        }
-
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {

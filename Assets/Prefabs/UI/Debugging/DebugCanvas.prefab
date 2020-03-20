@@ -437,7 +437,7 @@ RectTransform:
   m_Children:
   - {fileID: 4581301081678095260}
   - {fileID: 1491696375917595323}
-  - {fileID: 7428695908457297461}
+  - {fileID: 3452388034170165905}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -506,7 +506,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1001 &2577500294705351171
+--- !u!1001 &7724871748589168295
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -581,12 +581,12 @@ PrefabInstance:
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 520
+      value: 560
       objectReference: {fileID: 0}
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 240
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
@@ -621,7 +621,7 @@ PrefabInstance:
     - target: {fileID: 8315331680492811543, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
       propertyPath: m_Name
-      value: DebugConsole
+      value: Console
       objectReference: {fileID: 0}
     - target: {fileID: 9198056929348477052, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
         type: 3}
@@ -635,9 +635,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2badfef76fb2a094b9657b8b7a6d60f1, type: 3}
---- !u!224 &7428695908457297461 stripped
+--- !u!224 &3452388034170165905 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4962150185042852918, guid: 2badfef76fb2a094b9657b8b7a6d60f1,
     type: 3}
-  m_PrefabInstance: {fileID: 2577500294705351171}
+  m_PrefabInstance: {fileID: 7724871748589168295}
   m_PrefabAsset: {fileID: 0}

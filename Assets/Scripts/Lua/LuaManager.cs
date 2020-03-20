@@ -11,8 +11,7 @@ namespace RTS.Lua
     [MoonSharpUserData]
     public class LuaManager
     {
-        private static uint _nextId = 0;
-        private static Dictionary<uint, LuaObject> _objects = new Dictionary<uint, LuaObject>();
+        private static Dictionary<int, LuaObject> _objects = new Dictionary<int, LuaObject>();
 
         /// <summary>
         /// Constructs a new LuaObject from a path.
@@ -26,9 +25,9 @@ namespace RTS.Lua
         /// </param>
         public static LuaObject CreateLuaObject(string path)
         {
-            var luaObject = new LuaObject(_nextId, path);
-            _objects.Add(_nextId, luaObject);
-            _nextId++;
+            var luaObject = new LuaObject(WorldInfo.NextId, path);
+            _objects.Add(WorldInfo.NextId, luaObject);
+            WorldInfo.NextId++;
             return luaObject;
         }
 
@@ -38,7 +37,7 @@ namespace RTS.Lua
         /// <param name="id">The object's id.</param>
         /// <param name="key">The key.</param>
         /// <param name="value">The value to associate with the key.</param>
-        public static void Set(uint id, string key, DynValue value)
+        public static void Set(int id, string key, DynValue value)
         {
             if (!_objects.ContainsKey(id))
             {
@@ -57,7 +56,7 @@ namespace RTS.Lua
         /// <param name="id">The object's id.</param>
         /// <param name="key">The key.</param>
         /// <returns>The value associated with the key.</returns>
-        public static DynValue Get(uint id, string key)
+        public static DynValue Get(int id, string key)
         {
             if (!_objects.ContainsKey(id))
             {
@@ -100,9 +99,11 @@ namespace RTS.Lua
             UserData.RegisterType<Debug>();
             var script = new Script();
             script.Globals["LuaManager"] = new LuaManager();
-            script.Globals["Debug"] = new Debug();
+            //script.Globals["Debug"] = new Debug();
             script.Globals["InGameDebug"] = new InGameDebug();
+            script.Globals["Console"] = new InGameDebug();
             script.Globals["Drone"] = new DroneStaticMethods();
+            script.Globals["ObjectBuilder"] = new ObjectBuilder();
             return script;
         }
     }

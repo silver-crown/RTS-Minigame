@@ -15,6 +15,8 @@ namespace RTS.Lua
 
         public LuaObject LuaObject { get; set; }
 
+        private MouseClickRaycastTarget _mouseClickRaycastTarget;
+
         // The script's Unity methods. Added as needed. Add them yourself or @banan.
         private DynValue _start;
         private DynValue _update;
@@ -28,7 +30,7 @@ namespace RTS.Lua
 
         private void Awake()
         {
-            var _mouseClickRaycastTarget = GetComponent<MouseClickRaycastTarget>();
+            _mouseClickRaycastTarget = GetComponent<MouseClickRaycastTarget>();
             if (_mouseClickRaycastTarget == null)
             {
                 _mouseClickRaycastTarget = gameObject.AddComponent<MouseClickRaycastTarget>();
@@ -37,19 +39,20 @@ namespace RTS.Lua
             {
                 OnClick?.Invoke(this);
             };
-            OnCreate?.Invoke(this);
         }
 
         private void Start()
         {
             if (_start == null)
             {
-                Debug.LogError("LuaObjectComponent instantiated without calling Load() on " + gameObject.name);
+                InGameDebug.Log(
+                    "<color=red>" + name + ": LuaObjectComponent instantiated without calling Load().</color>", this);
             }
             if (_start.IsNotNil())
             {
                 LuaObject.Script.Call(_start, LuaObject.Id);
             }
+            OnCreate?.Invoke(this);
         }
 
         private void Update()
@@ -70,6 +73,11 @@ namespace RTS.Lua
         /// <returns>The value associated with the key.</returns>
         public DynValue Get(string key)
         {
+            if (LuaObject.Table == null)
+            {
+                InGameDebug.Log("<color=red>'" + name + "'s LuaObject's table was null.</color>");
+                return null;
+            }
             return LuaObject.Table.Get(key);
         }
 

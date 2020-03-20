@@ -8,17 +8,6 @@ using UnityEngine;
 [MoonSharpUserData]
 public class InGameDebug
 {
-    private static DebugConsole _console;
-    private static DebugConsole Console
-    {
-        get
-        {
-            if (_console == null)
-                _console = Object.FindObjectOfType<DebugConsole>();
-            return _console;
-        }
-    }
-
     public static void Log(object message, object context = null)
     {
         var unityObject = context as Object;
