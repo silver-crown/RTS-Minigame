@@ -12,6 +12,7 @@ namespace RTS.UI.Debugging
     {
         private static List<KeyValuePair<object, object>> _staticEntries = new List<KeyValuePair<object, object>>();
         private static Action<object, object> _onAddStaticEntry;
+        private static Action _onClear;
 
         [SerializeField] private GameObject _entryPrefab = null;
         [SerializeField] private Transform _textArea = null;
@@ -28,6 +29,7 @@ namespace RTS.UI.Debugging
                 AddEntry(pair.Key, pair.Value);
             }
             _onAddStaticEntry += (object message, object context) => { AddEntry(message, context); };
+            _onClear += RemoveEntries;
             DebugConsoleEntry.OnSetupComplete += (DebugConsoleEntry entry) =>
             {
                 Canvas.ForceUpdateCanvases();
@@ -54,10 +56,25 @@ namespace RTS.UI.Debugging
             _entries.Add(entry);
         }
 
+        private void RemoveEntries()
+        {
+            foreach (var entry in _entries)
+            {
+                Destroy(entry.gameObject);
+            }
+            _entries = new List<DebugConsoleEntry>();
+        }
+
         public static void StaticAddEntry(object message, object context)
         {
             _staticEntries.Add(new KeyValuePair<object, object>(message, context));
             _onAddStaticEntry?.Invoke(message, context);
+        }
+
+        public static void Clear()
+        {
+            _staticEntries = new List<KeyValuePair<object, object>>();
+            _onClear?.Invoke();
         }
     }
 }

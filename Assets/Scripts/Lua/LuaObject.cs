@@ -11,7 +11,7 @@ namespace RTS.Lua
         /// <summary>
         /// The LuaObject's unique id.
         /// </summary>
-        public uint Id { get; protected set; }
+        public int Id { get; protected set; }
         /// <summary>
         /// The LuaObject's script.
         /// </summary>
@@ -33,7 +33,7 @@ namespace RTS.Lua
         /// "Example/Script" or "Example/Script.lua".
         /// The script must return a table.
         /// </param>
-        public LuaObject(uint id, string path)
+        public LuaObject(int id, string path)
         {
             Id = id;
             Script = LuaManager.CreateScript();

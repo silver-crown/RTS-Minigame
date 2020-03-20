@@ -43,6 +43,8 @@ public static class WorldInfo
     /// </summary>
     public static List<GameObject> Depots { get; private set; }
 
+    public static int NextId { get; set; } = 0;
+
     static WorldInfo()
     {
         DroneTypes = new List<string>();

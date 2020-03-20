@@ -1,2 +1,2 @@
 bbInput is a VERY minimalist input system that wraps the default Unity system with some extra goodies.
-This was born out of frustration when I really needed some input to be used and also prioritised and only fixes those two issues.
+This was born out of frustration when I really needed some input to be used up/eaten and also prioritised and bbInput only sets out to fix those two problems. There is no support for rebindable keys, mouse input, etc.

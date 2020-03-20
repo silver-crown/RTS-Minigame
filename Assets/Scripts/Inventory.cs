@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// How many resources the Inventory could hold
     /// </summary>
-    private int _capacity;
+    public int Capacity;
 
     /// <summary>
     /// How 
@@ -96,7 +96,15 @@ public class Inventory : MonoBehaviour
     /// <returns></returns>
     public int GetAvailableSpace()
     {
-        return _capacity - _amountInInventory;
+        return Capacity - _amountInInventory;
+    }
+
+    public override string ToString()
+    {
+        string str = base.ToString();
+        str += "\n";
+        str += "Capacity = " + Capacity + "\n";
+        return str;
     }
 
     public void SetCapacityFromFile(string filename)
