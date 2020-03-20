@@ -12,8 +12,9 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// List of groups(which is a list of drones)
     /// </summary>
-   private List<List<Drone>> _groups = new List<List<Drone>>();
+    public List<List<Drone>> groups = new List<List<Drone>>();
     int lastGroupID = 0;
+    public int maxGroups = 50;
     /// <summary>
     /// The prefab to use when instatiating new drones.
     /// </summary>
