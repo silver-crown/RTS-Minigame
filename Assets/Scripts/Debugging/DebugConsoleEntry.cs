@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace RTS.UI.Debugging
@@ -9,9 +10,12 @@ namespace RTS.UI.Debugging
     [RequireComponent(typeof(Text))]
     public class DebugConsoleEntry : MonoBehaviour
     {
+        public static Action<DebugConsoleEntry> OnSetupComplete;
+
         private Text _text;
         public string Message { get; set; }
         public object Context { get; set; }
+
 
         private void Awake()
         {
@@ -34,6 +38,8 @@ namespace RTS.UI.Debugging
                 return;
             }
             _text.text = Message;
+            Canvas.ForceUpdateCanvases();
+            OnSetupComplete?.Invoke(this);
             Canvas.ForceUpdateCanvases();
         }
     }

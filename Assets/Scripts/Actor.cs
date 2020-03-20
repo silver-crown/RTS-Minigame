@@ -233,7 +233,12 @@ namespace RTS
         /// <returns>The value associated with the key.</returns>
         public DynValue GetValue(string key)
         {
-            return _luaObject.LuaObject.Table.Get(key);
+            if (_luaObject == null)
+            {
+                InGameDebug.Log("<color=red>'" + name + "' has no LuaObjectComponent.</color>", this);
+                return null;
+            }
+            return _luaObject.Get(key);
         }
 
         /// <summary>

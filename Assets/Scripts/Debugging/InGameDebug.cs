@@ -1,5 +1,6 @@
 ﻿using MoonSharp.Interpreter;
 using RTS.UI.Debugging;
+using System.IO;
 using UnityEngine;
 
 /// <summary>
@@ -8,17 +9,6 @@ using UnityEngine;
 [MoonSharpUserData]
 public class InGameDebug
 {
-    private static DebugConsole _console;
-    private static DebugConsole Console
-    {
-        get
-        {
-            if (_console == null)
-                _console = Object.FindObjectOfType<DebugConsole>();
-            return _console;
-        }
-    }
-
     public static void Log(object message, object context = null)
     {
         var unityObject = context as Object;
@@ -30,6 +20,24 @@ public class InGameDebug
         {
             Debug.Log(message);
         }
-        Console.AddEntry(message, context);
+        DebugConsole.StaticAddEntry(message, context);
+    }
+
+    public static void Help()
+    {
+        var path = Path.Combine(Application.streamingAssetsPath, "Lua", "Help.txt");
+        if (File.Exists(path))
+        {
+            Log(File.ReadAllText(path));
+        }
+        else
+        {
+            Log("<color=red>" + path + " not found.</color>");
+        }
+    }
+
+    public static void Clear()
+    {
+        DebugConsole.Clear();
     }
 }
