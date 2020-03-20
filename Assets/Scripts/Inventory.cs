@@ -98,4 +98,9 @@ public class Inventory : MonoBehaviour
     {
         return _capacity - _amountInInventory;
     }
+
+    public void SetCapacityFromFile(string filename)
+    {
+
+    }
 }
