@@ -24,6 +24,7 @@ public class CentralIntelligence : MonoBehaviour
     [SerializeField] string gatherAmountScriptPath;
     [Tooltip("equivalent for buildWorkerNumber")]
     [SerializeField] string buildDroneNumberPath;
+    [SerializeField] string _constructGroupPath;
 
     /// <summary>
     /// All drones under CI's control.
@@ -78,8 +79,7 @@ public class CentralIntelligence : MonoBehaviour
     #endregion UtilityAI
 
 
-    void Awake()
-    {
+    void Awake() {
         DroneTypeCount = new Dictionary<string, int>();
         LastTimeChunkWasScouted = new Dictionary<Vector2Int, float>();
         // SetUpTreeFromCode();
@@ -91,6 +91,7 @@ public class CentralIntelligence : MonoBehaviour
         var gatherMetal = ScriptableObject.CreateInstance<CIGatherMetal>();
         var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
         var buildDrone = ScriptableObject.CreateInstance<CIBuildDrone>();
+        var constructGroup = ScriptableObject.CreateInstance<CIConstructGroup>();
 
         //set up actions
         _actions[0] = new UtilityAction(
@@ -102,6 +103,10 @@ public class CentralIntelligence : MonoBehaviour
         _actions[2] = new UtilityAction(
             new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
             () => { buildDrone.Tick(gameObject); });
+        _actions[3] = new UtilityAction(
+            new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(_constructGroupPath)),
+                                new },
+            () => { constructGroup.Tick(gameObject); });
     }
 
     private void Start()
@@ -342,7 +347,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Create the drone groups
     /// </summary>
-    private void CreateGroup(GroupType type)
+    public void CreateGroup()
     {
         List<Drone> groupedDrones = new List<Drone>();
 

@@ -5,7 +5,7 @@ using org.mariuszgromada.math.mxparser;
 
 namespace ssuai
 {
-    public class ssuaiDronePower : Factor
+    public class DronePower : Factor
     {
         CentralIntelligence _centralIntelligence;
         int _ID;
@@ -15,7 +15,7 @@ namespace ssuai
         /// </summary>
         /// <param name="CI"> the central intelligence that controls the drones</param>
         /// <param name="function">the function string </param>
-        public ssuaiDronePower(CentralIntelligence CI, int ID, string function)
+        public DronePower(CentralIntelligence CI, int ID, string function)
         {
             MathFunction = new Function(function);
             _centralIntelligence = CI;
@@ -24,13 +24,13 @@ namespace ssuai
 
         public override void UpdateUtility()
         {
-            //if we have some of the resource, calculate utility
+            //if the drone is in the list, calculate utility
             if (_centralIntelligence.GetDrone(_ID))
             {
                 //I have absolutely no idea if this is gonna work
                 _utility = (float)MathFunction.calculate(_centralIntelligence.GetDrone(_ID).powerLevel);
             }
-            else //otherwise, well, we really need some.
+            else //????
             {
                 _utility = 1.0f;
             }
