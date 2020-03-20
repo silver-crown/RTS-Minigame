@@ -1,18 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bbbt;
 
-public class ssuaiNeedScoutGroup : MonoBehaviour
+namespace ssuai
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class NeedScoutGroup : Factor
     {
-        
+        CentralIntelligence _centralIntelligence;
+        public NeedScoutGroup(CentralIntelligence CI, string function)
+        {
+            _centralIntelligence = CI;
+        }
+
+        public override void UpdateUtility()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

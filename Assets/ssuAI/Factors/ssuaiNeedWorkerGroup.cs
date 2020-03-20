@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bbbt;
 
-public class ssuaiNeedWorkerGroup : MonoBehaviour
+namespace ssuai 
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// factor for the desire to create worker groups
+    /// </summary>
+    public class NeedWorkerGroup : Factor
     {
-        
-    }
+        CentralIntelligence _centralIntelligence;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public NeedWorkerGroup(CentralIntelligence CI, string function)
+        {
+            _centralIntelligence = CI;
+        }
+
+        public override void UpdateUtility()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
+

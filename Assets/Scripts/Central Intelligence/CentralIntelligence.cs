@@ -94,19 +94,26 @@ public class CentralIntelligence : MonoBehaviour
         var constructGroup = ScriptableObject.CreateInstance<CIConstructGroup>();
 
         //set up actions
+        //Gathering metal
         _actions[0] = new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Metal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherMetal.Tick(gameObject); });
+        //Gathering crystal
         _actions[1] = new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Crystal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherCrystal.Tick(gameObject); });
+        //Drone building
         _actions[2] = new UtilityAction(
             new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
             () => { buildDrone.Tick(gameObject); });
+        //Group construction
         _actions[3] = new UtilityAction(
             new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new },
-            () => { constructGroup.Tick(gameObject); });
+                                new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
+                                new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
+                                new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
+                                new GroupQuantity(this, readUtilityFunctionFromFile(_constructGroupPath))},
+            () => { constructGroup.Tick(gameObject);});
     }
 
     private void Start()
