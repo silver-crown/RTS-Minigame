@@ -17,6 +17,9 @@ namespace Bbbt
         private NavMeshAgent _navMeshAgent;
 
 
+        /// <summary>
+        /// How far away from a depot an actor can be and still deposit
+        /// </summary>
         [SerializeField]
         float depositRange=5.0f;
 

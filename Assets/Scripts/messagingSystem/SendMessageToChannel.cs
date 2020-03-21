@@ -7,7 +7,7 @@ public class SendMessageToChannel : MonoBehaviour
     [SerializeField] private EventManager.MessageChannel _channel;
     private string _message;
     [SerializeField] bool sending;
-    // Start is called before the first frame update
+
     void Start()
     {
         if(_message == null)
@@ -16,7 +16,7 @@ public class SendMessageToChannel : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (sending)

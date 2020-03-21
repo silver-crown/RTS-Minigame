@@ -92,6 +92,7 @@ public class CentralIntelligence : MonoBehaviour
         var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
         var buildDrone = ScriptableObject.CreateInstance<CIBuildDrone>();
 
+
         //set up actions
         _actions[0] = new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Metal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
@@ -233,7 +234,7 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
-    enum GroupType
+    public enum GroupType
     {
         Assault,
         Mining,
@@ -241,7 +242,7 @@ public class CentralIntelligence : MonoBehaviour
         Scouting,
         Defense,
     }
-    void CreateDroneGroup(GroupType type)
+    public void CreateDroneGroup(GroupType type)
     {
         //pick out some dumbass drones depending on what type of group I want to make
         //Give them a unique group ID and a leader
@@ -333,6 +334,16 @@ public class CentralIntelligence : MonoBehaviour
         return (string)table.Get("_utilityFunction").String;
     }
 
+    /// <summary>
+    /// Finds a drone whose status is idle
+    /// </summary>
+    /// <param name="droneType"></param>
+    /// <returns></returns>
+    //public Drone FindIdleDrone(string droneType)
+    //{
+    //
+    //}
+    
 }
 
 

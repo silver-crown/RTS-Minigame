@@ -64,6 +64,8 @@ public class Drone : RTS.Actor
     /// </summary>
     public double powerLevel;
 
+
+
     /// <summary>
     /// The drone's central intelligence.
     /// </summary>
