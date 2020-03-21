@@ -15,6 +15,7 @@ return
 {
     _name               = "Worker Drone",
     _behaviourTree      = "Mine",
+    _status				= "Idle",
     _maxHP              = 20,
     _attackRange        = 30.0,
     _sightRange         = 15.0,

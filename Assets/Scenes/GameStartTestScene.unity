@@ -1530,7 +1530,6 @@ GameObject:
   - component: {fileID: 2051873107}
   - component: {fileID: 2051873106}
   - component: {fileID: 2051873110}
-  - component: {fileID: 2051873112}
   - component: {fileID: 2051873111}
   - component: {fileID: 2051873113}
   m_Layer: 0
@@ -1645,18 +1644,6 @@ MonoBehaviour:
     type: 3}
   gatherAmountScriptPath: CI/Factors/GatherResourceAmount
   buildDroneNumberPath: CI/Factors/BuildDroneNumber
---- !u!114 &2051873112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051873105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b53936c8a3efb4a9d4f18c28ffa1c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2051873113
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// All drones under CI's control.
     /// </summary>
-    private List<Drone> _drones = new List<Drone>();
+    public List<Drone> Drones { get; protected set; } = new List<Drone>();
 
     /// <summary>
     /// Drones of each type under the CI's control.
@@ -45,7 +45,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Total number of drones present in the army
     /// </summary>
-    public int DroneCount { get => _drones.Count; }
+    public int DroneCount { get => Drones.Count; }
 
     public const int MAXDRONES = 300;
 
@@ -167,7 +167,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <param name="drone"></param>
     public void AddDrone(Drone drone)
     {
-        _drones.Add(drone);
+        Drones.Add(drone);
         drone.CentralIntelligence = this;
         if (DroneTypeCount.ContainsKey(drone.Type))
         {
@@ -339,10 +339,10 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     /// <param name="droneType"></param>
     /// <returns></returns>
-    //public Drone FindIdleDrone(string droneType)
-    //{
-    //
-    //}
+    public Drone FindIdleDrone(string droneType)
+    {
+        return null;
+    }
     
 }
 
