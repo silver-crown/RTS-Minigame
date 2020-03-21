@@ -23,13 +23,11 @@ namespace ssuai {
         }
 
         protected override void OnInitialize(GameObject gameObject)
-        {
-            
+        {           
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
-        {
-            
+        {         
         }
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
@@ -39,8 +37,6 @@ namespace ssuai {
 
             CI.TestGatherMetal();
             Debug.Log("Gathering metal, new total: " + CI.Inventory.Contents["Metal"]);
-
-
 
             return BbbtBehaviourStatus.Success;
         }
