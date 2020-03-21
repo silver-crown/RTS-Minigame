@@ -48,7 +48,7 @@ namespace Bbbt
             for(int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Alpha).Count; i++)
             {
                 _actor.GetComponent<SendMessageToChannel>().Send("Flanking Assault Frontal", EventManager.MessageChannel.privateChannel,
-                    _group.GetGroupUnits(Drone.GroupUnit.Bravo)[i].GetComponent<Drone>().ID);
+                    _group.GetGroupUnits(Drone.GroupUnit.Alpha)[i].GetComponent<Drone>().ID);
             }
             //Get the Bravo unit, send them left
             for (int i = 0; i <= _group.GetGroupUnits(Drone.GroupUnit.Bravo).Count; i++)

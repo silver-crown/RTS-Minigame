@@ -25,8 +25,11 @@ public class SendMessageToChannel : MonoBehaviour
         }
     }
     /// <summary>
-    /// Send a message to the channel in question
+    /// Send a message to the channel specified, ID is optional
     /// </summary>
+    /// <param name="message"></param>
+    /// <param name="channel"></param>
+    /// <param name="ID"></param>
     public void Send(string message, EventManager.MessageChannel channel, int ID = -1)
     {
         _channel = channel;
