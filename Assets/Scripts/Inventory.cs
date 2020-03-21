@@ -106,4 +106,9 @@ public class Inventory : MonoBehaviour
         str += "Capacity = " + Capacity + "\n";
         return str;
     }
+
+    public void SetCapacityFromFile(string filename)
+    {
+
+    }
 }

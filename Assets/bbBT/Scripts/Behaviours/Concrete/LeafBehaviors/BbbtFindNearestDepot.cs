@@ -30,9 +30,9 @@ namespace Bbbt
             GameObject currentTarget = null;
             float distanceToCurrentTarget = Mathf.Infinity;
 
+
             foreach (GameObject depot in WorldInfo.Depots)
             {
-
                 //if the depot has space
                 if (depot.GetComponent<Inventory>().GetAvailableSpace() > 0)
                 {

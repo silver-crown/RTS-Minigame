@@ -115,8 +115,6 @@ MonoBehaviour:
   Target: {fileID: 0}
   ProjectilePrefab: {fileID: 0}
   NextFire: 0
-  _behavior: {fileID: 11400000, guid: e1a4ac37b4eaa9e4aa89ac86f7439aa6, type: 2}
-  MyBbbtBehaviourTreeComponent: {fileID: 0}
   LineOfSight: 30
   EnemyInSight: 0
   LastSighting: {x: 0, y: 0, z: 0}
@@ -189,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e567a0ae0d9c6aa419139562569a02e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _capacity: 20
+  Capacity: 20
 --- !u!114 &114252051511281778
 MonoBehaviour:
   m_ObjectHideFlags: 0

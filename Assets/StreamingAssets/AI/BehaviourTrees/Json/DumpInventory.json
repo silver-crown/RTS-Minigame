@@ -1,0 +1,53 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtRepeatUntilFail",
+      "Child": {
+        "SaveDataType": "BbbtInverter",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtFindNearestDepot",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "Find Nearest Depot(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
+              "Status": 0,
+              "NodeId": 6,
+              "name": "Move To Depot(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtDepositBehaviour",
+              "Status": 0,
+              "NodeId": 7,
+              "name": "Deposit(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 4,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Inverter(Clone)",
+        "hideFlags": 0
+      },
+      "Status": 0,
+      "NodeId": 2,
+      "name": "Repeat Until Fail(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}

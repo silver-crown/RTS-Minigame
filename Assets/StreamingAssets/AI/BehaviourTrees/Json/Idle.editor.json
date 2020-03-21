@@ -1,0 +1,336 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 8728,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtSelector",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtInventoryEmptyCheck",
+                  "Status": 0,
+                  "NodeId": 5,
+                  "name": "Inventory Empty Check(Clone)",
+                  "hideFlags": 0
+                },
+                {
+                  "_behaviourTreeName": "DumpInventory",
+                  "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+                  "BehaviourTree": null,
+                  "Status": 0,
+                  "NodeId": 6,
+                  "name": "Behaviour Tree Caller(Clone)",
+                  "hideFlags": 0
+                }
+              ],
+              "Status": 0,
+              "NodeId": 2,
+              "name": "Selector(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtRepeatUntilFail",
+              "Child": {
+                "SaveDataType": "BbbtInverter",
+                "Child": {
+                  "SaveDataType": "BbbtMoveToCIBehaviour",
+                  "Status": 0,
+                  "NodeId": 8,
+                  "name": "Move To CI(Clone)",
+                  "hideFlags": 0
+                },
+                "Status": 0,
+                "NodeId": 9,
+                "name": "Inverter(Clone)",
+                "hideFlags": 0
+              },
+              "Status": 0,
+              "NodeId": 7,
+              "name": "Repeat Until Fail(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_waitTime": 3.0,
+              "SaveDataType": "BbbtWaitBehaviour",
+              "Status": 0,
+              "NodeId": 10,
+              "name": "Wait(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 3,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 290.0,
+      "Y": 86.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 8038,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtSelector",
+            "Children": [
+              {
+                "SaveDataType": "BbbtInventoryEmptyCheck",
+                "Status": 0,
+                "NodeId": 5,
+                "name": "Inventory Empty Check(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "_behaviourTreeName": "DumpInventory",
+                "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+                "BehaviourTree": null,
+                "Status": 0,
+                "NodeId": 6,
+                "name": "Behaviour Tree Caller(Clone)",
+                "hideFlags": 0
+              }
+            ],
+            "Status": 0,
+            "NodeId": 2,
+            "name": "Selector(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtRepeatUntilFail",
+            "Child": {
+              "SaveDataType": "BbbtInverter",
+              "Child": {
+                "SaveDataType": "BbbtMoveToCIBehaviour",
+                "Status": 0,
+                "NodeId": 8,
+                "name": "Move To CI(Clone)",
+                "hideFlags": 0
+              },
+              "Status": 0,
+              "NodeId": 9,
+              "name": "Inverter(Clone)",
+              "hideFlags": 0
+            },
+            "Status": 0,
+            "NodeId": 7,
+            "name": "Repeat Until Fail(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_waitTime": 3.0,
+            "SaveDataType": "BbbtWaitBehaviour",
+            "Status": 0,
+            "NodeId": 10,
+            "name": "Wait(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 288.0,
+      "Y": 285.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Selector",
+      "BaseBehaviourInstanceId": 9318,
+      "Behaviour": {
+        "SaveDataType": "BbbtSelector",
+        "Children": [
+          {
+            "SaveDataType": "BbbtInventoryEmptyCheck",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "Inventory Empty Check(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "_behaviourTreeName": "DumpInventory",
+            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+            "BehaviourTree": null,
+            "Status": 0,
+            "NodeId": 6,
+            "name": "Behaviour Tree Caller(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Selector(Clone)",
+        "hideFlags": 0
+      },
+      "X": 164.0,
+      "Y": 468.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "Inventory Empty Check",
+      "BaseBehaviourInstanceId": -6260,
+      "Behaviour": {
+        "SaveDataType": "BbbtInventoryEmptyCheck",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "Inventory Empty Check(Clone)",
+        "hideFlags": 0
+      },
+      "X": 41.0,
+      "Y": 696.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Behaviour Tree Caller",
+      "BaseBehaviourInstanceId": 6690,
+      "Behaviour": {
+        "_behaviourTreeName": "DumpInventory",
+        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+        "BehaviourTree": null,
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Behaviour Tree Caller(Clone)",
+        "hideFlags": 0
+      },
+      "X": 212.0,
+      "Y": 684.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 7,
+      "BaseBehaviour": "Repeat Until Fail",
+      "BaseBehaviourInstanceId": 12418,
+      "Behaviour": {
+        "SaveDataType": "BbbtRepeatUntilFail",
+        "Child": {
+          "SaveDataType": "BbbtInverter",
+          "Child": {
+            "SaveDataType": "BbbtMoveToCIBehaviour",
+            "Status": 0,
+            "NodeId": 8,
+            "name": "Move To CI(Clone)",
+            "hideFlags": 0
+          },
+          "Status": 0,
+          "NodeId": 9,
+          "name": "Inverter(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 7,
+        "name": "Repeat Until Fail(Clone)",
+        "hideFlags": 0
+      },
+      "X": 414.0,
+      "Y": 470.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 9,
+      "BaseBehaviour": "Inverter",
+      "BaseBehaviourInstanceId": 11632,
+      "Behaviour": {
+        "SaveDataType": "BbbtInverter",
+        "Child": {
+          "SaveDataType": "BbbtMoveToCIBehaviour",
+          "Status": 0,
+          "NodeId": 8,
+          "name": "Move To CI(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 9,
+        "name": "Inverter(Clone)",
+        "hideFlags": 0
+      },
+      "X": 459.0,
+      "Y": 639.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 8,
+      "BaseBehaviour": "Move To CI",
+      "BaseBehaviourInstanceId": -5524,
+      "Behaviour": {
+        "SaveDataType": "BbbtMoveToCIBehaviour",
+        "Status": 0,
+        "NodeId": 8,
+        "name": "Move To CI(Clone)",
+        "hideFlags": 0
+      },
+      "X": 474.0,
+      "Y": 794.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 10,
+      "BaseBehaviour": "Wait",
+      "BaseBehaviourInstanceId": 7548,
+      "Behaviour": {
+        "_waitTime": 3.0,
+        "SaveDataType": "BbbtWaitBehaviour",
+        "Status": 0,
+        "NodeId": 10,
+        "name": "Wait(Clone)",
+        "hideFlags": 0
+      },
+      "X": 613.0,
+      "Y": 475.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 3,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 2,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 6,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 7,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 9,
+      "OutNodeId": 7
+    },
+    {
+      "InNodeId": 8,
+      "OutNodeId": 9
+    },
+    {
+      "InNodeId": 10,
+      "OutNodeId": 3
+    }
+  ],
+  "WindowOffsetX": -118.0,
+  "WindowOffsetY": -58.0
+}

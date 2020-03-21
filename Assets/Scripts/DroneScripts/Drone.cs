@@ -64,6 +64,8 @@ public class Drone : RTS.Actor
     /// </summary>
     public double powerLevel;
 
+
+
     /// <summary>
     /// The drone's central intelligence.
     /// </summary>
@@ -104,9 +106,22 @@ public class Drone : RTS.Actor
         base.Start();
     }
 
-    // Update is called once per frame
     public void Update()
     {
+        /* This code is here until some prerequsities get done, pls no touchy
+        string status = GetValue("_status").String;
+
+        //check if we recently switched into Idle mode
+        //TODO replace with an Event once Benjamin implements that
+        if (status != GetValue("_behaviourTree").String)
+        {
+            //if so set up the proper status tree
+            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(status);
+        }
+
+        */
+
+
         //Debug.Log(_script.Call(_script.Globals["Update"]));
 
         var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
@@ -197,7 +212,11 @@ public class Drone : RTS.Actor
     {
         double dps = GetValue("_attacksPerSecond").Number;
         double range = GetValue("_attackRange").Number;
-
         powerLevel = killCount + dps + range + Health;
+    }
+
+    protected void SetStatus(string status)
+    {
+        SetValue("_status", DynValue.NewString(status));
     }
 }

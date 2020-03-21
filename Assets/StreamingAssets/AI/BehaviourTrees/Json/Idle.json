@@ -1,0 +1,72 @@
+{
+  "Root": {
+    "SaveDataType": "BbbtRoot",
+    "Child": {
+      "SaveDataType": "BbbtSequencer",
+      "Children": [
+        {
+          "SaveDataType": "BbbtSelector",
+          "Children": [
+            {
+              "SaveDataType": "BbbtInventoryEmptyCheck",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "Inventory Empty Check(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "_behaviourTreeName": "DumpInventory",
+              "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+              "BehaviourTree": null,
+              "Status": 0,
+              "NodeId": 6,
+              "name": "Behaviour Tree Caller(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Selector(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "SaveDataType": "BbbtRepeatUntilFail",
+          "Child": {
+            "SaveDataType": "BbbtInverter",
+            "Child": {
+              "SaveDataType": "BbbtMoveToCIBehaviour",
+              "Status": 0,
+              "NodeId": 8,
+              "name": "Move To CI(Clone)",
+              "hideFlags": 0
+            },
+            "Status": 0,
+            "NodeId": 9,
+            "name": "Inverter(Clone)",
+            "hideFlags": 0
+          },
+          "Status": 0,
+          "NodeId": 7,
+          "name": "Repeat Until Fail(Clone)",
+          "hideFlags": 0
+        },
+        {
+          "_waitTime": 3.0,
+          "SaveDataType": "BbbtWaitBehaviour",
+          "Status": 0,
+          "NodeId": 10,
+          "name": "Wait(Clone)",
+          "hideFlags": 0
+        }
+      ],
+      "Status": 0,
+      "NodeId": 3,
+      "name": "Sequencer(Clone)",
+      "hideFlags": 0
+    },
+    "Status": 0,
+    "NodeId": 1,
+    "name": "Root(Clone)",
+    "hideFlags": 0
+  }
+}
