@@ -61,6 +61,7 @@ public class ListenToChannel : MonoBehaviour
                 {
                     EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel, drone.ID);
                 }
+                //Listen without any ID on a channel
                 else
                 {
                     EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel);
