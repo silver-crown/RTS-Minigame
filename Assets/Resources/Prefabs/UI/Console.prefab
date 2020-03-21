@@ -1012,6 +1012,7 @@ MonoBehaviour:
   _left: {fileID: 6905879609325932625}
   _right: {fileID: 3635336449129137799}
   _bottom: {fileID: 4603420957781700861}
+  _placeOnTopInParentHierarchy: 0
 --- !u!114 &3805201755203776511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,6 +1027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _handle: {fileID: 7040579567614487604}
   _constrainToParentBounds: 1
+  _placeOnTopInParentHierarchy: 0
 --- !u!1 &8374248899560019974
 GameObject:
   m_ObjectHideFlags: 0
