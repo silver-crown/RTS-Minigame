@@ -47,6 +47,7 @@ public class ListenToChannel : MonoBehaviour
     public void ListenToMessage(string message)
     {
         _message = message;
+        //if it's a message meant for individual drones
         if (MessageList().Contains(_message))
         {
             EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
@@ -66,8 +67,10 @@ public class ListenToChannel : MonoBehaviour
                 }
             }
         }
-        if (GroupMessageList().Contains(_message))
+        //if it's a message meant for groups
+        else if (GroupMessageList().Contains(_message))
         {
+            //Check if the drone is a leader
             if (drone.leaderStatus)
             {
                 for (int i = 0; i <= drone.GetComponent<Group>().groupMessageList.Count; i++)
@@ -76,6 +79,9 @@ public class ListenToChannel : MonoBehaviour
                     _message = drone.GetComponent<Group>().groupMessageList[i];
                     EventManager.StartListening(_message, () => { drone.GetComponent<Group>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, drone.groupID);
                 }
+            }
+            else {
+                InGameDebug.Log("Error: this drone is not a leader, don't send him this message!");
             }
         }
     }
