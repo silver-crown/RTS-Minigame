@@ -18,7 +18,7 @@ namespace ssuai
         }
 
         public override void UpdateUtility() {
-            //is he under attack? ?????
+            //is he under attack? ????
             //Are there a lot of fighter groups already?
             //if there's no fighter groups, just set it to 1
             int fighterGroupCount = _centralIntelligence.GetDroneGroupsByType(CentralIntelligence.GroupType.Scouting).Count;
