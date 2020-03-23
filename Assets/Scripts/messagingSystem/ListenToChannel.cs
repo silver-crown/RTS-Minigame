@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ListenToChannel : MonoBehaviour
+public class ListenToChannel : EventManager
 {
     private Drone drone;
     [SerializeField] bool listening;
@@ -34,6 +34,10 @@ public class ListenToChannel : MonoBehaviour
         {
             drone = GetComponent<Drone>();
         }
+        //if the drone's channel isn't in the list, add it there
+        if (!_privateChannelList.Contains(drone.personalChannelDictionary)) {
+            AddPrivateChannel(drone.personalChannelDictionary);
+        }
 
         if(_message == null)
         {
@@ -54,17 +58,17 @@ public class ListenToChannel : MonoBehaviour
             for (int i = 0; i <= drone.messageList.Count; i++)
             {
                 //Listen in on the global channel
-                EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, global);
+                StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, global);
 
                 //listen in on the private channel
                 if (_channel == EventManager.MessageChannel.privateChannel)
                 {
-                    EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel, drone.ID);
+                    StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel, drone.ID);
                 }
                 //Listen without any ID on a channel
                 else
                 {
-                    EventManager.StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel);
+                    StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel);
                 }
             }
         }
@@ -78,7 +82,7 @@ public class ListenToChannel : MonoBehaviour
                 {
                     //set message to be the current message
                     _message = drone.GetComponent<Group>().groupMessageList[i];
-                    EventManager.StartListening(_message, () => { drone.GetComponent<Group>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, drone.groupID);
+                    StartListening(_message, () => { drone.GetComponent<Group>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, drone.groupID);
                 }
             }
             else {
