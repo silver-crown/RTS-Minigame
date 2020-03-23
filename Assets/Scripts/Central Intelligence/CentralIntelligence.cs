@@ -55,6 +55,7 @@ public class CentralIntelligence : MonoBehaviour
 
     public const int MAXDRONES = 300;
 
+    /// <summarym Types of drones the CI can control </summary>
     enum DroneType
     {
         Worker,
@@ -63,6 +64,15 @@ public class CentralIntelligence : MonoBehaviour
     }
     DroneType drone = DroneType.Worker;
 
+    /// <summary Types of drone groups present in the army </summary>
+    public enum GroupType
+    {
+        Assault,
+        Mining,
+        Mixed,
+        Scouting,
+        Defense,
+    }
 
     #region UtilityAI
 
@@ -251,14 +261,6 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
-    public enum GroupType
-    {
-        Assault,
-        Mining,
-        Mixed,
-        Scouting,
-        Defense,
-    }
     public void CreateDroneGroup(GroupType type)
     {
         //pick out some dumbass drones depending on what type of group I want to make
@@ -385,21 +387,61 @@ public class CentralIntelligence : MonoBehaviour
         }
         return null;
     }
+
     /// <summary>
-    /// Get all the fighter groups present in the army
+    /// Get all the drone groups of a particular type
+    /// </summary>
+    /// <param name="groupType"></param>
+    /// <returns></returns>
+    public List<Group> GetDroneGroupsByType(GroupType groupType) {
+
+        List<Group> tempGroups = new List<Group>();
+        switch (groupType) {
+            case (GroupType.Assault):
+                for (int i = 0; i <= groups.Count; i++) {
+                    if (groups[i].groupType == Group.GroupType.Assault) {
+                        tempGroups.Add(groups[i]);
+                    }
+                }
+                break;
+            case GroupType.Mining:
+                for (int i = 0; i <= groups.Count; i++) {
+                    if (groups[i].groupType == Group.GroupType.Mining) {
+                        tempGroups.Add(groups[i]);
+                    }
+                }
+                break;
+            case GroupType.Mixed:
+                for (int i = 0; i <= groups.Count; i++) {
+                    if (groups[i].groupType == Group.GroupType.Mixed) {
+                        tempGroups.Add(groups[i]);
+                    }
+                }
+                break;
+            case GroupType.Scouting:
+                for (int i = 0; i <= groups.Count; i++) {
+                    if (groups[i].groupType == Group.GroupType.Scouting) {
+                        tempGroups.Add(groups[i]);
+                    }
+                }
+                break;
+            case GroupType.Defense:
+                for (int i = 0; i <= groups.Count; i++) {
+                    if (groups[i].groupType == Group.GroupType.Defense) {
+                        tempGroups.Add(groups[i]);
+                    }
+                }
+                break;
+        }
+        return tempGroups;
+    }
+    /// <summary>
+    /// Add groups of a particular type to the army 
     /// </summary>
     /// <returns></returns>
-    public List<Group> GetFighterGroups()
+    public void AddGroup(GroupType groupType)
     {
-        List<Group> fighterGroups = new List<Group>();
-        for(int i = 0; i<= groups.Count; i++)
-        {
-            if(groups[i].groupType == Group.GroupType.Fighter)
-            {
-                fighterGroups.Add(groups[i]);
-            }
-        }
-        return fighterGroups;
+     
     }
 }
 
