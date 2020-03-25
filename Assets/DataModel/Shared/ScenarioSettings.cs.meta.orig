@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/DataModel/Farmstead/ScenarioSettings.cs.meta
+guid: b92f82081ef26174cb531d4780548c5d
+=======
+guid: bd9909a3c28e539409e715aabbbe75be
+>>>>>>> 30c7473bd977db9f98f6f29c15aed85fee9b5286:Assets/DataModel/Shared/ScenarioSettings.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
