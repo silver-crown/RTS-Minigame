@@ -13,6 +13,7 @@ namespace Bbbt
     {
         private RTS.Actor _actor;
         private Group _group;
+        private SendMessageToChannel _sendMessageToChannel;
 
         public override string SaveDataType { get; } = "BbbtGroupAllDronesAttack";
 
@@ -25,6 +26,9 @@ namespace Bbbt
                 {
                     _group = _actor.GetComponent<Group>();
                 }
+                if (gameObject.GetComponent<SendMessageToChannel>() != null) {
+                    _sendMessageToChannel = _actor.GetComponent<SendMessageToChannel>();
+            }
             }
         }
 
@@ -38,7 +42,7 @@ namespace Bbbt
             //send the attack message to the drones in the group and return success
             for(int i = 0; i <= _group.groupSize; i++)
             {
-                EventManager.TriggerEvent("Full Frontal Assault", EventManager.MessageChannel.groupChannel,_group.groupMembers[i].GetComponent<Drone>().ID);
+                _sendMessageToChannel.Send("Full Frontal Assault", EventManager.MessageChannel.groupChannel, _group.groupMembers[i].GetComponent<Drone>().ID);
             }
             return BbbtBehaviourStatus.Success;
         }

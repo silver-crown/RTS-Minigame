@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SendMessageToChannel : MonoBehaviour
+public class SendMessageToChannel : EventManager
 {
     [SerializeField] private EventManager.MessageChannel _channel;
     private string _message;
@@ -30,10 +30,10 @@ public class SendMessageToChannel : MonoBehaviour
     /// <param name="message"></param>
     /// <param name="channel"></param>
     /// <param name="ID"></param>
-    public void Send(string message, EventManager.MessageChannel channel, int ID = -1)
+    public void Send(string message, MessageChannel channel, int ID = -1)
     {
         _channel = channel;
         _message = message;
-        EventManager.TriggerEvent(_message, _channel, ID);
+        TriggerEvent(_message, _channel, ID);
     }
 }

@@ -1656,7 +1656,7 @@ MonoBehaviour:
     type: 3}
   gatherAmountScriptPath: CI/Factors/GatherResourceAmount
   buildDroneNumberPath: CI/Factors/BuildDroneNumber
-  _constructGroupPath: 
+  _constructGroupPath: CI/Factors/NeedGroupPercentage
   maxDrones: 300
 --- !u!114 &2051873113
 MonoBehaviour:

@@ -11,13 +11,13 @@ public class EventManager : MonoBehaviour
     /// Personal channel dictionaries for the drones are located in Drone.cs
     /// Each group needs to store their messages in a dictionary as well
     /// </summary>
-    private Dictionary<string, UnityEvent> _globalChannelDictionary;
-    private Dictionary<string, UnityEvent> _workerChannelDictionary;
-    private Dictionary<string, UnityEvent> _scoutChannelDictionary;
-    private Dictionary<string, UnityEvent> _tankChannelDictionary;
-    private Dictionary<string, UnityEvent> _CIChannelDictionary;
-    private List<Dictionary<string, UnityEvent>> _privateChannelList;
-    private List<Dictionary<string, UnityEvent>> _groupChannelList;
+    protected Dictionary<string, UnityEvent> _globalChannelDictionary;
+    protected Dictionary<string, UnityEvent> _workerChannelDictionary;
+    protected Dictionary<string, UnityEvent> _scoutChannelDictionary;
+    protected Dictionary<string, UnityEvent> _tankChannelDictionary;
+    protected Dictionary<string, UnityEvent> _CIChannelDictionary;
+    protected List<Dictionary<string, UnityEvent>> _privateChannelList;
+    protected List<Dictionary<string, UnityEvent>> _groupChannelList;
     private static EventManager _eventManager;
 
     //the channels start at 0, c# hates me and refuses to let me set an int as NULL
@@ -42,7 +42,7 @@ public class EventManager : MonoBehaviour
     }
 
     //Get the EventManager if there's one present in the scene
-    public static EventManager instance 
+    protected static EventManager instance 
     {
         get 
         {
@@ -96,8 +96,10 @@ public class EventManager : MonoBehaviour
     /// <param name="listener"></param>
     /// <param name="channel"></param>
     /// <param name="droneID"></param>
-    public static void StartListening(string eventName, UnityAction listener, MessageChannel channel, int ID = noID)
+    protected static void StartListening(string eventName, UnityAction listener, MessageChannel channel, int ID = noID)
     {
+
+
         UnityEvent thisEvent = null;
         switch (channel)
         {
@@ -241,7 +243,7 @@ public class EventManager : MonoBehaviour
     /// <param name="listener"></param>
     /// <param name="channel"></param>
     /// <param name="droneID"></param>
-    public static void StopListening(string eventName, UnityAction listener, MessageChannel channel, int droneID = noID)
+    protected static void StopListening(string eventName, UnityAction listener, MessageChannel channel, int droneID = noID)
     {
         //if there's no manager then just jump out
         if (_eventManager == null)
@@ -298,7 +300,7 @@ public class EventManager : MonoBehaviour
     /// </summary>
     /// <param name="eventName"></param>
     /// <param name="channel"></param>
-    public static void TriggerEvent(string eventName, MessageChannel channel, int droneID = noID)
+    protected static void TriggerEvent(string eventName, MessageChannel channel, int droneID = noID)
     {
         UnityEvent thisEvent = null;
         //Invoke an event in the specified channel, if that event actually exists.
@@ -343,7 +345,7 @@ public class EventManager : MonoBehaviour
     /// Add a private channel to the list of Private Channels
     /// </summary>
     /// <param name="channel"></param>
-    public static void AddPrivateChannel(Dictionary<string, UnityEvent> channel)
+    protected static void AddPrivateChannel(Dictionary<string, UnityEvent> channel)
     {
         //Debug.Log("adding a private channel to the list");
         instance._privateChannelList.Add(channel);
@@ -353,7 +355,7 @@ public class EventManager : MonoBehaviour
     /// Remove a private channel from the Private Channel list
     /// </summary>
     /// <param name="channel"></param>
-    public static void RemovePrivateChannel(Dictionary<string, UnityEvent> channel)
+    protected static void RemovePrivateChannel(Dictionary<string, UnityEvent> channel)
     {
         Debug.Log("removing a private channel from the list");
         instance._privateChannelList.Remove(channel);

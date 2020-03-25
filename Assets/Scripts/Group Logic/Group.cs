@@ -13,9 +13,12 @@ public class Group : MonoBehaviour
     public int groupID;
     public enum GroupType
     {
+        Assault,
+        Mining,
+        Mixed,
+        Scouting,
+        Defense,
         Fighter,
-        Worker,
-        Scout
     }
     public GroupType groupType;
     /// <summary>

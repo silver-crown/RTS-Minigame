@@ -55,15 +55,6 @@ public class CentralIntelligence : MonoBehaviour
 
     public const int MAXDRONES = 300;
 
-    enum DroneType
-    {
-        Worker,
-        Scout,
-        Tank
-    }
-    DroneType drone = DroneType.Worker;
-
-
     #region UtilityAI
 
     private UtilityAction[] _actions;
@@ -253,15 +244,7 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
-    public enum GroupType
-    {
-        Assault,
-        Mining,
-        Mixed,
-        Scouting,
-        Defense,
-    }
-    public void CreateDroneGroup(GroupType type)
+    public void CreateDroneGroup(Group.GroupType type)
     {
         //pick out some dumbass drones depending on what type of group I want to make
         //Give them a unique group ID and a leader
@@ -271,7 +254,7 @@ public class CentralIntelligence : MonoBehaviour
         switch (type)
         {
             //Assault group, for combat scenarios
-            case GroupType.Assault:
+            case Group.GroupType.Assault:
                 {
                     for (int i = 0; i <= groupMember.Length; i++)
                     {
@@ -298,7 +281,7 @@ public class CentralIntelligence : MonoBehaviour
                     groupMember[leader].leaderStatus = true;
                 }
                 break;
-            case GroupType.Mining:
+            case Group.GroupType.Mining:
                 {
                     for (int i = 0; i <= groupMember.Length; i++)
                     {
@@ -320,17 +303,17 @@ public class CentralIntelligence : MonoBehaviour
                     }
                 }
                 break;
-            case GroupType.Mixed:
+            case Group.GroupType.Mixed:
                 {
 
                 }
                 break;
-            case GroupType.Scouting:
+            case Group.GroupType.Scouting:
                 {
 
                 }
                 break;
-            case GroupType.Defense:
+            case Group.GroupType.Defense:
                 {
 
                 }
@@ -389,21 +372,45 @@ public class CentralIntelligence : MonoBehaviour
         }
         return null;
     }
+
     /// <summary>
-    /// Get all the fighter groups present in the army
+    /// Get all the drone groups of a particular type
     /// </summary>
+    /// <param name="groupType"></param>
     /// <returns></returns>
+
     public List<Group> GetFighterGroups()
     {
         List<Group> fighterGroups = new List<Group>();
-        foreach( Group group in groups)
+        foreach (Group group in groups)
         {
-            if(group.groupType == Group.GroupType.Fighter)
+            if (group.groupType == Group.GroupType.Fighter)
             {
                 fighterGroups.Add(group);
             }
         }
         return fighterGroups;
+    }
+    public List<Group> GetDroneGroupsByType(Group.GroupType groupType) {
+
+        List<Group> tempGroups = new List<Group>();
+
+        foreach(Group group in groups)
+        {
+            if (group.groupType == groupType)
+            {
+                tempGroups.Add(group);
+            }
+        }
+        return tempGroups;
+    }
+    /// <summary>
+    /// Add groups of a particular type to the army 
+    /// </summary>
+    /// <returns></returns>
+    public void AddGroup(Group.GroupType groupType)
+    {
+     
     }
 }
 

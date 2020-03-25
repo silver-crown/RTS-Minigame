@@ -19,7 +19,7 @@ public class Drone : RTS.Actor
     /// <summary>
     /// Each channel needs to store their own messages on dictionaries
     /// </summary>
-    private Dictionary<string, UnityEvent> _personalChannelDictionary;
+    public Dictionary<string, UnityEvent> personalChannelDictionary;
 
     ///<summary>
     ///List of all the messages the drone will me listening after
@@ -91,14 +91,12 @@ public class Drone : RTS.Actor
     {
         base.Awake();
 
-        if (_personalChannelDictionary == null)
+        if (personalChannelDictionary == null)
         {
-            _personalChannelDictionary = new Dictionary<string, UnityEvent>();
+            personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
 
         ID = _nextId++;
-
-        EventManager.AddPrivateChannel(_personalChannelDictionary);
     }
 
     public override void Start()
@@ -198,14 +196,6 @@ public class Drone : RTS.Actor
     {
         //add the received message to the list of messages, for use in other functions later.
         messageList.Add(message);
-    }
-    void ListenToMessages()
-    {
-        for (int i = 0; i <= message.Length; i++)
-        {
-            lastMessage = i;
-            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]); }, EventManager.MessageChannel.privateChannel, ID);
-        }
     }
 
     public void CalculatePowerLevel()
