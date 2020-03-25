@@ -2,6 +2,7 @@
 using RTS;
 using UnityEngine;
 using Bbbt;
+using org.mariuszgromada.math.mxparser;
 
 namespace ssuai
 {
@@ -12,6 +13,7 @@ namespace ssuai
 
         public GroupQuantity(CentralIntelligence CI, string function)
         {
+            MathFunction = new Function(function);
             _centralIntelligence = CI;
         }
 

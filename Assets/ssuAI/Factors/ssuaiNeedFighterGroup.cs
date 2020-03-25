@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bbbt;
 using System;
+using org.mariuszgromada.math.mxparser;
+
 namespace ssuai
 {
     public class NeedFighterGroup : Factor
@@ -11,6 +13,7 @@ namespace ssuai
 
         public NeedFighterGroup(CentralIntelligence CI, string function)
         {
+            MathFunction = new Function(function);
             _centralIntelligence = CI;
         }
 
@@ -37,8 +40,6 @@ namespace ssuai
                 //it gets closer to zero the more groups it has ^
                 _utility = 1 - (float)Math.Pow(groupCount / maxGroups, k);
             }
-
-            throw new System.NotImplementedException();
         }
     }
 }

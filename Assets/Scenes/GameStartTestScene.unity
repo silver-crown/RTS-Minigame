@@ -787,6 +787,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2289129879075702766, guid: c4908b3653781f540b44d26b56934b79,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2289129879075702766, guid: c4908b3653781f540b44d26b56934b79,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5106749435559408510, guid: c4908b3653781f540b44d26b56934b79,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1640,10 +1650,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0653ca21702d404e814aff998af937c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groups: []
+  maxGroups: 20
   _dronePrefab: {fileID: 5531117861107271381, guid: 46a90bc59f4f82b47bc2c144d12ec054,
     type: 3}
   gatherAmountScriptPath: CI/Factors/GatherResourceAmount
   buildDroneNumberPath: CI/Factors/BuildDroneNumber
+  _constructGroupPath: 
+  maxDrones: 300
 --- !u!114 &2051873113
 MonoBehaviour:
   m_ObjectHideFlags: 0

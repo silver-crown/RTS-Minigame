@@ -71,8 +71,10 @@ public class CentralIntelligence : MonoBehaviour
     //the action that has been selected
     private UtilityAction _selectedAction;
 
-    //The number of actions the AI is capable of doing in total
-    private const int NUMOFACTIONS = 3;
+    /// <summary>
+    /// The number of actions the AI is capable of doing in total. NOTE, when you add more actions this needs to be increased.
+    /// </summary>
+    private const int NUMOFACTIONS = 4;
 
     float _timeOfLastAction = 0.0f;
 
@@ -114,7 +116,7 @@ public class CentralIntelligence : MonoBehaviour
             () => { buildDrone.Tick(gameObject); });
         //Group construction
         _actions[3] = new UtilityAction(
-            new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(_constructGroupPath)),
+            new List<Factor> {  new DroneNumber(this, readUtilityFunctionFromFile(_constructGroupPath)),
                                 new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
                                 new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
                                 new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
@@ -349,6 +351,8 @@ public class CentralIntelligence : MonoBehaviour
     {
         Script script = new Script();
         var table = script.DoFile(filepath).Table;
+        var memes = (string)table.Get("_utilityFunction").String;
+        Debug.Log(memes);
         return (string)table.Get("_utilityFunction").String;
     }
         
@@ -392,11 +396,11 @@ public class CentralIntelligence : MonoBehaviour
     public List<Group> GetFighterGroups()
     {
         List<Group> fighterGroups = new List<Group>();
-        for(int i = 0; i<= groups.Count; i++)
+        foreach( Group group in groups)
         {
-            if(groups[i].groupType == Group.GroupType.Fighter)
+            if(group.groupType == Group.GroupType.Fighter)
             {
-                fighterGroups.Add(groups[i]);
+                fighterGroups.Add(group);
             }
         }
         return fighterGroups;
