@@ -21,12 +21,12 @@ namespace ssuai
 
         protected override void OnInitialize(GameObject gameObject) 
         {
-            throw new System.NotImplementedException();
+
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status) 
         {
-            throw new System.NotImplementedException();
+
         }
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)

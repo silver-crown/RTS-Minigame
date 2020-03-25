@@ -15,7 +15,9 @@ namespace ssuai
         protected float _utility = 0.0f;
 
 
-        //mxparser function to calculate utility
+        /// <summary>
+        /// mxparser function for the utility function. MUST be set, MANUALLY in all inherited classes.
+        /// </summary>
         public Function MathFunction { get; protected set; }
 
         /// <summary>

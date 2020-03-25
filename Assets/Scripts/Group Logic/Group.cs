@@ -18,6 +18,7 @@ public class Group : MonoBehaviour
         Mixed,
         Scouting,
         Defense,
+        Fighter,
     }
     public GroupType groupType;
     /// <summary>

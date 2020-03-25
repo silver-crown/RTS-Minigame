@@ -71,21 +71,6 @@ public class Drone : RTS.Actor
     /// </summary>
     public CentralIntelligence CentralIntelligence { get; set; }
 
-    void globalChannelTest()
-    {
-
-        messageList.Add(" received a message in the Global Channel!");
-
-    }
-
-    void PrivateChannelTest()
-    {
-        //Debug.Log("Drone " + ID + " received a message in the Private Channel!");
-    }
-    void groupChannelTest()
-    {
-        //Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
-    }
 
     public override void Awake()
     {
