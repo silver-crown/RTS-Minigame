@@ -82,7 +82,7 @@ public class CentralIntelligence : MonoBehaviour
     private UtilityAction _selectedAction;
 
     //The number of actions the AI is capable of doing in total
-    private const int NUMOFACTIONS = 3;
+    private const int NUMOFACTIONS = 4;
 
     float _timeOfLastAction = 0.0f;
 
@@ -118,19 +118,25 @@ public class CentralIntelligence : MonoBehaviour
         _actions[1] = new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Crystal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherCrystal.Tick(gameObject); });
-        //Drone building
+        ///<summary>Drone building </summary>
         _actions[2] = new UtilityAction(
             new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
             () => { buildDrone.Tick(gameObject); });
-        //Group construction
+        
+        ///<summary> Need a fighter group </summary>
         _actions[3] = new UtilityAction(
-            new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new GroupQuantity(this, readUtilityFunctionFromFile(_constructGroupPath))},
+            new List<Factor> { new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
             () => { constructGroup.Tick(gameObject);});
+        ///<summary> Need a worker group </summary>
+        _actions[4] = new UtilityAction(
+            new List<Factor> { new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            () => { constructGroup.Tick(gameObject); });
+        ///<summary>Need a scout group </summary>
+        _actions[5] = new UtilityAction(
+            new List<Factor> { new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            () => { constructGroup.Tick(gameObject); });
     }
+
 
     private void Start()
     {
@@ -434,14 +440,6 @@ public class CentralIntelligence : MonoBehaviour
                 break;
         }
         return tempGroups;
-    }
-    /// <summary>
-    /// Add groups of a particular type to the army 
-    /// </summary>
-    /// <returns></returns>
-    public void AddGroup(GroupType groupType)
-    {
-     
     }
 }
 

@@ -21,6 +21,9 @@ public class EventManager : MonoBehaviour
     private static EventManager _eventManager;
 
     //the channels start at 0, c# hates me and refuses to let me set an int as NULL
+    /// <summary>
+    /// The default value of the IDs 
+    /// </summary>
     const int noID = -1;
     /// <summary>
     /// The actual channel being listened to 
