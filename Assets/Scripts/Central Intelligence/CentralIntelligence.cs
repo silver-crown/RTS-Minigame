@@ -55,25 +55,6 @@ public class CentralIntelligence : MonoBehaviour
 
     public const int MAXDRONES = 300;
 
-    /// <summarym Types of drones the CI can control </summary>
-    enum DroneType
-    {
-        Worker,
-        Scout,
-        Tank
-    }
-    DroneType drone = DroneType.Worker;
-
-    /// <summary Types of drone groups present in the army </summary>
-    public enum GroupType
-    {
-        Assault,
-        Mining,
-        Mixed,
-        Scouting,
-        Defense,
-    }
-
     #region UtilityAI
 
     private UtilityAction[] _actions;
@@ -81,7 +62,9 @@ public class CentralIntelligence : MonoBehaviour
     //the action that has been selected
     private UtilityAction _selectedAction;
 
-    //The number of actions the AI is capable of doing in total
+    /// <summary>
+    /// The number of actions the AI is capable of doing in total. NOTE, when you add more actions this needs to be increased.
+    /// </summary>
     private const int NUMOFACTIONS = 4;
 
     float _timeOfLastAction = 0.0f;
@@ -267,7 +250,7 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
-    public void CreateDroneGroup(GroupType type)
+    public void CreateDroneGroup(Group.GroupType type)
     {
         //pick out some dumbass drones depending on what type of group I want to make
         //Give them a unique group ID and a leader
@@ -277,7 +260,7 @@ public class CentralIntelligence : MonoBehaviour
         switch (type)
         {
             //Assault group, for combat scenarios
-            case GroupType.Assault:
+            case Group.GroupType.Assault:
                 {
                     for (int i = 0; i <= groupMember.Length; i++)
                     {
@@ -304,7 +287,7 @@ public class CentralIntelligence : MonoBehaviour
                     groupMember[leader].leaderStatus = true;
                 }
                 break;
-            case GroupType.Mining:
+            case Group.GroupType.Mining:
                 {
                     for (int i = 0; i <= groupMember.Length; i++)
                     {
@@ -326,17 +309,17 @@ public class CentralIntelligence : MonoBehaviour
                     }
                 }
                 break;
-            case GroupType.Mixed:
+            case Group.GroupType.Mixed:
                 {
 
                 }
                 break;
-            case GroupType.Scouting:
+            case Group.GroupType.Scouting:
                 {
 
                 }
                 break;
-            case GroupType.Defense:
+            case Group.GroupType.Defense:
                 {
 
                 }
@@ -357,6 +340,8 @@ public class CentralIntelligence : MonoBehaviour
     {
         Script script = new Script();
         var table = script.DoFile(filepath).Table;
+        var memes = (string)table.Get("_utilityFunction").String;
+        Debug.Log(memes);
         return (string)table.Get("_utilityFunction").String;
     }
         
@@ -399,47 +384,39 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     /// <param name="groupType"></param>
     /// <returns></returns>
-    public List<Group> GetDroneGroupsByType(GroupType groupType) {
+
+    public List<Group> GetFighterGroups()
+    {
+        List<Group> fighterGroups = new List<Group>();
+        foreach (Group group in groups)
+        {
+            if (group.groupType == Group.GroupType.Fighter)
+            {
+                fighterGroups.Add(group);
+            }
+        }
+        return fighterGroups;
+    }
+    public List<Group> GetDroneGroupsByType(Group.GroupType groupType) {
 
         List<Group> tempGroups = new List<Group>();
-        switch (groupType) {
-            case (GroupType.Assault):
-                for (int i = 0; i <= groups.Count; i++) {
-                    if (groups[i].groupType == Group.GroupType.Assault) {
-                        tempGroups.Add(groups[i]);
-                    }
-                }
-                break;
-            case GroupType.Mining:
-                for (int i = 0; i <= groups.Count; i++) {
-                    if (groups[i].groupType == Group.GroupType.Mining) {
-                        tempGroups.Add(groups[i]);
-                    }
-                }
-                break;
-            case GroupType.Mixed:
-                for (int i = 0; i <= groups.Count; i++) {
-                    if (groups[i].groupType == Group.GroupType.Mixed) {
-                        tempGroups.Add(groups[i]);
-                    }
-                }
-                break;
-            case GroupType.Scouting:
-                for (int i = 0; i <= groups.Count; i++) {
-                    if (groups[i].groupType == Group.GroupType.Scouting) {
-                        tempGroups.Add(groups[i]);
-                    }
-                }
-                break;
-            case GroupType.Defense:
-                for (int i = 0; i <= groups.Count; i++) {
-                    if (groups[i].groupType == Group.GroupType.Defense) {
-                        tempGroups.Add(groups[i]);
-                    }
-                }
-                break;
+
+        foreach(Group group in groups)
+        {
+            if (group.groupType == groupType)
+            {
+                tempGroups.Add(group);
+            }
         }
         return tempGroups;
+    }
+    /// <summary>
+    /// Add groups of a particular type to the army 
+    /// </summary>
+    /// <returns></returns>
+    public void AddGroup(Group.GroupType groupType)
+    {
+     
     }
 }
 

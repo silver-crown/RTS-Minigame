@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bbbt;
 using System;
+using org.mariuszgromada.math.mxparser;
 
 namespace ssuai
 {
@@ -22,10 +23,13 @@ namespace ssuai
         {
             foreach (Factor factor in factors)
             {
+                Debug.Log(factor);
+                Debug.Log(factor.MathFunction);
+                Debug.Log(factor.MathFunction.getFunctionExpressionString());
                 //verify everything was read successfully.
                 if (factor.MathFunction.getFunctionExpressionString() == "")
                 {
-                    Debug.LogError("Factor no. " + factors.IndexOf(factor) + ", is the Lua value read correctly?");
+                    Debug.LogError("Factor no. " + factors.IndexOf(factor) + ", is empty, is the Lua value read correctly?");
                 }
             }
             _factors = factors;
