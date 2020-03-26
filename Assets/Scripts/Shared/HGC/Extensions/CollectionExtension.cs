@@ -83,4 +83,21 @@ public static class CollectionExtension
             return value;
         }
     }
+
+    public static bool ExistsAtIndex<T>(this List<T> list, int index)
+    {
+        return (index >= 0 && list.Count != 0 && index < list.Count && list[index] != null);
+    }
+
+    public static bool TryGetItemAtIndex<T>(this List<T> list, int index, out T item) where T : class
+    {
+        bool exists = ExistsAtIndex<T>(list, index);
+
+        if (exists)
+            item = list[index];
+        else
+            item = null;
+
+        return exists;
+    }
 }

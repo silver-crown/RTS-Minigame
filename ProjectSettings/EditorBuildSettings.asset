@@ -20,7 +20,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainSceneLogic.unity
     guid: 940715dee589fae4aa832494f55ad630
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameStartTestScene.unity
     guid: bc5d61537f48f95408976e9db417a699
+  - enabled: 1
+    path: Assets/Scenes/StageingScene.unity
+    guid: 3cd9b0c0d8ee59045b34b48e99c0e672
   m_configObjects: {}

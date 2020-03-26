@@ -32,7 +32,9 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// All drones under CI's control.
     /// </summary>
-    private List<Drone> _drones = new List<Drone>();
+
+    public List<Drone> Drones { get; protected set; } = new List<Drone>();
+
     public int maxDrones = 300;
 
     /// <summary>
@@ -50,28 +52,21 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Total number of drones present in the army
     /// </summary>
-    public int DroneCount { get => _drones.Count; }
+    public int DroneCount { get => Drones.Count; }
 
     public const int MAXDRONES = 300;
 
-    enum DroneType
-    {
-        Worker,
-        Scout,
-        Tank
-    }
-    DroneType drone = DroneType.Worker;
-
-
     #region UtilityAI
 
-    private UtilityAction[] _actions;
+    private List<UtilityAction> _actions;
 
     //the action that has been selected
     private UtilityAction _selectedAction;
 
-    //The number of actions the AI is capable of doing in total
-    private const int NUMOFACTIONS = 3;
+    /// <summary>
+    /// The number of actions the AI is capable of doing in total. NOTE, when you add more actions this needs to be increased.
+    /// </summary>
+    private const int NUMOFACTIONS = 6;
 
     float _timeOfLastAction = 0.0f;
 
@@ -88,7 +83,7 @@ public class CentralIntelligence : MonoBehaviour
         LastTimeChunkWasScouted = new Dictionary<Vector2Int, float>();
         // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
-        _actions = new UtilityAction[NUMOFACTIONS];
+
         //Contains the types of resources and the amounts the CI has of them
         Inventory = GetComponent<Inventory>();
 
@@ -97,28 +92,36 @@ public class CentralIntelligence : MonoBehaviour
         var buildDrone = ScriptableObject.CreateInstance<CIBuildDrone>();
         var constructGroup = ScriptableObject.CreateInstance<CIConstructGroup>();
 
+        _actions = new List<UtilityAction>();
+
         //set up actions
         //Gathering metal
-        _actions[0] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Metal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
-            () => { gatherMetal.Tick(gameObject); });
+            () => { gatherMetal.Tick(gameObject); }));
         //Gathering crystal
-        _actions[1] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Crystal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
-            () => { gatherCrystal.Tick(gameObject); });
-        //Drone building
-        _actions[2] = new UtilityAction(
+            () => { gatherCrystal.Tick(gameObject); }));
+        ///<summary>Drone building </summary>
+        _actions.Add(new UtilityAction(
             new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
-            () => { buildDrone.Tick(gameObject); });
-        //Group construction
-        _actions[3] = new UtilityAction(
-            new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)),
-                                new GroupQuantity(this, readUtilityFunctionFromFile(_constructGroupPath))},
-            () => { constructGroup.Tick(gameObject);});
+            () => { buildDrone.Tick(gameObject); }));
+        
+        ///<summary> Need a fighter group </summary>
+        _actions.Add(new UtilityAction(
+            new List<Factor> { new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            () => { constructGroup.Tick(gameObject);}));
+        ///<summary> Need a worker group </summary>
+        _actions.Add(new UtilityAction(
+            new List<Factor> { new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            () => { constructGroup.Tick(gameObject); }));
+        ///<summary>Need a scout group </summary>
+        _actions.Add(new UtilityAction(
+            new List<Factor> { new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            () => { constructGroup.Tick(gameObject); }));
     }
+
 
     private void Start()
     {
@@ -180,7 +183,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <param name="drone"></param>
     public void AddDrone(Drone drone)
     {
-        _drones.Add(drone);
+        Drones.Add(drone);
         drone.CentralIntelligence = this;
         if (DroneTypeCount.ContainsKey(drone.Type))
         {
@@ -247,6 +250,87 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
+    public void CreateDroneGroup(Group.GroupType type)
+    {
+        //pick out some dumbass drones depending on what type of group I want to make
+        //Give them a unique group ID and a leader
+        //Group script does the rest
+        Drone[] groupMember = FindObjectsOfType(typeof(Drone)) as Drone[];
+        int leader = 0;
+        switch (type)
+        {
+            //Assault group, for combat scenarios
+            case Group.GroupType.Assault:
+                {
+                    for (int i = 0; i <= groupMember.Length; i++)
+                    {
+                        switch (groupMember[i].Type)
+                        {
+                            //get the fighters
+                            case ("FighterDrone"):
+                                {
+                                    //something something utility AI
+                                    //*********************************************************
+                                    //give the group member a unique group number
+                                    groupMember[i].groupID = lastGroupID+1;
+                                    //assign a leader based on killcount
+                                    if (groupMember[i].killCount > groupMember[leader].killCount)
+                                    {
+                                        leader = i;
+                                    }
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                    groupMember[leader].leaderStatus = true;
+                }
+                break;
+            case Group.GroupType.Mining:
+                {
+                    for (int i = 0; i <= groupMember.Length; i++)
+                    {
+                        switch (groupMember[i].Type)
+                        {
+                            //get the workers
+                            case ("WorkerDrone"):
+                                {
+                                    //something something utility AI
+                                    //*********************************************************
+                                    //give the group member a unique group number
+                                    groupMember[i].groupID = lastGroupID + 1;
+                                    //assign a leader based on something
+                                    break;
+                                }
+                            default:
+                                break;
+                        }
+                    }
+                }
+                break;
+            case Group.GroupType.Mixed:
+                {
+
+                }
+                break;
+            case Group.GroupType.Scouting:
+                {
+
+                }
+                break;
+            case Group.GroupType.Defense:
+                {
+
+                }
+                break;
+            default:
+                break;
+        }
+        lastGroupID++;
+    }
+
+
     /// <summary>
     /// Reads a utility function from the provided lua filepath.
     /// </summary>
@@ -256,9 +340,10 @@ public class CentralIntelligence : MonoBehaviour
     {
         Script script = new Script();
         var table = script.DoFile(filepath).Table;
+        var memes = (string)table.Get("_utilityFunction").String;
+        Debug.Log(memes);
         return (string)table.Get("_utilityFunction").String;
     }
-
         
     /// <summary>
     /// Create the drone groups
@@ -284,30 +369,54 @@ public class CentralIntelligence : MonoBehaviour
     }
     public Drone GetDrone( int ID)
     {
-        for (int i = 0; i<= _drones.Count; i++)
+        for (int i = 0; i<= Drones.Count; i++)
         {
-            if(_drones[i].ID == ID)
+            if(Drones[i].ID == ID)
             {
-                return _drones[i];
+                return Drones[i];
             }
         }
         return null;
     }
+
     /// <summary>
-    /// Get all the fighter groups present in the army
+    /// Get all the drone groups of a particular type
     /// </summary>
+    /// <param name="groupType"></param>
     /// <returns></returns>
+
     public List<Group> GetFighterGroups()
     {
         List<Group> fighterGroups = new List<Group>();
-        for(int i = 0; i<= groups.Count; i++)
+        foreach (Group group in groups)
         {
-            if(groups[i].groupType == Group.GroupType.Fighter)
+            if (group.groupType == Group.GroupType.Fighter)
             {
-                fighterGroups.Add(groups[i]);
+                fighterGroups.Add(group);
             }
         }
         return fighterGroups;
+    }
+    public List<Group> GetDroneGroupsByType(Group.GroupType groupType) {
+
+        List<Group> tempGroups = new List<Group>();
+
+        foreach(Group group in groups)
+        {
+            if (group.groupType == groupType)
+            {
+                tempGroups.Add(group);
+            }
+        }
+        return tempGroups;
+    }
+    /// <summary>
+    /// Add groups of a particular type to the army 
+    /// </summary>
+    /// <returns></returns>
+    public void AddGroup(Group.GroupType groupType)
+    {
+     
     }
 }
 

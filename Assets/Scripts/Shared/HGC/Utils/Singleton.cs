@@ -106,10 +106,12 @@ public abstract class Singleton<T> : MonoBehaviour
                 DontDestroyOnLoad(this);
             }
         }
+
+        OnAwake();
     }
 
     protected abstract void OnAwake();
-    public abstract void OnShutdown();
+    protected abstract void OnShutdown();
 
     protected virtual void OnDisable()
     {

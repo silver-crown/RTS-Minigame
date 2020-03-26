@@ -21,7 +21,7 @@ public class Drone : RTS.Actor
     /// <summary>
     /// Each channel needs to store their own messages on dictionaries
     /// </summary>
-    private Dictionary<string, UnityEvent> _personalChannelDictionary;
+    public Dictionary<string, UnityEvent> personalChannelDictionary;
 
     ///<summary>
     ///List of all the messages the drone will me listening after
@@ -66,39 +66,24 @@ public class Drone : RTS.Actor
     /// </summary>
     public double powerLevel;
 
+
+
     /// <summary>
     /// The drone's central intelligence.
     /// </summary>
     public CentralIntelligence CentralIntelligence { get; set; }
 
-    void globalChannelTest()
-    {
-
-        messageList.Add(" received a message in the Global Channel!");
-
-    }
-
-    void PrivateChannelTest()
-    {
-        //Debug.Log("Drone " + ID + " received a message in the Private Channel!");
-    }
-    void groupChannelTest()
-    {
-        //Debug.Log("Drone " + ID + " from group " + groupID + " received a message in the group Channel!");
-    }
 
     public override void Awake()
     {
         base.Awake();
 
-        if (_personalChannelDictionary == null)
+        if (personalChannelDictionary == null)
         {
-            _personalChannelDictionary = new Dictionary<string, UnityEvent>();
+            personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
 
         ID = _nextId++;
-
-        EventManager.AddPrivateChannel(_personalChannelDictionary);
     }
 
     public override void Start()
@@ -106,9 +91,22 @@ public class Drone : RTS.Actor
         base.Start();
     }
 
-    // Update is called once per frame
     public void Update()
     {
+        /* This code is here until some prerequsities get done, pls no touchy
+        string status = GetValue("_status").String;
+
+        //check if we recently switched into Idle mode
+        //TODO replace with an Event once Benjamin implements that
+        if (status != GetValue("_behaviourTree").String)
+        {
+            //if so set up the proper status tree
+            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(status);
+        }
+
+        */
+
+
         //Debug.Log(_script.Call(_script.Globals["Update"]));
 
         var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
@@ -188,25 +186,20 @@ public class Drone : RTS.Actor
         //add the received message to the list of messages, for use in other functions later.
         messageList.Add(message);
     }
-    void ListenToMessages()
-    {
-        for (int i = 0; i <= message.Length; i++)
-        {
-            lastMessage = i;
-            EventManager.StartListening(message[i], () => { messageList.Add(message[lastMessage]); }, EventManager.MessageChannel.privateChannel, ID);
-        }
-    }
 
     public void CalculatePowerLevel()
     {
         double dps = GetValue("_attacksPerSecond").Number;
         double range = GetValue("_attackRange").Number;
-
         powerLevel = killCount + dps + range + Health;
     }
 
     public static void Create(string type, float x = 0, float y = 0, float z = 0)
     {
         DroneStaticMethods.Create(type, x, y, z);
+    }
+    protected void SetStatus(string status)
+    {
+        SetValue("_status", DynValue.NewString(status));
     }
 }

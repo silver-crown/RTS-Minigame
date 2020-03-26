@@ -3,7 +3,7 @@
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 8720,
+      "BaseBehaviourInstanceId": 8728,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -68,47 +68,12 @@
               "hideFlags": 0
             },
             {
-              "SaveDataType": "BbbtRepeatUntilFail",
-              "Child": {
-                "SaveDataType": "BbbtInverter",
-                "Child": {
-                  "SaveDataType": "BbbtSequencer",
-                  "Children": [
-                    {
-                      "SaveDataType": "BbbtFindNearestDepot",
-                      "Status": 0,
-                      "NodeId": 16,
-                      "name": "Find Nearest Depot(Clone)",
-                      "hideFlags": 0
-                    },
-                    {
-                      "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
-                      "Status": 0,
-                      "NodeId": 15,
-                      "name": "Move To Depot(Clone)",
-                      "hideFlags": 0
-                    },
-                    {
-                      "SaveDataType": "BbbtDepositBehaviour",
-                      "Status": 0,
-                      "NodeId": 17,
-                      "name": "Deposit(Clone)",
-                      "hideFlags": 0
-                    }
-                  ],
-                  "Status": 0,
-                  "NodeId": 14,
-                  "name": "Sequencer(Clone)",
-                  "hideFlags": 0
-                },
-                "Status": 0,
-                "NodeId": 11,
-                "name": "Inverter(Clone)",
-                "hideFlags": 0
-              },
+              "_behaviourTreeName": "DumpInventory",
+              "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+              "BehaviourTree": null,
               "Status": 0,
-              "NodeId": 10,
-              "name": "Repeat Until Fail(Clone)",
+              "NodeId": 18,
+              "name": "Behaviour Tree Caller(Clone)",
               "hideFlags": 0
             }
           ],
@@ -122,14 +87,14 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 432.0,
-      "Y": -325.0,
+      "X": 208.0,
+      "Y": -176.0,
       "IsSelected": false
     },
     {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 8030,
+      "BaseBehaviourInstanceId": 8038,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -192,47 +157,12 @@
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtRepeatUntilFail",
-            "Child": {
-              "SaveDataType": "BbbtInverter",
-              "Child": {
-                "SaveDataType": "BbbtSequencer",
-                "Children": [
-                  {
-                    "SaveDataType": "BbbtFindNearestDepot",
-                    "Status": 0,
-                    "NodeId": 16,
-                    "name": "Find Nearest Depot(Clone)",
-                    "hideFlags": 0
-                  },
-                  {
-                    "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
-                    "Status": 0,
-                    "NodeId": 15,
-                    "name": "Move To Depot(Clone)",
-                    "hideFlags": 0
-                  },
-                  {
-                    "SaveDataType": "BbbtDepositBehaviour",
-                    "Status": 0,
-                    "NodeId": 17,
-                    "name": "Deposit(Clone)",
-                    "hideFlags": 0
-                  }
-                ],
-                "Status": 0,
-                "NodeId": 14,
-                "name": "Sequencer(Clone)",
-                "hideFlags": 0
-              },
-              "Status": 0,
-              "NodeId": 11,
-              "name": "Inverter(Clone)",
-              "hideFlags": 0
-            },
+            "_behaviourTreeName": "DumpInventory",
+            "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+            "BehaviourTree": null,
             "Status": 0,
-            "NodeId": 10,
-            "name": "Repeat Until Fail(Clone)",
+            "NodeId": 18,
+            "name": "Behaviour Tree Caller(Clone)",
             "hideFlags": 0
           }
         ],
@@ -241,111 +171,14 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 431.0,
-      "Y": -165.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 10,
-      "BaseBehaviour": "Repeat Until Fail",
-      "BaseBehaviourInstanceId": -2276,
-      "Behaviour": {
-        "SaveDataType": "BbbtRepeatUntilFail",
-        "Child": {
-          "SaveDataType": "BbbtInverter",
-          "Child": {
-            "SaveDataType": "BbbtSequencer",
-            "Children": [
-              {
-                "SaveDataType": "BbbtFindNearestDepot",
-                "Status": 0,
-                "NodeId": 16,
-                "name": "Find Nearest Depot(Clone)",
-                "hideFlags": 0
-              },
-              {
-                "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
-                "Status": 0,
-                "NodeId": 15,
-                "name": "Move To Depot(Clone)",
-                "hideFlags": 0
-              },
-              {
-                "SaveDataType": "BbbtDepositBehaviour",
-                "Status": 0,
-                "NodeId": 17,
-                "name": "Deposit(Clone)",
-                "hideFlags": 0
-              }
-            ],
-            "Status": 0,
-            "NodeId": 14,
-            "name": "Sequencer(Clone)",
-            "hideFlags": 0
-          },
-          "Status": 0,
-          "NodeId": 11,
-          "name": "Inverter(Clone)",
-          "hideFlags": 0
-        },
-        "Status": 0,
-        "NodeId": 10,
-        "name": "Repeat Until Fail(Clone)",
-        "hideFlags": 0
-      },
-      "X": 638.0,
-      "Y": -14.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 11,
-      "BaseBehaviour": "Inverter",
-      "BaseBehaviourInstanceId": 11612,
-      "Behaviour": {
-        "SaveDataType": "BbbtInverter",
-        "Child": {
-          "SaveDataType": "BbbtSequencer",
-          "Children": [
-            {
-              "SaveDataType": "BbbtFindNearestDepot",
-              "Status": 0,
-              "NodeId": 16,
-              "name": "Find Nearest Depot(Clone)",
-              "hideFlags": 0
-            },
-            {
-              "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
-              "Status": 0,
-              "NodeId": 15,
-              "name": "Move To Depot(Clone)",
-              "hideFlags": 0
-            },
-            {
-              "SaveDataType": "BbbtDepositBehaviour",
-              "Status": 0,
-              "NodeId": 17,
-              "name": "Deposit(Clone)",
-              "hideFlags": 0
-            }
-          ],
-          "Status": 0,
-          "NodeId": 14,
-          "name": "Sequencer(Clone)",
-          "hideFlags": 0
-        },
-        "Status": 0,
-        "NodeId": 11,
-        "name": "Inverter(Clone)",
-        "hideFlags": 0
-      },
-      "X": 723.0,
-      "Y": 135.0,
+      "X": 207.0,
+      "Y": -16.0,
       "IsSelected": false
     },
     {
       "Id": 3,
       "BaseBehaviour": "Repeat Until Fail",
-      "BaseBehaviourInstanceId": -2276,
+      "BaseBehaviourInstanceId": 12418,
       "Behaviour": {
         "SaveDataType": "BbbtRepeatUntilFail",
         "Child": {
@@ -404,14 +237,14 @@
         "name": "Repeat Until Fail(Clone)",
         "hideFlags": 0
       },
-      "X": 176.0,
-      "Y": -39.0,
+      "X": -48.0,
+      "Y": 110.0,
       "IsSelected": false
     },
     {
       "Id": 13,
       "BaseBehaviour": "Inverter",
-      "BaseBehaviourInstanceId": 11612,
+      "BaseBehaviourInstanceId": 11632,
       "Behaviour": {
         "SaveDataType": "BbbtInverter",
         "Child": {
@@ -463,14 +296,14 @@
         "name": "Inverter(Clone)",
         "hideFlags": 0
       },
-      "X": 154.0,
-      "Y": 125.0,
+      "X": -70.0,
+      "Y": 274.0,
       "IsSelected": false
     },
     {
       "Id": 5,
       "BaseBehaviour": "Find Nearest Resource",
-      "BaseBehaviourInstanceId": 9306,
+      "BaseBehaviourInstanceId": 9316,
       "Behaviour": {
         "SaveDataType": "BbbtFindNearestResource",
         "Status": 0,
@@ -478,14 +311,14 @@
         "name": "Find Nearest Resource(Clone)",
         "hideFlags": 0
       },
-      "X": -42.0,
-      "Y": 435.0,
+      "X": -266.0,
+      "Y": 584.0,
       "IsSelected": false
     },
     {
       "Id": 6,
       "BaseBehaviour": "Move In Range Of Resource",
-      "BaseBehaviourInstanceId": 8026,
+      "BaseBehaviourInstanceId": 8034,
       "Behaviour": {
         "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
         "Status": 0,
@@ -493,14 +326,14 @@
         "name": "Move In Range Of Resource(Clone)",
         "hideFlags": 0
       },
-      "X": 128.0,
-      "Y": 463.0,
+      "X": -96.0,
+      "Y": 612.0,
       "IsSelected": false
     },
     {
       "Id": 7,
       "BaseBehaviour": "Repeat Until Fail",
-      "BaseBehaviourInstanceId": -2276,
+      "BaseBehaviourInstanceId": 12418,
       "Behaviour": {
         "SaveDataType": "BbbtRepeatUntilFail",
         "Child": {
@@ -515,14 +348,14 @@
         "name": "Repeat Until Fail(Clone)",
         "hideFlags": 0
       },
-      "X": 305.0,
-      "Y": 448.0,
+      "X": 81.0,
+      "Y": 597.0,
       "IsSelected": false
     },
     {
       "Id": 12,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 8030,
+      "BaseBehaviourInstanceId": 8038,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -567,8 +400,8 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 173.0,
-      "Y": 284.0,
+      "X": -51.0,
+      "Y": 433.0,
       "IsSelected": false
     },
     {
@@ -582,14 +415,14 @@
         "name": "Inventory Full Check(Clone)",
         "hideFlags": 0
       },
-      "X": 428.0,
-      "Y": 395.0,
+      "X": 204.0,
+      "Y": 544.0,
       "IsSelected": false
     },
     {
       "Id": 8,
       "BaseBehaviour": "Mine",
-      "BaseBehaviourInstanceId": 9572,
+      "BaseBehaviourInstanceId": 9582,
       "Behaviour": {
         "SaveDataType": "BbbtMineBehaviour",
         "Status": 0,
@@ -597,92 +430,26 @@
         "name": "Mine(Clone)",
         "hideFlags": 0
       },
-      "X": 319.0,
-      "Y": 636.0,
+      "X": 95.0,
+      "Y": 785.0,
       "IsSelected": false
     },
     {
-      "Id": 14,
-      "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 8030,
+      "Id": 18,
+      "BaseBehaviour": "Behaviour Tree Caller",
+      "BaseBehaviourInstanceId": 6690,
       "Behaviour": {
-        "SaveDataType": "BbbtSequencer",
-        "Children": [
-          {
-            "SaveDataType": "BbbtFindNearestDepot",
-            "Status": 0,
-            "NodeId": 16,
-            "name": "Find Nearest Depot(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
-            "Status": 0,
-            "NodeId": 15,
-            "name": "Move To Depot(Clone)",
-            "hideFlags": 0
-          },
-          {
-            "SaveDataType": "BbbtDepositBehaviour",
-            "Status": 0,
-            "NodeId": 17,
-            "name": "Deposit(Clone)",
-            "hideFlags": 0
-          }
-        ],
+        "_behaviourTreeName": "DumpInventory",
+        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+        "BehaviourTree": null,
         "Status": 0,
-        "NodeId": 14,
-        "name": "Sequencer(Clone)",
+        "NodeId": 18,
+        "name": "Behaviour Tree Caller(Clone)",
         "hideFlags": 0
       },
-      "X": 759.0,
-      "Y": 307.0,
+      "X": 441.0,
+      "Y": 229.0,
       "IsSelected": false
-    },
-    {
-      "Id": 16,
-      "BaseBehaviour": "Find Nearest Depot",
-      "BaseBehaviourInstanceId": 8388,
-      "Behaviour": {
-        "SaveDataType": "BbbtFindNearestDepot",
-        "Status": 0,
-        "NodeId": 16,
-        "name": "Find Nearest Depot(Clone)",
-        "hideFlags": 0
-      },
-      "X": 679.0,
-      "Y": 552.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 15,
-      "BaseBehaviour": "Move To Depot",
-      "BaseBehaviourInstanceId": 9024,
-      "Behaviour": {
-        "SaveDataType": "BbbtMoveToClosestDepotBehaviour",
-        "Status": 0,
-        "NodeId": 15,
-        "name": "Move To Depot(Clone)",
-        "hideFlags": 0
-      },
-      "X": 823.0,
-      "Y": 543.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 17,
-      "BaseBehaviour": "Deposit",
-      "BaseBehaviourInstanceId": 14742,
-      "Behaviour": {
-        "SaveDataType": "BbbtDepositBehaviour",
-        "Status": 0,
-        "NodeId": 17,
-        "name": "Deposit(Clone)",
-        "hideFlags": 0
-      },
-      "X": 950.0,
-      "Y": 549.0,
-      "IsSelected": true
     }
   ],
   "Connections": [
@@ -697,14 +464,6 @@
     {
       "InNodeId": 8,
       "OutNodeId": 7
-    },
-    {
-      "InNodeId": 10,
-      "OutNodeId": 2
-    },
-    {
-      "InNodeId": 11,
-      "OutNodeId": 10
     },
     {
       "InNodeId": 13,
@@ -731,22 +490,10 @@
       "OutNodeId": 12
     },
     {
-      "InNodeId": 14,
-      "OutNodeId": 11
-    },
-    {
-      "InNodeId": 16,
-      "OutNodeId": 14
-    },
-    {
-      "InNodeId": 15,
-      "OutNodeId": 14
-    },
-    {
-      "InNodeId": 17,
-      "OutNodeId": 14
+      "InNodeId": 18,
+      "OutNodeId": 2
     }
   ],
-  "WindowOffsetX": 18.0,
-  "WindowOffsetY": -370.0
+  "WindowOffsetX": -224.0,
+  "WindowOffsetY": 149.0
 }

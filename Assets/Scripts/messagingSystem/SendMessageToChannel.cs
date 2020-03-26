@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SendMessageToChannel : MonoBehaviour
+public class SendMessageToChannel : EventManager
 {
     [SerializeField] private EventManager.MessageChannel _channel;
     private string _message;
     [SerializeField] bool sending;
-    // Start is called before the first frame update
+
     void Start()
     {
         if(_message == null)
@@ -16,7 +16,7 @@ public class SendMessageToChannel : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (sending)
@@ -25,12 +25,15 @@ public class SendMessageToChannel : MonoBehaviour
         }
     }
     /// <summary>
-    /// Send a message to the channel in question
+    /// Send a message to the channel specified, ID is optional
     /// </summary>
-    public void Send(string message, EventManager.MessageChannel channel, int ID = -1)
+    /// <param name="message"></param>
+    /// <param name="channel"></param>
+    /// <param name="ID"></param>
+    public void Send(string message, MessageChannel channel, int ID = -1)
     {
         _channel = channel;
         _message = message;
-        EventManager.TriggerEvent(_message, _channel, ID);
+        TriggerEvent(_message, _channel, ID);
     }
 }
