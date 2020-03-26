@@ -57,7 +57,7 @@ public class CentralIntelligence : MonoBehaviour
 
     #region UtilityAI
 
-    private UtilityAction[] _actions;
+    private List<UtilityAction> _actions;
 
     //the action that has been selected
     private UtilityAction _selectedAction;
@@ -65,7 +65,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// The number of actions the AI is capable of doing in total. NOTE, when you add more actions this needs to be increased.
     /// </summary>
-    private const int NUMOFACTIONS = 4;
+    private const int NUMOFACTIONS = 6;
 
     float _timeOfLastAction = 0.0f;
 
@@ -82,7 +82,7 @@ public class CentralIntelligence : MonoBehaviour
         LastTimeChunkWasScouted = new Dictionary<Vector2Int, float>();
         // SetUpTreeFromCode();
         //_behaviorTree.SetTimer();
-        _actions = new UtilityAction[NUMOFACTIONS];
+
         //Contains the types of resources and the amounts the CI has of them
         Inventory = GetComponent<Inventory>();
 
@@ -91,33 +91,34 @@ public class CentralIntelligence : MonoBehaviour
         var buildDrone = ScriptableObject.CreateInstance<CIBuildDrone>();
         var constructGroup = ScriptableObject.CreateInstance<CIConstructGroup>();
 
+        _actions = new List<UtilityAction>();
 
         //set up actions
         //Gathering metal
-        _actions[0] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Metal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
-            () => { gatherMetal.Tick(gameObject); });
+            () => { gatherMetal.Tick(gameObject); }));
         //Gathering crystal
-        _actions[1] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Crystal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
-            () => { gatherCrystal.Tick(gameObject); });
+            () => { gatherCrystal.Tick(gameObject); }));
         ///<summary>Drone building </summary>
-        _actions[2] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
-            () => { buildDrone.Tick(gameObject); });
+            () => { buildDrone.Tick(gameObject); }));
         
         ///<summary> Need a fighter group </summary>
-        _actions[3] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
-            () => { constructGroup.Tick(gameObject);});
+            () => { constructGroup.Tick(gameObject);}));
         ///<summary> Need a worker group </summary>
-        _actions[4] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
-            () => { constructGroup.Tick(gameObject); });
+            () => { constructGroup.Tick(gameObject); }));
         ///<summary>Need a scout group </summary>
-        _actions[5] = new UtilityAction(
+        _actions.Add(new UtilityAction(
             new List<Factor> { new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
-            () => { constructGroup.Tick(gameObject); });
+            () => { constructGroup.Tick(gameObject); }));
     }
 
 
