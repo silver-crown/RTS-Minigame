@@ -1,8 +1,14 @@
-function Start(id)
+local Metal =
+{
+    _maxHP = 40,
+    _resourceType = "Metal"
+}
+
+function Metal:Start(id)
 	InGameDebug.Log("Metal resource created")
 end
 
-function Update(id)
+function Metal:Update(id)
 	if id == nil then
 		Debug.Log("Metal: id was nil")
 		return
@@ -10,8 +16,4 @@ function Update(id)
 	local hp = LuaManager.Get(id, "_maxHP")
 end
 
-return
-{
-    _maxHP = 40,
-    _resourceType = "Metal"
-}
+return Metal

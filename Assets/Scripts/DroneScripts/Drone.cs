@@ -4,6 +4,8 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using RTS.Lua;
+using RTS;
+using Yeeter;
 
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
@@ -156,13 +158,15 @@ public class Drone : RTS.Actor
     /// Reads the drone's stats from lua.
     /// </summary>
     /// <param name="type">The drone type to set </param>
-    public void SetType(string type)
+    /// <param name="id">The drone's id.</param>
+    public void Initialize(string type, int id)
     {
         Type = type;
         _luaObject = GetComponent<LuaObjectComponent>();
         if (_luaObject == null)
         {
             _luaObject = gameObject.AddComponent<LuaObjectComponent>();
+            Debug.Log("???");
         }
         _luaObject.Load("Actors/Drones/" + type);
         string tree = GetValue("_behaviourTree").String;
@@ -199,5 +203,10 @@ public class Drone : RTS.Actor
         double range = GetValue("_attackRange").Number;
 
         powerLevel = killCount + dps + range + Health;
+    }
+
+    public static void Create(string type, float x = 0, float y = 0, float z = 0)
+    {
+        DroneStaticMethods.Create(type, x, y, z);
     }
 }

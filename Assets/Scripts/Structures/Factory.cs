@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RTS;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +40,7 @@ public class Factory : MonoBehaviour
 
                 //if we've finished building something
             }
+            /* Doesn't use Drone.Create properly. Do not instantiate Drones manually.
             else if (Time.time >= _buildingDoneTime)
             {
                 #if UNITY_EDITOR
@@ -49,12 +51,13 @@ public class Factory : MonoBehaviour
                 //build that drone
                 var go = Instantiate(_dronePrefab, transform.position, Quaternion.identity, null);
                 var drone = go.GetComponent<Drone>();
-                drone.SetType(finishedProduct.Type);
+                drone.Initialize(finishedProduct.Type);
 
 
                 Debug.Log("I just finished a drone of type " + finishedProduct.Type + " in " + finishedProduct.BuildTime + " seconds bro");
                 #endif
             }
+            */
         }
 
         //debug test factories

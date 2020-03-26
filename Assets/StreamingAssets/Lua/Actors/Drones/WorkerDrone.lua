@@ -1,6 +1,7 @@
 function Start(id)
     ObjectBuilder.AddComponent(id, "Inventory", {capacity = 100})
     InGameDebug.Log("It's time to work baby!!!")
+
 end
 function Update(id)
     if id == nil then

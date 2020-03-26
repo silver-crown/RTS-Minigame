@@ -1,4 +1,11 @@
 -- Combat Drone
+function Start(id)
+    LuaManager.AddOnValueSetListener(id, "_sightRange", function(value)
+        Console.Log("_sightRange changed ;)")
+        Console.Log(value)
+    end)
+    LuaManager.Set(id, "_sightRange", 420.69)
+end
 
 function Update()
     return "hello"

@@ -10,6 +10,7 @@ using UnityEditor;
 using System;
 using ssuai;
 using RTS.Lua;
+using Yeeter;
 
 namespace RTS
 {
@@ -174,7 +175,7 @@ namespace RTS
         public virtual void TakeDamage(int damage)
         {
             SetValue("_hp", DynValue.NewNumber((int)GetValue("_hp").Number - damage));
-            if ((int)_luaObject.LuaObject.Table.Get("_hp").Number <= 0)
+            if ((int)_luaObject.Table.Get("_hp").Number <= 0)
             {
                 Destroy(gameObject);
             }
@@ -249,7 +250,7 @@ namespace RTS
         /// <returns>Sets the value associated with the key.</returns>
         public void SetValue(string key, DynValue value)
         {
-            _luaObject.LuaObject.Table.Set(key, value);
+            _luaObject.Table.Set(key, value);
         }
 
         /// <summary>
@@ -258,7 +259,7 @@ namespace RTS
         /// <returns>The pairs.</returns>
         public IEnumerable<TablePair> GetTablePairs()
         {
-            return _luaObject.LuaObject.Table.Pairs;
+            return _luaObject.Table.Pairs;
         }
 
 #if UNITY_EDITOR
@@ -285,7 +286,7 @@ namespace RTS
                         //Gizmos.color = new Color(1.0f, 0.0f, 0.0f, 0.4f);
                         //Gizmos.DrawSphere(actor.transform.position, 1.3f);
                     }
-                    else if (distance < _luaObject.LuaObject.Table.Get("_sightRange").Number)
+                    else if (distance < _luaObject.Table.Get("_sightRange").Number)
                     {
                         Handles.color = new Color(0.0f, 1.0f, 0.0f, 0.2f);
                         Handles.DrawSolidDisc(actor.transform.position, Vector3.up, 1.3f);

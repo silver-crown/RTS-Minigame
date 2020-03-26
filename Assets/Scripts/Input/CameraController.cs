@@ -20,18 +20,18 @@ public class CameraController : MonoBehaviour
         _pitch = transform.eulerAngles.x;
 
         // Double speed
-        BBInput.AddOnKeyDown(KeyCode.LeftShift, () => { _doubleSpeed = true; });
-        BBInput.AddOnKeyUp(KeyCode.LeftShift,   () => { _doubleSpeed = false; });
+        BBInput.AddOnAxisPressed("CameraDoubleSpeed", () => { _doubleSpeed = true; });
+        BBInput.AddOnAxisReleased("CameraDoubleSpeed",   () => { _doubleSpeed = false; });
 
         // Movement direction
-        BBInput.AddOnKey(KeyCode.A, () => { _movementDirection.x = -1.0f; }, 2);
-        BBInput.AddOnKey(KeyCode.D, () => { _movementDirection.x =  1.0f; }, 2);
-        BBInput.AddOnKey(KeyCode.W, () => { _movementDirection.z =  1.0f; }, 2);
-        BBInput.AddOnKey(KeyCode.S, () => { _movementDirection.z = -1.0f; }, 2);
-        BBInput.AddOnKeyUp(KeyCode.A, () => { _movementDirection.x = 0.0f; }, 1);
-        BBInput.AddOnKeyUp(KeyCode.D, () => { _movementDirection.x = 0.0f; }, 1);
-        BBInput.AddOnKeyUp(KeyCode.W, () => { _movementDirection.z = 0.0f; }, 1);
-        BBInput.AddOnKeyUp(KeyCode.S, () => { _movementDirection.z = 0.0f; }, 1);
+        BBInput.AddOnAxisHeld("CameraLeft", () => { _movementDirection.x = -1.0f; }, 2);
+        BBInput.AddOnAxisHeld("CameraRight", () => { _movementDirection.x =  1.0f; }, 2);
+        BBInput.AddOnAxisHeld("CameraForward", () => { _movementDirection.z =  1.0f; }, 2);
+        BBInput.AddOnAxisHeld("CameraBack", () => { _movementDirection.z = -1.0f; }, 2);
+        BBInput.AddOnAxisReleased("CameraLeft", () => { _movementDirection.x = 0.0f; }, 1);
+        BBInput.AddOnAxisReleased("CameraRight", () => { _movementDirection.x = 0.0f; }, 1);
+        BBInput.AddOnAxisReleased("CameraForward", () => { _movementDirection.z = 0.0f; }, 1);
+        BBInput.AddOnAxisReleased("CameraBack", () => { _movementDirection.z = 0.0f; }, 1);
     }
 
     // Update is called once per frame

@@ -7,6 +7,7 @@ using MoonSharp.Interpreter;
 using Bbbt;
 using System;
 
+[RequireComponent(typeof(Inventory))]
 public class CentralIntelligence : MonoBehaviour
 {
     /// <summary>
@@ -154,8 +155,6 @@ public class CentralIntelligence : MonoBehaviour
             Debug.Log("\t" + type.Key.String + " : " + (int)type.Value.Number, this);
             Inventory.Deposit(type.Key.String, (int)type.Value.Number);
         }
-
-        BBInput.AddOnKeyDown(KeyCode.C, () => GetComponent<DroneTestFactory>().BuildDroneForFree("WorkerDrone"));
 
         SelectAction();
     }

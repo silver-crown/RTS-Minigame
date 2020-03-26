@@ -5,11 +5,12 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Yeeter;
 
 namespace RTS.UI.Debugging
 {
     [RequireComponent(typeof(InputField))]
-    public class CommandInputField : MonoBehaviour
+    public class CommandInputField : MonoBehaviour, IPointerDownHandler
     {
         private InputField _field;
         private Text _text;
@@ -22,15 +23,13 @@ namespace RTS.UI.Debugging
             _text = _field.textComponent;
 
             // Input
-            BBInput.AddOnKeyDown(KeyCode.Return, OnCommandEntered, -1);
-            BBInput.AddOnKeyDown(KeyCode.UpArrow, GoUp);
-            BBInput.AddOnKeyDown(KeyCode.DownArrow, GoDown);
-            BBInput.OnEatenKeysReset += StealBBInputFocus;
+            _field.onEndEdit.AddListener(OnCommandEntered);
+            BBInput.AddOnAxisPressed("DebugConsoleUp", GoUp);
+            BBInput.AddOnAxisPressed("DebugConsoleDown", GoDown);
         }
 
-        private void OnCommandEntered()
+        private void OnCommandEntered(string code)
         {
-            string code = _field.text;
             _commandsAbove.Push(code);
             _text.text = "";
             _field.text = "";
@@ -78,15 +77,9 @@ namespace RTS.UI.Debugging
             }
         }
 
-        private void StealBBInputFocus()
+        public void OnPointerDown(PointerEventData eventData)
         {
-            if (EventSystem.current.currentSelectedGameObject == gameObject)
-            {
-                BBInput.EatAll();
-                BBInput.UnEat(KeyCode.Return);
-                BBInput.UnEat(KeyCode.UpArrow);
-                BBInput.UnEat(KeyCode.DownArrow);
-            }
+            BBInput.SetActiveProfile("DebugConsole");
         }
     }
 }
