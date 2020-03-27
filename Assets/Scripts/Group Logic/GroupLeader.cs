@@ -358,6 +358,16 @@ public class GroupLeader : MonoBehaviour
         }
         return drones;
     }
+    public void HighlightGroup() {
+        for(int i = 0; i <= groupMembers.Count; i++) {
+            groupMembers[i].highlight = true;
+        }
+    }
+    public void StopHighlightingGroup() {
+        for (int i = 0; i <= groupMembers.Count; i++) {
+            groupMembers[i].highlight = false;
+        }
+    }
 }
 
 

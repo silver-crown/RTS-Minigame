@@ -55,35 +55,43 @@ public class ListenToChannel : EventManager
         {
             _message = message;
             //if it's a message meant for individual drones
-            if (MessageList().Contains(_message)) {
+            if (MessageList().Contains(_message)) 
+            {
                 EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
-                for (int i = 0; i <= drone.messageList.Count; i++) {
+                for (int i = 0; i <= drone.messageList.Count; i++)
+                {
                     //Listen in on the global channel
                     StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, global);
 
                     //listen in on the private channel
-                    if (_channel == EventManager.MessageChannel.privateChannel) {
+                    if (_channel == EventManager.MessageChannel.privateChannel) 
+                    {
                         StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel, drone.ID);
                     }
                     //Listen without any ID on a channel
-                    else {
+                    else 
+                    {
                         StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel);
                     }
                 }
             }
             //if it's a message meant for groups
-            else if (GroupMessageList().Contains(_message)) {
+            else if (GroupMessageList().Contains(_message)) 
+            {
                 //Check if the drone is a leader
-                if (drone.leaderStatus) {
+                if (drone.leaderStatus) 
+                {
                     ///<summary>For every message the leader can listen to</summary>
-                    for (int i = 0; i <= GroupMessageList().Count; i++) {
+                    for (int i = 0; i <= GroupMessageList().Count; i++)
+                    {
                         ///<summary>Set the message to be the current message the loop is iterating through</summary>
                         _message = GroupMessageList()[i];
                         ///<summary>Listen to this message</summary>
                         StartListening(_message, () => { drone.GetComponent<GroupLeader>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, drone.groupID);
                     }
                 }
-                else {
+                else 
+                {
                     InGameDebug.Log("Error: this drone is not a leader, don't send him this message!");
                 }
             }
