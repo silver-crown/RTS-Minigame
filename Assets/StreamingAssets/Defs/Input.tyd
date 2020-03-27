@@ -1,0 +1,82 @@
+Profiles
+{
+    AlwaysEnabled
+    {
+        name            AlwaysEnabled
+        enabled         true
+        alwaysEnabled   true
+        Axes
+        [
+            {
+                name                ToggleConsole
+                description         Opens the developer console if it is closed and closes it if it is open.
+                priority            10
+                keyCodes            [[F3]; [LeftControl; C]]
+            }
+            {
+                name                ReloadScripts
+                description         Reloads all Lua scripts.
+                priority            10
+                keyCodes            [[LeftControl; R]]
+            }
+            {
+                name                ToggleScriptUpdateEachFrame
+                description         Toggles scripts being reloaded each frame. Very expensive.
+                priority            10
+                keyCodes            [[LeftControl; LeftShift; R]]
+            }
+        ]
+    }
+    Game
+    {
+        name        Game
+        enabled     true
+        Axes
+        [
+            {
+                name            CameraDoubleSpeed
+                description     Doubles camera speed.
+                priority        10
+                keyCodes        [[LeftShift]]
+            }
+            {
+                name            CameraLeft
+                description     Moves camera left.
+                priority        10
+                keyCodes        [[A]; [LeftArrow]]
+            }
+            {
+                name            CameraRight
+                description     Moves camera right.
+                priority        10
+                keyCodes        [[D]; [RightArrow]]
+            }
+            {
+                name            CameraForward
+                description     Moves camera forward.
+                priority        10
+                keyCodes        [[W]; [UpArrow]]
+            }
+            {
+                name            CameraBack
+                description     Moves camera back.
+                priority        10
+                keyCodes        [[S]; [DownArrow]]
+            }
+        ]
+    }
+    Console
+    {
+        name        Console
+        enabled     false
+        Axes
+        [
+            {
+                name            EnterCommand
+                description     Enters a command.
+                priority        100
+                keyCodes        [[Return]]
+            }
+        ]
+    }
+}

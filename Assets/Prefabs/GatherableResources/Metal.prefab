@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8168435077192535357}
   - component: {fileID: 8168435077192535298}
   - component: {fileID: 8168435077192535299}
-  - component: {fileID: 114099658284801016}
+  - component: {fileID: 4607024903791650868}
   m_Layer: 0
   m_Name: Metal
   m_TagString: Untagged
@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba8f686b52ab61418f12e2facf94e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _luaFile: Resources/Metal.lua
---- !u!114 &114099658284801016
+  _luaFile: Resources.Metal
+--- !u!114 &4607024903791650868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8168435077192535296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f43e663ea14d20419ed4d1251a0c69e, type: 3}
+  m_Script: {fileID: 11500000, guid: 80fcad4ab4696c84bbe649dcb2fdf60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8168435078578609799
