@@ -48,6 +48,7 @@ MonoBehaviour:
   SymbolsPrefab: {fileID: 8907824763319104051, guid: 276d3e7747818e64bae9a4060f896dc9,
     type: 3}
   _symbolsPrefabInstance: {fileID: 0}
+  _symbolsOverlay: {fileID: 0}
   unitCollider: {fileID: 2948252532935541526}
 --- !u!1 &1133257774
 GameObject:
@@ -305,6 +306,7 @@ GameObject:
   - component: {fileID: 2948252532935541524}
   - component: {fileID: 1125244383}
   - component: {fileID: 1125244384}
+  - component: {fileID: 5383154552738851687}
   m_Layer: 0
   m_Name: Friendly unit
   m_TagString: Unit
@@ -455,6 +457,25 @@ MonoBehaviour:
   m_CurrentGridTile: {fileID: 0}
   m_PreviousGridTile: {fileID: 0}
   m_InitialFacingDirection: {x: 0, y: 1}
+--- !u!114 &5383154552738851687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948252532935541525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d857fa4efcacb1a429d939fa45e4e2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TargetGridObject: {fileID: 0}
+  m_DestinationTile: {fileID: 0}
+  m_AnimateMovement: 0
+  m_RotateTowardsDirection: 0
+  m_DebugDrawPath: 0
+  m_NextPathpointIndex: 0
+  Path: []
 --- !u!1 &8574382718827718897
 GameObject:
   m_ObjectHideFlags: 0

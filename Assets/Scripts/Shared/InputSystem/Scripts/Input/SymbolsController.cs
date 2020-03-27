@@ -20,21 +20,21 @@ namespace Progress.InputSystem
         private GameObject _symbolsPrefabInstance;
 
         [SerializeField]
-        private Collider unitCollider;
+        private SymbolsOverlay _symbolsOverlay;
 
-        private SymbolsOverlay GetOverlay()
-        {
-            return GetComponentInParent<SceneConfiguration>().GetComponentInChildren<SymbolsOverlay>();
-        }
+        [SerializeField]
+        private Collider unitCollider;
 
         // Start is called before the first frame update
         void Start()
         {
-            if (_configName != null)
+            if (_configName != null || _symbolsOverlay != null)
             {
-                var overlay = GetOverlay();
-
-                overlay.AddToSymbolConfig(_configName, this);
+                _symbolsOverlay.AddToSymbolConfig(_configName, this);
+            }
+            else
+            {
+                Debug.LogError("Either symbol config or symbol overlay could not be found");
             }
         }
 
