@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 145023423}
   - component: {fileID: 145023425}
   - component: {fileID: 145023424}
+  - component: {fileID: 145023426}
   m_Layer: 0
   m_Name: RTSNetworkManager
   m_TagString: Untagged
@@ -207,7 +208,8 @@ MonoBehaviour:
   networkAddress: localhost
   maxConnections: 4
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 6999644851691459476, guid: 8389f5b4148121747a25750e8fc06ab9,
+    type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
@@ -215,10 +217,25 @@ MonoBehaviour:
   minPlayers: 1
   roomPlayerPrefab: {fileID: 1409413095199329277, guid: 82b9427f862a28e43acb8b0c5017171a,
     type: 3}
-  RoomScene: 
+  RoomScene: RoomScene
   GameplayScene: 
   roomSlots: []
   allPlayersReady: 0
+--- !u!114 &145023426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145023422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0
 --- !u!1 &674765210
 GameObject:
   m_ObjectHideFlags: 0
