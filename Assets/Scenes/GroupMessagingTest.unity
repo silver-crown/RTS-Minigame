@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &106276263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5531117861107271381, guid: fe78236740b50d043a096d44c5a2dacd,
+    type: 3}
+  m_PrefabInstance: {fileID: 839638882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &255885026
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,8 +208,82 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &839638882
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 114382434054623756, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: sceneId
+      value: 1121882238
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271381, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_Name
+      value: Drone (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.056324
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 14.838954
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 39.50767
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531117861107271401, guid: fe78236740b50d043a096d44c5a2dacd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fe78236740b50d043a096d44c5a2dacd, type: 3}
 --- !u!1001 &1042622457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,6 +294,22 @@ PrefabInstance:
     - target: {fileID: 1789611792, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
       propertyPath: m_Name
       value: CentralIntelligence
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789611793, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
+      propertyPath: _dronePrefab
+      value: 
+      objectReference: {fileID: 106276263}
+    - target: {fileID: 1789611793, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
+      propertyPath: gatherAmountScriptPath
+      value: CI.Factors.GatherResourceAmount
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789611793, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
+      propertyPath: buildDroneNumberPath
+      value: CI.Factors.BuildDroneNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 1789611793, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
+      propertyPath: _constructGroupPath
+      value: CI.Factors.BuildWorkerNumber
       objectReference: {fileID: 0}
     - target: {fileID: 1789611795, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -245,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1789611795, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1789611795, guid: 24505c92a05c15745b40aa9e3fab46b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -340,7 +436,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1534639958
 GameObject:
