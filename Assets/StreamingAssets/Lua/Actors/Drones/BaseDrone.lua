@@ -1,8 +1,3 @@
--- Base drone from which all other drones are derived.
-function Update()
-    return "hello"
-end
-
 local BaseDrone =
 {
     _name               = "Base Drone",
@@ -12,5 +7,11 @@ local BaseDrone =
     _sightRange         = 15.0,
     _attacksPerSecond   = 1.0,
 }
+
+function BaseDrone:Start(id)
+end
+
+function BaseDrone:Update(id, dt)
+end
 
 return BaseDrone

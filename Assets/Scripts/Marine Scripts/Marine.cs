@@ -1,5 +1,5 @@
-﻿using RTS.Lua;
-using UnityEngine;
+﻿using UnityEngine;
+using Yeeter;
 
 public class Marine : RTS.Actor
 {
@@ -8,7 +8,7 @@ public class Marine : RTS.Actor
         base.Awake();
         MyFaction = Factions.Marine;
         _luaObject = gameObject.GetComponent<LuaObjectComponent>();
-        _luaObject.Load("Actors/Marines/BaseMarine");
+        _luaObject.Load("Actors.Marines.BaseMarine");
 
     }
     

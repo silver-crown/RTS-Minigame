@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using System.Linq;
 
+/*
 public class TempSceneRoot : MonoBehaviour
 {
     [System.Serializable]
@@ -98,3 +99,6 @@ public class TempSceneRoot : MonoBehaviour
             _onAllScenesLoaded.Invoke(!hasError);
 }
 }
+
+
+    */

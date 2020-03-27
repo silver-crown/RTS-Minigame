@@ -1,9 +1,4 @@
--- Combat Drone
-function Update()
-    return "hello"
-end
-
-return
+local CombatDrone = 
 {
     _name               = "Combat Drone",
     _behaviourTree      = "CombatDroneBT",
@@ -12,3 +7,12 @@ return
     _sightRange         = 15.0,
     _fireRate           = 1.0,
 }
+function CombatDrone:Start(id)
+end
+
+-- Combat Drone
+function CombatDrone:Update(id, dt)
+    return "hello"
+end
+
+return CombatDrone
