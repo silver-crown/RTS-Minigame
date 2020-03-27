@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/Networking.unity
-    guid: 22514ded56d7022468a175f10fe94b2d
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 57ed0e9497817de41af28425e6032d43
@@ -23,10 +23,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GameStartTestScene.unity
     guid: bc5d61537f48f95408976e9db417a699
-  - enabled: 1
-    path: Assets/Scenes/StageingScene.unity
+  - enabled: 0
+    path: Assets/Scenes/Lobby Scenes/StageingScene.unity
     guid: 3cd9b0c0d8ee59045b34b48e99c0e672
+  - enabled: 0
+    path: Assets/Scenes/Lobby Scenes/PlayScene.unity
+    guid: f8e08fa65d7964840996539fef4c57b6
   - enabled: 1
-    path: Assets/Scenes/RoomScene.unity
+    path: Assets/Scenes/Lobby Scenes/OfflineScene.unity
+    guid: b246a5574592d5947b2313a2c4363e23
+  - enabled: 1
+    path: Assets/Scenes/Lobby Scenes/RoomScene.unity
     guid: 4ca8a4f0bd6088e44a99561ace066303
+  - enabled: 1
+    path: Assets/Scenes/Lobby Scenes/OnlineScene.unity
+    guid: 50533290df1482449af09e93b6312983
   m_configObjects: {}
