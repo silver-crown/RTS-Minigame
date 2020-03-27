@@ -35,6 +35,11 @@ namespace Progress.InputSystem
         void Start()
         {
             MenuManager.Instance.GetMenuState<UnitSelectionState>().AddUnitToList(this);
+            GridObject gridObject = GetComponent<GridObject>();
+            if (gridObject != null)
+            {
+                gridObject.Initialize();
+            }
         }
 
         public void SetSelected(bool selected)
