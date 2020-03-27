@@ -12,7 +12,7 @@ namespace Bbbt
     public class BbbtGroupAllDronesAttack : BbbtLeafBehaviour
     {
         private RTS.Actor _actor;
-        private Group _group;
+        private GroupLeader _group;
         private SendMessageToChannel _sendMessageToChannel;
 
         public override string SaveDataType { get; } = "BbbtGroupAllDronesAttack";
@@ -22,9 +22,9 @@ namespace Bbbt
             if (gameObject.GetComponent<Actor>() != null)
             {
                 _actor = gameObject.GetComponent<Actor>();
-                if (_actor.GetComponent<Group>() != null)
+                if (_actor.GetComponent<GroupLeader>() != null)
                 {
-                    _group = _actor.GetComponent<Group>();
+                    _group = _actor.GetComponent<GroupLeader>();
                 }
                 if (gameObject.GetComponent<SendMessageToChannel>() != null) {
                     _sendMessageToChannel = _actor.GetComponent<SendMessageToChannel>();

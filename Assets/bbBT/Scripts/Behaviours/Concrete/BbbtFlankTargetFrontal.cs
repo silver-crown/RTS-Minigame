@@ -15,7 +15,7 @@ namespace Bbbt
     public class BbbtFlankTargetFrontal : BbbtLeafBehaviour
     {
         private RTS.Actor _actor;
-        private Group _group;
+        private GroupLeader _group;
         private Drone _drone;
         private NavMeshAgent _navMeshAgent;
 
@@ -30,9 +30,9 @@ namespace Bbbt
                 {
                     _drone = _actor.GetComponent<Drone>();
                 }
-                if(_actor.GetComponent<Group>() != null)
+                if(_actor.GetComponent<GroupLeader>() != null)
                 {
-                    _group = _actor.GetComponent<Group>();
+                    _group = _actor.GetComponent<GroupLeader>();
                 }
                 if(_actor.GetComponent<NavMeshAgent>() != null)
                 {

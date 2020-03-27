@@ -1,0 +1,11 @@
+Yeeter is a Unity vidya framework which does...
+    Asset loading!
+    Mod support!!
+    Input!!!
+    Lua bindings!!!! (requires MoonSharp B))
+        including a lua+prefab based UI system so you don't have to spend too much time inside of nasty canvases
+    and...
+    A hecking cool debug console!!!!!!!!!! YEAH!
+    so what are you WAITING for!?
+    buy Yeeter today!!                      haha pls i need money
+    for support @banan on discord

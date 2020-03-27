@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MoonSharp.Interpreter;
+using Yeeter;
 
 namespace RTS
 {
@@ -19,7 +20,7 @@ namespace RTS
         [Tooltip("The file to read stats from")]
         [SerializeField]
         private string _luaFile;
-        private Lua.LuaObjectComponent _luaObjectComponent;
+        private LuaObjectComponent _luaObjectComponent;
 
         //Action used to update health bar
         public System.Action OnMined;
@@ -28,11 +29,11 @@ namespace RTS
         private void Awake()
         {
             //initialize data
-            _luaObjectComponent = GetComponent<Lua.LuaObjectComponent>();
+            _luaObjectComponent = GetComponent<LuaObjectComponent>();
             _luaObjectComponent.Load(_luaFile);
-            MaxHP = (int)_luaObjectComponent.LuaObject.Table.Get("_maxHP").Number;
+            MaxHP = (int)_luaObjectComponent.Table.Get("_maxHP").Number;
             HP = MaxHP;
-            ResourceType = _luaObjectComponent.LuaObject.Table.Get("_resourceType").String;
+            ResourceType = _luaObjectComponent.Table.Get("_resourceType").String;
 
 
             //add self to resource list

@@ -50,7 +50,7 @@ namespace MoonSharp.Interpreter
 				DebugPrint = s => { Script.GlobalOptions.Platform.DefaultPrint(s); },
 				DebugInput = s => { return Script.GlobalOptions.Platform.DefaultInput(s); },
 				CheckThreadAccess = true,
-				ScriptLoader = new Loaders.StreamingAssetsScriptLoader(),//PlatformAutoDetector.GetDefaultScriptLoader(),
+				ScriptLoader = new Loaders.YeeterScriptLoader(),
 				TailCallOptimizationThreshold = 65536
 			};
 			((Loaders.ScriptLoaderBase)DefaultOptions.ScriptLoader).ModulePaths =
