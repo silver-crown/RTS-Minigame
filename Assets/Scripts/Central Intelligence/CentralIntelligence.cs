@@ -412,16 +412,18 @@ public class CentralIntelligence : MonoBehaviour
         }
         return tempGroups;
     }
+
+    #region GroupTests
     /// <summary>
     /// Adds a test group to the army
     /// </summary>
     /// <returns></returns>
-    public void AddTestGroup(GroupLeader.GroupType groupType) 
+    public void AddTestGroup() 
     {
+        ///<summary>Make the initial drone into a group leader, assign it the newest group id</summary>
         Drones[0].gameObject.AddComponent<GroupLeader>().groupID = ++lastGroupID;
         Drones[0].leaderStatus = true;
-        //shove 'em in there
-        //assign the members
+        ///<summary>Assign the members of the test group</summary>
         for(int i = 0; i <= _maxGroupSize; i++) 
         {
             Drones[i].groupID = lastGroupID;
@@ -430,6 +432,15 @@ public class CentralIntelligence : MonoBehaviour
         ///<summary>Add the test group to the group list</summary>
         groups.Add(Drones[0].GetComponent<GroupLeader>());
     }
+    /// <summary>
+    /// Sends a message to the test group
+    /// </summary>
+    public void SendToTestGroup(string s) {
+        for(int i = 0; i<= groups.Count; i++) {
+            GetComponent<SendMessageToChannel>().Send(s, EventManager.MessageChannel.groupChannel, groups[i].groupID);
+        }
+    }
+    #endregion
 }
 
 
