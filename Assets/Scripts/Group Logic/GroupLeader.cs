@@ -21,10 +21,9 @@ public class GroupLeader : MonoBehaviour
         Fighter,
     }
     public GroupType groupType;
-    /// <summary>
-    /// Number of members of the group in question
-    /// </summary>
+    /// <summary> Number of members of the group in question</summary>
     public int groupSize;
+
     int lastMessage;
     /// <summary>
     /// String used for listening to messages contained in the message list

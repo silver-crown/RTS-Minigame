@@ -35,6 +35,8 @@ public class CentralIntelligence : MonoBehaviour
     public List<Drone> Drones { get; protected set; } = new List<Drone>();
 
     public int maxDrones = 300;
+    ///<summary>Maximum number of group members one group can have</summary>
+    private const int _maxGroupSize = 20;
 
     /// <summary>
     /// Drones of each type under the CI's control.
@@ -421,7 +423,7 @@ public class CentralIntelligence : MonoBehaviour
         Drones[0].leaderStatus = true;
         //shove 'em in there
         //assign the members
-        for(int i = 0; i <= Drones.Count; i++) 
+        for(int i = 0; i <= _maxGroupSize; i++) 
         {
             Drones[i].groupID = lastGroupID;
             Drones[0].gameObject.AddComponent<GroupLeader>().groupMembers.Add(Drones[i]);
