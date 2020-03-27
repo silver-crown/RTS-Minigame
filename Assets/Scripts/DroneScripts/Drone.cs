@@ -6,6 +6,7 @@ using Bbbt;
 using RTS.Lua;
 using RTS;
 using Yeeter;
+using UnityEngine.AI;
 
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
@@ -159,14 +160,15 @@ public class Drone : RTS.Actor
     /// <param name="id">The drone's id.</param>
     public void Initialize(string type, int id)
     {
+        //GetComponent<NavMeshAgent>().
         Type = type;
         _luaObject = GetComponent<LuaObjectComponent>();
         if (_luaObject == null)
         {
             _luaObject = gameObject.AddComponent<LuaObjectComponent>();
-            Debug.Log("???");
+            InGameDebug.Log(name + ": No LuaObjectComponent. Created one.");
         }
-        _luaObject.Load("Actors/Drones/" + type);
+        _luaObject.Load("Actors.Drones." + type);
         string tree = GetValue("_behaviourTree").String;
 
         if (tree != null)
@@ -179,6 +181,7 @@ public class Drone : RTS.Actor
         }
 
         InGameDebug.Log(Type + " boy reporting for duty.");
+        name = ObjectBuilder.GetId(gameObject) + "_" + type;
     }
     //add message to the message list. 
     public void ReceiveMessage(string message)

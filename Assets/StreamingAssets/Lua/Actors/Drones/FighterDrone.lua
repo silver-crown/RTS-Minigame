@@ -1,17 +1,4 @@
--- Combat Drone
-function Start(id)
-    LuaManager.AddOnValueSetListener(id, "_sightRange", function(value)
-        Console.Log("_sightRange changed ;)")
-        Console.Log(value)
-    end)
-    LuaManager.Set(id, "_sightRange", 420.69)
-end
-
-function Update()
-    return "hello"
-end
-
-return
+local CombatDrone =
 {
     _name               = "Combat Drone",
     _behaviourTree      = "CombatDroneBT",
@@ -21,3 +8,15 @@ return
     _fireRate           = 1.0,
     _damage             = 2.0,
 }
+function CombatDrone:Start(id)
+    LuaManager.AddOnValueSetListener(id, "_sightRange", function(value)
+        Console.Log("_sightRange changed ;)")
+        Console.Log(value)
+    end)
+    LuaManager.Set(id, "_sightRange", 420.69)
+end
+
+function CombatDrone:Update()
+end
+
+return CombatDrone

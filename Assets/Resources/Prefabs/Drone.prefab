@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 114580399605065290}
   - component: {fileID: 114382434054623756}
   - component: {fileID: 114006154944055406}
-  - component: {fileID: 114347327441808710}
+  - component: {fileID: 8538764309149357914}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5531117861107271381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -243.41, y: 298.25, z: 211.59}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1681382434638214938}
@@ -224,7 +224,7 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   compressRotation: 1
---- !u!114 &114347327441808710
+--- !u!114 &8538764309149357914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5531117861107271381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f43e663ea14d20419ed4d1251a0c69e, type: 3}
+  m_Script: {fileID: 11500000, guid: 80fcad4ab4696c84bbe649dcb2fdf60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7105153084479403556

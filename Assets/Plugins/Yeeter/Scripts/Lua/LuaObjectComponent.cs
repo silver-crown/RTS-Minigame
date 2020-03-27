@@ -26,7 +26,15 @@ namespace Yeeter
             ObjectBuilder.AddExternalGameObject(gameObject);
             LuaManager.SetupLuaObject(this);
             Script = LuaManager.GlobalScript;
-            Table = Script.DoFile(path).Table;
+            try
+            {
+                Table = Script.DoFile(path).Table;
+            }
+            catch (ScriptRuntimeException e)
+            {
+                InGameDebug.Log("<color=red>Oh no.</color> " + e.DecoratedMessage);
+            }
+            InGameDebug.Log(Table);
             _start = Table.Get("Start").Function;
             _update = Table.Get("Update").Function;
             Path = path;
@@ -86,7 +94,9 @@ namespace Yeeter
         /// <returns>The value associated with the key.</returns>
         public DynValue Get(string key)
         {
-            return Script.Globals.Get(key);
+            if (Table == null) InGameDebug.Log(name + ":LuaObjectComponent: Table was null.");
+            var value = Table.Get(key);
+            return value;
         }
 
         /// <summary>
@@ -95,7 +105,7 @@ namespace Yeeter
         /// <returns>The pairs in the table.</returns>
         public IEnumerable<TablePair> GetTablePairs()
         {
-            return Script.Globals.Pairs;
+            return Table.Pairs;
         }
     }
 }

@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba8f686b52ab61418f12e2facf94e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _luaFile: Resources/Metal.lua
+  _luaFile: Resources.Metal
 --- !u!114 &4607024903791650868
 MonoBehaviour:
   m_ObjectHideFlags: 0

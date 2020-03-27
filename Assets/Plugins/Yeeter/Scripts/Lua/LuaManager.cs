@@ -1,5 +1,6 @@
 ﻿using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,9 @@ namespace Yeeter
     public class LuaManager
     {
         protected static Dictionary<int, LuaObjectComponent> _objects = new Dictionary<int, LuaObjectComponent>();
+        protected static Dictionary<int, Dictionary<string, Action<DynValue>>> _onValueSet =
+            new Dictionary<int, Dictionary<string, Action<DynValue>>>();
+
 
         /// <summary>
         /// The active LuaManager is the lua manager that we use to execute scripts and build lua objects.
@@ -44,6 +48,32 @@ namespace Yeeter
         /// Used so that stuff can be shared essentially.
         /// </summary>
         protected Script _globalScript;
+
+        public static void AddOnValueSetListener(int id, string key, Action<DynValue> action)
+        {
+            if (!_onValueSet.ContainsKey(id))
+            {
+                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
+            }
+            if (!_onValueSet[id].ContainsKey(key))
+            {
+                _onValueSet[id].Add(key, null);
+            }
+            _onValueSet[id][key] += action;
+        }
+        public static void AddOnValueSetListener(int id, string key, DynValue action)
+        {
+            if (!_onValueSet.ContainsKey(id))
+            {
+                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
+            }
+            if (!_onValueSet[id].ContainsKey(key))
+            {
+                _onValueSet[id].Add(key, null);
+            }
+            _onValueSet[id][key] += v => Call(action, v);
+        }
+
 
         public static void ReloadScripts()
         {

@@ -11,7 +11,6 @@ namespace Yeeter
     /// </summary>
     public class DebugConsoleSuggestionsPanel : MonoBehaviour
     {
-        private static KeyCode _autoCompleteKey = KeyCode.Tab;
         private static Dictionary<string, List<string>> _bindings;
 
         /// <summary>The input field to listen to.</summary>

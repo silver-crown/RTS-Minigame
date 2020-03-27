@@ -143,7 +143,7 @@ public class CentralIntelligence : MonoBehaviour
         // Build the starting drones and give starting resources.
         Debug.Log("Central Intelligence: Adding starting drones...", this);
         Script dronesStartDefault = new Script();
-        var dronesStart = dronesStartDefault.DoFile("Setup/DronesStartDefault").Table;
+        var dronesStart = dronesStartDefault.DoFile("Setup.DronesStartDefault").Table;
         foreach (var type in dronesStart.Get("_drones").Table.Pairs)
         {
             int count = (int)type.Value.Number;

@@ -32,6 +32,10 @@ namespace Yeeter
 
         public static DynValue Instantiate(string path)
         {
+            if (!path.StartsWith("Prefabs/"))
+            {
+                path = "Prefabs/" + path;
+            }
             var go = Object.Instantiate(Resources.Load<GameObject>(path));
             return AddObject(go);
         }

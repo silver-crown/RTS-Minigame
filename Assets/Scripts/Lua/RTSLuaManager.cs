@@ -15,26 +15,6 @@ namespace RTS.Lua
     [MoonSharpUserData]
     public class RTSLuaManager : LuaManager
     {
-        private static Dictionary<int, Dictionary<string, Action<DynValue>>> _onValueSet =
-            new Dictionary<int, Dictionary<string, Action<DynValue>>>();
-
-        public static void AddOnValueSetListener(int id, string key, Action<DynValue> action)
-        {
-            if (!_onValueSet.ContainsKey(id))
-            {
-                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
-            }
-            _onValueSet[id][key] += action;
-        }
-        public static void AddOnValueSetListener(int id, string key, DynValue action)
-        {
-            if (!_onValueSet.ContainsKey(id))
-            {
-                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
-            }
-            _onValueSet[id][key] += v => Call(action, v);
-        }
-
         /// <summary>
         /// Creates a MoonSharp.Interpreter.Script set up to accept our awesome scripting API.
         /// </summary>
