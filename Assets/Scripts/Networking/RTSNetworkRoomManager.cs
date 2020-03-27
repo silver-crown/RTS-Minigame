@@ -27,7 +27,8 @@ namespace RTS.Networking
         /// </summary>
         public override void OnRoomStartServer()
         {
-            Debug.Log("Server Started");
+            Debug.Log("Server Started(ROOM)");
+            OnGUI();
         }
 
         /// <summary>

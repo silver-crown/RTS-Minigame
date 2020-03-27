@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StageingScene.unity
     guid: 3cd9b0c0d8ee59045b34b48e99c0e672
+  - enabled: 1
+    path: Assets/Scenes/RoomScene.unity
+    guid: 4ca8a4f0bd6088e44a99561ace066303
   m_configObjects: {}
