@@ -14,21 +14,22 @@ namespace RTS.Networking
     public class RTSSpawner : NetworkBehaviour
     {
         [SerializeField]
-        public NetworkIdentity dronePrefab;
+        public NetworkIdentity playerUnitPrefab;
 
         public override void OnStartServer()
         {
             // init spawns here
+            SpawnMarine();
         }
 
 
         /// <summary>
         ///  Spawns a drone
         /// </summary>
-        void SpawnDrone()
+        void SpawnMarine()
         {
             Vector3 spawnPosition = new Vector3(0, 0, 0);
-            GameObject drone = Instantiate(dronePrefab.gameObject, spawnPosition, Quaternion.identity);
+            GameObject drone = Instantiate(playerUnitPrefab.gameObject, spawnPosition, Quaternion.identity);
 
             NetworkServer.Spawn(drone);
         }
