@@ -14,28 +14,18 @@ using UnityEngine.AI;
 [MoonSharpUserData]
 public class Drone : RTS.Actor
 {
-    /// <summary>
-    /// The id to assign to the next instantiated drone.
-    /// </summary>
+    /// <summary> The id to assign to the next instantiated drone. </summary>
     private static int _nextId = 0;
 
-    /// <summary>
-    /// Each channel needs to store their own messages on dictionaries
-    /// </summary>
+    /// <summary> Each channel needs to store their own messages on dictionaries </summary>
     public Dictionary<string, UnityEvent> personalChannelDictionary;
 
-    ///<summary>
-    ///List of all the messages the drone will me listening after
-    /// </summary>
+    ///<summary>List of all the messages the drone will me listening after </summary>
     public List<string> messageList = new List<string>();
-    /// <summary>
-    /// String used for listening to messages contained in the message list
-    /// </summary>
+    /// <summary>String used for listening to messages contained in the message list </summary>
     string[] message;
     int lastMessage;
-    /// <summary>
-    /// Drone Group and it's ID
-    /// </summary>
+    /// <summary> Drone Group and it's ID</summary>
     [System.NonSerialized] public int groupID;
     [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] GroupLeader group;
@@ -47,30 +37,17 @@ public class Drone : RTS.Actor
         Charlie,
         Delta
     }
+    /// <summary> The group unit the drone belongs to </summary>
     public GroupUnit myUnit;
-    /// <summary>
-    /// set the group script's id to match that of the drone
-    /// </summary>
-    void SetupGroup()
-    {
-        group.groupID = groupID;
-    }
-    /// <summary>
-    /// Unique ID of the drone
-    /// </summary>
+    /// <summary> Unique ID of the drone</summary>
     public int ID { get; protected set; }
     public int killCount;
 
-    /// <summary>
-    /// The absolute strength of the drone
-    /// </summary>
+    /// <summary>The absolute strength of the drone </summary>
     public double powerLevel;
 
-
-
-    /// <summary>
-    /// The drone's central intelligence.
-    /// </summary>
+    public bool highlight;
+    /// <summary> The drone's central intelligence. </summary>
     public CentralIntelligence CentralIntelligence { get; set; }
 
 
@@ -188,7 +165,13 @@ public class Drone : RTS.Actor
         //add the received message to the list of messages, for use in other functions later.
         messageList.Add(message);
     }
-
+    /// <summary>
+    /// set the group script's id to match that of the drone
+    /// </summary>
+    void SetupGroup() 
+    {
+        group.groupID = groupID;
+    }
     public void CalculatePowerLevel()
     {
         double dps = GetValue("_attacksPerSecond").Number;
@@ -203,5 +186,12 @@ public class Drone : RTS.Actor
     protected void SetStatus(string status)
     {
         SetValue("_status", DynValue.NewString(status));
+    }
+    private void OnDrawGizmos() {
+        if (highlight) 
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, 1);
+        }
     }
 }

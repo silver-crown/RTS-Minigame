@@ -433,10 +433,12 @@ public class CentralIntelligence : MonoBehaviour
         groups.Add(Drones[0].GetComponent<GroupLeader>());
     }
     /// <summary>
-    /// Sends a message to the test group
+    /// Highlight Test group and sends a message to the test group
     /// </summary>
     public void SendToTestGroup(string s) {
+       
         for(int i = 0; i<= groups.Count; i++) {
+            groups[i].HighlightGroup();
             GetComponent<SendMessageToChannel>().Send(s, EventManager.MessageChannel.groupChannel, groups[i].groupID);
         }
     }
