@@ -50,45 +50,45 @@ public class ListenToChannel : EventManager
     /// </summary>
     public void ListenToMessage(string message)
     {
-        _message = message;
-        //if it's a message meant for individual drones
-        if (MessageList().Contains(_message))
+        ///<summary>If you haven't gone through this method once, thus not listening for anything</summary>
+        if (!listening) 
         {
-            EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
-            for (int i = 0; i <= drone.messageList.Count; i++)
-            {
-                //Listen in on the global channel
-                StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, global);
+            _message = message;
+            //if it's a message meant for individual drones
+            if (MessageList().Contains(_message)) {
+                EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
+                for (int i = 0; i <= drone.messageList.Count; i++) {
+                    //Listen in on the global channel
+                    StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, global);
 
-                //listen in on the private channel
-                if (_channel == EventManager.MessageChannel.privateChannel)
-                {
-                    StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel, drone.ID);
+                    //listen in on the private channel
+                    if (_channel == EventManager.MessageChannel.privateChannel) {
+                        StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel, drone.ID);
+                    }
+                    //Listen without any ID on a channel
+                    else {
+                        StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel);
+                    }
                 }
-                //Listen without any ID on a channel
-                else
-                {
-                    StartListening(drone.messageList[i], () => { drone.ReceiveMessage(_message); }, _channel);
+            }
+            //if it's a message meant for groups
+            else if (GroupMessageList().Contains(_message)) {
+                //Check if the drone is a leader
+                if (drone.leaderStatus) {
+                    ///<summary>For every message the leader can listen to</summary>
+                    for (int i = 0; i <= GroupMessageList().Count; i++) {
+                        ///<summary>Set the message to be the current message the loop is iterating through</summary>
+                        _message = GroupMessageList()[i];
+                        ///<summary>Listen to this message</summary>
+                        StartListening(_message, () => { drone.GetComponent<GroupLeader>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, drone.groupID);
+                    }
+                }
+                else {
+                    InGameDebug.Log("Error: this drone is not a leader, don't send him this message!");
                 }
             }
         }
-        //if it's a message meant for groups
-        else if (GroupMessageList().Contains(_message))
-        {
-            //Check if the drone is a leader
-            if (drone.leaderStatus)
-            {
-                for (int i = 0; i <= drone.GetComponent<Group>().groupMessageList.Count; i++)
-                {
-                    //set message to be the current message
-                    _message = drone.GetComponent<Group>().groupMessageList[i];
-                    StartListening(_message, () => { drone.GetComponent<Group>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, drone.groupID);
-                }
-            }
-            else {
-                InGameDebug.Log("Error: this drone is not a leader, don't send him this message!");
-            }
-        }
+        listening = true;
     }
 
     /// <summary>

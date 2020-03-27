@@ -35,7 +35,7 @@ public class Drone : RTS.Actor
     /// </summary>
     [System.NonSerialized] public int groupID;
     [System.NonSerialized] public bool leaderStatus = false;
-    [SerializeField] Group group;
+    [SerializeField] GroupLeader group;
 
     public enum GroupUnit
     {
@@ -51,7 +51,6 @@ public class Drone : RTS.Actor
     void SetupGroup()
     {
         group.groupID = groupID;
-        group.leaderStatus = leaderStatus;
     }
     /// <summary>
     /// Unique ID of the drone

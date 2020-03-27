@@ -22,7 +22,7 @@ namespace Bbbt
             if(gameObject.GetComponent<Actor>() != null)
             {
                 _actor = gameObject.GetComponent<Actor>();
-                _forces = _actor.GetComponent<Group>().groupSize;
+                _forces = _actor.GetComponent<GroupLeader>().groupSize;
             }
         }
 
@@ -33,7 +33,7 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            if(_forces > _actor.GetComponent<Group>().enemyList.Count)
+            if(_forces > _actor.GetComponent<GroupLeader>().enemyList.Count)
             {
                 Debug.Log("Group is big enough for an assault!");
                 return BbbtBehaviourStatus.Success;
