@@ -63,7 +63,8 @@ public class GridPathfinder : MonoBehaviour {
         if ((m_DestinationTile == null) || (m_NextPathpointIndex < 0) || Path.Count <= 0) {
             return;
         } else {
-            _gridMovement.TryMoveTo(Path[m_NextPathpointIndex], m_AnimateMovement, m_RotateTowardsDirection);
+            MovementResult result = _gridMovement.TryMoveTo(Path[m_NextPathpointIndex], m_AnimateMovement, m_RotateTowardsDirection);
+            Debug.Log(result);
         }
     }
 
@@ -80,6 +81,22 @@ public class GridPathfinder : MonoBehaviour {
         if (Path != null && Path.Count > 0 && Path.Contains(targetGridTile)) {
 
             m_NextPathpointIndex = 0;
+        }
+        else
+        {
+            Debug.LogError("Couldn't find the path");
+            if (Path == null)
+            {
+                Debug.LogError("Path was null");
+            }
+            else
+            {
+                if (Path.Count <= 0)
+                    Debug.LogError("Path Count was " + Path.Count);
+
+                if (!Path.Contains(targetGridTile))
+                    Debug.LogError("Path did not contain target grid tile");
+            }
         }
 
     }

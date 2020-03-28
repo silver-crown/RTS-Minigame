@@ -13,7 +13,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// List of groups(which is a list of drones)
     /// </summary>
-    public List<Group> groups = new List<Group>();
+    public List<GroupLeader> groups = new List<GroupLeader>();
     int lastGroupID = 0;
     public int maxGroups = 20;
 
@@ -36,6 +36,8 @@ public class CentralIntelligence : MonoBehaviour
     public List<Drone> Drones { get; protected set; } = new List<Drone>();
 
     public int maxDrones = 300;
+    ///<summary>Maximum number of group members one group can have</summary>
+    private const int _maxGroupSize = 20;
 
     /// <summary>
     /// Drones of each type under the CI's control.
@@ -250,7 +252,7 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
-    public void CreateDroneGroup(Group.GroupType type)
+    public void CreateDroneGroup(GroupLeader.GroupType type)
     {
         //pick out some dumbass drones depending on what type of group I want to make
         //Give them a unique group ID and a leader
@@ -260,7 +262,7 @@ public class CentralIntelligence : MonoBehaviour
         switch (type)
         {
             //Assault group, for combat scenarios
-            case Group.GroupType.Assault:
+            case GroupLeader.GroupType.Assault:
                 {
                     for (int i = 0; i <= groupMember.Length; i++)
                     {
@@ -287,7 +289,7 @@ public class CentralIntelligence : MonoBehaviour
                     groupMember[leader].leaderStatus = true;
                 }
                 break;
-            case Group.GroupType.Mining:
+            case GroupLeader.GroupType.Mining:
                 {
                     for (int i = 0; i <= groupMember.Length; i++)
                     {
@@ -309,17 +311,17 @@ public class CentralIntelligence : MonoBehaviour
                     }
                 }
                 break;
-            case Group.GroupType.Mixed:
+            case GroupLeader.GroupType.Mixed:
                 {
 
                 }
                 break;
-            case Group.GroupType.Scouting:
+            case GroupLeader.GroupType.Scouting:
                 {
 
                 }
                 break;
-            case Group.GroupType.Defense:
+            case GroupLeader.GroupType.Defense:
                 {
 
                 }
@@ -385,23 +387,23 @@ public class CentralIntelligence : MonoBehaviour
     /// <param name="groupType"></param>
     /// <returns></returns>
 
-    public List<Group> GetFighterGroups()
+    public List<GroupLeader> GetFighterGroups()
     {
-        List<Group> fighterGroups = new List<Group>();
-        foreach (Group group in groups)
+        List<GroupLeader> fighterGroups = new List<GroupLeader>();
+        foreach (GroupLeader group in groups)
         {
-            if (group.groupType == Group.GroupType.Fighter)
+            if (group.groupType == GroupLeader.GroupType.Fighter)
             {
                 fighterGroups.Add(group);
             }
         }
         return fighterGroups;
     }
-    public List<Group> GetDroneGroupsByType(Group.GroupType groupType) {
+    public List<GroupLeader> GetDroneGroupsByType(GroupLeader.GroupType groupType) {
 
-        List<Group> tempGroups = new List<Group>();
+        List<GroupLeader> tempGroups = new List<GroupLeader>();
 
-        foreach(Group group in groups)
+        foreach(GroupLeader group in groups)
         {
             if (group.groupType == groupType)
             {
@@ -410,14 +412,37 @@ public class CentralIntelligence : MonoBehaviour
         }
         return tempGroups;
     }
+
+    #region GroupTests
     /// <summary>
-    /// Add groups of a particular type to the army 
+    /// Adds a test group to the army
     /// </summary>
     /// <returns></returns>
-    public void AddGroup(Group.GroupType groupType)
+    public void AddTestGroup() 
     {
-     
+        ///<summary>Make the initial drone into a group leader, assign it the newest group id</summary>
+        Drones[0].gameObject.AddComponent<GroupLeader>().groupID = ++lastGroupID;
+        Drones[0].leaderStatus = true;
+        ///<summary>Assign the members of the test group</summary>
+        for(int i = 0; i <= _maxGroupSize; i++) 
+        {
+            Drones[i].groupID = lastGroupID;
+            Drones[0].gameObject.AddComponent<GroupLeader>().groupMembers.Add(Drones[i]);
+        }
+        ///<summary>Add the test group to the group list</summary>
+        groups.Add(Drones[0].GetComponent<GroupLeader>());
     }
+    /// <summary>
+    /// Highlight Test group and sends a message to the test group
+    /// </summary>
+    public void SendToTestGroup(string s) {
+       
+        for(int i = 0; i<= groups.Count; i++) {
+            groups[i].HighlightGroup();
+            GetComponent<SendMessageToChannel>().Send(s, EventManager.MessageChannel.groupChannel, groups[i].groupID);
+        }
+    }
+    #endregion
 }
 
 

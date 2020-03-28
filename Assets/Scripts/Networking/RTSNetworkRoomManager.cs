@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Mirror;
+using System.Collections.Generic;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkRoomManager.html
@@ -20,6 +21,12 @@ namespace RTS.Networking
     /// </summary>
     public class RTSNetworkRoomManager : NetworkRoomManager
     {
+
+        /// <summary>
+        /// This button will only appear for the host player
+        /// </summary>
+        bool ShowStartButton;
+
         #region Server Callbacks
 
         /// <summary>
@@ -28,7 +35,6 @@ namespace RTS.Networking
         public override void OnRoomStartServer()
         {
             Debug.Log("Server Started(ROOM)");
-            OnGUI();
         }
 
         /// <summary>

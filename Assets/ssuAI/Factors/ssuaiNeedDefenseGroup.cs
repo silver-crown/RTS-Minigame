@@ -25,7 +25,7 @@ namespace ssuai
             //is he under attack? ?????
             //Are there a lot of fighter groups already?
             //if there's no fighter groups, just set it to 1
-            int fighterGroupCount = _centralIntelligence.GetDroneGroupsByType(Group.GroupType.Defense).Count;
+            int fighterGroupCount = _centralIntelligence.GetDroneGroupsByType(GroupLeader.GroupType.Defense).Count;
             int groupCount = _centralIntelligence.groups.Count;
             int maxGroups = _centralIntelligence.maxGroups;
             //do like last time, but take the amount of fighters into account 

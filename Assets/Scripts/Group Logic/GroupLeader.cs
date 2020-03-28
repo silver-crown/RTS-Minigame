@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using RTS;
 
-public class Group : MonoBehaviour
+public class GroupLeader : MonoBehaviour
 {
     /// <summary>
     /// the unique ID of the group
@@ -21,24 +21,18 @@ public class Group : MonoBehaviour
         Fighter,
     }
     public GroupType groupType;
-    /// <summary>
-    /// Number of members of the group in question
-    /// </summary>
+    /// <summary> Number of members of the group in question</summary>
     public int groupSize;
+
     int lastMessage;
     /// <summary>
     /// String used for listening to messages contained in the message list
     /// </summary>
     string[] message;
-    [SerializeField] Drone _leader;
-    /// <summary>
-    ///Leader status for the drone in question
-    /// </summary>
-    public bool leaderStatus;
     /// <summary>
     /// All the group members in the group
     /// </summary>
-    public List<GameObject> groupMembers = new List<GameObject>();
+    public List<Drone> groupMembers = new List<Drone>();
     public List<GameObject> enemyList = new List<GameObject>();
 
 
@@ -62,10 +56,7 @@ public class Group : MonoBehaviour
         groupSize = groupMembers.Count;
         if (!_listening)
         {
-            if (leaderStatus)
-            {
-                LeaderStartListening();
-            }
+            LeaderStartListening();
         }
     }
     /// <summary>
@@ -108,23 +99,6 @@ public class Group : MonoBehaviour
     void AssignNewLeader()
     {
         //Leader (or the whole group, depending on how I want to do this) assigns a new group leader.
-    }
-    void ConstructGroup()
-    {
-        //find each object with a Group on it
-        //get the ones with your ID number in it
-        //add self and rest to group list in that group
-        Drone[] groupMember = FindObjectsOfType(typeof(Drone)) as Drone[];
-        //no this doesn't work
-        Debug.Log("Found " + groupMember.Length + " instances with Group attached");
-
-        for (int i = 0; i <= groupMember.Length; i++)
-        {
-            if (groupMember[i].groupID == groupID)
-            {
-                groupMembers.Add(groupMember[i].gameObject);
-            }
-        }
     }
     /// <summary>
     /// Create the radius of all the targets the group members are currently assigned to
@@ -339,9 +313,9 @@ public class Group : MonoBehaviour
     /// </summary>
     /// <param name="unit"></param>
     /// <returns></returns>
-    public List<GameObject> GetGroupUnits(Drone.GroupUnit unit)
+    public List<Drone> GetGroupUnits(Drone.GroupUnit unit)
     {
-        List<GameObject> drones = new List<GameObject>();
+        List<Drone> drones = new List<Drone>();
 
         switch (unit)
         {
@@ -357,7 +331,7 @@ public class Group : MonoBehaviour
             case Drone.GroupUnit.Bravo:
                 for (int i = 0; i <= groupMembers.Count; i++)
                 {
-                    if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Bravo)
+                    if (groupMembers[i].GetComponent<Drone>().myUnit == Drone.GroupUnit.Bravo) 
                     {
                         drones.Add(groupMembers[i]);
                     }
@@ -383,6 +357,16 @@ public class Group : MonoBehaviour
                 break;
         }
         return drones;
+    }
+    public void HighlightGroup() {
+        for(int i = 0; i <= groupMembers.Count; i++) {
+            groupMembers[i].highlight = true;
+        }
+    }
+    public void StopHighlightingGroup() {
+        for (int i = 0; i <= groupMembers.Count; i++) {
+            groupMembers[i].highlight = false;
+        }
     }
 }
 

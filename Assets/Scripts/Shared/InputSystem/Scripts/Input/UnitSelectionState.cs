@@ -185,10 +185,10 @@ namespace Progress.InputSystem
         {
             foreach (Unit unit in _selectedUnits)
             {
-                GridMovement movement = unit.GetComponent<GridMovement>();
-                if (movement != null)
+                GridPathfinder pathfinder = unit.GetComponent<GridPathfinder>();
+                if (pathfinder != null)
                 {
-                    movement.MoveTo(tile, false);
+                    pathfinder.SetNewDestination(tile);
                 }
                 else
                 {

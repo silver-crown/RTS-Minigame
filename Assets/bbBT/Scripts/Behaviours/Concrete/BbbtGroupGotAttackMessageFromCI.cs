@@ -13,7 +13,7 @@ namespace Bbbt
     public class BbbtGroupGotAttackMessageFromCI : BbbtLeafBehaviour
     {
         private RTS.Actor _actor;
-        private Group _group;
+        private GroupLeader _group;
 
         public override string SaveDataType { get; } = "BbbtGroupGotAttackMessageFromCI";
 
@@ -22,9 +22,9 @@ namespace Bbbt
             if (gameObject.GetComponent<Actor>() != null)
             {
                 _actor = gameObject.GetComponent<Actor>();
-                if (_actor.GetComponent<Group>() != null)
+                if (_actor.GetComponent<GroupLeader>() != null)
                 {
-                    _group = _actor.GetComponent<Group>();
+                    _group = _actor.GetComponent<GroupLeader>();
                 }
             }
         }
