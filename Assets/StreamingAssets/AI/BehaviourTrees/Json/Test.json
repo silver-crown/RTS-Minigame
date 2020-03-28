@@ -2,13 +2,11 @@
   "Root": {
     "SaveDataType": "BbbtRoot",
     "Child": {
-      "_message": "Test was successfully called.",
-      "_isEnabled": false,
-      "_logType": 3,
-      "SaveDataType": "BbbtDebugLogBehaviour",
+      "_behaviour": "TestBehaviour",
+      "SaveDataType": "BbbtLuaBehaviour",
       "Status": 0,
-      "NodeId": 6,
-      "name": "Debug Logger(Clone)",
+      "NodeId": 12,
+      "name": "Lua Behaviour(Clone)",
       "hideFlags": 0
     },
     "Status": 0,

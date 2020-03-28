@@ -160,6 +160,15 @@ namespace Yeeter
             }
             go.transform.position = new Vector2(x, y);
         }
+        public static void Translate(int id, float x, float y, float z = 0)
+        {
+            if (!_objects.ContainsKey(id))
+            {
+                InGameDebug.Log("No GameObject with id " + id + ".");
+                return;
+            }
+            _objects[id].transform.position += new Vector3(x, y, z);
+        }
 
         public static void SetParent(int childId, int parentId)
         {

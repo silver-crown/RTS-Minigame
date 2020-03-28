@@ -1,4 +1,5 @@
 ﻿using JsonSubTypes;
+using MoonSharp.Interpreter;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -15,27 +16,27 @@ namespace Bbbt
         /// <summary>
         /// The behaviour could not be run?
         /// </summary>
-        Invalid,
+        Invalid = 0,
         /// <summary>
         /// The behaviour completed succesfully.
         /// </summary>
-        Success,
+        Success = 1,
         /// <summary>
         /// The behaviour failed.
         /// </summary>
-        Failure,
+        Failure = 2,
         /// <summary>
         /// The behaviour is running.
         /// </summary>
-        Running,
+        Running = 3,
         /// <summary>
         /// The behaviour is suspended (i.e. not running temporarily)
         /// </summary>
-        Suspended,
+        Suspended = 4,
         /// <summary>
         /// The behaviour aborted without failing?
         /// </summary>
-        Aborted
+        Aborted = 5
     }
 
     /// <summary>
