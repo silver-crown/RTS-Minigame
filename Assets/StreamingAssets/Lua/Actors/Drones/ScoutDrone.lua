@@ -1,8 +1,4 @@
-function Update()
-    return "hello"
-end
-
-return
+local ScoutDrone = 
 {
     -- general drone stats
     _name               = "Scout",
@@ -15,3 +11,11 @@ return
     -- scout stats
     _lastTimeChunkWasScouted = {},
 }
+
+function ScoutDrone:Start(id)
+end
+
+function ScoutDrone:Update(id, dt)
+end
+
+return ScoutDrone

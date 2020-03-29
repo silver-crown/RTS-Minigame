@@ -5,202 +5,244 @@ using MoonSharp.Interpreter;
 using Bbbt;
 using RTS;
 using RTS.Lua;
+using RTS;
+using Yeeter;
+using UnityEngine.AI;
+
+
+/// <summary>
+/// Drones are used by the enemy AI/CI to interact in the world
+/// </summary>
+[MoonSharpUserData]
+public class Drone : Actor
+{
+    /// <summary>
+    /// The id to assign to the next instantiated drone.
+    /// </summary>
+    private static int _nextId = 0;
 
     /// <summary>
-    /// Drones are used by the enemy AI/CI to interact in the world
+    /// Each channel needs to store their own messages on dictionaries
     /// </summary>
-    [MoonSharpUserData]
-    public class Drone : Actor
+    public Dictionary<string, UnityEvent> personalChannelDictionary;
+
+    ///<summary>
+    ///List of all the messages the drone will me listening after
+    /// </summary>
+    public List<string> messageList = new List<string>();
+    /// <summary>
+    /// String used for listening to messages contained in the message list
+    /// </summary>
+    string[] message;
+    int lastMessage;
+    /// <summary>
+    /// Drone Group and it's ID
+    /// </summary>
+    [System.NonSerialized] public int groupID;
+    [System.NonSerialized] public bool leaderStatus = false;
+    [SerializeField] GroupLeader group;
+
+    [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
+    [SerializeField] public GameObject TargetDepot = null;
+
+    public enum GroupUnit
     {
-        /// <summary>
-        /// The id to assign to the next instantiated drone.
-        /// </summary>
-        private static int _nextId = 0;
+        Alpha,
+        Bravo,
+        Charlie,
+        Delta
+    }
+    public GroupUnit myUnit;
 
-        /// <summary>
-        /// Each channel needs to store their own messages on dictionaries
-        /// </summary>
-        public Dictionary<string, UnityEvent> personalChannelDictionary;
+    /// <summary>
+    /// Unique ID of the drone
+    /// </summary>
+    public int ID { get; protected set; }
+    public int killCount;
 
-        ///<summary>
-        ///List of all the messages the drone will me listening after
-        /// </summary>
-        public List<string> messageList = new List<string>();
-        /// <summary>
-        /// String used for listening to messages contained in the message list
-        /// </summary>
-        string[] message;
-        int lastMessage;
-        /// <summary>
-        /// Drone Group and it's ID
-        /// </summary>
-        [System.NonSerialized] public int groupID;
-        [System.NonSerialized] public bool leaderStatus = false;
-        [SerializeField] Group group;
+    /// <summary>
+    /// The absolute strength of the drone
+    /// </summary>
+    public double powerLevel;
+    public bool highlight;
 
-        [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
-        [SerializeField] public GameObject TargetDepot = null;
+    /// <summary>
+    /// The drone's central intelligence.
+    /// </summary>
+    public CentralIntelligence CentralIntelligence { get; set; }
 
-        public enum GroupUnit
+
+    public override void Awake()
+    {
+        base.Awake();
+
+        if (personalChannelDictionary == null)
         {
-            Alpha,
-            Bravo,
-            Charlie,
-            Delta
+            personalChannelDictionary = new Dictionary<string, UnityEvent>();
         }
-        public GroupUnit myUnit;
-        /// <summary>
-        /// set the group script's id to match that of the drone
-        /// </summary>
-        void SetupGroup()
+
+        ID = _nextId++;
+    }
+
+    public override void Start()
+    {
+        base.Start();
+    }
+
+    public void Update()
+    {
+        /* This code is here until some prerequsities get done, pls no touchy
+        string status = GetValue("_status").String;
+
+        //check if we recently switched into Idle mode
+        //TODO replace with an Event once Benjamin implements that
+        if (status != GetValue("_behaviourTree").String)
         {
-            group.groupID = groupID;
-            group.leaderStatus = leaderStatus;
+            //if so set up the proper status tree
+            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(status);
         }
-        /// <summary>
-        /// Unique ID of the drone
-        /// </summary>
-        public int ID { get; protected set; }
-        public int killCount;
 
-        /// <summary>
-        /// The absolute strength of the drone
-        /// </summary>
-        public double powerLevel;
+        */
 
 
+        //Debug.Log(_script.Call(_script.Globals["Update"]));
 
-        /// <summary>
-        /// The drone's central intelligence.
-        /// </summary>
-        public CentralIntelligence CentralIntelligence { get; set; }
-
-
-        public override void Awake()
+        var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
+        if (lastTimeScouted.IsNotNil())
         {
-            base.Awake();
-
-            if (personalChannelDictionary == null)
+            // Update when the actor saw a chunk
+            foreach (var chunk in WorldInfo.Chunks)
             {
-                personalChannelDictionary = new Dictionary<string, UnityEvent>();
-            }
-
-            ID = _nextId++;
-        }
-
-        public override void Start()
-        {
-            base.Start();
-        }
-
-        public void Update()
-        {
-            /* This code is here until some prerequsities get done, pls no touchy
-            string status = GetValue("_status").String;
-
-            //check if we recently switched into Idle mode
-            //TODO replace with an Event once Benjamin implements that
-            if (status != GetValue("_behaviourTree").String)
-            {
-                //if so set up the proper status tree
-                GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(status);
-            }
-
-            */
-
-
-            //Debug.Log(_script.Call(_script.Globals["Update"]));
-
-            var lastTimeScouted = GetValue("_lastTimeChunkWasScouted");
-            if (lastTimeScouted.IsNotNil())
-            {
-                // Update when the actor saw a chunk
-                foreach (var chunk in WorldInfo.Chunks)
+                var rect = new Rect(chunk, Vector2.one);
+                var pos = new Vector2(transform.position.x, transform.position.z);
+                var distances = new float[]
                 {
-                    var rect = new Rect(chunk, Vector2.one);
-                    var pos = new Vector2(transform.position.x, transform.position.z);
-                    var distances = new float[]
-                    {
                     Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMin)),
                     Vector2.Distance(pos, new Vector2(rect.xMin, rect.yMax)),
                     Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMin)),
                     Vector2.Distance(pos, new Vector2(rect.xMax, rect.yMax))
-                    };
+                };
 
-                    bool inSightRange = true;
-                    foreach (var distance in distances)
+                bool inSightRange = true;
+                foreach (var distance in distances)
+                {
+                    if (distance > GetValue("_sightRange").Number)
                     {
-                        if (distance > GetValue("_sightRange").Number)
-                        {
-                            inSightRange = false;
-                        }
+                        inSightRange = false;
                     }
+                }
 
-                    if (inSightRange)
+                if (inSightRange)
+                {
+                    lastTimeScouted.Table.Set(chunk.ToString(), DynValue.NewNumber(Time.time));
+                    if (CentralIntelligence != null)
                     {
-                        lastTimeScouted.Table.Set(chunk.ToString(), DynValue.NewNumber(Time.time));
-                        if (CentralIntelligence != null)
-                        {
-                            CentralIntelligence.SetLastTimeScouted(chunk, Time.time);
-                        }
+                        CentralIntelligence.SetLastTimeScouted(chunk, Time.time);
                     }
                 }
             }
         }
+    }
 
-        public override void Attack()
+
+    public override void Attack()
+    {
+        base.Attack();
+    }
+
+
+    /// <summary>
+    /// Reads the drone's stats from lua.
+    /// </summary>
+    /// <param name="type">The drone type to set </param>
+    /// <param name="id">The drone's id.</param>
+    public void Initialize(string type, int id)
+    {
+        //GetComponent<NavMeshAgent>().
+        Type = type;
+        _luaObject = GetComponent<LuaObjectComponent>();
+        if (_luaObject == null)
         {
-            base.Attack();
+            _luaObject = gameObject.AddComponent<LuaObjectComponent>();
+            InGameDebug.Log(name + ": No LuaObjectComponent. Created one.");
+        }
+        _luaObject.Load("Actors.Drones." + type);
+        string tree = GetValue("_behaviourTree").String;
+    }
+
+    /// <summary>
+    /// Reads the drone's stats from lua.
+    /// </summary>
+    /// <param name="type">The drone type to set </param>
+    public void SetType(string type)
+    {
+        Type = type;
+        _luaObject = GetComponent<LuaObjectComponent>();
+        if (_luaObject == null)
+        {
+            _luaObject = gameObject.AddComponent<LuaObjectComponent>();
+        }
+        _luaObject.Load("Actors/Drones/" + type);
+        string tree = GetValue("_behaviourTree").String;
+
+        if (tree != null)
+        {
+            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(tree);
+        }
+        else
+        {
+            Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
         }
 
+        InGameDebug.Log(Type + " boy reporting for duty.");
+        name = ObjectBuilder.GetId(gameObject) + "_" + type;
+    }
 
-        /// <summary>
-        /// Reads the drone's stats from lua.
-        /// </summary>
-        /// <param name="type">The drone type to set </param>
-        public void SetType(string type)
+
+    //add message to the message list. 
+    public void ReceiveMessage(string message)
+    {
+        //add the received message to the list of messages, for use in other functions later.
+        messageList.Add(message);
+    }
+
+
+
+
+    protected void SetStatus(string status)
+    {
+        SetValue("_status", DynValue.NewString(status));
+    }
+
+    public void SetTargetDepot(GameObject target)
+    {
+        TargetDepot = target.gameObject;
+    }
+
+    /// <summary>
+    /// set the group script's id to match that of the drone
+    /// </summary>
+    void SetupGroup() 
+    {
+        group.groupID = groupID;
+    }
+    public void CalculatePowerLevel()
+    {
+        double dps = GetValue("_attacksPerSecond").Number;
+        double range = GetValue("_attackRange").Number;
+        powerLevel = killCount + dps + range + Health;
+    }
+
+    public static void Create(string type, float x = 0, float y = 0, float z = 0)
+    {
+        DroneStaticMethods.Create(type, x, y, z);
+    }
+
+    private void OnDrawGizmos() {
+        if (highlight) 
         {
-            Type = type;
-            _luaObject = GetComponent<LuaObjectComponent>();
-            if (_luaObject == null)
-            {
-                _luaObject = gameObject.AddComponent<LuaObjectComponent>();
-            }
-            _luaObject.Load("Actors/Drones/" + type);
-            string tree = GetValue("_behaviourTree").String;
-
-            if (tree != null)
-            {
-                GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(tree);
-            }
-            else
-            {
-                Debug.LogError(GetType().Name + ".SetType(): _behaviourTree not present in " + type + ".lua", this);
-            }
-
-            InGameDebug.Log(Type + " boy reporting for duty.");
-        }
-        //add message to the message list. 
-        public void ReceiveMessage(string message)
-        {
-            //add the received message to the list of messages, for use in other functions later.
-            messageList.Add(message);
-        }
-
-        public void CalculatePowerLevel()
-        {
-            double dps = GetValue("_attacksPerSecond").Number;
-            double range = GetValue("_attackRange").Number;
-            powerLevel = killCount + dps + range + Health;
-        }
-
-        protected void SetStatus(string status)
-        {
-            SetValue("_status", DynValue.NewString(status));
-        }
-
-        public void SetTargetDepot(GameObject target)
-        {
-            TargetDepot = target.gameObject;
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, 1);
         }
     }
+}

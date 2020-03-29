@@ -1,6 +1,7 @@
 ﻿using MoonSharp.Interpreter;
 using RTS.Lua;
 using UnityEngine;
+using Yeeter;
 
 namespace RTS
 {
@@ -11,16 +12,18 @@ namespace RTS
 
         public static DynValue Create(string type, float x = 0, float y = 0, float z = 0)
         {
-            if (_prefab == null) _prefab = Resources.Load<GameObject>("Prefabs/Drone");
+            //if (_prefab == null) _prefab = Resources.Load<GameObject>("Prefabs/Drone");
+            InGameDebug.Log("Note: x, y, z are currently disabled. Will fix -<color=red><b>B</b></color>enjamin :)");
             var position = new Vector3(x, y, z);
-            var drone = Object.Instantiate(_prefab, position, Quaternion.identity, null).GetComponent<Drone>();
-            drone.SetType(type);
-            return drone.GetValue("_id");
+            int id = (int)ObjectBuilder.Instantiate("Drone").Number;
+            var go = ObjectBuilder.Get(id);
+            go.GetComponent<Drone>().Initialize(type, id);
+            return DynValue.NewNumber(id);
         }
 
         public static Table Create(int count, string type, float x = 0, float y = 0, float z = 0)
         {
-            var table = new Table(LuaManager.CreateScript());
+            var table = new Table(LuaManager.GlobalScript);
             for (int i = 0; i < count; i++)
             {
                 table.Set(i, Create(type, x, y, z));

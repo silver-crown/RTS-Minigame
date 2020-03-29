@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RTS;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -55,12 +56,6 @@ namespace RTS
                     Debug.Log("I just finished a drone of type " + finishedProduct.Type + " in " + finishedProduct.BuildTime + " seconds");
 #endif
                 }
-            }
-
-            //debug test factories
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                OrderDrone("WorkerDrone", 5.0f);
             }
         }
 

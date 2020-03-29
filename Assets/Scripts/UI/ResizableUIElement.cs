@@ -59,7 +59,7 @@ namespace Yeeter
                         {
                             var parent = _rectTransform.parent;
                             _rectTransform.parent = null;
-                            _rectTransform.parent = parent;
+                            _rectTransform.SetParent(parent);
                         }
                     }
                 }
