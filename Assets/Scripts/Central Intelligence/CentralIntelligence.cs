@@ -124,7 +124,6 @@ public class CentralIntelligence : MonoBehaviour
             () => { constructGroup.Tick(gameObject); }));
     }
 
-
     private void Start()
     {
         // Populate the DroneTypeCount dictionary.
@@ -167,6 +166,7 @@ public class CentralIntelligence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {
@@ -177,6 +177,8 @@ public class CentralIntelligence : MonoBehaviour
 
             _timeOfLastAction = Time.time;
         }
+
+        BBInput.AddOnAxisPressed("TestButton", AddTestGroup); 
     }
 
     /// <summary>
@@ -209,7 +211,6 @@ public class CentralIntelligence : MonoBehaviour
             LastTimeChunkWasScouted[chunk] = time;
         }
     }
-
     private void SelectAction()
     {
         UtilityAction chosenAction= _selectedAction;         //the currently best action at this point in the loop
@@ -399,7 +400,8 @@ public class CentralIntelligence : MonoBehaviour
         }
         return fighterGroups;
     }
-    public List<GroupLeader> GetDroneGroupsByType(GroupLeader.GroupType groupType) {
+    public List<GroupLeader> GetDroneGroupsByType(GroupLeader.GroupType groupType)
+    {
 
         List<GroupLeader> tempGroups = new List<GroupLeader>();
 
@@ -414,20 +416,43 @@ public class CentralIntelligence : MonoBehaviour
     }
 
     #region GroupTests
+
     /// <summary>
     /// Adds a test group to the army
     /// </summary>
     /// <returns></returns>
     public void AddTestGroup() 
     {
+        Debug.Log("Test group was added");
+        Drone[] tempDrones = FindObjectsOfType(typeof(Drone)) as Drone[];
+        ///<summary>Add every drone on the map to the CI's drojne list</summary>
+        foreach(var drones in tempDrones) 
+        {
+            Drones.Add(drones);
+        }
         ///<summary>Make the initial drone into a group leader, assign it the newest group id</summary>
         Drones[0].gameObject.AddComponent<GroupLeader>().groupID = ++lastGroupID;
         Drones[0].leaderStatus = true;
-        ///<summary>Assign the members of the test group</summary>
+        Drones[0].gameObject.AddComponent<ListenToChannel>();
+        Drones[0].gameObject.GetComponent<ListenToChannel>().init(EventManager.MessageChannel.groupChannel);
+        ///<summary>Assign the members of the test group </summary>
         for(int i = 0; i <= _maxGroupSize; i++) 
         {
-            Drones[i].groupID = lastGroupID;
-            Drones[0].gameObject.AddComponent<GroupLeader>().groupMembers.Add(Drones[i]);
+            ///<summary>Make sure it can't make groups that are too large</summary>
+            if(i >= _maxGroupSize) 
+            {
+                break;
+            }
+            ///<summary>Make sure it can't extend the list of drones the CI currently possesses</summary>
+            if(i > 0)
+            {
+                if (i <= Drones.Count) 
+                {
+                    Drones[i].gameObject.AddComponent<ListenToChannel>();
+                    Drones[i].groupID = lastGroupID;
+                    Drones[0].gameObject.GetComponent<GroupLeader>().groupMembers.Add(Drones[i]);
+                }
+            }
         }
         ///<summary>Add the test group to the group list</summary>
         groups.Add(Drones[0].GetComponent<GroupLeader>());
@@ -435,9 +460,11 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Highlight Test group and sends a message to the test group
     /// </summary>
-    public void SendToTestGroup(string s) {
-       
-        for(int i = 0; i<= groups.Count; i++) {
+    public void SendToTestGroup(string s) 
+    {
+        Debug.Log("Message was sent to test group");
+        for(int i = 0; i<= groups.Count; i++) 
+        {
             groups[i].HighlightGroup();
             GetComponent<SendMessageToChannel>().Send(s, EventManager.MessageChannel.groupChannel, groups[i].groupID);
         }

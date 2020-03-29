@@ -63,6 +63,12 @@ Profiles
                 priority        10
                 keyCodes        [[S]; [DownArrow]]
             }
+            {
+                name            TestButton
+                description     Dummy button for use with various tests
+                priority        10  
+                keyCodes        [[K]; [P]]
+            }
         ]
     }
     Console
