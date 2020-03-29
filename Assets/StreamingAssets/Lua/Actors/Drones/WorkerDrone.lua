@@ -23,5 +23,5 @@ return
     _miningRange 		= 5.0,
     _miningCooldown 	= 3.0,
     _miningDamage		= 5,
-    _inventorySpace     = 40
+    _inventorySpace     = 50
 }
