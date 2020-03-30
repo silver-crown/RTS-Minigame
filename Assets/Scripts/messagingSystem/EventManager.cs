@@ -11,13 +11,13 @@ public class EventManager : MonoBehaviour
     /// Personal channel dictionaries for the drones are located in Drone.cs
     /// Each group needs to store their messages in a dictionary as well
     /// </summary>
-    protected Dictionary<string, UnityEvent> _globalChannelDictionary;
-    protected Dictionary<string, UnityEvent> _workerChannelDictionary;
-    protected Dictionary<string, UnityEvent> _scoutChannelDictionary;
-    protected Dictionary<string, UnityEvent> _tankChannelDictionary;
-    protected Dictionary<string, UnityEvent> _CIChannelDictionary;
-    protected List<Dictionary<string, UnityEvent>> _privateChannelList;
-    protected List<Dictionary<string, UnityEvent>> _groupChannelList;
+    protected static Dictionary<string, UnityEvent> _globalChannelDictionary;
+    protected static Dictionary<string, UnityEvent> _workerChannelDictionary;
+    protected static Dictionary<string, UnityEvent> _scoutChannelDictionary;
+    protected static Dictionary<string, UnityEvent> _tankChannelDictionary;
+    protected static Dictionary<string, UnityEvent> _CIChannelDictionary;
+    protected static List<Dictionary<string, UnityEvent>> _privateChannelList;
+    protected static List<Dictionary<string, UnityEvent>> _groupChannelList;
     private static EventManager _eventManager;
 
     //the channels start at 0, c# hates me and refuses to let me set an int as NULL
@@ -38,37 +38,12 @@ public class EventManager : MonoBehaviour
         CIChannel,
         groupChannel
     }
-
-    internal static void StartListening(UnityEvent unityEvent, Action leaderIssueCommand, MessageChannel groupChannel, int groupID)
-    {
-        throw new NotImplementedException();
-    }
-
     //Get the EventManager if there's one present in the scene
-    protected static EventManager instance 
-    {
-        get 
-        {
-            if(!_eventManager)
-            {
-                _eventManager = FindObjectOfType(typeof(EventManager)) as EventManager;
-                //If there's no eventmanager send an error, else intialize the dictionary.
-                if(!_eventManager)
-                {
-                    Debug.LogError("put EventManager on a GameObject in your scene first.");
-                }
-                else
-                {
-                    _eventManager.Init();
-                }
-            }
-            return _eventManager;
-        }
-    }
 
     //Initialize the dictionary for the eventManager
-    void Init()
+    void Start()
     {
+        Debug.Log("Initializing Event Manager");
         if(_globalChannelDictionary == null)
         {
             _globalChannelDictionary = new Dictionary<string, UnityEvent>();
@@ -110,7 +85,7 @@ public class EventManager : MonoBehaviour
             //everyone should do this, but not every message should be sent to the global channel
             case (MessageChannel.globalChannel):
                 //If there's an event like this in the dictionary, add the listener
-                if (instance._globalChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_globalChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.AddListener(listener);
                 }
@@ -119,7 +94,7 @@ public class EventManager : MonoBehaviour
                 {
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
-                    instance._globalChannelDictionary.Add(eventName, thisEvent);
+                    _globalChannelDictionary.Add(eventName, thisEvent);
                 }
                 break;
             //Listening in on the private channel
@@ -130,7 +105,7 @@ public class EventManager : MonoBehaviour
                 {
 
                     //If there's an event like this in the dictionary, add the listener
-                    if (instance._privateChannelList[ID].TryGetValue(eventName, out thisEvent))
+                    if (_privateChannelList[ID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.AddListener(listener);
                     }
@@ -139,7 +114,7 @@ public class EventManager : MonoBehaviour
                     {
                         thisEvent = new UnityEvent();
                         thisEvent.AddListener(listener);
-                        instance._privateChannelList[ID].Add(eventName, thisEvent);
+                        _privateChannelList[ID].Add(eventName, thisEvent);
                     }
                 }
                 else
@@ -151,7 +126,7 @@ public class EventManager : MonoBehaviour
             //This is meant for drones that primarily gather resources, ala AoE villagers
             case (MessageChannel.workerChannel):
                 //If there's an event like this in the dictionary, add the listener
-                if (instance._workerChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_workerChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.AddListener(listener);
                 }
@@ -160,14 +135,14 @@ public class EventManager : MonoBehaviour
                 {
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
-                    instance._workerChannelDictionary.Add(eventName, thisEvent);
+                    _workerChannelDictionary.Add(eventName, thisEvent);
                 }
                 break;
             //Listening in on the scount channel
             //These are for the scouting drones
             case (MessageChannel.scoutChannel):
                 //If there's an event like this in the dictionary, add the listener
-                if (instance._scoutChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_scoutChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.AddListener(listener);
                 }
@@ -176,14 +151,14 @@ public class EventManager : MonoBehaviour
                 {
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
-                    instance._scoutChannelDictionary.Add(eventName, thisEvent);
+                    _scoutChannelDictionary.Add(eventName, thisEvent);
                 }
                 break;
             //Listening in on the tank channel
             //This is meant for the heavy units
             case (MessageChannel.tankChannel):
                 //If there's an event like this in the dictionary, add the listener
-                if (instance._tankChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_tankChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.AddListener(listener);
                 }
@@ -192,14 +167,14 @@ public class EventManager : MonoBehaviour
                 {
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
-                    instance._tankChannelDictionary.Add(eventName, thisEvent);
+                    _tankChannelDictionary.Add(eventName, thisEvent);
                 }
                 break;
             //Listening in on the tank channel
             //This is meant for the heavy units
             case (MessageChannel.CIChannel):
                 //If there's an event like this in the dictionary, add the listener
-                if (instance._tankChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_tankChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.AddListener(listener);
                 }
@@ -208,7 +183,7 @@ public class EventManager : MonoBehaviour
                 {
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
-                    instance._tankChannelDictionary.Add(eventName, thisEvent);
+                    _tankChannelDictionary.Add(eventName, thisEvent);
                 }
                 break;
             //Listening in on the group channel
@@ -219,7 +194,7 @@ public class EventManager : MonoBehaviour
                 {
 
                     //If there's an event like this in the dictionary, add the listener
-                    if (instance._groupChannelList[ID].TryGetValue(eventName, out thisEvent))
+                    if (_groupChannelList[ID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.AddListener(listener);
                     }
@@ -228,7 +203,7 @@ public class EventManager : MonoBehaviour
                     {
                         thisEvent = new UnityEvent();
                         thisEvent.AddListener(listener);
-                        instance._groupChannelList[ID].Add(eventName, thisEvent);
+                        _groupChannelList[ID].Add(eventName, thisEvent);
                     }
                 }
                 else
@@ -256,7 +231,7 @@ public class EventManager : MonoBehaviour
         {
             case (MessageChannel.globalChannel):
                 //if there's an event like this in the dictionary, remove the listener
-                if (instance._globalChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_globalChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.RemoveListener(listener);
                 }
@@ -265,7 +240,7 @@ public class EventManager : MonoBehaviour
                 if(droneID > noID)
                 {
                     //if there's an event like this in the dictionary, remove the listener
-                    if (instance._privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.RemoveListener(listener);
                     }
@@ -277,21 +252,21 @@ public class EventManager : MonoBehaviour
                 break;
             case (MessageChannel.workerChannel):
                 //if there's an event like this in the dictionary, remove the listener
-                if (instance._workerChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_workerChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.RemoveListener(listener);
                 }
                 break;
             case (MessageChannel.scoutChannel):
                 //if there's an event like this in the dictionary, remove the listener
-                if (instance._scoutChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_scoutChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.RemoveListener(listener);
                 }
                 break;
             case (MessageChannel.tankChannel):
                 //if there's an event like this in the dictionary, remove the listener
-                if (instance._tankChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_tankChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.RemoveListener(listener);
                 }
@@ -310,7 +285,7 @@ public class EventManager : MonoBehaviour
         switch (channel)
         {
             case (MessageChannel.globalChannel):
-                if (instance._globalChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_globalChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.Invoke();
                 }
@@ -318,26 +293,26 @@ public class EventManager : MonoBehaviour
             case (MessageChannel.privateChannel):
                 if (droneID >= noID)
                 {
-                    if (instance._privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.Invoke();
                     }
                 }
                 break;
             case (MessageChannel.workerChannel):
-                if (instance._workerChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_workerChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.Invoke();
                 }
                 break;
             case (MessageChannel.scoutChannel):
-                if (instance._scoutChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_scoutChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.Invoke();
                 }
                 break;
             case (MessageChannel.tankChannel):
-                if (instance._tankChannelDictionary.TryGetValue(eventName, out thisEvent))
+                if (_tankChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.Invoke();
                 }
@@ -350,8 +325,8 @@ public class EventManager : MonoBehaviour
     /// <param name="channel"></param>
     protected static void AddPrivateChannel(Dictionary<string, UnityEvent> channel)
     {
-        //Debug.Log("adding a private channel to the list");
-        instance._privateChannelList.Add(channel);
+        Debug.Log("adding a private channel to the list");
+        _privateChannelList.Add(channel);
     }
 
     /// <summary>
@@ -361,6 +336,6 @@ public class EventManager : MonoBehaviour
     protected static void RemovePrivateChannel(Dictionary<string, UnityEvent> channel)
     {
         Debug.Log("removing a private channel from the list");
-        instance._privateChannelList.Remove(channel);
+        _privateChannelList.Remove(channel);
     }
 }

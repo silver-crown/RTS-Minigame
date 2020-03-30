@@ -1,11 +1,8 @@
-﻿using System.Collections;
+﻿using MoonSharp.Interpreter;
+using RTS.Test;
+using ssuai;
 using System.Collections.Generic;
 using UnityEngine;
-using ssuai;
-using RTS.Test;
-using MoonSharp.Interpreter;
-using Bbbt;
-using System;
 
 [RequireComponent(typeof(Inventory))]
 public class CentralIntelligence : MonoBehaviour
@@ -126,6 +123,7 @@ public class CentralIntelligence : MonoBehaviour
 
     private void Start()
     {
+        BBInput.AddOnAxisPressed("TestButton", AddTestGroup);
         // Populate the DroneTypeCount dictionary.
         foreach (string type in WorldInfo.DroneTypes)
         {
@@ -177,8 +175,6 @@ public class CentralIntelligence : MonoBehaviour
 
             _timeOfLastAction = Time.time;
         }
-
-        BBInput.AddOnAxisPressed("TestButton", AddTestGroup); 
     }
 
     /// <summary>
@@ -423,7 +419,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <returns></returns>
     public void AddTestGroup() 
     {
-        Debug.Log("Test group was added");
+        Debug.Log("Adding test group");
         Drone[] tempDrones = FindObjectsOfType(typeof(Drone)) as Drone[];
         ///<summary>Add every drone on the map to the CI's drojne list</summary>
         foreach(var drones in tempDrones) 
@@ -456,6 +452,7 @@ public class CentralIntelligence : MonoBehaviour
         }
         ///<summary>Add the test group to the group list</summary>
         groups.Add(Drones[0].GetComponent<GroupLeader>());
+        Debug.Log("Test group was added");
     }
     /// <summary>
     /// Highlight Test group and sends a message to the test group

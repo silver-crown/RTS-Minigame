@@ -27,9 +27,8 @@ public class ListenToChannel : EventManager
         if (GetComponent<Drone>() != null) {
             _drone = GetComponent<Drone>();
         }
-        //if the drone's channel isn't in the list, add it there
+        ///<summary>if the drone's channel isn't in the list, add it there</summary>
         if (!_privateChannelList.Contains(_drone.personalChannelDictionary)) {
-            Debug.Log("This cannot continue");
             AddPrivateChannel(_drone.personalChannelDictionary);
         }
         if (_message == null) {
