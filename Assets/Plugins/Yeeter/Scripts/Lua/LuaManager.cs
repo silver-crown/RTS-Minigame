@@ -24,6 +24,7 @@ namespace Yeeter
         /// </summary>
         public static LuaManager ActiveLuaManager { get; set; } = new LuaManager();
         public static Action<LuaObjectComponent> OnLuaObjectSetUp { get; set; }
+        public static Action<LuaObjectComponent> OnDestroyLuaObject { get; set; }
 
         public static Script GlobalScript
         {
@@ -50,7 +51,6 @@ namespace Yeeter
 
         public static void ReloadScripts()
         {
-            InGameDebug.Log("OH EYAH YEAH ");
             foreach (var luaObject in _objects.Values)
             {
                 luaObject.Load(luaObject.Path);
@@ -67,7 +67,15 @@ namespace Yeeter
             luaObject.Id = ObjectBuilder.GetId(luaObject.gameObject);
             _objects.Add(luaObject.Id, luaObject);
             luaObject.Script = GlobalScript;
-            OnLuaObjectSetUp?.Invoke(luaObject);
+            luaObject.OnLoaded += () => OnLuaObjectSetUp?.Invoke(luaObject);
+            luaObject.OnDestroyed += OnLuaObjectDestroyed;
+        }
+
+        private static void OnLuaObjectDestroyed(LuaObjectComponent luaObject)
+        {
+            _objects.Remove(luaObject.Id);
+            luaObject.OnDestroyed -= OnLuaObjectDestroyed;
+            OnDestroyLuaObject?.Invoke(luaObject);
         }
 
         /// <summary>
@@ -220,7 +228,7 @@ namespace Yeeter
             DynValue result = null;
             try
             {
-                result =  GlobalScript.Call(function, args);
+                result = GlobalScript.Call(function, args);
             }
             catch (ScriptRuntimeException e)
             {

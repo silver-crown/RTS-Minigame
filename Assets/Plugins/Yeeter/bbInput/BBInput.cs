@@ -173,12 +173,13 @@ public class BBInput
             }
         }
         InGameDebug.Log("No axis with name '" + axisName + "'.");
-    }/// <summary>
-     /// Adds an action to be called when an axis is released.
-     /// </summary>
-     /// <param name="axisName">Te name of the axis.</param>
-     /// <param name="action">The action to perform.</param>
-     /// <param name="priority">The priority of the action.</param>
+    }
+    /// <summary>
+    /// Adds an action to be called when an axis is released.
+    /// </summary>
+    /// <param name="axisName">Te name of the axis.</param>
+    /// <param name="action">The action to perform.</param>
+    /// <param name="priority">The priority of the action.</param>
     public static void AddOnAxisReleased(string axisName, DynValue action, int priority = 0)
     {
         foreach (var profile in Profiles)
@@ -193,5 +194,20 @@ public class BBInput
             }
         }
         InGameDebug.Log("No axis with name '" + axisName + "'.");
+    }
+    /// <summary>
+    /// Clears all the axes in a profile.
+    /// </summary>
+    /// <param name="profileName">The name of the profile.</param>
+    public static void ClearAllAxesInProfile(string profileName)
+    {
+        foreach (var profile in Profiles)
+        {
+            if (profile.Name != profileName) continue;
+            foreach (var axis in profile.Axes)
+            {
+                axis.Clear();
+            }
+        }
     }
 }

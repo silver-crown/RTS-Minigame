@@ -26,7 +26,7 @@ namespace Bbbt
         {
             _miner = gameObject.GetComponent<Miner>();
             _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
-            _navMeshAgent.SetDestination(_miner.TargetResource.transform.position);
+            _navMeshAgent.SetDestination(_miner.TargetResourceObject.transform.position);
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
@@ -36,12 +36,12 @@ namespace Bbbt
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            if (_miner.TargetResource == null)
+            if (_miner.TargetResourceObject == null)
             {
                 return BbbtBehaviourStatus.Failure;
             }
             float miningRange = (float)_miner.MiningRange;
-            if (miningRange >= Vector3.Distance(gameObject.transform.position, _miner.TargetResource.transform.position))
+            if (miningRange >= Vector3.Distance(gameObject.transform.position, _miner.TargetResourceObject.transform.position))
             {
                 _navMeshAgent.SetDestination(_miner.transform.position);
                 return BbbtBehaviourStatus.Success;
