@@ -112,7 +112,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1334984112
+--- !u!1 &92454263
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,8 +120,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1334984114}
-  - component: {fileID: 1334984113}
+  - component: {fileID: 92454265}
+  - component: {fileID: 92454264}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -129,33 +129,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1334984113
-MonoBehaviour:
+--- !u!156049354 &92454264
+Grid:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334984112}
+  m_GameObject: {fileID: 92454263}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da52cb87a8c0b31438aab1def10d9ef4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GridPosition: {x: 2147483647, y: 2147483647}
-  m_TileHeight: 0
-  m_WorldPosition: {x: 0, y: 0, z: 0}
-  m_IsTileWalkable: 1
-  m_costOfMovingToTile: 1
-  Priority: 0
-  m_manualNeighbors: []
-  m_OccupyingGridObjects: []
---- !u!4 &1334984114
+  m_CellSize: {x: 1, y: 1, z: 1}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 1
+--- !u!4 &92454265
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334984112}
+  m_GameObject: {fileID: 92454263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

@@ -20,6 +20,8 @@ namespace Yeeter
         public string Path { get; private set; }
         public Script Script { get; set; }
         public Table Table { get; protected set; }
+        public Action OnLoaded { get; set; }
+        public Action<LuaObjectComponent> OnDestroyed { get; set; }
 
         public void Load(string path)
         {
@@ -30,6 +32,12 @@ namespace Yeeter
             _start = Table.Get("Start").Function;
             _update = Table.Get("Update").Function;
             Path = path;
+            OnLoaded?.Invoke();
+        }
+
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke(this);
         }
 
         private void Start()

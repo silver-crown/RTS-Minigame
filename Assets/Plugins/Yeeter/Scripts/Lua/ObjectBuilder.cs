@@ -181,6 +181,11 @@ namespace Yeeter
             go.SetActive(!go.activeInHierarchy);
         }
 
+        public static void DontDestroyOnLoad(int id)
+        {
+            GameObject.DontDestroyOnLoad(Get(id));
+        }
+
         public static List<int> GetChildIds(int id)
         {
             var result = new List<int>();
@@ -197,7 +202,12 @@ namespace Yeeter
         {
             if (!_objects.ContainsKey(id))
             {
-                InGameDebug.Log("No GameObject with id " + id + ".");
+                return null;
+            }
+            var go = _objects[id];
+            if (go == null)
+            {
+                _objects.Remove(id);
                 return null;
             }
             return _objects[id];
@@ -218,6 +228,11 @@ namespace Yeeter
             if (!_ids.ContainsKey(gameObject))
             {
                 //InGameDebug.Log("GameObject '" + gameObject.name + "' has no id.");
+                return -1;
+            }
+            if (gameObject == null)
+            {
+                _ids.Remove(gameObject);
                 return -1;
             }
             return _ids[gameObject];
