@@ -13,7 +13,7 @@ namespace RTS
         private Actor _worker;
         private Inventory _inventory;
         private Inventory _factoryInventory;
-        private Queue<GameObject> DepotQueue;
+        private Queue<GameObject> _depotQueue;
 
         //The resource type we're hauling
         [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
@@ -39,7 +39,7 @@ namespace RTS
         /// </summary>
         public void InitializeQueue()
         {
-            DepotQueue = new Queue<GameObject>();
+            _depotQueue = new Queue<GameObject>();
 
             List<GameObject> depotList = WorldInfo.Depots;
 
@@ -48,7 +48,7 @@ namespace RTS
             int listLength = depotList.Count;
             for (int i = 0; i<listLength; i++)
             {
-                DepotQueue.Enqueue(depotList[i]);
+                _depotQueue.Enqueue(depotList[i]);
             }
         }
 
@@ -58,7 +58,22 @@ namespace RTS
         /// <returns></returns>
         public GameObject PopQueue()
         {
-            return DepotQueue.Dequeue();
+            return _depotQueue.Dequeue();
+        }
+
+        /// <summary>
+        /// Returns whether the queue is empty or not.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsQueueEmpty()
+        {
+            if (_depotQueue.Count==0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
 
         public void TestAssignFactory()

@@ -19,6 +19,8 @@ namespace RTS
 
         private bool _currentlyBuilding;
 
+        private CentralIntelligence _ci;
+
 
         private void Start()
         {
@@ -51,6 +53,8 @@ namespace RTS
 
                     //build that drone
                     DroneStaticMethods.Create(finishedProduct.Type);
+                    
+
 
 
                     Debug.Log("I just finished a drone of type " + finishedProduct.Type + " in " + finishedProduct.BuildTime + " seconds");
@@ -77,7 +81,7 @@ namespace RTS
         //basic wrapper struct with constructor for things in the build queue
         private struct DroneOrder
         {
-            //type of dronebeing built
+            //type of drone being built
             public string Type { get; private set; }
 
             //time to build the thing

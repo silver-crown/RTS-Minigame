@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b29af43bc62e98418005b8f269c18cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _luaFile: Buildings/Factory
+  _luaFile: Buildings.Factory
 --- !u!1001 &6103187827997803475
 PrefabInstance:
   m_ObjectHideFlags: 0
