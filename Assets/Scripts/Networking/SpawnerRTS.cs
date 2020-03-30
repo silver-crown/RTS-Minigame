@@ -11,15 +11,22 @@ namespace RTS.Networking
     /// <summary>
     ///  Spawnes networked game objects on the server
     /// </summary>
-    public class RTSSpawner : NetworkBehaviour
+    public class SpawnerRTS : NetworkBehaviour
     {
         [SerializeField]
         public NetworkIdentity playerUnitPrefab;
 
+        [SerializeField]
+        public int MarineStartingUnits = 1;
+
         public override void OnStartServer()
         {
-            // init spawns here
-            SpawnMarine();
+            // init spawns her
+            for(int i = 0; i < MarineStartingUnits; i++)
+            {
+                Debug.Log("Spawned a marine");
+                SpawnMarine();
+            }
         }
 
 

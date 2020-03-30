@@ -6,14 +6,14 @@ using RTS;
 namespace Bbbt
 {
     [CreateAssetMenu(
-        fileName = "FindNearestDepot",
-        menuName = "bbBT/Behaviour/Leaf/Find Nearest Depot",
+        fileName = "Find Nearest Non-Empty Depot",
+        menuName = "bbBT/Behaviour/Leaf/Find Nearest Non-Empty Depot",
         order = 0)]
-    public class BbbtFindNearestDepot : BbbtLeafBehaviour
+    public class BbbtFindNearestNonEmptyDepot : BbbtLeafBehaviour
     {
-        private Drone _drone;
+        private Drone  _drone;
 
-        public override string SaveDataType { get; } = "BbbtFindNearestDepot";
+        public override string SaveDataType { get; } = "BbbtFindNearestNonEmptyDepot";
 
         protected override void OnInitialize(GameObject go)
         {
@@ -33,8 +33,9 @@ namespace Bbbt
 
             foreach (GameObject depot in WorldInfo.Depots)
             {
-                //if the depot has space
-                if (depot.GetComponent<Inventory>().GetAvailableSpace() > 0)
+                Inventory inventory = depot.GetComponent<Inventory>();
+                //if the depot has stuff we need in it
+                if (inventory.Contents[_drone.TargetResourceType] > 0)
                 {
                     //if the currently processed depot is closer than our current target
                     float distanceToProcessing = Vector3.Distance(_drone.transform.position, depot.transform.position);

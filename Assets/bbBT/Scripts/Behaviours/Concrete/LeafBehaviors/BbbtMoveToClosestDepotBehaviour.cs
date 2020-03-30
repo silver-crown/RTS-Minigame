@@ -13,7 +13,7 @@ namespace Bbbt
         order = 0)]
     public class BbbtMoveToClosestDepotBehaviour : BbbtLeafBehaviour
     {
-        private Miner _miner;
+        private Drone _drone;
         private NavMeshAgent _navMeshAgent;
 
 
@@ -27,9 +27,9 @@ namespace Bbbt
 
         protected override void OnInitialize(GameObject gameObject)
         {
-            _miner = gameObject.GetComponent<Miner>();
+            _drone = gameObject.GetComponent<Drone>();
             _navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
-            _navMeshAgent.SetDestination(_miner.TargetDepot.transform.position);
+            _navMeshAgent.SetDestination(_drone.TargetDepot.transform.position);
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
@@ -41,13 +41,13 @@ namespace Bbbt
         {
 
 
-            if (_miner.TargetDepot == null)
+            if (_drone.TargetDepot == null)
             {
                 return BbbtBehaviourStatus.Failure;
             }
-            if (depositRange >= Vector3.Distance(gameObject.transform.position, _miner.TargetDepot.transform.position))
+            if (depositRange >= Vector3.Distance(gameObject.transform.position, _drone.TargetDepot.transform.position))
             {
-                _navMeshAgent.SetDestination(_miner.transform.position);
+                _navMeshAgent.SetDestination(_drone.transform.position);
                 return BbbtBehaviourStatus.Success;
             }
             //Debug.Log(Vector3.Distance(gameObject.transform.position, _miner.TargetDepot.transform.position));

@@ -1,0 +1,344 @@
+{
+  "Nodes": [
+    {
+      "Id": 1,
+      "BaseBehaviour": "Root",
+      "BaseBehaviourInstanceId": 10510,
+      "Behaviour": {
+        "SaveDataType": "BbbtRoot",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": [
+            {
+              "SaveDataType": "BbbtInitializeHaulerQueue",
+              "Status": 0,
+              "NodeId": 5,
+              "name": "BbbtInitializeHaulerQueue(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtSequencer",
+              "Children": [
+                {
+                  "SaveDataType": "BbbtSelector",
+                  "Children": [
+                    {
+                      "SaveDataType": "BbbtHaulerQueueIsEmpty",
+                      "Status": 0,
+                      "NodeId": 6,
+                      "name": "Hauler Queue Is Empty(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtHaulerPopQueue",
+                      "Status": 0,
+                      "NodeId": 7,
+                      "name": "HaulerPopQueue(Clone)",
+                      "hideFlags": 0
+                    }
+                  ],
+                  "Status": 0,
+                  "NodeId": 4,
+                  "name": "Selector(Clone)",
+                  "hideFlags": 0
+                }
+              ],
+              "Status": 0,
+              "NodeId": 3,
+              "name": "Sequencer(Clone)",
+              "hideFlags": 0
+            },
+            {
+              "SaveDataType": "BbbtRepeatUntilFail",
+              "Child": {
+                "SaveDataType": "BbbtSequencer",
+                "Children": null,
+                "Status": 0,
+                "NodeId": 9,
+                "name": "Sequencer(Clone)",
+                "hideFlags": 0
+              },
+              "Status": 0,
+              "NodeId": 8,
+              "name": "Repeat Until Fail(Clone)",
+              "hideFlags": 0
+            }
+          ],
+          "Status": 0,
+          "NodeId": 2,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 1,
+        "name": "Root(Clone)",
+        "hideFlags": 0
+      },
+      "X": 567.0,
+      "Y": -149.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 2,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 9718,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtInitializeHaulerQueue",
+            "Status": 0,
+            "NodeId": 5,
+            "name": "BbbtInitializeHaulerQueue(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtSequencer",
+            "Children": [
+              {
+                "SaveDataType": "BbbtSelector",
+                "Children": [
+                  {
+                    "SaveDataType": "BbbtHaulerQueueIsEmpty",
+                    "Status": 0,
+                    "NodeId": 6,
+                    "name": "Hauler Queue Is Empty(Clone)",
+                    "hideFlags": 0
+                  },
+                  {
+                    "SaveDataType": "BbbtHaulerPopQueue",
+                    "Status": 0,
+                    "NodeId": 7,
+                    "name": "HaulerPopQueue(Clone)",
+                    "hideFlags": 0
+                  }
+                ],
+                "Status": 0,
+                "NodeId": 4,
+                "name": "Selector(Clone)",
+                "hideFlags": 0
+              }
+            ],
+            "Status": 0,
+            "NodeId": 3,
+            "name": "Sequencer(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtRepeatUntilFail",
+            "Child": {
+              "SaveDataType": "BbbtSequencer",
+              "Children": null,
+              "Status": 0,
+              "NodeId": 9,
+              "name": "Sequencer(Clone)",
+              "hideFlags": 0
+            },
+            "Status": 0,
+            "NodeId": 8,
+            "name": "Repeat Until Fail(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 2,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 563.0,
+      "Y": 25.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 3,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 9718,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": [
+          {
+            "SaveDataType": "BbbtSelector",
+            "Children": [
+              {
+                "SaveDataType": "BbbtHaulerQueueIsEmpty",
+                "Status": 0,
+                "NodeId": 6,
+                "name": "Hauler Queue Is Empty(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtHaulerPopQueue",
+                "Status": 0,
+                "NodeId": 7,
+                "name": "HaulerPopQueue(Clone)",
+                "hideFlags": 0
+              }
+            ],
+            "Status": 0,
+            "NodeId": 4,
+            "name": "Selector(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 3,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 415.0,
+      "Y": 231.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 4,
+      "BaseBehaviour": "Selector",
+      "BaseBehaviourInstanceId": 11132,
+      "Behaviour": {
+        "SaveDataType": "BbbtSelector",
+        "Children": [
+          {
+            "SaveDataType": "BbbtHaulerQueueIsEmpty",
+            "Status": 0,
+            "NodeId": 6,
+            "name": "Hauler Queue Is Empty(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtHaulerPopQueue",
+            "Status": 0,
+            "NodeId": 7,
+            "name": "HaulerPopQueue(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 4,
+        "name": "Selector(Clone)",
+        "hideFlags": 0
+      },
+      "X": 287.0,
+      "Y": 443.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 5,
+      "BaseBehaviour": "BbbtInitializeHaulerQueue",
+      "BaseBehaviourInstanceId": -22542,
+      "Behaviour": {
+        "SaveDataType": "BbbtInitializeHaulerQueue",
+        "Status": 0,
+        "NodeId": 5,
+        "name": "BbbtInitializeHaulerQueue(Clone)",
+        "hideFlags": 0
+      },
+      "X": 163.0,
+      "Y": 207.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 6,
+      "BaseBehaviour": "Hauler Queue Is Empty",
+      "BaseBehaviourInstanceId": -21514,
+      "Behaviour": {
+        "SaveDataType": "BbbtHaulerQueueIsEmpty",
+        "Status": 0,
+        "NodeId": 6,
+        "name": "Hauler Queue Is Empty(Clone)",
+        "hideFlags": 0
+      },
+      "X": 100.0,
+      "Y": 700.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 7,
+      "BaseBehaviour": "HaulerPopQueue",
+      "BaseBehaviourInstanceId": -21812,
+      "Behaviour": {
+        "SaveDataType": "BbbtHaulerPopQueue",
+        "Status": 0,
+        "NodeId": 7,
+        "name": "HaulerPopQueue(Clone)",
+        "hideFlags": 0
+      },
+      "X": 304.0,
+      "Y": 712.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 8,
+      "BaseBehaviour": "Repeat Until Fail",
+      "BaseBehaviourInstanceId": 14714,
+      "Behaviour": {
+        "SaveDataType": "BbbtRepeatUntilFail",
+        "Child": {
+          "SaveDataType": "BbbtSequencer",
+          "Children": null,
+          "Status": 0,
+          "NodeId": 9,
+          "name": "Sequencer(Clone)",
+          "hideFlags": 0
+        },
+        "Status": 0,
+        "NodeId": 8,
+        "name": "Repeat Until Fail(Clone)",
+        "hideFlags": 0
+      },
+      "X": 663.0,
+      "Y": 271.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 9,
+      "BaseBehaviour": "Sequencer",
+      "BaseBehaviourInstanceId": 9718,
+      "Behaviour": {
+        "SaveDataType": "BbbtSequencer",
+        "Children": null,
+        "Status": 0,
+        "NodeId": 9,
+        "name": "Sequencer(Clone)",
+        "hideFlags": 0
+      },
+      "X": 678.0,
+      "Y": 501.0,
+      "IsSelected": false
+    }
+  ],
+  "Connections": [
+    {
+      "InNodeId": 2,
+      "OutNodeId": 1
+    },
+    {
+      "InNodeId": 3,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 4,
+      "OutNodeId": 3
+    },
+    {
+      "InNodeId": 5,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 6,
+      "OutNodeId": 4
+    },
+    {
+      "InNodeId": 7,
+      "OutNodeId": 4
+    },
+    {
+      "InNodeId": 8,
+      "OutNodeId": 2
+    },
+    {
+      "InNodeId": 9,
+      "OutNodeId": 8
+    }
+  ],
+  "WindowOffsetX": -121.0,
+  "WindowOffsetY": -112.0
+}

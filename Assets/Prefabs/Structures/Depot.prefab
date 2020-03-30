@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b29af43bc62e98418005b8f269c18cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _luaFile: Buildings/Depot
+  _luaFile: Buildings.Depot
 --- !u!114 &8419430227242230130
 MonoBehaviour:
   m_ObjectHideFlags: 0

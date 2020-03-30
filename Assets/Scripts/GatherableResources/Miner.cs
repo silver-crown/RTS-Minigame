@@ -13,16 +13,15 @@ namespace RTS
         private int _miningDamage = 5;
         private float _timeLastMined = 0;
 
-        private Actor _worker;
+        private Drone _worker;
         private Inventory _inventory;
-        [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
-        [SerializeField] public Resource TargetResource { get; private set; } = null;
-        [SerializeField] public GameObject TargetDepot { get; private set; } = null;
+
+        [SerializeField] public Resource TargetResourceObject = null;
 
 
         void Awake()
         {
-            _worker = GetComponent<Actor>();
+            _worker = GetComponent<Drone>();
             _inventory = GetComponent<Inventory>();
         }
 
@@ -49,13 +48,13 @@ namespace RTS
             if (Time.time >= _timeLastMined && _inventory.GetAvailableSpace() > 0)
             {
                 //if we're in range, mine for whatever is smaller of our mining value and our available inventory space and add it to our inventory.
-                if (Vector3.Distance(TargetResource.transform.position, transform.position) <= MiningRange)
+                if (Vector3.Distance(TargetResourceObject.transform.position, transform.position) <= MiningRange)
                 {
                     //find out how whether we can mine a full tick's worth
                     int amountToMine = Mathf.Min(_miningDamage, _inventory.GetAvailableSpace());
 
                     //mine for as much as we can
-                    _inventory.Deposit(TargetResourceType, TargetResource.Mine(amountToMine));
+                    _inventory.Deposit(_worker.TargetResourceType, TargetResourceObject.Mine(amountToMine));
 
                     //update when our mining cooldown will be done
                     _timeLastMined = Time.time + _miningCooldown;
@@ -70,22 +69,19 @@ namespace RTS
         /// Sets the target resource to parameter game object
         /// </summary>
         /// <param name="target"></param>
-        public void SetTargetResource(GameObject target)
+        public void SetTargetResourceObject(GameObject target)
         {
-            TargetResource = target.GetComponent<Resource>();
-            TargetResource.OnDestroyed += OnDestoyed;
+            TargetResourceObject = target.GetComponent<Resource>();
+            TargetResourceObject.OnDestroyed += OnDestoyed;
         }
 
-        public void  SetTargetDepot(GameObject target)
-        {
-            TargetDepot = target.gameObject;
-        }
+
 
         //When our target is destroyed
         void OnDestoyed()
         {
             //set target resource to null
-            TargetResource = null;
+            TargetResourceObject = null;
 
         }
     }

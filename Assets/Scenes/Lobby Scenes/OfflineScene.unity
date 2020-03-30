@@ -203,9 +203,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 606306490}
-  - component: {fileID: 606306493}
-  - component: {fileID: 606306492}
   - component: {fileID: 606306491}
+  - component: {fileID: 606306492}
+  - component: {fileID: 606306493}
   m_Layer: 0
   m_Name: RTSRoomManager
   m_TagString: Untagged
@@ -283,7 +283,7 @@ MonoBehaviour:
   runInBackground: 1
   startOnHeadless: 1
   showDebugMessages: 0
-  serverTickRate: 60
+  serverTickRate: 30
   offlineScene: OfflineScene
   onlineScene: RoomScene
   transport: {fileID: 606306491}
