@@ -37,7 +37,7 @@ namespace Yeeter
                 canvas => canvas.GetComponentsInChildren<DebugConsoleInputField>().Contains(this)
             ).First();
 
-            BBInput.AddOnAxisPressed("EnterCommand", () => OnCommandEntered(_field.text));
+            BBInput.AddOnAxisPressed("EnterCommand", () => { if (this != null) OnCommandEntered(_field.text); });
         }
 
         private void OnDisable()

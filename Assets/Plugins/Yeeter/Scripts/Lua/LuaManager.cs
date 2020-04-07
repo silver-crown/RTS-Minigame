@@ -15,15 +15,16 @@ namespace Yeeter
     [Preserve, MoonSharpUserData]
     public class LuaManager
     {
+        public static Dictionary<int, Dictionary<string, Action<DynValue>>> _onValueSet { get; set; }
+            = new Dictionary<int, Dictionary<string, Action<DynValue>>>();
         protected static Dictionary<int, LuaObjectComponent> _objects = new Dictionary<int, LuaObjectComponent>();
-        protected static Dictionary<int, Dictionary<string, Action<DynValue>>> _onValueSet =
-            new Dictionary<int, Dictionary<string, Action<DynValue>>>();
-
 
         /// <summary>
         /// The active LuaManager is the lua manager that we use to execute scripts and build lua objects.
         /// </summary>
         public static LuaManager ActiveLuaManager { get; set; } = new LuaManager();
+        public static Action<LuaObjectComponent> OnLuaObjectSetUp { get; set; }
+        public static Action<LuaObjectComponent> OnDestroyLuaObject { get; set; }
 
         public static Script GlobalScript
         {
@@ -36,8 +37,6 @@ namespace Yeeter
                 return ActiveLuaManager._globalScript;
             }
         }
-
-        protected bool _loadUpdateEachFrame = false;
         public static bool LoadUpdateEachFrame
         {
             get => ActiveLuaManager._loadUpdateEachFrame;
@@ -48,36 +47,10 @@ namespace Yeeter
         /// Used so that stuff can be shared essentially.
         /// </summary>
         protected Script _globalScript;
-
-        public static void AddOnValueSetListener(int id, string key, Action<DynValue> action)
-        {
-            if (!_onValueSet.ContainsKey(id))
-            {
-                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
-            }
-            if (!_onValueSet[id].ContainsKey(key))
-            {
-                _onValueSet[id].Add(key, null);
-            }
-            _onValueSet[id][key] += action;
-        }
-        public static void AddOnValueSetListener(int id, string key, DynValue action)
-        {
-            if (!_onValueSet.ContainsKey(id))
-            {
-                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
-            }
-            if (!_onValueSet[id].ContainsKey(key))
-            {
-                _onValueSet[id].Add(key, null);
-            }
-            _onValueSet[id][key] += v => Call(action, v);
-        }
-
+        protected bool _loadUpdateEachFrame = false;
 
         public static void ReloadScripts()
         {
-            InGameDebug.Log("OH EYAH YEAH ");
             foreach (var luaObject in _objects.Values)
             {
                 luaObject.Load(luaObject.Path);
@@ -94,6 +67,60 @@ namespace Yeeter
             luaObject.Id = ObjectBuilder.GetId(luaObject.gameObject);
             _objects.Add(luaObject.Id, luaObject);
             luaObject.Script = GlobalScript;
+            luaObject.OnLoaded += () => OnLuaObjectSetUp?.Invoke(luaObject);
+            luaObject.OnDestroyed += OnLuaObjectDestroyed;
+        }
+
+        private static void OnLuaObjectDestroyed(LuaObjectComponent luaObject)
+        {
+            _objects.Remove(luaObject.Id);
+            luaObject.OnDestroyed -= OnLuaObjectDestroyed;
+            OnDestroyLuaObject?.Invoke(luaObject);
+        }
+
+        /// <summary>
+        /// Adds an action to be performed when a value is a associated with a given key for a
+        /// LuaObject with a given id.
+        /// </summary>
+        /// <param name="id">The LuaObject id.</param>
+        /// <param name="key">The key to listen to.</param>
+        /// <param name="action">The action to perform when the value is set.</param>
+        public static void AddOnValueSetListener(int id, string key, Action<DynValue> action)
+        {
+            if (!_onValueSet.ContainsKey(id))
+            {
+                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
+            }
+            if (!_onValueSet[id].ContainsKey(key))
+            {
+                _onValueSet[id].Add(key, action);
+            }
+            else
+            {
+                _onValueSet[id][key] += action;
+            }
+        }
+        /// <summary>
+        /// Adds an action to be performed when a value is a associated with a given key for a
+        /// LuaObject with a given id.
+        /// </summary>
+        /// <param name="id">The LuaObject id.</param>
+        /// <param name="key">The key to listen to.</param>
+        /// <param name="action">The action to perform when the value is set.</param>
+        public static void AddOnValueSetListener(int id, string key, DynValue action)
+        {
+            if (!_onValueSet.ContainsKey(id))
+            {
+                _onValueSet.Add(id, new Dictionary<string, Action<DynValue>>());
+            }
+            if (!_onValueSet[id].ContainsKey(key))
+            {
+                _onValueSet[id].Add(key, v => Call(action, v));
+            }
+            else
+            {
+                _onValueSet[id][key] += v => Call(action, v);
+            }
         }
 
         /// <summary>
@@ -201,7 +228,7 @@ namespace Yeeter
             DynValue result = null;
             try
             {
-                result =  GlobalScript.Call(function, args);
+                result = GlobalScript.Call(function, args);
             }
             catch (ScriptRuntimeException e)
             {

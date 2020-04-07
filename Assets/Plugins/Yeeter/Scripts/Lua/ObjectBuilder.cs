@@ -160,6 +160,15 @@ namespace Yeeter
             }
             go.transform.position = new Vector2(x, y);
         }
+        public static void Translate(int id, float x, float y, float z = 0)
+        {
+            if (!_objects.ContainsKey(id))
+            {
+                InGameDebug.Log("No GameObject with id " + id + ".");
+                return;
+            }
+            _objects[id].transform.position += new Vector3(x, y, z);
+        }
 
         public static void SetParent(int childId, int parentId)
         {
@@ -170,6 +179,11 @@ namespace Yeeter
         {
             var go = Get(id);
             go.SetActive(!go.activeInHierarchy);
+        }
+
+        public static void DontDestroyOnLoad(int id)
+        {
+            GameObject.DontDestroyOnLoad(Get(id));
         }
 
         public static List<int> GetChildIds(int id)
@@ -188,7 +202,12 @@ namespace Yeeter
         {
             if (!_objects.ContainsKey(id))
             {
-                InGameDebug.Log("No GameObject with id " + id + ".");
+                return null;
+            }
+            var go = _objects[id];
+            if (go == null)
+            {
+                _objects.Remove(id);
                 return null;
             }
             return _objects[id];
@@ -209,6 +228,11 @@ namespace Yeeter
             if (!_ids.ContainsKey(gameObject))
             {
                 //InGameDebug.Log("GameObject '" + gameObject.name + "' has no id.");
+                return -1;
+            }
+            if (gameObject == null)
+            {
+                _ids.Remove(gameObject);
                 return -1;
             }
             return _ids[gameObject];

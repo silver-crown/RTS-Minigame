@@ -194,6 +194,16 @@ public class BBInputAxis
     }
 
     /// <summary>
+    /// Clears all actions bound to the axis.
+    /// </summary>
+    public void Clear()
+    {
+        _onHeld = new SortedList<int, Action>();
+        _onPressed = new SortedList<int, Action>();
+        _onReleased = new SortedList<int, Action>();
+    }
+
+    /// <summary>
     /// Constructs a new BBInputAxis from A TydTable.
     /// </summary>
     /// <param name="table">The table to load the axis from.</param>

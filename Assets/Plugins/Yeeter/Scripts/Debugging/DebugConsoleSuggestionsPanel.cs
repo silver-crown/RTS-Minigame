@@ -60,8 +60,8 @@ namespace Yeeter
                     var fullMethodNameParts = fullMethodName.Split('.');
                     var methodName = fullMethodNameParts[fullMethodNameParts.Length - 1];
                     var className = fullMethodName.Replace("." + methodName, "");
-                    var leftParenIndex = line.IndexOf('(');
-                    var rightParenIndex = line.IndexOf(')');
+                    //var leftParenIndex = line.IndexOf('(');
+                    //var rightParenIndex = line.IndexOf(')');
                     _bindings[className].Add(methodName);
                 }
                 else if (line.Contains(" = "))
@@ -265,7 +265,7 @@ namespace Yeeter
         /// <returns>The words.</returns>
         private string[] GetWords(string text)
         {
-            var separators = new char[] { ' ', '(', ')', ';', '-', '+', '*', '/', '%', '\'', '\"', '='};
+            var separators = new char[] { ' ', '(', ')', ';', '-', '+', '*', '/', '%', '\'', '\"', '=' };
             return text.Trim().Replace("..", " ").Split(separators);
         }
         /// <summary>

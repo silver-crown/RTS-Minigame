@@ -11,13 +11,13 @@ namespace Bbbt
         order = 0)]
     public class BbbtFindNearestDepot : BbbtLeafBehaviour
     {
-        private Miner _miner;
+        private Drone _drone;
 
         public override string SaveDataType { get; } = "BbbtFindNearestDepot";
 
         protected override void OnInitialize(GameObject go)
         {
-            _miner = go.GetComponent<Miner>();
+            _drone = go.GetComponent<Drone>();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
@@ -37,7 +37,7 @@ namespace Bbbt
                 if (depot.GetComponent<Inventory>().GetAvailableSpace() > 0)
                 {
                     //if the currently processed depot is closer than our current target
-                    float distanceToProcessing = Vector3.Distance(_miner.transform.position, depot.transform.position);
+                    float distanceToProcessing = Vector3.Distance(_drone.transform.position, depot.transform.position);
 
                     if (distanceToProcessing < distanceToCurrentTarget)
                     {
@@ -51,7 +51,7 @@ namespace Bbbt
             //if we found a depot to target, we did it, woo
             if (currentTarget != null)
             {
-                _miner.SetTargetDepot(currentTarget);
+                _drone.SetTargetDepot(currentTarget);
                 return BbbtBehaviourStatus.Success;
             }
             else

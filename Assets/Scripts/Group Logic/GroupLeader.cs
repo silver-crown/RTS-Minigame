@@ -54,10 +54,6 @@ public class GroupLeader : MonoBehaviour
     void Update()
     {
         groupSize = groupMembers.Count;
-        if (!_listening)
-        {
-            LeaderStartListening();
-        }
     }
     /// <summary>
     /// Construct the list of enemies visible to the group
@@ -75,21 +71,6 @@ public class GroupLeader : MonoBehaviour
                 {
                     enemyList.Add(groupMembers[i].GetComponent<Actor>().VisibleEnemies[j]);
                 }
-            }
-        }
-    }
-    /// <summary>
-    /// Make the leader listen in on the channel
-    /// </summary>
-    void LeaderStartListening()
-    {
-        if (GetComponent<Drone>().leaderStatus)
-        {
-            //Listen in on the messages sent to the group channel dictionary
-            for (int i = 0; i <= message.Length; i++)
-            {
-                lastMessage = i;
-                GetComponent<ListenToChannel>().ListenToMessage("This is a message that will be added to the message list once someone sends it.");
             }
         }
     }
@@ -357,6 +338,16 @@ public class GroupLeader : MonoBehaviour
                 break;
         }
         return drones;
+    }
+    public void HighlightGroup() {
+        for (int i = 0; i <= groupMembers.Count; i++) {
+            groupMembers[i].highlight = true;
+        }
+    }
+    public void StopHighlightingGroup() {
+        for (int i = 0; i <= groupMembers.Count; i++) {
+            groupMembers[i].highlight = false;
+        }
     }
 }
 

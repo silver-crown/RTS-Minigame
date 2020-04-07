@@ -3,16 +3,18 @@ using UnityEngine;
 using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
+using RTS;
 using RTS.Lua;
 using RTS;
 using Yeeter;
 using UnityEngine.AI;
 
+
 /// <summary>
 /// Drones are used by the enemy AI/CI to interact in the world
 /// </summary>
 [MoonSharpUserData]
-public class Drone : RTS.Actor
+public class Drone : Actor
 {
     /// <summary>
     /// The id to assign to the next instantiated drone.
@@ -40,6 +42,9 @@ public class Drone : RTS.Actor
     [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] GroupLeader group;
 
+    [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
+    [SerializeField] public GameObject TargetDepot = null;
+
     public enum GroupUnit
     {
         Alpha,
@@ -48,13 +53,7 @@ public class Drone : RTS.Actor
         Delta
     }
     public GroupUnit myUnit;
-    /// <summary>
-    /// set the group script's id to match that of the drone
-    /// </summary>
-    void SetupGroup()
-    {
-        group.groupID = groupID;
-    }
+
     /// <summary>
     /// Unique ID of the drone
     /// </summary>
@@ -65,8 +64,7 @@ public class Drone : RTS.Actor
     /// The absolute strength of the drone
     /// </summary>
     public double powerLevel;
-
-
+    public bool highlight;
 
     /// <summary>
     /// The drone's central intelligence.
@@ -146,6 +144,7 @@ public class Drone : RTS.Actor
         }
     }
 
+
     public override void Attack()
     {
         base.Attack();
@@ -169,6 +168,22 @@ public class Drone : RTS.Actor
         }
         _luaObject.Load("Actors.Drones." + type);
         string tree = GetValue("_behaviourTree").String;
+    }
+
+    /// <summary>
+    /// Reads the drone's stats from lua.
+    /// </summary>
+    /// <param name="type">The drone type to set </param>
+    public void SetType(string type)
+    {
+        Type = type;
+        _luaObject = GetComponent<LuaObjectComponent>();
+        if (_luaObject == null)
+        {
+            _luaObject = gameObject.AddComponent<LuaObjectComponent>();
+        }
+        _luaObject.Load("Actors/Drones/" + type);
+        string tree = GetValue("_behaviourTree").String;
 
         if (tree != null)
         {
@@ -182,6 +197,8 @@ public class Drone : RTS.Actor
         InGameDebug.Log(Type + " boy reporting for duty.");
         name = ObjectBuilder.GetId(gameObject) + "_" + type;
     }
+
+
     //add message to the message list. 
     public void ReceiveMessage(string message)
     {
@@ -189,6 +206,26 @@ public class Drone : RTS.Actor
         messageList.Add(message);
     }
 
+
+
+
+    protected void SetStatus(string status)
+    {
+        SetValue("_status", DynValue.NewString(status));
+    }
+
+    public void SetTargetDepot(GameObject target)
+    {
+        TargetDepot = target.gameObject;
+    }
+
+    /// <summary>
+    /// set the group script's id to match that of the drone
+    /// </summary>
+    void SetupGroup() 
+    {
+        group.groupID = groupID;
+    }
     public void CalculatePowerLevel()
     {
         double dps = GetValue("_attacksPerSecond").Number;
@@ -200,8 +237,12 @@ public class Drone : RTS.Actor
     {
         DroneStaticMethods.Create(type, x, y, z);
     }
-    protected void SetStatus(string status)
-    {
-        SetValue("_status", DynValue.NewString(status));
+
+    private void OnDrawGizmos() {
+        if (highlight) 
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, 1);
+        }
     }
 }

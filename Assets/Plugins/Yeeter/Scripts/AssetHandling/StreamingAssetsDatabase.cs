@@ -25,6 +25,7 @@ namespace Yeeter
         private static Dictionary<string, TydNode> _settingsNodes = new Dictionary<string, TydNode>();
         private static Dictionary<string, string> _settingsToBeChanged = new Dictionary<string, string>();
         private static Dictionary<string, Action<string>> _onSettingChanged = new Dictionary<string, Action<string>>();
+        private static Dictionary<string, string> _dialogue = new Dictionary<string, string>();
 
         public static Module[] ActiveModules { get; private set; }
         public static Action OnSoundsDoneLoading { get; set; }
@@ -32,6 +33,17 @@ namespace Yeeter
         // Working variables.
         private static Dictionary<string, Module> _packageIdToModule;
 
+        public static string GetDialogue(string key)
+        {
+            if (_dialogue.ContainsKey(key))
+            {
+                return _dialogue[key];
+            }
+            else
+            {
+                return ""; 
+            }
+        }
         public static Texture2D GetTexture(string key)
         {
             if (_textures.ContainsKey(key))
@@ -441,6 +453,55 @@ namespace Yeeter
                 }
             }
             InGameDebug.Log("Scripts loaded.");
+        }
+        public static void LoadDialogueFromActiveModules() // THIS ONE
+        {
+            InGameDebug.Log("Loading dialogue...");
+            if (ActiveModules == null || ActiveModules.Length == 0)
+            {
+                InGameDebug.Log(
+                    "StreamingAssetsDatabase.LoadDialogueFromActiveModules(): " +
+                    "No active modules. Did you forget to call LoadActiveModules()?");
+                return;
+            }
+            foreach (var mod in ActiveModules)
+            {
+                InGameDebug.Log("\t" + mod.Id);
+                var folders = new List<string>() { mod.Path + "/Dialogue" };
+                if (!Directory.Exists(folders[0]))
+                {
+                    InGameDebug.Log("\t" + mod.Id + ": No Dialogue folder.");
+                    continue;
+                }
+                folders.AddRange(GetAllSubDirectories(mod.Path + "/Dialogue"));
+                foreach (var folder in folders)
+                {
+                    InGameDebug.Log("\tSearching '" + folder + "'...");
+                    foreach (var file in Directory.GetFiles(folder))
+                    {
+                        InGameDebug.Log("\tFile found: '" + file + "'.");
+                        if (Path.GetExtension(file) == ".json")
+                        {
+                            var pathRelativeToDialogueFolder =
+                                file
+                                .Replace(".json", "")
+                                .Remove(0, mod.Path.Length + "/Dialogue".Length + 1);
+                            var key =
+                                pathRelativeToDialogueFolder
+                                .Replace('\\', '.')
+                                .Replace('/', '.');
+                            InGameDebug.Log(
+                                "\t\t<color=green>Dialogue loaded: '" + key + "' (from " + mod.Id + ").</color>");
+                            _dialogue[key] = File.ReadAllText(file);
+                        }
+                        else
+                        {
+                            InGameDebug.Log("\t\tInvalid extension: '" + Path.GetExtension(file) + "'. Skipping.");
+                        }
+                    }
+                }
+            }
+            InGameDebug.Log("Dialogue loaded.");
         }
         public static bool LoadSoundsFromActiveModules()
         {

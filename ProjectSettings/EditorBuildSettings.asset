@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
     path: Assets/Scenes/MainScene.unity
     guid: 57ed0e9497817de41af28425e6032d43
   - enabled: 0
@@ -20,15 +17,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainSceneLogic.unity
     guid: 940715dee589fae4aa832494f55ad630
-  - enabled: 0
-    path: Assets/Scenes/GameStartTestScene.unity
-    guid: bc5d61537f48f95408976e9db417a699
-  - enabled: 0
-    path: Assets/Scenes/Lobby Scenes/StageingScene.unity
-    guid: 3cd9b0c0d8ee59045b34b48e99c0e672
-  - enabled: 0
-    path: Assets/Scenes/Lobby Scenes/PlayScene.unity
-    guid: f8e08fa65d7964840996539fef4c57b6
   - enabled: 1
     path: Assets/Scenes/Lobby Scenes/OfflineScene.unity
     guid: b246a5574592d5947b2313a2c4363e23
@@ -38,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby Scenes/OnlineScene.unity
     guid: 50533290df1482449af09e93b6312983
+  - enabled: 0
+    path: Assets/Scenes/GameStartTestScene_Benjamin.unity
+    guid: dd96f7a763516ea48ba274f40992364c
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

@@ -1,37 +1,17 @@
 {
   "Nodes": [
     {
-      "Id": 6,
-      "BaseBehaviour": "Debug Logger",
-      "BaseBehaviourInstanceId": 6352,
-      "Behaviour": {
-        "_message": "Test was successfully called.",
-        "_isEnabled": false,
-        "_logType": 3,
-        "SaveDataType": "BbbtDebugLogBehaviour",
-        "Status": 0,
-        "NodeId": 6,
-        "name": "Debug Logger(Clone)",
-        "hideFlags": 0
-      },
-      "X": 436.0,
-      "Y": 558.0,
-      "IsSelected": false
-    },
-    {
       "Id": 11,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 8926,
+      "BaseBehaviourInstanceId": 10212,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
-          "_message": "Test was successfully called.",
-          "_isEnabled": false,
-          "_logType": 3,
-          "SaveDataType": "BbbtDebugLogBehaviour",
+          "_behaviour": "TestBehaviour",
+          "SaveDataType": "BbbtLuaBehaviour",
           "Status": 0,
-          "NodeId": 6,
-          "name": "Debug Logger(Clone)",
+          "NodeId": 12,
+          "name": "Lua Behaviour(Clone)",
           "hideFlags": 0
         },
         "Status": 0,
@@ -39,17 +19,33 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 453.0,
-      "Y": 252.0,
-      "IsSelected": true
+      "X": 311.0,
+      "Y": 258.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 12,
+      "BaseBehaviour": "Lua Behaviour",
+      "BaseBehaviourInstanceId": -11724,
+      "Behaviour": {
+        "_behaviour": "TestBehaviour",
+        "SaveDataType": "BbbtLuaBehaviour",
+        "Status": 0,
+        "NodeId": 12,
+        "name": "Lua Behaviour(Clone)",
+        "hideFlags": 0
+      },
+      "X": 316.0,
+      "Y": 461.0,
+      "IsSelected": false
     }
   ],
   "Connections": [
     {
-      "InNodeId": 6,
+      "InNodeId": 12,
       "OutNodeId": 11
     }
   ],
-  "WindowOffsetX": 0.0,
-  "WindowOffsetY": 0.0
+  "WindowOffsetX": -142.0,
+  "WindowOffsetY": 6.0
 }

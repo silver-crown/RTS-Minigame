@@ -11,13 +11,17 @@ namespace Bbbt
         order = 0)]
     public class BbbtFindNearestResource : BbbtLeafBehaviour
     {
+        private Drone _drone;
         private Miner _miner;
+        //private Miner _miner;
 
         public override string SaveDataType { get; } = "BbbtFindNearestResource";
 
         protected override void OnInitialize(GameObject go)
         {
+            _drone = go.GetComponent<Drone>();
             _miner = go.GetComponent<Miner>();
+            //_miner = go.GetComponent<Miner>();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
@@ -35,10 +39,10 @@ namespace Bbbt
             {
 
                 //if the resource is the type we're looking for
-                if (resource.GetComponent<Resource>().ResourceType == _miner.TargetResourceType)
+                if (resource.GetComponent<Resource>().ResourceType == _drone.TargetResourceType)
                 {
                     //if the currently processed resource is closer than our current target
-                    float distanceToProcessing = Vector3.Distance(_miner.transform.position, resource.transform.position);
+                    float distanceToProcessing = Vector3.Distance(_drone.transform.position, resource.transform.position);
 
                     if (distanceToProcessing < distanceToCurrentTarget)
                     {
@@ -53,7 +57,7 @@ namespace Bbbt
             if (currentTarget != null)
             {
                 //Debug.Log("Found resource at " + currentTarget.transform);
-                _miner.SetTargetResource(currentTarget);
+                _miner.SetTargetResourceObject(currentTarget);
                 return BbbtBehaviourStatus.Success;
             } else
             {

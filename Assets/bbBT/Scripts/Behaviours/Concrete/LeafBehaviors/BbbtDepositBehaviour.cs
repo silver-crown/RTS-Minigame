@@ -12,7 +12,7 @@ namespace Bbbt
         order = 0)]
     public class BbbtDepositBehaviour : BbbtLeafBehaviour
     {
-        private Miner _miner;
+        private Drone _drone;
         private Inventory _inventory;
         private Inventory _depot;
 
@@ -21,8 +21,8 @@ namespace Bbbt
         protected override void OnInitialize(GameObject gameObject)
         {
             _inventory = gameObject.GetComponent<Inventory>();
-            _miner = gameObject.GetComponent<Miner>();
-            _depot = _miner.TargetDepot.GetComponent<Inventory>();
+            _drone = gameObject.GetComponent<Drone>();
+            _depot = _drone.TargetDepot.GetComponent<Inventory>();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
@@ -34,7 +34,7 @@ namespace Bbbt
         {
             //Debug.Log("Henlo");
 
-            string typeToDeposit = _miner.TargetResourceType;
+            string typeToDeposit = _drone.TargetResourceType;
             //Withdraw all items in our inventory of our current target resource type, and put them in the depot's inventory.
             int amountToDeposit = _inventory.Withdraw(typeToDeposit, _inventory.Contents[typeToDeposit]);
             int remainder = amountToDeposit - _depot.Deposit(typeToDeposit, amountToDeposit);
