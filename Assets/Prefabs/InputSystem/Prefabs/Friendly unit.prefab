@@ -1,55 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &905136541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 905136542}
-  - component: {fileID: 905136543}
-  m_Layer: 0
-  m_Name: UnitModeSymbol
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &905136542
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905136541}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1757295535}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &905136543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905136541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae30ca13c26e874bb0fbeef4ebd7801, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _configName: Waypoints
-  _symbolsUI: {fileID: 0}
-  SymbolsPrefab: {fileID: 8907824763319104051, guid: 276d3e7747818e64bae9a4060f896dc9,
-    type: 3}
-  _symbolsPrefabInstance: {fileID: 0}
-  _symbolsOverlay: {fileID: 0}
-  unitCollider: {fileID: 2948252532935541526}
 --- !u!1 &1133257774
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +47,7 @@ MonoBehaviour:
   _sceneConfig: {fileID: 0}
   _overheadUI: {fileID: 0}
   _barUI: {fileID: 0}
-  _unitCollider: {fileID: 0}
+  _unitCollider: {fileID: 2948252532935541526}
   BarPrefab: {fileID: 1402103610285306479, guid: 06794aa219769eb40a29fc2ad574decf,
     type: 3}
   _barPrefabInstance: {fileID: 0}
@@ -183,9 +133,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 905136542}
-  - {fileID: 1992609905}
+  m_Children: []
   m_Father: {fileID: 2948252532935541515}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -201,9 +149,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07dc382a944077140b8e706729ebe334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _symbols:
-  - {fileID: 0}
-  - {fileID: 0}
+  _symbols: []
+  _symbolSlots:
+  - ConfigName: test
+    direction: 3
+  - ConfigName: test
+    direction: 7
+  _symbolsOverlay: {fileID: 0}
+  unitCollider: {fileID: 2948252532935541526}
 --- !u!1 &1766303785
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +204,7 @@ MonoBehaviour:
   _sceneConfig: {fileID: 0}
   _overheadUI: {fileID: 0}
   _barUI: {fileID: 0}
-  _unitCollider: {fileID: 0}
+  _unitCollider: {fileID: 2948252532935541526}
   BarPrefab: {fileID: 1402103610285306479, guid: bfdbc5f1c5413d0469ed179562df6739,
     type: 3}
   _barPrefabInstance: {fileID: 0}
@@ -262,36 +215,6 @@ MonoBehaviour:
   _onChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1992609904
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1992609905}
-  m_Layer: 0
-  m_Name: WaypointSymbol
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1992609905
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992609904}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1757295535}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2948252532935541525
 GameObject:
   m_ObjectHideFlags: 0
