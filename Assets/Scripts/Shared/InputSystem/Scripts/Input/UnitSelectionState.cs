@@ -188,7 +188,15 @@ namespace Progress.InputSystem
                 GridPathfinder pathfinder = unit.GetComponent<GridPathfinder>();
                 if (pathfinder != null)
                 {
+                    //  Movement
                     pathfinder.SetNewDestination(tile);
+
+                    //  Pathfinding visualisation
+                    //GridObject gridObject = unit.GetComponent<GridObject>();
+                    //if (gridObject != null)
+                    //{
+                    //    pathfinder.DeterminePath(gridObject.m_CurrentGridTile, tile);
+                    //}
                 }
                 else
                 {
