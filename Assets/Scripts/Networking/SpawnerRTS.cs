@@ -4,17 +4,24 @@ using UnityEngine;
 
 using Mirror;
 
-
 namespace RTS.Networking
 {
-
     /// <summary>
     ///  Spawnes networked game objects on the server
     /// </summary>
     public class SpawnerRTS : NetworkBehaviour
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [SerializeField]
         public NetworkIdentity playerUnitPrefab;
+
+        /// <summary>
+        /// The location where marines will be spawned.
+        /// </summary>
+        [SerializeField]
+        public List<GameObject> marineSpawnLocations;
 
         [SerializeField]
         public int MarineStartingUnits = 1;
@@ -29,16 +36,16 @@ namespace RTS.Networking
             }
         }
 
-
         /// <summary>
-        ///  Spawns a drone
+        ///  Spawns a marine
         /// </summary>
         void SpawnMarine()
         {
-            Vector3 spawnPosition = new Vector3(0, 0, 0);
-            GameObject drone = Instantiate(playerUnitPrefab.gameObject, spawnPosition, Quaternion.identity);
+            Debug.Log("Spawned a marine");
 
-            NetworkServer.Spawn(drone);
+            Vector3 spawnPosition = new Vector3(0, 0, 0);
+            GameObject newMarineUnit = Instantiate(playerUnitPrefab.gameObject, spawnPosition, Quaternion.identity);
+            NetworkServer.Spawn(newMarineUnit);
         }
 
     }

@@ -201,10 +201,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Friendly unit (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4098399616391619148, guid: 2424e07ccb1cb4945b4a85a6028ede61,
+        type: 3}
+      propertyPath: _symbolsOverlay
+      value: 
+      objectReference: {fileID: 1571286649}
     - target: {fileID: 5852349586663555780, guid: 2424e07ccb1cb4945b4a85a6028ede61,
         type: 3}
       propertyPath: sceneId
-      value: 2421165100
+      value: 693781543
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
@@ -4936,10 +4941,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Friendly unit (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4098399616391619148, guid: 2424e07ccb1cb4945b4a85a6028ede61,
+        type: 3}
+      propertyPath: _symbolsOverlay
+      value: 
+      objectReference: {fileID: 1571286649}
     - target: {fileID: 5852349586663555780, guid: 2424e07ccb1cb4945b4a85a6028ede61,
         type: 3}
       propertyPath: sceneId
-      value: 2537616990
+      value: 4112629091
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
@@ -7260,6 +7270,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63347418}
     m_Modifications:
+    - target: {fileID: 905136543, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
+      propertyPath: _symbolsOverlay
+      value: 
+      objectReference: {fileID: 1571286649}
     - target: {fileID: 2948252532935541515, guid: 2424e07ccb1cb4945b4a85a6028ede61,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9302,10 +9316,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Friendly unit (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4098399616391619148, guid: 2424e07ccb1cb4945b4a85a6028ede61,
+        type: 3}
+      propertyPath: _symbolsOverlay
+      value: 
+      objectReference: {fileID: 1571286649}
     - target: {fileID: 5852349586663555780, guid: 2424e07ccb1cb4945b4a85a6028ede61,
         type: 3}
       propertyPath: sceneId
-      value: 3601413341
+      value: 959184537
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
@@ -9413,7 +9432,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c2cc2e28bc052449a8b2a6b329cf37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _configs: []
+  _configs:
+  - Name: test
+    prefab: {fileID: 8907824763319104051, guid: 276d3e7747818e64bae9a4060f896dc9,
+      type: 3}
+    UIs: []
 --- !u!114 &1571286650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10712,10 +10735,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Friendly unit (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4098399616391619148, guid: 2424e07ccb1cb4945b4a85a6028ede61,
+        type: 3}
+      propertyPath: _symbolsOverlay
+      value: 
+      objectReference: {fileID: 1571286649}
     - target: {fileID: 5852349586663555780, guid: 2424e07ccb1cb4945b4a85a6028ede61,
         type: 3}
       propertyPath: sceneId
-      value: 321063326
+      value: 1327168114
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
@@ -13407,10 +13435,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 63347418}
     m_Modifications:
-    - target: {fileID: 905136543, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
-      propertyPath: _symbolsOverlay
-      value: 
-      objectReference: {fileID: 1571286649}
     - target: {fileID: 1133257776, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
       propertyPath: _overheadUI
       value: 
@@ -13479,10 +13503,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Friendly unit
       objectReference: {fileID: 0}
+    - target: {fileID: 4098399616391619148, guid: 2424e07ccb1cb4945b4a85a6028ede61,
+        type: 3}
+      propertyPath: _symbolsOverlay
+      value: 
+      objectReference: {fileID: 1571286649}
     - target: {fileID: 5852349586663555780, guid: 2424e07ccb1cb4945b4a85a6028ede61,
         type: 3}
       propertyPath: sceneId
-      value: 2523475286
+      value: 4199918666
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852349586663555780, guid: 2424e07ccb1cb4945b4a85a6028ede61,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 2424e07ccb1cb4945b4a85a6028ede61
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2424e07ccb1cb4945b4a85a6028ede61, type: 3}
