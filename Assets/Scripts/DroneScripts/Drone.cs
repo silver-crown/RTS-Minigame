@@ -158,6 +158,11 @@ public class Drone : Actor
     /// <param name="id">The drone's id.</param>
     public void Initialize(string type, int id)
     {
+        // Why does this method exist? I'll just reroute it to SetType. Did I create this? I don't even know.
+        // It doesn't even load behaviour trees properly?
+        // - Tired and confused Benjamin
+        SetType(type);
+        /*
         //GetComponent<NavMeshAgent>().
         Type = type;
         _luaObject = GetComponent<LuaObjectComponent>();
@@ -168,6 +173,7 @@ public class Drone : Actor
         }
         _luaObject.Load("Actors.Drones." + type);
         string tree = GetValue("_behaviourTree").String;
+        */
     }
 
     /// <summary>
@@ -182,7 +188,7 @@ public class Drone : Actor
         {
             _luaObject = gameObject.AddComponent<LuaObjectComponent>();
         }
-        _luaObject.Load("Actors/Drones/" + type);
+        _luaObject.Load("Actors.Drones." + type);
         string tree = GetValue("_behaviourTree").String;
 
         if (tree != null)

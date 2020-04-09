@@ -47,7 +47,7 @@ namespace Yeeter
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            for (int i = 0; i < 3; i++) if (Input.GetMouseButtonDown(i))
             {
                 bool isMouseInRect = false;
                 if (_canvas.renderMode == RenderMode.ScreenSpaceCamera)
@@ -63,7 +63,7 @@ namespace Yeeter
                     );
                 }
                 if (isMouseInRect && !_lastIsMouseInRect) BBInput.SetActiveProfile("Console");
-                else if (_lastIsMouseInRect) BBInput.ActivatePreviousProfile();
+                else if (!isMouseInRect && _lastIsMouseInRect) BBInput.ActivatePreviousProfile();
                 _lastIsMouseInRect = isMouseInRect;
             }
         }

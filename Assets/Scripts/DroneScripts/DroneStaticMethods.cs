@@ -12,12 +12,11 @@ namespace RTS
 
         public static DynValue Create(string type, float x = 0, float y = 0, float z = 0)
         {
-            //if (_prefab == null) _prefab = Resources.Load<GameObject>("Prefabs/Drone");
-            InGameDebug.Log("Note: x, y, z are currently disabled. Will fix -<color=red><b>B</b></color>enjamin :)");
             var position = new Vector3(x, y, z);
             int id = (int)ObjectBuilder.Instantiate("Drone").Number;
             var go = ObjectBuilder.Get(id);
             go.GetComponent<Drone>().Initialize(type, id);
+            go.transform.position = position;
             return DynValue.NewNumber(id);
         }
 
