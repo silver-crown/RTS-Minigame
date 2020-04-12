@@ -36,7 +36,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Maximum number of group members one group can have
     /// </summary>
-    private const int _maxGroupSize = 20;
+    private const int MAX_GROUP_SIZE = 20;
 
     /// <summary>
     /// Drones of each type under the CI's control.
@@ -83,7 +83,6 @@ public class CentralIntelligence : MonoBehaviour
     private const int AIDECISIONTIME = 4;
 
     #endregion UtilityAI
-
 
     void Awake() {
         DroneTypeCount = new Dictionary<string, int>();
@@ -172,7 +171,6 @@ public class CentralIntelligence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {
@@ -452,10 +450,10 @@ public class CentralIntelligence : MonoBehaviour
         Drones[0].gameObject.AddComponent<ListenToChannel>();
         Drones[0].gameObject.GetComponent<ListenToChannel>().init(EventManager.MessageChannel.groupChannel);
         ///<summary>Assign the members of the test group </summary>
-        for(int i = 0; i <= _maxGroupSize; i++) 
+        for(int i = 0; i <= MAX_GROUP_SIZE; i++) 
         {
             ///<summary>Make sure it can't make groups that are too large</summary>
-            if(i >= _maxGroupSize) 
+            if(i >= MAX_GROUP_SIZE) 
             {
                 break;
             }
