@@ -22,7 +22,6 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     [SerializeField] GameObject _dronePrefab = null;
 
-
     [Tooltip("file path for the Lua file that gives the utility function for gatherResourceAmount")]
     [SerializeField] string gatherAmountScriptPath;
     [Tooltip("equivalent for buildWorkerNumber")]
@@ -33,8 +32,6 @@ public class CentralIntelligence : MonoBehaviour
     /// All drones under CI's control.
     /// </summary>
     public List<Drone> Drones { get; protected set; } = new List<Drone>();
-
-    public int maxDrones = 300;
 
     /// <summary>
     /// Maximum number of group members one group can have
@@ -61,6 +58,9 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     public int DroneCount { get => Drones.Count; }
 
+    /// <summary>
+    /// Max amount of drones CI can create
+    /// </summary>
     public const int MAXDRONES = 300;
 
     #region UtilityAI
@@ -344,7 +344,6 @@ public class CentralIntelligence : MonoBehaviour
         }
         lastGroupID++;
     }
-
 
     /// <summary>
     /// Reads a utility function from the provided lua filepath.
