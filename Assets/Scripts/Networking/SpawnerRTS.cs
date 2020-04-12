@@ -11,9 +11,6 @@ namespace RTS.Networking
     /// </summary>
     public class SpawnerRTS : NetworkBehaviour
     {
-        /// <summary>
-        /// 
-        /// </summary>
         [SerializeField]
         public NetworkIdentity playerUnitPrefab;
 
@@ -48,6 +45,5 @@ namespace RTS.Networking
             GameObject newMarineUnit = Instantiate(playerUnitPrefab.gameObject, spawnPosition, Quaternion.identity);
             NetworkServer.Spawn(newMarineUnit);
         }
-
     }
 }
