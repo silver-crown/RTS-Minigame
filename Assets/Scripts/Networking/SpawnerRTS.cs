@@ -29,11 +29,12 @@ namespace RTS.Networking
         public override void OnStartServer()
         {
             // init spawns her
-            for(int i = 0; i < MarineStartingUnits; i++)
+            /*
+            for (int i = 0; i < MarineStartingUnits; i++)
             {
                 Debug.Log("Spawned a marine");
                 SpawnMarine();
-            }
+            } */
         }
 
         /// <summary>

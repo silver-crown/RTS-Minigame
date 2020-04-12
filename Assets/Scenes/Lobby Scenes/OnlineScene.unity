@@ -160,6 +160,7 @@ MonoBehaviour:
   syncInterval: 0.1
   playerUnitPrefab: {fileID: 297465852039587503, guid: 5e57522a58b33014d93820e8f80a7109,
     type: 3}
+  marineSpawnLocations: []
   MarineStartingUnits: 1
 --- !u!114 &342411770
 MonoBehaviour:
