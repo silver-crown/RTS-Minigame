@@ -4,6 +4,9 @@ using ssuai;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Central Intelligence system that controls the drone actions
+/// </summary>
 [RequireComponent(typeof(Inventory))]
 public class CentralIntelligence : MonoBehaviour
 {
@@ -29,11 +32,13 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// All drones under CI's control.
     /// </summary>
-
     public List<Drone> Drones { get; protected set; } = new List<Drone>();
 
     public int maxDrones = 300;
-    ///<summary>Maximum number of group members one group can have</summary>
+
+    /// <summary>
+    /// Maximum number of group members one group can have
+    /// </summary>
     private const int _maxGroupSize = 20;
 
     /// <summary>
@@ -46,6 +51,9 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     public Dictionary<Vector2Int, float> LastTimeChunkWasScouted { get; protected set; }
 
+    /// <summary>
+    /// Stores the resources the central intellegence has access to
+    /// </summary>
     public Inventory Inventory { get; protected set; }
 
     /// <summary>
@@ -207,6 +215,10 @@ public class CentralIntelligence : MonoBehaviour
             LastTimeChunkWasScouted[chunk] = time;
         }
     }
+
+    /// <summary>
+    /// Finds the action with the highest utility
+    /// </summary>
     private void SelectAction()
     {
         UtilityAction chosenAction= _selectedAction;         //the currently best action at this point in the loop
@@ -249,11 +261,15 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
+    /// <summary>
+    /// Creates a group of drones with a group leader
+    /// </summary>
+    /// <param name="type">Type of group to create</param>
     public void CreateDroneGroup(GroupLeader.GroupType type)
     {
-        //pick out some dumbass drones depending on what type of group I want to make
-        //Give them a unique group ID and a leader
-        //Group script does the rest
+        // pick out some drones depending on what type of group you want to make
+        // Give them a unique group ID and a leader
+        // Group script does the rest
         Drone[] groupMember = FindObjectsOfType(typeof(Drone)) as Drone[];
         int leader = 0;
         switch (type)
@@ -366,6 +382,12 @@ public class CentralIntelligence : MonoBehaviour
 
         return groupedDrones;
     }
+
+    /// <summary>
+    /// Returns a Drone that has a given ID
+    /// </summary>
+    /// <param name="ID">ID in the drones List<> that is to be retrived</param>
+    /// <returns></returns>
     public Drone GetDrone( int ID)
     {
         for (int i = 0; i<= Drones.Count; i++)
@@ -383,7 +405,6 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     /// <param name="groupType"></param>
     /// <returns></returns>
-
     public List<GroupLeader> GetFighterGroups()
     {
         List<GroupLeader> fighterGroups = new List<GroupLeader>();
