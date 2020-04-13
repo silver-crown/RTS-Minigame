@@ -6,14 +6,13 @@ using System;
 
 namespace Bbbt
 {
+    /// <summary>
+    /// Loads a behaviour from Lua.
+    /// </summary>
     [CreateAssetMenu(
         fileName = "Lua Behaviour",
         menuName = "bbBT/Behaviour/Leaf/Lua Behaviour",
         order = 0)]
-
-    /// <summary>
-    /// Loads a behaviour from Lua.
-    /// </summary>
     public class BbbtLuaBehaviour : BbbtLeafBehaviour
     {
         [Tooltip("The path to the Lua file. The Tick function of this file will be run. " +

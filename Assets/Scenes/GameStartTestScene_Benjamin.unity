@@ -1758,7 +1758,6 @@ MonoBehaviour:
   gatherAmountScriptPath: CI.Factors.GatherResourceAmount
   buildDroneNumberPath: CI.Factors.BuildDroneNumber
   _constructGroupPath: CI.Factors.BuildWorkerNumber
-  maxDrones: 300
 --- !u!114 &2051873112
 MonoBehaviour:
   m_ObjectHideFlags: 0

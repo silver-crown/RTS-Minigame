@@ -10,10 +10,9 @@ namespace RTS
         {
             if (Input.GetMouseButtonUp(0))
             {
-                RaycastHit hit;
                 Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
                     MouseClickRaycastTarget target = hit.transform.GetComponent<MouseClickRaycastTarget>();
 

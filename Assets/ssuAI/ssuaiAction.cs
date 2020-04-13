@@ -18,14 +18,11 @@ namespace ssuai
         /// Initializes the Utility action with the factors that affect its utility and the behavior it executes
         /// </summary>
         /// <param name="factors"></param>
-        /// <param name="behavior"></param>
+        /// <param name="behaviour"></param>
         public UtilityAction(List<Factor> factors, Action behaviour)
         {
             foreach (Factor factor in factors)
             {
-                Debug.Log(factor);
-                Debug.Log(factor.MathFunction);
-                Debug.Log(factor.MathFunction.getFunctionExpressionString());
                 //verify everything was read successfully.
                 if (factor.MathFunction.getFunctionExpressionString() == "")
                 {
@@ -54,6 +51,5 @@ namespace ssuai
             _updateUtility(); //update the action's utility value
             return _utility; //return it
         }
-
     }
 }
