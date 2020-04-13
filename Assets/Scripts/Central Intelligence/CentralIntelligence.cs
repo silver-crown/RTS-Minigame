@@ -4,6 +4,9 @@ using ssuai;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Central Intelligence system that controls the drone actions
+/// </summary>
 [RequireComponent(typeof(Inventory))]
 public class CentralIntelligence : MonoBehaviour
 {
@@ -19,7 +22,6 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     [SerializeField] GameObject _dronePrefab = null;
 
-
     [Tooltip("file path for the Lua file that gives the utility function for gatherResourceAmount")]
     [SerializeField] string gatherAmountScriptPath;
     [Tooltip("equivalent for buildWorkerNumber")]
@@ -29,12 +31,12 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// All drones under CI's control.
     /// </summary>
-
     public List<Drone> Drones { get; protected set; } = new List<Drone>();
 
-    public int maxDrones = 300;
-    ///<summary>Maximum number of group members one group can have</summary>
-    private const int _maxGroupSize = 20;
+    /// <summary>
+    /// Maximum number of group members one group can have
+    /// </summary>
+    private const int MAX_GROUP_SIZE = 20;
 
     /// <summary>
     /// Drones of each type under the CI's control.
@@ -46,6 +48,9 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     public Dictionary<Vector2Int, float> LastTimeChunkWasScouted { get; protected set; }
 
+    /// <summary>
+    /// Stores the resources the central intellegence has access to
+    /// </summary>
     public Inventory Inventory { get; protected set; }
 
     /// <summary>
@@ -53,6 +58,9 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     public int DroneCount { get => Drones.Count; }
 
+    /// <summary>
+    /// Max amount of drones CI can create
+    /// </summary>
     public const int MAXDRONES = 300;
 
     #region UtilityAI
@@ -75,7 +83,6 @@ public class CentralIntelligence : MonoBehaviour
     private const int AIDECISIONTIME = 4;
 
     #endregion UtilityAI
-
 
     void Awake() {
         DroneTypeCount = new Dictionary<string, int>();
@@ -164,7 +171,6 @@ public class CentralIntelligence : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //if enough time has passed since last time do AI decision making
         if (Time.time >= _timeOfLastAction+AIDECISIONTIME)
         {
@@ -207,6 +213,10 @@ public class CentralIntelligence : MonoBehaviour
             LastTimeChunkWasScouted[chunk] = time;
         }
     }
+
+    /// <summary>
+    /// Finds the action with the highest utility
+    /// </summary>
     private void SelectAction()
     {
         UtilityAction chosenAction= _selectedAction;         //the currently best action at this point in the loop
@@ -249,11 +259,15 @@ public class CentralIntelligence : MonoBehaviour
         Inventory.Deposit("Crystal", 10);
     }
 
+    /// <summary>
+    /// Creates a group of drones with a group leader
+    /// </summary>
+    /// <param name="type">Type of group to create</param>
     public void CreateDroneGroup(GroupLeader.GroupType type)
     {
-        //pick out some dumbass drones depending on what type of group I want to make
-        //Give them a unique group ID and a leader
-        //Group script does the rest
+        // pick out some drones depending on what type of group you want to make
+        // Give them a unique group ID and a leader
+        // Group script does the rest
         Drone[] groupMember = FindObjectsOfType(typeof(Drone)) as Drone[];
         int leader = 0;
         switch (type)
@@ -329,7 +343,6 @@ public class CentralIntelligence : MonoBehaviour
         lastGroupID++;
     }
 
-
     /// <summary>
     /// Reads a utility function from the provided lua filepath.
     /// </summary>
@@ -366,6 +379,12 @@ public class CentralIntelligence : MonoBehaviour
 
         return groupedDrones;
     }
+
+    /// <summary>
+    /// Returns a Drone that has a given ID
+    /// </summary>
+    /// <param name="ID">ID in the drones List<> that is to be retrived</param>
+    /// <returns></returns>
     public Drone GetDrone( int ID)
     {
         for (int i = 0; i<= Drones.Count; i++)
@@ -383,7 +402,6 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     /// <param name="groupType"></param>
     /// <returns></returns>
-
     public List<GroupLeader> GetFighterGroups()
     {
         List<GroupLeader> fighterGroups = new List<GroupLeader>();
@@ -432,10 +450,10 @@ public class CentralIntelligence : MonoBehaviour
         Drones[0].gameObject.AddComponent<ListenToChannel>();
         Drones[0].gameObject.GetComponent<ListenToChannel>().init(EventManager.MessageChannel.groupChannel);
         ///<summary>Assign the members of the test group </summary>
-        for(int i = 0; i <= _maxGroupSize; i++) 
+        for(int i = 0; i <= MAX_GROUP_SIZE; i++) 
         {
             ///<summary>Make sure it can't make groups that are too large</summary>
-            if(i >= _maxGroupSize) 
+            if(i >= MAX_GROUP_SIZE) 
             {
                 break;
             }
