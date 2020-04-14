@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// The class controlling the events for the game's messaging system
+/// </summary>
 public class EventManager : MonoBehaviour
 {
     /// <summary>
@@ -20,11 +23,11 @@ public class EventManager : MonoBehaviour
     protected static List<Dictionary<string, UnityEvent>> _groupChannelList;
     private static EventManager _eventManager;
 
-    //the channels start at 0, c# hates me and refuses to let me set an int as NULL
     /// <summary>
-    /// The default value of the IDs 
+    /// The default value of the IDs, a negative number because numbers can't be NULL in C# 
     /// </summary>
     const int noID = -1;
+
     /// <summary>
     /// The actual channel being listened to 
     /// </summary>
@@ -38,9 +41,8 @@ public class EventManager : MonoBehaviour
         CIChannel,
         groupChannel
     }
-    //Get the EventManager if there's one present in the scene
 
-    //Initialize the dictionary for the eventManager
+    //Initialize the dictionaries for the eventManager
     void Start()
     {
         Debug.Log("Initializing Event Manager");
@@ -77,7 +79,6 @@ public class EventManager : MonoBehaviour
     protected static void StartListening(string eventName, UnityAction listener, MessageChannel channel, int ID = noID)
     {
 
-
         UnityEvent thisEvent = null;
         switch (channel)
         {
@@ -100,7 +101,7 @@ public class EventManager : MonoBehaviour
             //Listening in on the private channel
             //Each drone has a private channel, this case will exit immediately if an id is not present
             case (MessageChannel.privateChannel):
-                //the channels start at 0, c# hates me and refuses to let me set an int as NULL
+                //the channels start at 0, corresponding to the Drone IDs
                 if (ID > noID)
                 {
 
@@ -139,15 +140,14 @@ public class EventManager : MonoBehaviour
                 }
                 break;
             //Listening in on the scount channel
-            //These are for the scouting drones
             case (MessageChannel.scoutChannel):
                 //If there's an event like this in the dictionary, add the listener
                 if (_scoutChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.AddListener(listener);
                 }
-                //Else add the event to the dictionary.
-                else
+                //Else add the event to the dictionary. and add the listener
+                else 
                 {
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
@@ -162,8 +162,8 @@ public class EventManager : MonoBehaviour
                 {
                     thisEvent.AddListener(listener);
                 }
-                //Else add the event to the dictionary.
-                else
+                //Else add the event to the dictionary. and add the listener
+                else 
                 {
                     thisEvent = new UnityEvent();
                     thisEvent.AddListener(listener);
@@ -171,14 +171,14 @@ public class EventManager : MonoBehaviour
                 }
                 break;
             //Listening in on the tank channel
-            //This is meant for the heavy units
+            //This is meant for the CI
             case (MessageChannel.CIChannel):
                 //If there's an event like this in the dictionary, add the listener
                 if (_tankChannelDictionary.TryGetValue(eventName, out thisEvent))
                 {
                     thisEvent.AddListener(listener);
                 }
-                //Else add the event to the dictionary.
+                //Else add the event to the dictionary. and add the listener
                 else
                 {
                     thisEvent = new UnityEvent();
@@ -189,10 +189,9 @@ public class EventManager : MonoBehaviour
             //Listening in on the group channel
             //Each drone has a private channel, this case will exit immediately if an id is not present
             case (MessageChannel.groupChannel):
-                //the channels start at 0, c# hates me and refuses to let me set an int as NULL
+                //the channels start at 0, in accordance to the group IDs
                 if (ID > noID)
                 {
-
                     //If there's an event like this in the dictionary, add the listener
                     if (_groupChannelList[ID].TryGetValue(eventName, out thisEvent))
                     {
@@ -208,7 +207,7 @@ public class EventManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Trying to listen in on invalid Private Channel ID!");
+                    Debug.Log("Trying to listen in on invalid Group Channel ID!");
                 }
                 break;
         }
@@ -239,12 +238,13 @@ public class EventManager : MonoBehaviour
             case (MessageChannel.privateChannel):
                 if(droneID > noID)
                 {
-                    //if there's an event like this in the dictionary, remove the listener
+                    //if there's an event with this id in the dictionary, remove the listener
                     if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.RemoveListener(listener);
                     }
                 }
+                //else do nothing
                 else
                 {
                     Debug.Log("Trying to remove Private Channel with invalid ID!");
@@ -278,6 +278,7 @@ public class EventManager : MonoBehaviour
     /// </summary>
     /// <param name="eventName"></param>
     /// <param name="channel"></param>
+    /// <param name="droneID"></param>
     protected static void TriggerEvent(string eventName, MessageChannel channel, int droneID = noID)
     {
         UnityEvent thisEvent = null;
