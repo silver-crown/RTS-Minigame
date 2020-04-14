@@ -1,7 +1,9 @@
 ﻿using MoonSharp.Interpreter;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
+using Object = UnityEngine.Object;
 
 namespace Yeeter
 {
@@ -94,6 +96,14 @@ namespace Yeeter
             int id = (int)AddObject(go).Number;
             AddLuaObjectComponent(id, type);
             return id;
+        }
+
+        public static void AddTimedAction(int id, float interval, DynValue action)
+        {
+            var go = Get(id);
+            var timer = go.AddComponent<Timer>();
+            timer.Interval = interval;
+            timer.OnTick = () => LuaManager.Call(action);
         }
 
         public static void SetTexture(int id, string textureKey)

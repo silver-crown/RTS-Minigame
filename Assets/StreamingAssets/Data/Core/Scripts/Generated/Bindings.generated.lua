@@ -95,6 +95,7 @@ ObjectBuilder.SetName = function(id__Int32, name__String) end
 ObjectBuilder.AddLuaObjectComponent = function(id__Int32, type__String) end
 ObjectBuilder.AddLuaObjectComponent = function(id__String, type__String) end
 ObjectBuilder.CreateLuaObject = function(type__String) end
+ObjectBuilder.AddTimedAction = function(id__Int32, interval__Single, action__DynValue) end
 ObjectBuilder.SetTexture = function(id__Int32, textureKey__String) end
 ObjectBuilder.SetColor = function(id__Int32, r__Int32, g__Int32, b__Int32, a__Int32) end
 ObjectBuilder.SetSortingLayer = function(id__Int32, layer__String) end

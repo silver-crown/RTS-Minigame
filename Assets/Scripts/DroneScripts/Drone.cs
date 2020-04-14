@@ -4,10 +4,7 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using RTS;
-using RTS.Lua;
-using RTS;
 using Yeeter;
-using UnityEngine.AI;
 
 
 /// <summary>
@@ -250,7 +247,7 @@ public class Drone : Actor
     /// <summary>
     /// Set the group script's id to match that of the drone
     /// </summary>
-    void SetupGroup() 
+    void SetupGroup()
     {
         group.groupID = groupID;
     }
@@ -278,8 +275,9 @@ public class Drone : Actor
         DroneStaticMethods.Create(type, x, y, z);
     }
 
-    private void OnDrawGizmos() {
-        if (highlight) 
+    private void OnDrawGizmos()
+    {
+        if (highlight)
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 1);

@@ -13,8 +13,6 @@ namespace RTS
 
         Queue<DroneOrder> BuildQueue;
 
-        [SerializeField] private GameObject _dronePrefab = null;
-
         private float _buildingDoneTime = 0;
 
         private bool _currentlyBuilding;
@@ -44,9 +42,9 @@ namespace RTS
 
                     //if we've finished building something
                 }
+#if UNITY_EDITOR
                 else if (Time.time >= _buildingDoneTime)
                 {
-#if UNITY_EDITOR
                     _currentlyBuilding = false;
                     //pop the queue
                     DroneOrder finishedProduct = BuildQueue.Dequeue();
@@ -58,8 +56,8 @@ namespace RTS
 
 
                     Debug.Log("I just finished a drone of type " + finishedProduct.Type + " in " + finishedProduct.BuildTime + " seconds");
-#endif
                 }
+#endif
             }
         }
 

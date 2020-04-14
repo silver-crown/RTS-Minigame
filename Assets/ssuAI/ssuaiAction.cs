@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Bbbt;
 using System;
-using org.mariuszgromada.math.mxparser;
 
 namespace ssuai
 {
+    [Obsolete("ssuai.UtilityAction has been deprecated. Use UtilityAI.UtilityAction instead.")]
     public class UtilityAction
     {
         protected List<Factor> _factors;
