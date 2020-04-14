@@ -36,7 +36,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Maximum number of group members one group can have
     /// </summary>
-    private const int MAX_GROUP_SIZE = 20;
+    private const int MaxGroupSize = 20;
 
     /// <summary>
     /// Drones of each type under the CI's control.
@@ -61,7 +61,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Max amount of drones CI can create
     /// </summary>
-    public const int MAXDRONES = 300;
+    public const int MaxDrones = 300;
 
     #region UtilityAI
 
@@ -103,28 +103,28 @@ public class CentralIntelligence : MonoBehaviour
         //set up actions
         //Gathering metal
         _actions.Add(new UtilityAction(
-            new List<Factor> { new ResourceAmount(this, "Metal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
+            new List<Factor> { new ResourceAmount(this, "Metal", ReadUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherMetal.Tick(gameObject); }));
         //Gathering crystal
         _actions.Add(new UtilityAction(
-            new List<Factor> { new ResourceAmount(this, "Crystal", readUtilityFunctionFromFile(gatherAmountScriptPath)) },
+            new List<Factor> { new ResourceAmount(this, "Crystal", ReadUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherCrystal.Tick(gameObject); }));
         ///<summary>Drone building </summary>
         _actions.Add(new UtilityAction(
-            new List<Factor> { new DroneNumber(this, readUtilityFunctionFromFile(buildDroneNumberPath)) },
+            new List<Factor> { new DroneNumber(this, ReadUtilityFunctionFromFile(buildDroneNumberPath)) },
             () => { buildDrone.Tick(gameObject); }));
         
         ///<summary> Need a fighter group </summary>
         _actions.Add(new UtilityAction(
-            new List<Factor> { new NeedFighterGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            new List<Factor> { new NeedFighterGroup(this, ReadUtilityFunctionFromFile(_constructGroupPath)) },
             () => { constructGroup.Tick(gameObject);}));
         ///<summary> Need a worker group </summary>
         _actions.Add(new UtilityAction(
-            new List<Factor> { new NeedWorkerGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            new List<Factor> { new NeedWorkerGroup(this, ReadUtilityFunctionFromFile(_constructGroupPath)) },
             () => { constructGroup.Tick(gameObject); }));
         ///<summary>Need a scout group </summary>
         _actions.Add(new UtilityAction(
-            new List<Factor> { new NeedScoutGroup(this, readUtilityFunctionFromFile(_constructGroupPath)) },
+            new List<Factor> { new NeedScoutGroup(this, ReadUtilityFunctionFromFile(_constructGroupPath)) },
             () => { constructGroup.Tick(gameObject); }));
     }
 
@@ -186,7 +186,7 @@ public class CentralIntelligence : MonoBehaviour
     /// <summary>
     /// Adds a drone to the CI's hivemind.
     /// </summary>
-    /// <param name="drone"></param>
+    /// <param name="drone">The drone to add.</param>
     public void AddDrone(Drone drone)
     {
         Drones.Add(drone);
@@ -348,7 +348,7 @@ public class CentralIntelligence : MonoBehaviour
     /// </summary>
     /// <param name="filepath"></param>
     /// <returns></returns>
-    private string readUtilityFunctionFromFile(string filepath)
+    private string ReadUtilityFunctionFromFile(string filepath)
     {
         Script script = new Script();
         var table = script.DoFile(filepath).Table;
@@ -430,7 +430,6 @@ public class CentralIntelligence : MonoBehaviour
     }
 
     #region GroupTests
-
     /// <summary>
     /// Adds a test group to the army
     /// </summary>
@@ -450,10 +449,10 @@ public class CentralIntelligence : MonoBehaviour
         Drones[0].gameObject.AddComponent<ListenToChannel>();
         Drones[0].gameObject.GetComponent<ListenToChannel>().init(EventManager.MessageChannel.groupChannel);
         ///<summary>Assign the members of the test group </summary>
-        for(int i = 0; i <= MAX_GROUP_SIZE; i++) 
+        for(int i = 0; i <= MaxGroupSize; i++) 
         {
             ///<summary>Make sure it can't make groups that are too large</summary>
-            if(i >= MAX_GROUP_SIZE) 
+            if(i >= MaxGroupSize) 
             {
                 break;
             }

@@ -49,8 +49,8 @@ namespace Yeeter
                     _isDragging = true;
                     if (_placeOnTopInParentHierarchy)
                     {
-                        _rectTransform.parent = null;
-                        _rectTransform.parent = _parentRectTransform;
+                        _rectTransform.SetParent(null);
+                        _rectTransform.SetParent(_parentRectTransform);
                     }
                 }
             }
