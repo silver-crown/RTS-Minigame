@@ -10,11 +10,7 @@ local WorkerDrone =
     _miningRange 		= 5.0,
     _miningCooldown 	= 3.0,
     _miningDamage		= 5,
-<<<<<<< HEAD
     _inventorySpace     = 50
-}
-=======
-    _inventorySpace     = 40
 }
 
 function WorkerDrone:Start(id)
@@ -32,4 +28,3 @@ function WorkerDrone:Update(id)
 end
 
 return WorkerDrone
->>>>>>> 72f8b3c85f6229c52eccf67168b0c36a324cad94

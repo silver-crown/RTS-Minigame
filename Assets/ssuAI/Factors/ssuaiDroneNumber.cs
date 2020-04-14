@@ -22,7 +22,7 @@ namespace ssuai
 
         public override void UpdateUtility()
         {
-            _utility = (float)MathFunction.calculate(_centralIntelligence.DroneCount - CentralIntelligence.MAXDRONES / 2);
+            _utility = (float)MathFunction.calculate(_centralIntelligence.DroneCount - CentralIntelligence.MaxDrones / 2);
         }
     }
 }

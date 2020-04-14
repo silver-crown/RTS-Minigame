@@ -12,8 +12,9 @@ namespace Yeeter
         /// The aliases used for the class in Lua.
         /// </summary>
         public string[] Aliases { get; private set; }
+
         /// <summary>
-        /// 
+        /// Constructs a new MoonSharpAliasAttribute.
         /// </summary>
         /// <param name="alias">The alias to use.</param>
         public MoonSharpAliasAttribute(string alias)
@@ -21,7 +22,7 @@ namespace Yeeter
             Aliases = new string[] { alias };
         }
         /// <summary>
-        /// 
+        /// Constructs a new MoonSharpAliasAttribute.
         /// </summary>
         /// <param name="aliases">The aliases to use.</param>
         public MoonSharpAliasAttribute(string[] aliases)

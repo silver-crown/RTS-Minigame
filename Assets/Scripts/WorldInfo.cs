@@ -5,7 +5,7 @@ using UnityEngine;
 using RTS;
 
 /// <summary>
-/// This class is used to store the locaiton of all the player marines, drones and resources
+/// Stores references to all the actors, drones, resources, and other useful world info.
 /// inn the game world.
 /// </summary>
 public static class WorldInfo
@@ -31,7 +31,7 @@ public static class WorldInfo
     /// </summary>
     public static List<Actor> Actors { get; private set; }
     /// <summary>
-    /// List of marines 
+    /// List of all the marines in the game. 
     /// </summary>
     public static List<GameObject> Marines { get; private set; }   
     /// <summary>
@@ -42,8 +42,6 @@ public static class WorldInfo
     /// List of all buildings that can hold resources in the game.
     /// </summary>
     public static List<GameObject> Depots { get; private set; }
-
-    public static int NextId { get; set; } = 0;
 
     static WorldInfo()
     {

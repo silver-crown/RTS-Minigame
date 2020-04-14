@@ -4,10 +4,7 @@ using UnityEngine.Events;
 using MoonSharp.Interpreter;
 using Bbbt;
 using RTS;
-using RTS.Lua;
-using RTS;
 using Yeeter;
-using UnityEngine.AI;
 
 
 /// <summary>
@@ -30,19 +27,30 @@ public class Drone : Actor
     ///List of all the messages the drone will me listening after
     /// </summary>
     public List<string> messageList = new List<string>();
+
     /// <summary>
     /// String used for listening to messages contained in the message list
     /// </summary>
     string[] message;
+
     int lastMessage;
+
     /// <summary>
     /// Drone Group and it's ID
     /// </summary>
     [System.NonSerialized] public int groupID;
+
+    /// <summary>
+    /// If the drone is a leader or not
+    /// </summary>
     [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] GroupLeader group;
 
     [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
+
+    /// <summary>
+    /// The depot the drone is currently delivering resources to
+    /// </summary>
     [SerializeField] public GameObject TargetDepot = null;
 
     public enum GroupUnit
@@ -58,6 +66,10 @@ public class Drone : Actor
     /// Unique ID of the drone
     /// </summary>
     public int ID { get; protected set; }
+
+    /// <summary>
+    /// How many enemies the Drone has destroyed
+    /// </summary>
     public int killCount;
 
     /// <summary>
@@ -144,7 +156,9 @@ public class Drone : Actor
         }
     }
 
-
+    /// <summary>
+    /// Makes the drone Attack its target
+    /// </summary>
     public override void Attack()
     {
         base.Attack();
@@ -158,6 +172,11 @@ public class Drone : Actor
     /// <param name="id">The drone's id.</param>
     public void Initialize(string type, int id)
     {
+        // Why does this method exist? I'll just reroute it to SetType. Did I create this? I don't even know.
+        // It doesn't even load behaviour trees properly?
+        // - Tired and confused Benjamin
+        SetType(type);
+        /*
         //GetComponent<NavMeshAgent>().
         Type = type;
         _luaObject = GetComponent<LuaObjectComponent>();
@@ -168,6 +187,7 @@ public class Drone : Actor
         }
         _luaObject.Load("Actors.Drones." + type);
         string tree = GetValue("_behaviourTree").String;
+        */
     }
 
     /// <summary>
@@ -182,7 +202,7 @@ public class Drone : Actor
         {
             _luaObject = gameObject.AddComponent<LuaObjectComponent>();
         }
-        _luaObject.Load("Actors/Drones/" + type);
+        _luaObject.Load("Actors.Drones." + type);
         string tree = GetValue("_behaviourTree").String;
 
         if (tree != null)
@@ -199,7 +219,10 @@ public class Drone : Actor
     }
 
 
-    //add message to the message list. 
+    /// <summary>
+    /// Add message to the message list. 
+    /// </summary>
+    /// <param name="message">Message that was received</param>
     public void ReceiveMessage(string message)
     {
         //add the received message to the list of messages, for use in other functions later.
@@ -207,25 +230,32 @@ public class Drone : Actor
     }
 
 
-
-
     protected void SetStatus(string status)
     {
         SetValue("_status", DynValue.NewString(status));
     }
 
+    /// <summary>
+    /// Changes the depot where drone will deliver resources.
+    /// </summary>
+    /// <param name="target">Depot to be targeted</param>
     public void SetTargetDepot(GameObject target)
     {
         TargetDepot = target.gameObject;
     }
 
     /// <summary>
-    /// set the group script's id to match that of the drone
+    /// Set the group script's id to match that of the drone
     /// </summary>
-    void SetupGroup() 
+    void SetupGroup()
     {
         group.groupID = groupID;
     }
+
+    /// <summary>
+    /// PowerLevel is a value that is calcualted to determine how strong individual 
+    /// drones are compared to each other.
+    /// </summary>
     public void CalculatePowerLevel()
     {
         double dps = GetValue("_attacksPerSecond").Number;
@@ -233,13 +263,21 @@ public class Drone : Actor
         powerLevel = killCount + dps + range + Health;
     }
 
+    /// <summary>
+    /// Creates a drone of type 'type' at the specified location
+    /// </summary>
+    /// <param name="type">The drone type to be spawned</param>
+    /// <param name="x">x spawn position of the drone</param>
+    /// <param name="y">y spawn position of the drone</param>
+    /// <param name="z">z spawn position of the drone</param>
     public static void Create(string type, float x = 0, float y = 0, float z = 0)
     {
         DroneStaticMethods.Create(type, x, y, z);
     }
 
-    private void OnDrawGizmos() {
-        if (highlight) 
+    private void OnDrawGizmos()
+    {
+        if (highlight)
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 1);

@@ -11,6 +11,9 @@ namespace Progress.InputSystem
 
         [SerializeField]
         private SymbolsContainer _symbols;
+        private bool _selected = false;
+        private GridPathfinder pathfinder;
+        private GridObject gridObject;
 
         public BarContainer Bars { get { return _bars; } }
         public SymbolsContainer Symbols { get { return _symbols; } }
@@ -35,17 +38,32 @@ namespace Progress.InputSystem
         void Start()
         {
             MenuManager.Instance.GetMenuState<UnitSelectionState>().AddUnitToList(this);
-            GridObject gridObject = GetComponent<GridObject>();
+            gridObject = GetComponent<GridObject>();
             if (gridObject != null)
             {
                 gridObject.Initialize();
             }
+            pathfinder = GetComponent<GridPathfinder>();
+        }
+
+        private void Update()
+        {
+            if (!_selected || pathfinder.m_DrawPath == false || pathfinder.m_DestinationTile != null)
+                return;
+
+            GridTile hoveredTile = GridManager.Instance.m_HoveredGridTile;
+
+            if (hoveredTile == null)
+                return;
+
+            pathfinder.DeterminePath(gridObject.m_CurrentGridTile, hoveredTile);
         }
 
         public void SetSelected(bool selected)
         {
             Behaviour halo = (Behaviour)GetComponent("Halo");
             halo.enabled = selected;
+            _selected = selected;
         }
     }
 }

@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using org.mariuszgromada.math.mxparser;
-
+using System;
 
 namespace ssuai
 {
     /// <summary>
     /// A Factor is some quantifiable element that affects the average utility of an Action.
     /// </summary>
+    [Obsolete("ssuai has been deprecated. Use UtilityAI.UtilityAction.AddFactor instead.")]
     public abstract class Factor
     {
         //normalized utility value MUST be between 0 and 1.

@@ -52,6 +52,8 @@ namespace RTS.Lua
             script.Globals["StreamingAssetsDatabase"] = script.Globals["Assets"];
             script.Globals["Vector3"] = new Vector3();
             script.Globals["GameObject"] = new GameObject();
+            script.Globals["Drone"] = new DroneStaticMethods();
+            script.Globals["DroneStaticMethods"] = new DroneStaticMethods();
             return script;
         }
     }

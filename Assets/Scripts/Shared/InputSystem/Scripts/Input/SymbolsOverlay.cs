@@ -10,10 +10,11 @@ namespace Progress.InputSystem
         public class SymbolOverlayConfig
         {
             public string Name;
-            public List<SymbolsController> Controllers;
+            //public List<SymbolsController> Controllers;
+            public GameObject prefab;
             public List<SymbolsUI> UIs;
-            public System.Action<SymbolsController> OnAddUI;
-            public System.Action<SymbolsController> OnRemoveUI;
+            public System.Action<SymbolsContainer> OnAddUI;
+            public System.Action<SymbolsContainer> OnRemoveUI;
 
             public SymbolOverlayConfig(string symbolName) : this()
             {
@@ -22,8 +23,26 @@ namespace Progress.InputSystem
 
             public SymbolOverlayConfig()
             {
-                Controllers = new List<SymbolsController>();
+                //Controllers = new List<SymbolsController>();
                 UIs = new List<SymbolsUI>();
+            }
+
+            public GameObject InstantiateUI (Transform parent)
+            {
+                if (prefab == null)
+                {
+                    Debug.LogError("Config " + Name + " has no prefab");
+                    return null;
+                }
+                GameObject instance = Instantiate(prefab, parent);
+                SymbolsUI ui = instance.GetComponent<SymbolsUI>();
+                if (ui == null)
+                {
+                    Debug.LogError("Prefab was missing SymbolsUI component when config instantiated it");
+                    return null;
+                }
+                UIs.Add(ui);
+                return instance;
             }
         }
 
@@ -40,7 +59,7 @@ namespace Progress.InputSystem
             }
         }
 
-        public void RemoveUI(string uiName, SymbolsController controller)
+        public void RemoveUI(string uiName, SymbolsContainer container)
         {
             uiName = uiName.ToLower();
 
@@ -52,10 +71,10 @@ namespace Progress.InputSystem
                 return;
             }
 
-            config.OnRemoveUI.Invoke(controller);
+            config.OnRemoveUI.Invoke(container);
         }
 
-        public void AddUI(string uiName, SymbolsController controller)
+        public void AddUI(string uiName, SymbolsContainer container)
         {
             uiName = uiName.ToLower();
 
@@ -67,14 +86,14 @@ namespace Progress.InputSystem
                 return;
             }
 
-            config.OnAddUI.Invoke(controller);
+            config.OnAddUI.Invoke(container);
         }
 
         /// <summary>
         /// Creates a SymbolsUI and assigns it to the passed in SymbolsController object, then adds both to the Config.
         /// </summary>
         /// <param name="health"></param>
-        public void AddToSymbolConfig(string symbolName, SymbolsController controller)
+        public GameObject AddToSymbolConfig(string symbolName)
         {
             symbolName = symbolName.ToLower();
 
@@ -83,19 +102,21 @@ namespace Progress.InputSystem
             if (config == null)
             {
                 Debug.LogError("Symbol config does not exist for: " + symbolName);
-                return;
+                return null;
             }
 
-            if (config.Controllers.Contains(controller))
-            {
-                Debug.LogError("This controller was already added for symbol: " + symbolName);
-                return;
-            }
+            //if (config.Controllers.Contains(controller))
+            //{
+            //    Debug.LogError("This controller was already added for symbol: " + symbolName);
+            //    return;
+            //}
 
-            var symbolUI = controller.InstantiateUI(transform);
+            var symbolUI = config.InstantiateUI(transform);
 
-            config.UIs.Add(symbolUI);
-            config.Controllers.Add(controller);
+            return symbolUI;
+
+            //config.UIs.Add(symbolUI);
+            //config.Controllers.Add(controller);
         }
     }
 }
