@@ -82,6 +82,11 @@ public class GridPathfinder : MonoBehaviour {
     /// <returns></returns>
     public virtual List<GridTile> DeterminePath(GridTile startingGridTile, GridTile targetGridTile)
     {
+        if (startingGridTile == null || targetGridTile == null)
+        {
+            return new List<GridTile>();
+        }
+
         m_NextPathpointIndex = -1;
 
         List<GridTile> tempPath = AStar.Search(startingGridTile, targetGridTile);
@@ -116,7 +121,7 @@ public class GridPathfinder : MonoBehaviour {
                 if (!tempPath.Contains(targetGridTile))
                     Debug.LogError("Path did not contain target grid tile");
             }
-            return null;
+            return new List<GridTile>();
         }
 
     }
@@ -141,7 +146,9 @@ public class GridPathfinder : MonoBehaviour {
             if (m_NextPathpointIndex + 1 < Path.Count) {
                 m_NextPathpointIndex++;
             } else {
+                //  We have arrived at our destination
                 m_NextPathpointIndex = -1;
+                m_DestinationTile = null;
             }
         } else {
             // Try to recalculate the path since the current one is blocked
