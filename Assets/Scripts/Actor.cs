@@ -181,7 +181,6 @@ namespace RTS
             }
         }
 
-
         /// <summary>
         /// Draws the laser line
         /// </summary>
@@ -193,7 +192,6 @@ namespace RTS
             yield return ShotDuration;
             //LaserLine.enabled = false;
         }
-
 
         public virtual void Awake()
         {
@@ -224,8 +222,6 @@ namespace RTS
             WorldInfo.Actors.Remove(this);
             if (this as Marine != null) WorldInfo.Marines.Remove(gameObject);
         }
-
-
 
         /// <summary>
         /// Gets a value from the Actor's table.
