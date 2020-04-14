@@ -1,6 +1,5 @@
 ﻿using MoonSharp.Interpreter;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Scripting;
@@ -48,27 +47,98 @@ namespace Yeeter
         BottomRight,
     }
 
+    /// <summary>
+    /// Contains Lua-compatible methods for creating and managing UI elements.
+    /// </summary>
     [Preserve, MoonSharpUserData]
     public class UI
     {
+        /// <summary>
+        /// Adds Lua function to be called when an EventTrigger is invoked.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="function">The function to call.</param>
+        /// <param name="type">The type of the EventTrigger entry.</param>
+        private static void AddEventTriggerEntry(int id, DynValue function, EventTriggerType type)
+        {
+            var go = ObjectBuilder.Get(id);
+            var trigger = go.GetComponent<EventTrigger>();
+            if (trigger == null) trigger = go.AddComponent<EventTrigger>();
+            var entry = new EventTrigger.Entry();
+            entry.eventID = type;
+            entry.callback.AddListener(_ => LuaManager.Call(function));
+            trigger.triggers.Add(entry);
+        }
+        /// <summary>
+        /// Instantiates a new UI element from a prefab.
+        /// </summary>
+        /// <param name="path">The path to the UI element relative to "Resources/Prefabs/UI".</param>
+        /// <returns>The id of the instantiated GameObject.</returns>
         public static DynValue Instantiate(string path)
         {
             return ObjectBuilder.InstantiateUIElement(path);
         }
+        /// <summary>
+        /// Instantiates a new UI element from a prefab.
+        /// </summary>
+        /// <param name="path">The path to the UI element relative to "Resources/Prefabs/UI".</param>
+        /// <param name="x">The x position of the instantiated GameObject.</param>
+        /// <param name="y">The y position of the instantiated GameObject.</param>
+        /// <returns>The id of the instantiated GameObject.</returns>
         public static DynValue Instantiate(string path, float x, float y)
         {
             DynValue value = Instantiate(path);
             ObjectBuilder.SetPosition((int)value.Number, x, y);
             return value;
         }
+        /// <summary>
+        /// Instantiates a new UI element from a prefab.
+        /// </summary>
+        /// <param name="path">The path to the UI element relative to "Resources/Prefabs/UI".</param>
+        /// <returns>The id of the instantiated GameObject.</returns>
         public static DynValue Create(string path)
         {
             return Instantiate(path);
         }
+        /// <summary>
+        /// Instantiates a new UI element from a prefab.
+        /// </summary>
+        /// <param name="path">The path to the UI element relative to "Resources/Prefabs/UI".</param>
+        /// <param name="x">The x position of the instantiated GameObject.</param>
+        /// <param name="y">The y position of the instantiated GameObject.</param>
+        /// <returns>The id of the instantiated GameObject.</returns>
         public static DynValue Create(string path, float x, float y)
         {
             return Instantiate(path, x, y);
         }
+        /// <summary>
+        /// Gets the world corners of a GameObject.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <returns>The world corners.</returns>
+        public static Vector3[] GetWorldCorners(int id)
+        {
+            var go = ObjectBuilder.Get(id);
+            var rectTransform = go.GetComponent<RectTransform>();
+            var corners = new Vector3[4];
+            rectTransform.GetWorldCorners(corners);
+            return corners;
+        }
+        /// <summary>
+        /// Gets an InputField component in a GameObject or its children.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.s</param>
+        /// <returns>The InputField.</returns>
+        public static InputField GetInputField(int id)
+        {
+            return ObjectBuilder.Get(id).GetComponentInChildren<InputField>();
+        }
+        /// <summary>
+        /// Creates a new UI element with a LuaObjectComponent.
+        /// </summary>
+        /// <param name="type">The LuaObjectComponent type.
+        /// This is the path to the Lua script to use using the rules of the active ScriptLoader.</param>
+        /// <returns>The id of the newly created GameObject.</returns>
         public static int CreateLuaObject(string path)
         {
             var id = ObjectBuilder.InstantiateUIElement();
@@ -76,6 +146,11 @@ namespace Yeeter
             component.Load(path);
             return (int)id.Number;
         }
+        /// <summary>
+        /// Creates a settings slider. Requires that the game's settings have been loaded.
+        /// </summary>
+        /// <param name="settingsKey">The key of the setting in the StreamingAssetsDatabase.</param>
+        /// <returns>The id of the newly created GameObject.</returns>
         public static int CreateSlider(string settingsKey)
         {
             var id = (int)Instantiate("SliderSetting").Number;
@@ -84,11 +159,20 @@ namespace Yeeter
             slider.SetKey(settingsKey);
             return id;
         }
+        /// <summary>
+        /// Sets the parent of a GameObject.
+        /// </summary>
+        /// <param name="childId">The id of the child GameObject.</param>
+        /// <param name="parentId">The id of the parent GameObject.</param>
         public static void SetParent(int childId, int parentId)
         {
             ObjectBuilder.Get(childId).transform.SetParent(ObjectBuilder.Get(parentId).transform);
         }
-
+        /// <summary>
+        /// Sets a UI element's anchors using an anchor preset.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="presetStr">The name of the anchor preset.</param>
         public static void SetAnchor(int id, string presetStr)
         {
             var preset = Enum.Parse(typeof(AnchorPreset), presetStr);
@@ -162,6 +246,14 @@ namespace Yeeter
                     break;
             }
         }
+        /// <summary>
+        /// Sets a UI element's anchors.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="minX">The x component of the RectTransform's anchorMin.</param>
+        /// <param name="maxX">The x component of the RectTransform's anchorMax.</param>
+        /// <param name="minY">The y component of the RectTransform's anchorMin.</param>
+        /// <param name="maxY">The y component of the RectTransform's anchorMax.</param>
         public static void SetAnchors(int id, float minX, float maxX, float minY, float maxY)
         {
             var go = ObjectBuilder.Get(id);
@@ -169,6 +261,11 @@ namespace Yeeter
             transform.anchorMin = new Vector2(minX, minY);
             transform.anchorMax = new Vector2(maxX, maxY);
         }
+        /// <summary>
+        /// Sets a UI element's pivot.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="presetStr">The name of the pivot preset.</param>
         public static void SetPivot(int id, string presetStr)
         {
             var preset = Enum.Parse(typeof(PivotPreset), presetStr);
@@ -205,10 +302,22 @@ namespace Yeeter
                     break;
             }
         }
+        /// <summary>
+        /// Sets a UI element's pivot.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="x">The x component of the pivot.</param>
+        /// <param name="y">The x component of the pivot.</param>
         public static void SetPivot(int id, float x, float y)
         {
             ObjectBuilder.Get(id).GetComponent<RectTransform>().pivot = new Vector2(x, y);
         }
+        /// <summary>
+        /// Sets a UI element's size with its current anchors.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="x">The size's x component.</param>
+        /// <param name="y">The size's y component.</param>
         public static void SetSize(int id, float x, float y)
         {
             var transform = ObjectBuilder.Get(id).GetComponent<RectTransform>();
@@ -216,12 +325,22 @@ namespace Yeeter
             transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, y);
             Canvas.ForceUpdateCanvases();
         }
+        /// <summary>
+        /// Sets the width of a UI element with  its current anchors.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="width">The width.</param>
         public static void SetWidth(int id, float width)
         {
             var transform = ObjectBuilder.Get(id).GetComponent<RectTransform>();
             transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
             Canvas.ForceUpdateCanvases();
         }
+        /// <summary>
+        /// Sets the height of a UI element with  its current anchors.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="height">The height.</param>
         public static void SetHeight(int id, float height)
         {
             var transform = ObjectBuilder.Get(id).GetComponent<RectTransform>();
@@ -238,7 +357,6 @@ namespace Yeeter
             var transform = ObjectBuilder.Get(id).GetComponent<RectTransform>();
             transform.sizeDelta = new Vector2(x, y);
         }
-
         public static void SetText(int id, string str)
         {
             var go = ObjectBuilder.Get(id);
@@ -338,12 +456,10 @@ namespace Yeeter
                 image.color = new Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
             }
         }
-
         public static void ForceUpdateCanvases()
         {
             Canvas.ForceUpdateCanvases();
         }
-
         public static void AddOnClick(int id, DynValue function)
         {
             var go = ObjectBuilder.Get(id);
@@ -363,16 +479,6 @@ namespace Yeeter
             var button = go.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
         }
-        private static void AddEventTriggerEntry(int id, DynValue function, EventTriggerType type)
-        {
-            var go = ObjectBuilder.Get(id);
-            var trigger = go.GetComponent<EventTrigger>();
-            if (trigger == null) trigger = go.AddComponent<EventTrigger>();
-            var entry = new EventTrigger.Entry();
-            entry.eventID = type;
-            entry.callback.AddListener(_ => LuaManager.Call(function));
-            trigger.triggers.Add(entry);
-        }
         public static void AddOnPointerEnter(int id, DynValue function)
         {
             AddEventTriggerEntry(id, function, EventTriggerType.PointerEnter);
@@ -380,20 +486,6 @@ namespace Yeeter
         public static void AddOnPointerExit(int id, DynValue function)
         {
             AddEventTriggerEntry(id, function, EventTriggerType.PointerExit);
-        }
-
-        public static Vector3[] GetWorldCorners(int id)
-        {
-            var go = ObjectBuilder.Get(id);
-            var rectTransform = go.GetComponent<RectTransform>();
-            var corners = new Vector3[4];
-            rectTransform.GetWorldCorners(corners);
-            return corners;
-        }
-
-        public static InputField GetInputField(int id)
-        {
-            return ObjectBuilder.Get(id).GetComponentInChildren<InputField>();
         }
     }
 }

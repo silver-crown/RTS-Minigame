@@ -142,6 +142,55 @@ namespace Yeeter
             return Get(id).transform.position;
         }
         /// <summary>
+        /// Creates a new GameObject with a LuaObjectComponent.
+        /// </summary>
+        /// <param name="type">The LuaObjectComponent type.
+        /// This is the path to the Lua script to use using the rules of the active ScriptLoader.</param>
+        /// <returns>The id of the newly created GameObject.</returns>
+        public static int CreateLuaObject(string type)
+        {
+            var go = Object.Instantiate(new GameObject());
+            go.name = type;
+            int id = (int)AddObject(go).Number;
+            AddLuaObjectComponent(id, type);
+            return id;
+        }
+        /// <summary>
+        /// Adds an externally created GameObject to be accessible through the ObjectBuilder class.
+        /// </summary>
+        /// <param name="gameObject">The GameObject to add.</param>
+        /// <returns>The id created for the GameObject.</returns>
+        public static int AddExternalGameObject(GameObject gameObject)
+        {
+            if (_objects.ContainsValue(gameObject))
+            {
+                return _ids[gameObject];
+            }
+            else
+            {
+                return (int)AddObject(gameObject).Number;
+            }
+        }
+        /// <summary>
+        /// Gets the id of a GameObject.
+        /// </summary>
+        /// <param name="gameObject">The GameObject to get the id of.</param>
+        /// <returns>The id of the GameObject.</returns>
+        public static int GetId(GameObject gameObject)
+        {
+            if (!_ids.ContainsKey(gameObject))
+            {
+                //InGameDebug.Log("GameObject '" + gameObject.name + "' has no id.");
+                return -1;
+            }
+            if (gameObject == null)
+            {
+                _ids.Remove(gameObject);
+                return -1;
+            }
+            return _ids[gameObject];
+        }
+        /// <summary>
         /// Destroys a GameObject with a given id.
         /// </summary>
         /// <param name="id">The id of the GameObject to destroy.</param>
@@ -328,55 +377,6 @@ namespace Yeeter
         public static void DontDestroyOnLoad(int id)
         {
             GameObject.DontDestroyOnLoad(Get(id));
-        }
-        /// <summary>
-        /// Creates a new GameObject with a LuaObjectComponent.
-        /// </summary>
-        /// <param name="type">The LuaObjectComponent type.
-        /// This is the path to the Lua script to use using the rules of the active ScriptLoader.</param>
-        /// <returns>The id of the newly created GameObject.</returns>
-        public static int CreateLuaObject(string type)
-        {
-            var go = Object.Instantiate(new GameObject());
-            go.name = type;
-            int id = (int)AddObject(go).Number;
-            AddLuaObjectComponent(id, type);
-            return id;
-        }
-        /// <summary>
-        /// Adds an externally created GameObject to be accessible through the ObjectBuilder class.
-        /// </summary>
-        /// <param name="gameObject">The GameObject to add.</param>
-        /// <returns>The id created for the GameObject.</returns>
-        public static int AddExternalGameObject(GameObject gameObject)
-        {
-            if (_objects.ContainsValue(gameObject))
-            {
-                return _ids[gameObject];
-            }
-            else
-            {
-                return (int)AddObject(gameObject).Number;
-            }
-        }
-        /// <summary>
-        /// Gets the id of a GameObject.
-        /// </summary>
-        /// <param name="gameObject">The GameObject to get the id of.</param>
-        /// <returns>The id of the GameObject.</returns>
-        public static int GetId(GameObject gameObject)
-        {
-            if (!_ids.ContainsKey(gameObject))
-            {
-                //InGameDebug.Log("GameObject '" + gameObject.name + "' has no id.");
-                return -1;
-            }
-            if (gameObject == null)
-            {
-                _ids.Remove(gameObject);
-                return -1;
-            }
-            return _ids[gameObject];
         }
     }
 }
