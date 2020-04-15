@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using Yeeter;
 
+/// <summary>
+/// A player-controlled actor.
+/// </summary>
 public class Marine : RTS.Actor
 {
     public override void Awake()

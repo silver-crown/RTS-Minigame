@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RTS
 {
+    /// <summary>
+    /// Triggers MouseClickRaycastTargets on click.
+    /// </summary>
     public class MouseClickRaycaster : MonoBehaviour
     {
         private void Update()

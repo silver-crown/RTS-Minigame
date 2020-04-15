@@ -6,14 +6,35 @@ using UnityEngine.Networking;
 
 namespace Yeeter
 {
+    /// <summary>
+    /// Loads audio files.
+    /// </summary>
     public class AudioLoader : MonoBehaviour
     {
+        /// <summary>
+        /// Contains information required to load a sound into the StreamingAssetsDatabase.
+        /// </summary>
         public class AudioMetaData
         {
+            /// <summary>
+            /// The module from which the audio was loaded.
+            /// </summary>
             public Module Mod;
+            /// <summary>
+            /// The audio file path.
+            /// </summary>
             public string Path;
+            /// <summary>
+            /// The audio file's key in the StreamingAssetsDatabase.
+            /// </summary>
             public string Key;
 
+            /// <summary>
+            /// Constructs a new AudioMetaData object.
+            /// </summary>
+            /// <param name="mod">The module from which the audio was loaded.</param>
+            /// <param name="path">The audio file path.</param>
+            /// <param name="key">The audio file's key in the StreamingAssetsDatabase.</param>
             public AudioMetaData(Module mod, string path, string key)
             {
                 Mod = mod;
@@ -21,9 +42,16 @@ namespace Yeeter
                 Key = key;
             }
         }
+
         private int _count;
 
+        /// <summary>
+        /// Maps audio meta data to audio clips.
+        /// </summary>
         public Dictionary<AudioMetaData, AudioClip> Clips { get; private set; }
+        /// <summary>
+        /// Invoked when all audio files are done loading.
+        /// </summary>
         public Action OnLoadingDone { get; set; }
 
         /// <summary>
@@ -37,7 +65,10 @@ namespace Yeeter
             InGameDebug.Log("\tAudioLoader.LoadFiles(): Count = " + _count + ".");
             foreach (var file in files) LoadFile(file);
         }
-
+        /// <summary>
+        /// Loads a file.
+        /// </summary>
+        /// <param name="file">The file to load.</param>
         private void LoadFile(AudioMetaData file)
         {
             if (HasValidExtension(file))
@@ -50,13 +81,21 @@ namespace Yeeter
                 InGameDebug.Log("\t\tAudioLoader: '" + file + "' has invalid extension.");
             }
         }
-
+        /// <summary>
+        /// Checks if a file has a valid extension.
+        /// </summary>
+        /// <param name="file">The file to extension.</param>
+        /// <returns>True if the file has a valid extension, false otherwise.</returns>
         private bool HasValidExtension(AudioMetaData file)
         {
             var extension = Path.GetExtension(file.Path);
             return extension == ".ogg" || extension == ".wav";
         }
-
+        /// <summary>
+        /// Streams an audio file.
+        /// </summary>
+        /// <param name="file">The file to stream.</param>
+        /// <returns></returns>
         private IEnumerator<UnityWebRequestAsyncOperation> StreamFile(AudioMetaData file)
         {
             var path = file.Path.Replace('\\', '/');
@@ -79,7 +118,11 @@ namespace Yeeter
                 }
             }
         }
-
+        /// <summary>
+        /// Gets a file's audio type.
+        /// </summary>
+        /// <param name="file">The file to get the audio type of.</param>
+        /// <returns>The audio type.</returns>
         private AudioType GetAudioType(string file)
         {
             switch (Path.GetExtension(file))

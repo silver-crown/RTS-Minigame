@@ -51,21 +51,12 @@ namespace RTS
 
                     //build that drone
                     DroneStaticMethods.Create(finishedProduct.Type);
-                    
-
-
 
                     Debug.Log("I just finished a drone of type " + finishedProduct.Type + " in " + finishedProduct.BuildTime + " seconds");
                 }
 #endif
             }
         }
-
-        //can instantiate drones
-
-        //on timer
-
-        //has queue
 
         /// <summary>
         /// Order a drone of the specific type to be built.

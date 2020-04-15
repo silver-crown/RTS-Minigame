@@ -1,8 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Acts as a target for MouseClickRaycasters provided that the GameObject it is attached to has a collider.
+/// </summary>
 public class MouseClickRaycastTarget : MonoBehaviour
 {
+    /// <summary>
+    /// The 
+    /// </summary>
     public Action OnClick = null;
 
     private void Awake()
@@ -15,6 +21,9 @@ public class MouseClickRaycastTarget : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Invokes the MouseClickRaycastTarget's OnClick.
+    /// </summary>
     public void Click()
     {
         OnClick?.Invoke();
