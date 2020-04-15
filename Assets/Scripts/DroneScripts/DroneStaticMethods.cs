@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using Yeeter;
 
+using Mirror;
+
 namespace RTS
 {
     /// <summary>
@@ -26,7 +28,7 @@ namespace RTS
             var go = ObjectBuilder.Get(id);
             go.GetComponent<Drone>().Initialize(type, id);
             go.transform.position = position;
-            //NetworkServer.Spawn(go);
+            NetworkServer.Spawn(go);
             return DynValue.NewNumber(id);
         }
 

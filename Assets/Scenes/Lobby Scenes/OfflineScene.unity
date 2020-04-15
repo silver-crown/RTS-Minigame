@@ -294,13 +294,14 @@ MonoBehaviour:
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 5531117861107271381, guid: fe78236740b50d043a096d44c5a2dacd, type: 3}
   showRoomGUI: 1
   minPlayers: 1
   roomPlayerPrefab: {fileID: 93046180469503622, guid: a80ebd8640f3848439578ac91c0d7dca,
     type: 3}
   RoomScene: RoomScene
-  GameplayScene: OnlineScene
+  GameplayScene: GameStartTestScene_Benjamin
   roomSlots: []
   allPlayersReady: 0
 --- !u!114 &606306493
