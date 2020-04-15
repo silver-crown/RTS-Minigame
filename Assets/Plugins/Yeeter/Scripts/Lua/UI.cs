@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace Yeeter
 {
+    /// <summary>
+    /// RectTransform element anchor presets.
+    /// </summary>
     enum AnchorPreset
     {
         TopLeft,
@@ -31,7 +34,9 @@ namespace Yeeter
 
         StretchAll,
     }
-
+    /// <summary>
+    /// RectTransform element pivot presets.
+    /// </summary>
     enum PivotPreset
     {
         TopLeft,
@@ -347,16 +352,33 @@ namespace Yeeter
             transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
             Canvas.ForceUpdateCanvases();
         }
+        /// <summary>
+        /// Sets a UI element's position.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="x">The x component of the position.</param>
+        /// <param name="y">The y component of the position.</param>
         public static void SetPosition(int id, float x, float y)
         {
             var transform = ObjectBuilder.Get(id).GetComponent<RectTransform>();
             transform.anchoredPosition = new Vector2(x, y);
         }
+        /// <summary>
+        /// Sets a UI element's size delta.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="x">The x component of the size delta.</param>
+        /// <param name="y">The y component of the size delta.</param>
         public static void SetSizeDelta(int id, float x, float y)
         {
             var transform = ObjectBuilder.Get(id).GetComponent<RectTransform>();
             transform.sizeDelta = new Vector2(x, y);
         }
+        /// <summary>
+        /// Sets the text of the Text component in a UI element or its children.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="str">The new text of the Text component.</param>
         public static void SetText(int id, string str)
         {
             var go = ObjectBuilder.Get(id);
@@ -370,6 +392,11 @@ namespace Yeeter
                 text.text = str;
             }
         }
+        /// <summary>
+        /// Sets the text alignment of a UI element's text component.
+        /// </summary>
+        /// <param name="id">The GameObject's id.</param>
+        /// <param name="anchor">The new text anchor.</param>
         public static void SetTextAlignment(int id, string anchor)
         {
             var go = ObjectBuilder.Get(id);
@@ -380,12 +407,25 @@ namespace Yeeter
                 text.alignment = result;
             }
         }
+        /// <summary>
+        /// Sets the text of all Text components in a UI element and its children.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="str">The new text of the Text components.</param>
         public static void SetAllTexts(int id, string str)
         {
             var go = ObjectBuilder.Get(id);
             var texts = go.GetComponentsInChildren<Text>();
             foreach (var text in texts) text.text = str;
         }
+        /// <summary>
+        /// Sets the colour of a Text component in a UI element or its children.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="r">The red component of the new text colour.</param>
+        /// <param name="g">The green component of the new text colour.</param>
+        /// <param name="b">The blue component of the new text colour.</param>
+        /// <param name="a">The alpha component of the new text colour.</param>
         public static void SetTextColor(int id, int r, int g, int b, int a)
         {
             var go = ObjectBuilder.Get(id);
@@ -399,6 +439,11 @@ namespace Yeeter
                 text.color = new Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
             }
         }
+        /// <summary>
+        /// Sets the font size of a Text component in a UI element or its children.
+        /// </summary>
+        /// <param name="id">The GameObject's id.</param>
+        /// <param name="size">The new font size.</param>
         public static void SetFontSize(int id, int size)
         {
             var go = ObjectBuilder.Get(id);
@@ -412,7 +457,12 @@ namespace Yeeter
                 text.fontSize = size;
             }
         }
-        public static void SetFont(int id, string fontName)
+        /// <summary>
+        /// Sets the font of a Text component in a UI element or its children.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="path">The path to the font relative to "Resources/Fonts".</param>
+        public static void SetFont(int id, string path)
         {
             var go = ObjectBuilder.Get(id);
             var text = go.GetComponentInChildren<Text>();
@@ -422,9 +472,14 @@ namespace Yeeter
             }
             else
             {
-                text.font = Resources.Load<Font>("Fonts/" + fontName);
+                text.font = Resources.Load<Font>("Fonts/" + path);
             }
         }
+        /// <summary>
+        /// Sets the texture of an Image component in a UI element or its children.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="key">The texture key as it appears in the StreamingAssetsDatabase.</param>
         public static void SetImage(int id, string key)
         {
             var go = ObjectBuilder.Get(id);
@@ -447,6 +502,14 @@ namespace Yeeter
                 );
             }
         }
+        /// <summary>
+        /// Sets the colour of an Image component in a UI element or its children. 
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="r">The red component of the new text colour.</param>
+        /// <param name="g">The green component of the new text colour.</param>
+        /// <param name="b">The blue component of the new text colour.</param>
+        /// <param name="a">The alpha component of the new text colour.</param>
         public static void SetColor(int id, int r, int g, int b, int a = 255)
         {
             var go = ObjectBuilder.Get(id);
@@ -456,16 +519,29 @@ namespace Yeeter
                 image.color = new Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
             }
         }
+        /// <summary>
+        /// Forces canvases to update.
+        /// </summary>
         public static void ForceUpdateCanvases()
         {
             Canvas.ForceUpdateCanvases();
         }
+        /// <summary>
+        /// Adds a onClick listener to a button.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="function">The function to call when the button is clicked.</param>
         public static void AddOnClick(int id, DynValue function)
         {
             var go = ObjectBuilder.Get(id);
             var button = go.GetComponent<Button>();
             button.onClick.AddListener(() => { LuaManager.GlobalScript.Call(function); });
         }
+        /// <summary>
+        /// Sets a button's onClick listener.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="function">The function to call when the button is clicked.</param>
         public static void SetOnClick(int id, DynValue function)
         {
             var go = ObjectBuilder.Get(id);
@@ -473,16 +549,30 @@ namespace Yeeter
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => { LuaManager.GlobalScript.Call(function); });
         }
+        /// <summary>
+        /// Removes all onClick listeners from a button.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
         public static void ClearOnClick(int id)
         {
             var go = ObjectBuilder.Get(id);
             var button = go.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
         }
+        /// <summary>
+        /// Adds a function to be called when the pointer enters a UI element.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="function">The function to call.</param>
         public static void AddOnPointerEnter(int id, DynValue function)
         {
             AddEventTriggerEntry(id, function, EventTriggerType.PointerEnter);
         }
+        /// <summary>
+        /// Adds a function to be called when the pointer exits a UI element.
+        /// </summary>
+        /// <param name="id">The id of the GameObject.</param>
+        /// <param name="function">The function to call.</param>
         public static void AddOnPointerExit(int id, DynValue function)
         {
             AddEventTriggerEntry(id, function, EventTriggerType.PointerExit);
