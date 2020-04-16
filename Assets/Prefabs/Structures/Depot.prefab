@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8885935204863593452}
   - component: {fileID: 1881652316680172484}
-  - component: {fileID: 8419430227242230130}
   m_Layer: 0
   m_Name: Depot
   m_TagString: Untagged
@@ -46,19 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _luaFile: Buildings.Depot
---- !u!114 &8419430227242230130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881565673194240908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e567a0ae0d9c6aa419139562569a02e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Capacity: 200
 --- !u!1001 &5745104143231045524
 PrefabInstance:
   m_ObjectHideFlags: 0

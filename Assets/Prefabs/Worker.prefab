@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 114719967461506966}
   - component: {fileID: 114580399605065290}
   - component: {fileID: 114252051511281778}
+  - component: {fileID: 114931216003186152}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -125,9 +126,11 @@ MonoBehaviour:
   MyFaction: 0
   messageList: []
   group: {fileID: 0}
+  TargetDepot: {fileID: 0}
   myUnit: 0
   killCount: 0
   powerLevel: 0
+  highlight: 0
 --- !u!195 &5531117861107271403
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -198,6 +201,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59f850e45d6191347b256b3ee194dd77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetResourceObject: {fileID: 0}
+--- !u!114 &114931216003186152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5531117861107271381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fcad4ab4696c84bbe649dcb2fdf60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7105153084479403556

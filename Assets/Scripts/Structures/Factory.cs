@@ -28,6 +28,10 @@ namespace RTS
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                BuildQueue.Enqueue(new DroneOrder("Worker", 2.0f));
+            }
             //if there is something in the queue 
             if (BuildQueue.Count != 0)
             {

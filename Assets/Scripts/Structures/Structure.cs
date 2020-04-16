@@ -4,7 +4,7 @@ using MoonSharp.Interpreter;
 namespace RTS
 {
     /// <summary>
-    /// Parent class for types of buildings.
+    /// Parent class for types of buildings. Used for buildings with no exceptional powers (i.e. combat or unit spawning)
     /// </summary>
     public class Structure : MonoBehaviour
     {
