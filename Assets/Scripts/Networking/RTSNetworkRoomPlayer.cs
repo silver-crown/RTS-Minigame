@@ -13,6 +13,8 @@ namespace RTS.Networking
     [AddComponentMenu("")]
     public class RTSNetworkRoomPlayer : NetworkRoomPlayer
     {
+
+
         public override void OnStartClient()
         {
             Debug.Log("Client Started");
