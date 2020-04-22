@@ -10,7 +10,7 @@ using Mirror;
 public class RTSMarineSpawner : NetworkBehaviour 
 {
 
-    int MAX_NUMBER_START_MARINES = 1;
+    int MAX_NUMBER_START_MARINES = 3;
 
     /// <summary>
     /// The prefab of the marine

@@ -8,6 +8,8 @@ TagManager:
   - Crystal
   - Metal
   - Base
+  - MarineUnit
+  - Ground
   layers:
   - Default
   - TransparentFX

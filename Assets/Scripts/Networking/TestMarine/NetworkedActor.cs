@@ -16,8 +16,6 @@ namespace RTS.Networking
     {
         #region Movement and Pathfinding
 
-        bool Walking;
-
         [Header("Movement")]
         public GameObject[] Waypoints;
         public GameObject TargetDestination;
@@ -32,7 +30,7 @@ namespace RTS.Networking
         public virtual void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
-            TargetDestination = GameObject.Find("TestTargetCube");
+            // TargetDestination = GameObject.Find("TestTargetCube");
         }
 
         // Start is called before the first frame update

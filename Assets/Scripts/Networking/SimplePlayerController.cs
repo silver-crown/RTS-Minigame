@@ -18,21 +18,14 @@ namespace RTS.Networking
     /// </summary>
     public class SimplePlayerController : NetworkBehaviour
     {
-
         public NetworkedMarine ActiveMarine;
-
         public Camera cam;
+        public string PlayerUnitTag = "MarineUnit";
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
+        List<NetworkedMarine> SelectedUnits = new List<NetworkedMarine>();
+     
         void Update()
         {
-            // if left click
             if(Input.GetMouseButtonDown(0))
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -40,9 +33,37 @@ namespace RTS.Networking
 
                 if(Physics.Raycast(ray, out hit))
                 {
-                    ActiveMarine.agent.SetDestination(hit.point);
+                    // ActiveMarine.agent.SetDestination(hit.point);
+                    Debug.Log(hit.transform.tag);
+                    if (hit.transform.tag == PlayerUnitTag)
+                    {
+                        SelectUnit(hit.transform.GetComponent<NetworkedMarine>(), Input.GetKey(KeyCode.LeftShift));
+                    }
+                    else if(hit.transform.CompareTag("Ground"))
+                    {
+                        DeSelectUnits();
+                    }
                 }
             }
         }
-    }
+        public void SelectUnit(NetworkedMarine unit, bool multiSelect)
+        {
+            if(!multiSelect)
+            {
+                DeSelectUnits();
+            }
+
+            SelectedUnits.Add(unit);
+            unit.ActiveHighLight();
+        }
+
+        public void DeSelectUnits()
+        {
+            foreach(NetworkedMarine unit in SelectedUnits)
+            {
+                unit.DeActiveateHighLight();
+            }
+            SelectedUnits.Clear();
+        }
+    } 
 }
