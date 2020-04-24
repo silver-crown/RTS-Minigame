@@ -42,6 +42,10 @@ public static class WorldInfo
     /// List of all buildings that can hold resources in the game.
     /// </summary>
     public static List<GameObject> Depots { get; private set; }
+    /// <summary>
+    /// List of all factories in the game
+    /// </summary>
+    public static List<GameObject> Factories { get; private set; }
 
     static WorldInfo()
     {
@@ -53,6 +57,7 @@ public static class WorldInfo
         Marines = new List<GameObject>();
         Resources = new List<GameObject>();
         Depots = new List<GameObject>();
+        Factories = new List<GameObject>();
 
         // Read all drone types.
         var droneFiles = Directory.GetFiles(Path.Combine(Application.streamingAssetsPath, "Lua", "Actors", "Drones"));

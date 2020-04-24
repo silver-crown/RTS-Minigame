@@ -22,14 +22,18 @@ namespace Bbbt
         {
             _inventory = gameObject.GetComponent<Inventory>();
             _drone = gameObject.GetComponent<Drone>();
-            _depot = _drone.TargetDepot.GetComponent<Inventory>();
+            _depot = _drone.CentralIntelligence.GetComponent<Inventory>();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
         {
         }
 
-        //deposit
+        /// <summary>
+        /// Deposit resources to the central storage at the CI
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <returns></returns>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             //Debug.Log("Henlo");

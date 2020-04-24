@@ -7,9 +7,9 @@ using Bbbt;
 namespace ssuai
 {
     /// <summary>
-    /// Central intelligence behavior node for gathering crystal
+    /// Central intelligence behavior node for building a worker
     /// </summary>
-    public class CIBuildDrone : BbbtBehaviour
+    public class CIBuildWorker : BbbtBehaviour
     {
         public override string SaveDataType => throw new System.NotImplementedException();
 
