@@ -26,6 +26,7 @@ namespace RTS.Networking
      
         void Update()
         {
+            // Left click to select marine
             if(Input.GetMouseButtonDown(0))
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -42,6 +43,24 @@ namespace RTS.Networking
                     else if(hit.transform.CompareTag("Ground"))
                     {
                         DeSelectUnits();
+                    }
+                }
+            }
+
+            // Right click moves marine
+            if(Input.GetMouseButtonDown(1) && (SelectedUnits.Count > 0))
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.CompareTag("Ground"))
+                    {
+                        foreach(var marine in SelectedUnits)
+                        {
+                            marine.MoveMarine(hit.point);
+                        }
                     }
                 }
             }

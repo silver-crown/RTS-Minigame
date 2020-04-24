@@ -9,7 +9,6 @@ namespace RTS.Networking
     {
         GameObject highLight;
 
-
         public override void Awake()
         {
             base.Awake();
@@ -28,9 +27,9 @@ namespace RTS.Networking
 
         }
 
-        public void MoveMarine(Vector3 point)
+        public void MoveMarine(Vector3 clickPoint)
         {
-
+            agent.destination = clickPoint;
         }
 
         public void ActiveHighLight()
