@@ -283,7 +283,7 @@ MonoBehaviour:
   runInBackground: 1
   startOnHeadless: 1
   showDebugMessages: 0
-  serverTickRate: 30
+  serverTickRate: 60
   offlineScene: OfflineScene
   onlineScene: RoomScene
   transport: {fileID: 606306491}
@@ -296,12 +296,13 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 5531117861107271381, guid: fe78236740b50d043a096d44c5a2dacd, type: 3}
+  - {fileID: 3197525154506194865, guid: b6e291f4b4519944690d2515be6f1d3c, type: 3}
   showRoomGUI: 1
   minPlayers: 1
   roomPlayerPrefab: {fileID: 93046180469503622, guid: a80ebd8640f3848439578ac91c0d7dca,
     type: 3}
   RoomScene: RoomScene
-  GameplayScene: GameStartTestScene_Benjamin
+  GameplayScene: OnlineScene
   roomSlots: []
   allPlayersReady: 0
 --- !u!114 &606306493
