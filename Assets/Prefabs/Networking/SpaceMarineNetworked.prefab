@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2104928295058915814}
   - component: {fileID: 1282761298709856782}
   - component: {fileID: 8722340761033878659}
-  - component: {fileID: 8405876808890230979}
   m_Layer: 0
   m_Name: HighLight
   m_TagString: Untagged
@@ -78,19 +77,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8405876808890230979
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326727127977793940}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2687422082112368442
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,7 +1878,7 @@ GameObject:
   - component: {fileID: 114871197022456604}
   - component: {fileID: 7768927651901068145}
   - component: {fileID: 195484989259043820}
-  - component: {fileID: 4928018140443633686}
+  - component: {fileID: 7565645885450283880}
   m_Layer: 0
   m_Name: SpaceMarineNetworked
   m_TagString: MarineUnit
@@ -1908,7 +1894,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3197525154506194865}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.505146, y: 1, z: -10.143799}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 3193879636843687159}
@@ -2017,7 +2003,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3197525154506194865}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.15
   m_Speed: 8
   m_Acceleration: 12
   avoidancePriority: 50
@@ -2026,12 +2012,12 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 0.4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &4928018140443633686
-CapsuleCollider:
+--- !u!65 &7565645885450283880
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2040,10 +2026,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &3197529317412159221
 GameObject:
   m_ObjectHideFlags: 0
