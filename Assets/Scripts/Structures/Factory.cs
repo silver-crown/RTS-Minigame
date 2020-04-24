@@ -30,7 +30,7 @@ namespace RTS
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
-                BuildQueue.Enqueue(new DroneOrder("Worker", 2.0f));
+                BuildQueue.Enqueue(new DroneOrder("WorkerDrone", 2.0f));
             }
             //if there is something in the queue 
             if (BuildQueue.Count != 0)
@@ -54,7 +54,7 @@ namespace RTS
                     DroneOrder finishedProduct = BuildQueue.Dequeue();
 
                     //build that drone
-                    DroneStaticMethods.Create(finishedProduct.Type);
+                    DroneStaticMethods.Create(finishedProduct.Type, transform.position.x, transform.position.y, transform.position.z);
 
                     Debug.Log("I just finished a drone of type " + finishedProduct.Type + " in " + finishedProduct.BuildTime + " seconds");
                 }

@@ -28,6 +28,8 @@ public class CentralIntelligence : MonoBehaviour
     [SerializeField] string buildDroneNumberPath;
     [SerializeField] string _constructGroupPath;
 
+    [SerializeField] public GameObject FactoryPrefab { get; private set; }
+
     /// <summary>
     /// All drones under CI's control.
     /// </summary>
@@ -95,7 +97,7 @@ public class CentralIntelligence : MonoBehaviour
 
         var gatherMetal = ScriptableObject.CreateInstance<CIGatherMetal>();
         var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
-        var buildDrone = ScriptableObject.CreateInstance<CIBuildDrone>();
+        var buildDrone = ScriptableObject.CreateInstance<CIBuildWorker>();
         var constructGroup = ScriptableObject.CreateInstance<CIConstructGroup>();
 
         _actions = new List<UtilityAction>();

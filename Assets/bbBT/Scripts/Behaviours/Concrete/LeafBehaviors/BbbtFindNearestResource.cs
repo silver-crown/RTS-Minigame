@@ -21,7 +21,10 @@ namespace Bbbt
         {
             _drone = go.GetComponent<Drone>();
             _miner = go.GetComponent<Miner>();
-            //_miner = go.GetComponent<Miner>();
+            if (_miner == null)
+            {
+                Debug.LogError("Could not find miner component");
+            }
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)

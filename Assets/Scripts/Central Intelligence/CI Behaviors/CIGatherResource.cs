@@ -30,6 +30,7 @@ namespace ssuai
         public void Init(string resourceType)
         {
             _resourceType = resourceType;
+            _ci = FindObjectOfType<CentralIntelligence>();
         }
 
         public override void RemoveChildren()
