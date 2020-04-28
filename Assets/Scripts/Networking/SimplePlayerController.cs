@@ -67,7 +67,7 @@ namespace RTS.Networking
                     {
                         foreach (var marine in SelectedUnits)
                         {
-                            marine.MoveMarine(hit.point);
+                            marine.CmdMoveMarine(hit.point);
                         }
                     }
                 }

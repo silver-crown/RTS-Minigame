@@ -28,8 +28,8 @@ namespace RTS.Networking
 
         }
 
-
-        public void MoveMarine(Vector3 clickPoint)
+        [Command]
+        public void CmdMoveMarine(Vector3 clickPoint)
         {
             agent.destination = clickPoint;
         }
