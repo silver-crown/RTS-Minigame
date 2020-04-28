@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Mirror;
 
 namespace RTS.Networking
 {
@@ -26,6 +27,7 @@ namespace RTS.Networking
         {
 
         }
+
 
         public void MoveMarine(Vector3 clickPoint)
         {

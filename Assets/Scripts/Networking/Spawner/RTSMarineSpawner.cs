@@ -9,7 +9,6 @@ using Mirror;
 /// </summary>
 public class RTSMarineSpawner : NetworkBehaviour 
 {
-
     int MAX_NUMBER_START_MARINES = 3;
 
     /// <summary>
@@ -25,9 +24,9 @@ public class RTSMarineSpawner : NetworkBehaviour
     public List<GameObject> StartingMarineSpawnLocations;
 
     /// <summary>
-    /// When the server starts it spawns the players starting marines
+    /// When the client joins it spawns the players starting marines
     /// </summary>
-    public override void OnStartServer()
+    public override void OnStartClient()
     {
         Debug.Log("Spawn Starting Marines");
 
@@ -40,21 +39,22 @@ public class RTSMarineSpawner : NetworkBehaviour
             {
                 break;
             }
-
-            SpawnMarine(StartingMarineSpawnLocations[i].transform.position);
-
+            CmdSpawnMarine(StartingMarineSpawnLocations[i].transform.position);
         }
     }
 
-    // OnStartClient 
+    public override void OnStartLocalPlayer()
+    {
+        Debug.Log("Marines could have spawned now");
+    }
 
     /// <summary>
     /// Used to spawn new marines
     /// </summary>
-    /// <param name="pos"></param>
-    public void SpawnMarine(Vector3 pos)
+    /// <param name="pos">Position of the map to spawn marine</param>
+    public void CmdSpawnMarine(Vector3 pos)
     {
         GameObject newMarine = Instantiate(MarinePrefab.gameObject, pos, Quaternion.identity);
-        NetworkServer.Spawn(newMarine);
+        NetworkServer.Spawn(newMarine, connectionToClient);
     }
 }

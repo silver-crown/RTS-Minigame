@@ -203,8 +203,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 606306490}
-  - component: {fileID: 606306491}
   - component: {fileID: 606306492}
+  - component: {fileID: 606306491}
   - component: {fileID: 606306493}
   m_Layer: 0
   m_Name: RTSRoomManager

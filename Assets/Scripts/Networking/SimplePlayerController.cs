@@ -23,24 +23,32 @@ namespace RTS.Networking
         public string PlayerUnitTag = "MarineUnit";
 
         List<NetworkedMarine> SelectedUnits = new List<NetworkedMarine>();
-     
+
+
         void Update()
         {
             // Left click to select marine
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
-                if(Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit))
                 {
                     // ActiveMarine.agent.SetDestination(hit.point);
                     Debug.Log(hit.transform.tag);
                     if (hit.transform.tag == PlayerUnitTag)
                     {
-                        SelectUnit(hit.transform.GetComponent<NetworkedMarine>(), Input.GetKey(KeyCode.LeftShift));
+                        if (hit.transform.GetComponent<NetworkedMarine>().netIdentity.hasAuthority)
+                        {
+                            SelectUnit(hit.transform.GetComponent<NetworkedMarine>(), Input.GetKey(KeyCode.LeftShift));
+                        }
+                        else
+                        {
+                            Debug.Log("Not your marine :(");
+                        }
                     }
-                    else if(hit.transform.CompareTag("Ground"))
+                    else if (hit.transform.CompareTag("Ground"))
                     {
                         DeSelectUnits();
                     }
@@ -48,7 +56,7 @@ namespace RTS.Networking
             }
 
             // Right click moves marine
-            if(Input.GetMouseButtonDown(1) && (SelectedUnits.Count > 0))
+            if (Input.GetMouseButtonDown(1) && (SelectedUnits.Count > 0))
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -57,7 +65,7 @@ namespace RTS.Networking
                 {
                     if (hit.transform.CompareTag("Ground"))
                     {
-                        foreach(var marine in SelectedUnits)
+                        foreach (var marine in SelectedUnits)
                         {
                             marine.MoveMarine(hit.point);
                         }
@@ -67,7 +75,7 @@ namespace RTS.Networking
         }
         public void SelectUnit(NetworkedMarine unit, bool multiSelect)
         {
-            if(!multiSelect)
+            if (!multiSelect)
             {
                 DeSelectUnits();
             }
@@ -78,11 +86,12 @@ namespace RTS.Networking
 
         public void DeSelectUnits()
         {
-            foreach(NetworkedMarine unit in SelectedUnits)
+            foreach (NetworkedMarine unit in SelectedUnits)
             {
                 unit.DeActiveateHighLight();
             }
             SelectedUnits.Clear();
         }
-    } 
+    }
+
 }
