@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using Mirror;
 
 /// <summary>
-/// Simple player controller to test Networking with.
+/// Simple player controler to test player networking.
 /// </summary>
 /// 
 namespace RTS.Networking
@@ -18,19 +18,27 @@ namespace RTS.Networking
     /// </summary>
     public class SimplePlayerController : NetworkBehaviour
     {
-        public NetworkedMarine ActiveMarine;
-        public Camera cam;
+        /// <summary>
+        /// The players camera this is where the RayCast will originate from when mouse is clicked.
+        /// </summary>
+        public Camera PlayerCamera;
+
+        /// <summary>
+        /// The tag of the marine unit that is to be selected
+        /// </summary>
         public string PlayerUnitTag = "MarineUnit";
 
+        /// <summary>
+        /// Contains a list of all the selected marines.
+        /// </summary>
         List<NetworkedMarine> SelectedUnits = new List<NetworkedMarine>();
-
 
         void Update()
         {
             // Left click to select marine
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                Ray ray = PlayerCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit))
@@ -58,7 +66,7 @@ namespace RTS.Networking
             // Right click moves marine
             if (Input.GetMouseButtonDown(1) && (SelectedUnits.Count > 0))
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                Ray ray = PlayerCamera.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit))
@@ -73,9 +81,15 @@ namespace RTS.Networking
                 }
             }
         }
-        public void SelectUnit(NetworkedMarine unit, bool multiSelect)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <param name="multiSelectUnis"></param>
+        public void SelectUnit(NetworkedMarine unit, bool multiSelectUnis)
         {
-            if (!multiSelect)
+            if (!multiSelectUnis)
             {
                 DeSelectUnits();
             }
@@ -84,6 +98,9 @@ namespace RTS.Networking
             unit.ActiveHighLight();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void DeSelectUnits()
         {
             foreach (NetworkedMarine unit in SelectedUnits)

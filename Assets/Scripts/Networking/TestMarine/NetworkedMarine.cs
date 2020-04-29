@@ -6,8 +6,15 @@ using Mirror;
 
 namespace RTS.Networking
 {
+    /// <summary>
+    /// Marine class used for prototpying mirror networkin capabilites 
+    /// for RTS game.
+    /// </summary>
     public class NetworkedMarine : NetworkedActor
     {
+        /// <summary>
+        /// The highlight that will be used when unit is selected
+        /// </summary>
         GameObject highLight;
 
         public override void Awake()
@@ -18,7 +25,7 @@ namespace RTS.Networking
 
         // Start is called before the first frame update
         public override void Start()
-        {
+        { 
             base.Start();
         }
 
@@ -28,6 +35,10 @@ namespace RTS.Networking
 
         }
 
+        /// <summary>
+        /// Tells the server to set the navmesh agents target destination.
+        /// </summary>
+        /// <param name="clickPoint">The coordinates of the new target</param>
         [Command]
         public void CmdMoveMarine(Vector3 clickPoint)
         {

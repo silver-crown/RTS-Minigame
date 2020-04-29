@@ -240,8 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  ActiveMarine: {fileID: 0}
-  cam: {fileID: 302059875}
+  PlayerCamera: {fileID: 302059875}
   PlayerUnitTag: MarineUnit
 --- !u!114 &317404427
 MonoBehaviour:
