@@ -302,7 +302,7 @@ MonoBehaviour:
   roomPlayerPrefab: {fileID: 93046180469503622, guid: a80ebd8640f3848439578ac91c0d7dca,
     type: 3}
   RoomScene: RoomScene
-  GameplayScene: OnlineScene
+  GameplayScene: GameStartTestScene_Benjamin
   roomSlots: []
   allPlayersReady: 0
 --- !u!114 &606306493

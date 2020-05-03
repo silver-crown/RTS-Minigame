@@ -43,7 +43,6 @@ namespace RTS.Networking
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    // ActiveMarine.agent.SetDestination(hit.point);
                     Debug.Log(hit.transform.tag);
                     if (hit.transform.tag == PlayerUnitTag)
                     {
@@ -53,7 +52,7 @@ namespace RTS.Networking
                         }
                         else
                         {
-                            Debug.Log("Not your marine :(");
+                            Debug.Log("Not clients marine ");
                         }
                     }
                     else if (hit.transform.CompareTag("Ground"))
