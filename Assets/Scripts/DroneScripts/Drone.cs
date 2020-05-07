@@ -170,12 +170,12 @@ public class Drone : Actor
     /// </summary>
     /// <param name="type">The drone type to set </param>
     /// <param name="id">The drone's id.</param>
-    public void Initialize(string type, int id)
-    {
+    //public void Initialize(string type, int id)
+    //{
         // Why does this method exist? I'll just reroute it to SetType. Did I create this? I don't even know.
         // It doesn't even load behaviour trees properly?
         // - Tired and confused Benjamin
-        SetType(type);
+        //SetType(type);
         /*
         //GetComponent<NavMeshAgent>().
         Type = type;
@@ -188,7 +188,7 @@ public class Drone : Actor
         _luaObject.Load("Actors.Drones." + type);
         string tree = GetValue("_behaviourTree").String;
         */
-    }
+    //}
 
     /// <summary>
     /// Reads the drone's stats from lua.

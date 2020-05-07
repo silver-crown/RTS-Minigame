@@ -49,7 +49,7 @@ namespace Bbbt
                 }
             }
 
-            bestAction?.Behaviour.Invoke();
+            bestAction?.MyAction.Invoke();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)

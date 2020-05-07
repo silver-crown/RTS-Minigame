@@ -14,9 +14,9 @@ local WorkerDrone =
 }
 
 function WorkerDrone:Start(id)
-    ObjectBuilder.AddComponent(id, "Inventory", {capacity = 100})
+    DroneStaticMethods.AddInventoryComponent(id, 100)
+    DroneStaticMethods.AddMinerComponent(id)
     InGameDebug.Log("It's time to work baby!!!")
-
 end
 function WorkerDrone:Update(id)
     if id == nil then

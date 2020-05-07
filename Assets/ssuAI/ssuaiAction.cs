@@ -8,7 +8,7 @@ namespace ssuai
     public class UtilityAction
     {
         protected List<Factor> _factors;
-        public Action Behaviour { get; protected set; }
+        public Action MyAction { get; protected set; }
         private float _utility = 0.0f;
 
 
@@ -16,8 +16,8 @@ namespace ssuai
         /// Initializes the Utility action with the factors that affect its utility and the behavior it executes
         /// </summary>
         /// <param name="factors"></param>
-        /// <param name="behaviour"></param>
-        public UtilityAction(List<Factor> factors, Action behaviour)
+        /// <param name="action"></param>
+        public UtilityAction(List<Factor> factors, Action action)
         {
             foreach (Factor factor in factors)
             {
@@ -28,11 +28,11 @@ namespace ssuai
                 }
             }
             _factors = factors;
-            Behaviour = behaviour;
+            MyAction = action;
         }
 
         //Updates utility to be the average of all its factors utilities
-        private void _updateUtility()
+        private void UpdateUtility()
         {
             //Sum all normalized utility values
             float sum = 0.0f;
@@ -46,7 +46,7 @@ namespace ssuai
 
         public float GetUtility()
         {
-            _updateUtility(); //update the action's utility value
+            UpdateUtility(); //update the action's utility value
             return _utility; //return it
         }
     }

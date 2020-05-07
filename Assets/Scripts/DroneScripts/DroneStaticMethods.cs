@@ -26,7 +26,7 @@ namespace RTS
             var position = new Vector3(x, y, z);
             int id = (int)ObjectBuilder.Instantiate("Drone").Number;
             var go = ObjectBuilder.Get(id);
-            go.GetComponent<Drone>().Initialize(type, id);
+            go.GetComponent<Drone>().SetType(type);
             go.transform.position = position;
             NetworkServer.Spawn(go);
             return DynValue.NewNumber(id);
@@ -49,6 +49,28 @@ namespace RTS
                 table.Set(i, Create(type, x, y, z));
             }
             return table;
+        }
+
+        /// <summary>
+        /// Add an inventory component to the drone with the given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="capacity"></param>
+        public static void AddInventoryComponent(int id, int capacity)
+        {
+            var go = ObjectBuilder.Get(id);
+            go.AddComponent<Inventory>();
+            go.GetComponent<Inventory>().Capacity = capacity;
+        }
+
+        /// <summary>
+        /// Add a miner component to the drone with the given id
+        /// </summary>
+        /// <param name="id"></param>
+        public static void AddMinerComponent(int id)
+        {
+            var go = ObjectBuilder.Get(id);
+            go.AddComponent<Miner>();
         }
     }
 }

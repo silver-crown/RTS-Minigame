@@ -1,18 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bbbt;
 
-public class CIBuildFactory : MonoBehaviour
+namespace ssuai
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CIBuildFactory : BbbtBehaviour
     {
-        
-    }
+        public override string SaveDataType => throw new System.NotImplementedException();
+        private CentralIntelligence _ci;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected override void OnInitialize(GameObject gameObject)
+        {
+
+        }
+
+        protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
+        {
+
+        }
+
+        /// <summary>
+        /// Adds a child to the node.
+        /// </summary>
+        /// <param name="child">The child to add.</param>
+        public override void AddChild(BbbtBehaviour child)
+        {
+
+        }
+
+        /// <summary>
+        /// Removes all of the behaviour's children.
+        /// </summary>
+        public override void RemoveChildren()
+        {
+
+        }
+
+        protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
+        {
+            //Placeholder factory building
+            //find a random position not too far from the CI
+            //build a factory there
+
+            //generate a random direction
+            Vector2 direction = Random.insideUnitCircle.normalized;
+
+            float distance = Random.Range(1, 5);
+
+            Vector3 factoryLocation = _ci.transform.position + ((Vector3)direction * distance);
+
+            Instantiate(_ci.FactoryPrefab, factoryLocation, Quaternion.identity);
+
+
+            return BbbtBehaviourStatus.Success;
+        }
     }
 }

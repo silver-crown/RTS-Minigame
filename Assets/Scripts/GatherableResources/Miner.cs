@@ -23,6 +23,7 @@ namespace RTS
         {
             _worker = GetComponent<Drone>();
             _inventory = GetComponent<Inventory>();
+            Setup(_worker.Type);
         }
 
         /// <summary>
@@ -31,11 +32,10 @@ namespace RTS
         /// <param name="luaFile"></param>
         public void Setup(string luaFile)
         {
-            Script script = new Script();
-            var buildingTable = script.DoFile(luaFile).Table;
-            MiningRange = (float)buildingTable.Get("_miningRange").Number;
-            _miningCooldown = (float)buildingTable.Get("_miningCooldown").Number;
-            _miningDamage = (int)buildingTable.Get("_miningDamage").Number;
+            
+            MiningRange = (float)_worker.GetValue("_miningRange").Number;
+            _miningCooldown = (float)_worker.GetValue("_miningCooldown").Number;
+            _miningDamage = (int)_worker.GetValue("_miningDamage").Number;
         }
 
         /// <summary>

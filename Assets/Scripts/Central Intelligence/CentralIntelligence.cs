@@ -103,11 +103,11 @@ public class CentralIntelligence : MonoBehaviour
         _actions = new List<UtilityAction>();
 
         //set up actions
-        //Gathering metal
+        ///<summary>Gathering Metal</summary>
         _actions.Add(new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Metal", ReadUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherMetal.Tick(gameObject); }));
-        //Gathering crystal
+        ///<summary>Gathering Crystal</summary>
         _actions.Add(new UtilityAction(
             new List<Factor> { new ResourceAmount(this, "Crystal", ReadUtilityFunctionFromFile(gatherAmountScriptPath)) },
             () => { gatherCrystal.Tick(gameObject); }));
@@ -179,7 +179,7 @@ public class CentralIntelligence : MonoBehaviour
             SelectAction();
 
             //tick selected action
-            _selectedAction.Behaviour.Invoke();
+            _selectedAction.MyAction.Invoke();
 
             _timeOfLastAction = Time.time;
         }
