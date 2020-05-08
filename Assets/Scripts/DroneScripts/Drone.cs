@@ -88,6 +88,8 @@ public class Drone : Actor
     {
         base.Awake();
 
+        CentralIntelligence = GameObject.Find("CI").GetComponent<CentralIntelligence>();
+
         if (personalChannelDictionary == null)
         {
             personalChannelDictionary = new Dictionary<string, UnityEvent>();

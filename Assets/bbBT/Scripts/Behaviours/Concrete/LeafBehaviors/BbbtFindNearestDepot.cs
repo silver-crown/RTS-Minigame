@@ -57,6 +57,7 @@ namespace Bbbt
             else
             {
                 //otherwise we're a failure
+                Debug.Log("Could not find depot!");
                 return BbbtBehaviourStatus.Failure;
             }
         }

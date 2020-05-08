@@ -9,51 +9,67 @@
           "Child": {
             "SaveDataType": "BbbtInverter",
             "Child": {
-              "SaveDataType": "BbbtSequencer",
+              "SaveDataType": "BbbtSelector",
               "Children": [
                 {
-                  "SaveDataType": "BbbtFindNearestResource",
-                  "Status": 0,
-                  "NodeId": 5,
-                  "name": "Find Nearest Resource(Clone)",
-                  "hideFlags": 0
-                },
-                {
-                  "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
-                  "Status": 0,
-                  "NodeId": 6,
-                  "name": "Move In Range Of Resource(Clone)",
-                  "hideFlags": 0
-                },
-                {
-                  "SaveDataType": "BbbtRepeatUntilFail",
+                  "SaveDataType": "BbbtInverter",
                   "Child": {
-                    "SaveDataType": "BbbtMineBehaviour",
+                    "SaveDataType": "BbbtFindNearestResource",
                     "Status": 0,
-                    "NodeId": 8,
-                    "name": "Mine(Clone)",
+                    "NodeId": 27,
+                    "name": "Find Nearest Resource(Clone)",
                     "hideFlags": 0
                   },
                   "Status": 0,
-                  "NodeId": 7,
-                  "name": "Repeat Until Fail(Clone)",
+                  "NodeId": 26,
+                  "name": "Inverter(Clone)",
                   "hideFlags": 0
                 },
                 {
-                  "SaveDataType": "BbbtInventoryFullCheck",
+                  "SaveDataType": "BbbtSequencer",
+                  "Children": [
+                    {
+                      "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
+                      "Status": 0,
+                      "NodeId": 6,
+                      "name": "Move In Range Of Resource(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtRepeatUntilFail",
+                      "Child": {
+                        "SaveDataType": "BbbtMineBehaviour",
+                        "Status": 0,
+                        "NodeId": 8,
+                        "name": "Mine(Clone)",
+                        "hideFlags": 0
+                      },
+                      "Status": 0,
+                      "NodeId": 7,
+                      "name": "Repeat Until Fail(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtInventoryFullCheck",
+                      "Status": 0,
+                      "NodeId": 9,
+                      "name": "Inventory Full Check(Clone)",
+                      "hideFlags": 0
+                    }
+                  ],
                   "Status": 0,
-                  "NodeId": 9,
-                  "name": "Inventory Full Check(Clone)",
+                  "NodeId": 12,
+                  "name": "Sequencer(Clone)",
                   "hideFlags": 0
                 }
               ],
               "Status": 0,
-              "NodeId": 12,
-              "name": "Sequencer(Clone)",
+              "NodeId": 24,
+              "name": "Selector(Clone)",
               "hideFlags": 0
             },
             "Status": 0,
-            "NodeId": 13,
+            "NodeId": 23,
             "name": "Inverter(Clone)",
             "hideFlags": 0
           },

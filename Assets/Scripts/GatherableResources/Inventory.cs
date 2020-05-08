@@ -47,8 +47,10 @@ public class Inventory : MonoBehaviour
             //add to the amount we have of it
             _amountInInventory += amountToDeposit;
             Contents[resourceType] += amountToDeposit;
+            Debug.Log(name +":Successfully deposited " + amountToDeposit + " " + resourceType + ", new total is " + Contents[resourceType]);
         } else //if not,
         {
+            Debug.Log(name + ":Did not have resource type " + resourceType);
             //add it to Contents.
             _amountInInventory += amountToDeposit;
             Contents.Add(resourceType, amountToDeposit);
@@ -97,6 +99,22 @@ public class Inventory : MonoBehaviour
     public int GetAvailableSpace()
     {
         return Capacity - _amountInInventory;
+    }
+
+    /// <summary>
+    /// Returns a list with all the keys in the Inventory
+    /// </summary>
+    /// <returns></returns>
+    public List<string> GetKeyList()
+    {
+        List<string> keyList = new List<string>();
+
+        foreach (string key in Contents.Keys)
+        {
+            keyList.Add(key);
+        }
+
+        return keyList;
     }
 
     public override string ToString()

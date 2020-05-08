@@ -37,24 +37,24 @@ namespace Bbbt
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             //Debug.Log("Henlo");
-
+            Debug.Log(_drone.TargetResourceType);
             string typeToDeposit = _drone.TargetResourceType;
             //Withdraw all items in our inventory of our current target resource type, and put them in the depot's inventory.
-            int amountToDeposit = _inventory.Withdraw(typeToDeposit, _inventory.Contents[typeToDeposit]);
-            int remainder = amountToDeposit - _depot.Deposit(typeToDeposit, amountToDeposit);
 
-           
-            //Debug.Log(amountToDeposit + " " + remainder);
+            List<string> typeList = _inventory.GetKeyList();
+            foreach(string type in typeList)
+            {
+                int amountToDeposit = _inventory.Withdraw(type, _inventory.Contents[typeToDeposit]);
+                int remainder = amountToDeposit - _depot.Deposit(typeToDeposit, amountToDeposit);
 
+                //if we couldn't deposit all of it, return failure
+                if (remainder != 0)
+                {
+                    return BbbtBehaviourStatus.Failure;
+                }
+            }
             //if there's nothing left over, we succeeded.
-            if (remainder == 0)
-            {
-                return BbbtBehaviourStatus.Success;
-            }
-            else
-            {
-                return BbbtBehaviourStatus.Failure;
-            }
+                return BbbtBehaviourStatus.Success;               
         }
     }
 }

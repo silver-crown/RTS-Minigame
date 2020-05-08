@@ -35,8 +35,8 @@ namespace ssuai {
             //TODO make this not a placeholder function
             CentralIntelligence CI = gameObject.GetComponent<CentralIntelligence>();
 
-            CI.TestGatherMetal();
-            Debug.Log("Gathering metal, new total: " + CI.Inventory.Contents["Metal"]);
+            //CI.TestGatherMetal();
+            //Debug.Log("Gathering metal, new total: " + CI.Inventory.Contents["Metal"]);
 
             return BbbtBehaviourStatus.Success;
         }
