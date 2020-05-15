@@ -24,6 +24,7 @@ namespace RTS
         {
             BuildQueue = new Queue<DroneOrder>();
             _currentlyBuilding = false;
+            WorldInfo.Factories.Add(this.gameObject);
         }
 
         private void Update()

@@ -27,8 +27,9 @@ public class CentralIntelligence : MonoBehaviour
     [Tooltip("equivalent for buildWorkerNumber")]
     [SerializeField] string buildDroneNumberPath;
     [SerializeField] string _constructGroupPath;
+    [SerializeField] string _buildFactoryNumber;
 
-    [SerializeField] public GameObject FactoryPrefab { get; private set; }
+    [SerializeField] public GameObject FactoryPrefab;
 
     /// <summary>
     /// All drones under CI's control.
@@ -99,6 +100,7 @@ public class CentralIntelligence : MonoBehaviour
         var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
         var buildDrone = ScriptableObject.CreateInstance<CIBuildWorker>();
         var constructGroup = ScriptableObject.CreateInstance<CIConstructGroup>();
+        var buildFactory = ScriptableObject.CreateInstance<CIBuildFactory>();
 
         _actions = new List<UtilityAction>();
 
@@ -128,6 +130,10 @@ public class CentralIntelligence : MonoBehaviour
         _actions.Add(new UtilityAction(
             new List<Factor> { new NeedScoutGroup(this, ReadUtilityFunctionFromFile(_constructGroupPath)) },
             () => { constructGroup.Tick(gameObject); }));
+        ///<summary>Need Factory</summary>
+        _actions.Add(new UtilityAction(
+            new List<Factor> { new FactoryNumber(this, ReadUtilityFunctionFromFile(_buildFactoryNumber)) },
+            () => { buildFactory.Tick(gameObject); }));
     }
 
     private void Start()

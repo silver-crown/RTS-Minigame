@@ -12,7 +12,7 @@ namespace ssuai
 
         protected override void OnInitialize(GameObject gameObject)
         {
-
+            _ci = GameObject.Find("CI").GetComponent<CentralIntelligence>();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
@@ -46,10 +46,12 @@ namespace ssuai
             //generate a random direction
             Vector2 direction = Random.insideUnitCircle.normalized;
 
-            float distance = Random.Range(1, 5);
+            float distance = Random.Range(5, 10);
 
             Vector3 factoryLocation = _ci.transform.position + ((Vector3)direction * distance);
 
+            factoryLocation.y = 0;
+            
             Instantiate(_ci.FactoryPrefab, factoryLocation, Quaternion.identity);
 
 

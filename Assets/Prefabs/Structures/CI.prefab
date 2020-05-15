@@ -131,6 +131,7 @@ MonoBehaviour:
   gatherAmountScriptPath: CI/Factors/GatherResourceAmount
   buildDroneNumberPath: CI/Factors/BuildDroneNumber
   _constructGroupPath: CI/Factors/NeedGroupPercentage
+  _buildFactoryNumber: CI/Factors/NeedGroupPercentage
 --- !u!114 &280911422433814950
 MonoBehaviour:
   m_ObjectHideFlags: 0
