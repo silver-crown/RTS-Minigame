@@ -11,6 +11,7 @@ namespace ssuai
     /// </summary>
     public class CIBuildWorker : BbbtBehaviour
     {
+        private CentralIntelligence _ci; 
         public override string SaveDataType => throw new System.NotImplementedException();
 
         public override void AddChild(BbbtBehaviour child)
@@ -25,7 +26,7 @@ namespace ssuai
 
         protected override void OnInitialize(GameObject gameObject)
         {
-            
+            _ci = gameObject.GetComponent<CentralIntelligence>();
         }
 
         protected override void OnTerminate(GameObject gameObject, BbbtBehaviourStatus status)
@@ -35,10 +36,8 @@ namespace ssuai
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            //TODO make this not a placeholder function
-            CentralIntelligence CI = gameObject.GetComponent<CentralIntelligence>();
-
-            CI.TestBuildDrone();
+            //pay the resource cost of the worker
+            //tell the factory to enqueue a worker
 
             return BbbtBehaviourStatus.Success;
         }

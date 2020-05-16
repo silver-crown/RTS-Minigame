@@ -10,7 +10,9 @@ local WorkerDrone =
     _miningRange 		= 5.0,
     _miningCooldown 	= 3.0,
     _miningDamage		= 5,
-    _inventorySpace     = 50
+    _inventorySpace     = 50,
+    _metalCost 			= 20,
+    _crystalCost 		= 5
 }
 
 function WorkerDrone:Start(id)
