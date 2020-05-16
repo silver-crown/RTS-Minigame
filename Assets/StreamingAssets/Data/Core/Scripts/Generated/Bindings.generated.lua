@@ -153,7 +153,6 @@ Drone.Start = function() end
 Drone.Update = function() end
 Drone.Attack = function() end
 Drone.SetType = function(type__String) end
-Drone.ReceiveMessage = function(message__String) end
 Drone.SetTargetDepot = function(target__GameObject) end
 Drone.CalculatePowerLevel = function() end
 Drone.Create = function(type__String, x__Single, y__Single, z__Single) end

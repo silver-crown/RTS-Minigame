@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 280911422433814955}
   - component: {fileID: 280911422433814956}
   - component: {fileID: 280911422433814957}
-  - component: {fileID: 280911422433814953}
   - component: {fileID: 280911422433814952}
   - component: {fileID: 280911422433814950}
   - component: {fileID: 280911422433814951}
+  - component: {fileID: 114276636015385562}
+  - component: {fileID: 114239978555287428}
   m_Layer: 0
   m_Name: CI
   m_TagString: Untagged
@@ -95,23 +96,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &280911422433814953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280911422433814958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e28b9edf917c5b4da496eb312b74cf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dronePrefab: {fileID: 5531117861107271381, guid: 46a90bc59f4f82b47bc2c144d12ec054,
-    type: 3}
-  _timeBetweenSpawns: 2
-  _radius: 20
-  _doNotSpawn: 1
 --- !u!114 &280911422433814952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +116,7 @@ MonoBehaviour:
   buildDroneNumberPath: CI/Factors/BuildDroneNumber
   _constructGroupPath: CI/Factors/NeedGroupPercentage
   _buildFactoryNumber: CI/Factors/NeedGroupPercentage
+  FactoryPrefab: {fileID: 0}
 --- !u!114 &280911422433814950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,3 +143,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _luaFile: Buildings.CI
+--- !u!114 &114276636015385562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280911422433814958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31e1d1084782f8949a7a9c3f9f0cd92f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _channel: 0
+  sending: 0
+--- !u!114 &114239978555287428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280911422433814958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6699a6f7dba0a3a47b44552e0dc7e26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _drone: {fileID: 0}
+  listening: 0
+  _channel: 0
+  _message: 

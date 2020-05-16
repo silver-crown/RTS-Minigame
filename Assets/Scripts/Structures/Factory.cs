@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yeeter;
+using MoonSharp.Interpreter;
 
 namespace RTS
 {
@@ -18,20 +20,35 @@ namespace RTS
         private bool _currentlyBuilding;
 
         private CentralIntelligence _ci;
+        private ListenToChannel _listenToChannel;
+
 
 
         private void Start()
         {
+            _listenToChannel = gameObject.GetComponent<ListenToChannel>();
+            _ci = GameObject.Find("CI").GetComponent<CentralIntelligence>();
+
             BuildQueue = new Queue<DroneOrder>();
             _currentlyBuilding = false;
             WorldInfo.Factories.Add(this.gameObject);
+            
+            Debug.Log(_listenToChannel);
+            _listenToChannel.MessageReceived += OnOrderReceived;
         }
+
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
-                BuildQueue.Enqueue(new DroneOrder("WorkerDrone", 2.0f));
+                Script droneScript = new Script();
+                Table table;
+                table = droneScript.DoFile("Actors.Drones.WorkerDrone").Table;
+
+                Debug.Log(table.Get("_name"));
+                //build a drone of the ordered type
+                _orderDrone("WorkerDrone", (float)table.Get("_buildTime").Number);
             }
             //if there is something in the queue 
             if (BuildQueue.Count != 0)
@@ -64,10 +81,29 @@ namespace RTS
         }
 
         /// <summary>
+        /// When an order is received, build a drone of that type
+        /// </summary>
+        /// <param name="message"></param>
+        public void OnOrderReceived()
+        {
+            //split up the message
+            string[] splitMessage = _listenToChannel.GetLastMessage().Split(' ');
+            string droneType = splitMessage[splitMessage.Length - 1];
+
+            Script droneScript = new Script();
+            Table table;
+            table = droneScript.DoFile("Actors.Drones."+droneType).Table;
+
+            Debug.Log(table.Get("_name"));
+            //build a drone of the ordered type
+            _orderDrone(droneType, (float)table.Get("_buildTime").Number);
+        }
+
+        /// <summary>
         /// Order a drone of the specific type to be built.
         /// </summary>
         /// <param name="droneType"></param>
-        void OrderDrone(string droneType, float buildTime)
+        private void _orderDrone(string droneType, float buildTime)
         {
             BuildQueue.Enqueue(new DroneOrder(droneType, buildTime));
         }

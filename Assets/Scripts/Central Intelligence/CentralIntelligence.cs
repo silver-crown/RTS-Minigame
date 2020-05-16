@@ -158,14 +158,7 @@ public class CentralIntelligence : MonoBehaviour
         Debug.Log("Central Intelligence: Adding starting drones...", this);
         Script dronesStartDefault = new Script();
         var dronesStart = dronesStartDefault.DoFile("Setup.DronesStartDefault").Table;
-        foreach (var type in dronesStart.Get("_drones").Table.Pairs)
-        {
-            int count = (int)type.Value.Number;
-            for (int i = 0; i < count; i++)
-            {
-                GetComponent<DroneTestFactory>().BuildDroneForFree(type.Key.String);
-            }
-        }
+        
         Debug.Log("Central Intelligence: Adding starting resources...", this);
         foreach (var type in dronesStart.Get("_resources").Table.Pairs)
         {
@@ -455,7 +448,7 @@ public class CentralIntelligence : MonoBehaviour
         Drones[0].gameObject.AddComponent<GroupLeader>().groupID = ++lastGroupID;
         Drones[0].leaderStatus = true;
         Drones[0].gameObject.AddComponent<ListenToChannel>();
-        Drones[0].gameObject.GetComponent<ListenToChannel>().init(EventManager.MessageChannel.groupChannel);
+        Drones[0].gameObject.GetComponent<ListenToChannel>().Init(EventManager.MessageChannel.groupChannel);
         ///<summary>Assign the members of the test group </summary>
         for(int i = 0; i <= MaxGroupSize; i++) 
         {

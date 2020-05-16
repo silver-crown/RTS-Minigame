@@ -19,23 +19,6 @@ public class Drone : Actor
     private static int _nextId = 0;
 
     /// <summary>
-    /// Each channel needs to store their own messages on dictionaries
-    /// </summary>
-    public Dictionary<string, UnityEvent> personalChannelDictionary;
-
-    ///<summary>
-    ///List of all the messages the drone will me listening after
-    /// </summary>
-    public List<string> messageList = new List<string>();
-
-    /// <summary>
-    /// String used for listening to messages contained in the message list
-    /// </summary>
-    string[] message;
-
-    int lastMessage;
-
-    /// <summary>
     /// Drone Group and it's ID
     /// </summary>
     [System.NonSerialized] public int groupID;
@@ -89,11 +72,6 @@ public class Drone : Actor
         base.Awake();
 
         CentralIntelligence = GameObject.Find("CI").GetComponent<CentralIntelligence>();
-
-        if (personalChannelDictionary == null)
-        {
-            personalChannelDictionary = new Dictionary<string, UnityEvent>();
-        }
 
         ID = _nextId++;
     }
@@ -218,17 +196,6 @@ public class Drone : Actor
 
         InGameDebug.Log(Type + " boy reporting for duty.");
         name = ObjectBuilder.GetId(gameObject) + "_" + type;
-    }
-
-
-    /// <summary>
-    /// Add message to the message list. 
-    /// </summary>
-    /// <param name="message">Message that was received</param>
-    public void ReceiveMessage(string message)
-    {
-        //add the received message to the list of messages, for use in other functions later.
-        messageList.Add(message);
     }
 
 

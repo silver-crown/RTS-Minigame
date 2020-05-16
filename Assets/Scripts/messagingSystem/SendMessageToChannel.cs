@@ -15,8 +15,7 @@ public class SendMessageToChannel : EventManager
             _message = "Test message";
         }
     }
-
-
+    
     void Update()
     {
         if (sending)

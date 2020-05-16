@@ -19,7 +19,7 @@ public class EventManager : MonoBehaviour
     protected static Dictionary<string, UnityEvent> _scoutChannelDictionary;
     protected static Dictionary<string, UnityEvent> _tankChannelDictionary;
     protected static Dictionary<string, UnityEvent> _CIChannelDictionary;
-    protected static List<Dictionary<string, UnityEvent>> _privateChannelList;
+    protected static List<Dictionary<string, UnityEvent>> _privateChannels;
     protected static List<Dictionary<string, UnityEvent>> _groupChannelList;
     private static EventManager _eventManager;
 
@@ -43,7 +43,7 @@ public class EventManager : MonoBehaviour
     }
 
     //Initialize the dictionaries for the eventManager
-    void Start()
+    void Awake()
     {
         Debug.Log("Initializing Event Manager");
         if(_globalChannelDictionary == null)
@@ -62,10 +62,7 @@ public class EventManager : MonoBehaviour
         {
             _tankChannelDictionary = new Dictionary<string, UnityEvent>();
         }
-        if(_privateChannelList == null)
-        {
-            _privateChannelList = new List<Dictionary<string, UnityEvent>>();
-        }
+            _privateChannels = new List<Dictionary<string, UnityEvent>>();
     }
 
     //Make the listener start listening
@@ -106,7 +103,7 @@ public class EventManager : MonoBehaviour
                 {
 
                     //If there's an event like this in the dictionary, add the listener
-                    if (_privateChannelList[ID].TryGetValue(eventName, out thisEvent))
+                    if (_privateChannels[ID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.AddListener(listener);
                     }
@@ -115,7 +112,7 @@ public class EventManager : MonoBehaviour
                     {
                         thisEvent = new UnityEvent();
                         thisEvent.AddListener(listener);
-                        _privateChannelList[ID].Add(eventName, thisEvent);
+                        _privateChannels[ID].Add(eventName, thisEvent);
                     }
                 }
                 else
@@ -239,7 +236,7 @@ public class EventManager : MonoBehaviour
                 if(droneID > noID)
                 {
                     //if there's an event with this id in the dictionary, remove the listener
-                    if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (_privateChannels[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.RemoveListener(listener);
                     }
@@ -294,7 +291,7 @@ public class EventManager : MonoBehaviour
             case (MessageChannel.privateChannel):
                 if (droneID >= noID)
                 {
-                    if (_privateChannelList[droneID].TryGetValue(eventName, out thisEvent))
+                    if (_privateChannels[droneID].TryGetValue(eventName, out thisEvent))
                     {
                         thisEvent.Invoke();
                     }
@@ -327,7 +324,7 @@ public class EventManager : MonoBehaviour
     protected static void AddPrivateChannel(Dictionary<string, UnityEvent> channel)
     {
         Debug.Log("adding a private channel to the list");
-        _privateChannelList.Add(channel);
+        _privateChannels.Add(channel);
     }
 
     /// <summary>
@@ -337,6 +334,6 @@ public class EventManager : MonoBehaviour
     protected static void RemovePrivateChannel(Dictionary<string, UnityEvent> channel)
     {
         Debug.Log("removing a private channel from the list");
-        _privateChannelList.Remove(channel);
+        _privateChannels.Remove(channel);
     }
 }

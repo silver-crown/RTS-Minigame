@@ -1,4 +1,5 @@
 return
 {
-    _hp = 200
+    _hp = 200,
+    _maxHP = 200
 }

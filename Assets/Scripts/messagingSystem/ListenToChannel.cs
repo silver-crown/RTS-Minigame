@@ -7,31 +7,51 @@ using Yeeter;
 
 public class ListenToChannel : EventManager
 {
-    [SerializeField]private Drone _drone;
+    [SerializeField] private Drone _drone;
     [SerializeField] bool listening;
     [SerializeField] MessageChannel _channel;
     [SerializeField] private string _message;
 
     private int _lastMessage;
 
-    public void init(EventManager.MessageChannel channel) 
+    public Action MessageReceived;
+
+    ///<summary>
+    ///List of all the messages the entity will me listening after
+    /// </summary>
+    private List<string> _messageList = new List<string>();
+
+    /// <summary>
+    /// String used for listening to messages contained in the message list
+    /// </summary>
+    private string[] message;
+
+
+    /// <summary>
+    /// Each channel needs to store their own messages on dictionaries
+    /// </summary>
+    private Dictionary<string, UnityEvent> _personalChannels;
+
+    public void Init(EventManager.MessageChannel channel)
     {
-        if (GetComponent<Drone>() != null) {
-            _drone = GetComponent<Drone>();
-        }
+
+        _drone = GetComponent<Drone>();
         _channel = channel;
     }
 
     void Start()
     {
-        if (GetComponent<Drone>() != null) {
-            _drone = GetComponent<Drone>();
+        _personalChannels = new Dictionary<string, UnityEvent>();
+
+        Debug.Log(_privateChannels);
+        Debug.Log(_personalChannels);
+        ///<summary>if the entity's channel isn't in the list, add it there</summary>
+        if (!_privateChannels.Contains(_personalChannels))
+        {
+            AddPrivateChannel(_personalChannels);
         }
-        ///<summary>if the drone's channel isn't in the list, add it there</summary>
-        if (!_privateChannelList.Contains(_drone.personalChannelDictionary)) {
-            AddPrivateChannel(_drone.personalChannelDictionary);
-        }
-        if (_message == null) {
+        if (_message == null)
+        {
             _message = "Test message";
         }
     }
@@ -42,35 +62,35 @@ public class ListenToChannel : EventManager
     public void ListenToMessage(string message)
     {
         ///<summary>If you haven't gone through this method once, thus not listening for anything</summary>
-        if (!listening) 
+        if (!listening)
         {
             _message = message;
-            //if it's a message meant for individual drones
-            if (MessageList().Contains(_message)) 
+            //if it's a message meant for an individual
+            if (MessageList().Contains(_message))
             {
                 EventManager.MessageChannel global = EventManager.MessageChannel.globalChannel;
-                for (int i = 0; i <= _drone.messageList.Count; i++)
+                for (int i = 0; i <= _messageList.Count; i++)
                 {
                     //Listen in on the global channel
-                    StartListening(_drone.messageList[i], () => { _drone.ReceiveMessage(_message); }, global);
+                    StartListening(_messageList[i], () => { ReceiveMessage(_message); }, global);
 
                     //listen in on the private channel
-                    if (_channel == EventManager.MessageChannel.privateChannel) 
+                    if (_channel == EventManager.MessageChannel.privateChannel)
                     {
-                        StartListening(_drone.messageList[i], () => { _drone.ReceiveMessage(_message); }, _channel, _drone.ID);
+                        StartListening(_messageList[i], () => { ReceiveMessage(_message); }, _channel, _drone.ID);
                     }
                     //Listen without any ID on a channel
-                    else 
+                    else
                     {
-                        StartListening(_drone.messageList[i], () => { _drone.ReceiveMessage(_message); }, _channel);
+                        StartListening(_messageList[i], () => { ReceiveMessage(_message); }, _channel);
                     }
                 }
             }
-            //if it's a message meant for groups
-            else if (GroupMessageList().Contains(_message)) 
+            //if it's a message meant for a group
+            else if (GroupMessageList().Contains(_message))
             {
                 //Check if the drone is a leader
-                if (_drone.leaderStatus) 
+                if (_drone.leaderStatus)
                 {
                     ///<summary>For every message the leader can listen to</summary>
                     for (int i = 0; i <= GroupMessageList().Count; i++)
@@ -81,13 +101,32 @@ public class ListenToChannel : EventManager
                         StartListening(_message, () => { _drone.GetComponent<GroupLeader>().groupMessageList.Add(_message); }, EventManager.MessageChannel.groupChannel, _drone.groupID);
                     }
                 }
-                else 
+                else
                 {
                     InGameDebug.Log("Error: this drone is not a leader, don't send him this message!");
                 }
             }
         }
         listening = true;
+    }
+
+    /// <summary>
+    /// Gets the most recent message from the message list
+    /// </summary>
+    /// <returns></returns>
+    public string GetLastMessage()
+    {
+        return _messageList[_messageList.Count - 1];
+    }
+    /// <summary>
+    /// Add message to the message list. 
+    /// </summary>
+    /// <param name="message">Message that was received</param>
+    public void ReceiveMessage(string message)
+    {
+        //add the received message to the list of messages, for use in other functions later.
+        _messageList.Add(message);
+        MessageReceived?.Invoke();
     }
 
     /// <summary>
