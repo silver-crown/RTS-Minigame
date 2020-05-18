@@ -132,7 +132,6 @@ public class Drone : Actor
                 }
             }
         }
-        GotAMessage();
     }
 
     /// <summary>
@@ -223,25 +222,6 @@ public class Drone : Actor
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(transform.position, 1);
-        }
-    }
-
-    /// <summary>
-    /// What should be done when a certain message is received
-    /// </summary>
-    void GotAMessage() {
-        ///<summary>Check the newest message</summary>
-        switch (GetComponent<ListenToChannel>().GetLastMessage()) 
-        {
-            case ("Mine Crystal"):
-                gameObject.GetComponent<RTS.Miner>().MineOrder("Crystal");
-                break;
-            case ("Mine Metal"):
-                gameObject.GetComponent<RTS.Miner>().MineOrder("Metal");
-                break;
-            default:
-                Debug.Log("This message doesn't do anything");
-                break;
         }
     }
 }

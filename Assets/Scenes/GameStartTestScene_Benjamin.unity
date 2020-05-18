@@ -5361,11 +5361,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114239978555287428, guid: 78dc3f4d546d06840b30b194834574c4,
-        type: 3}
-      propertyPath: _channel
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 280911422433814952, guid: 78dc3f4d546d06840b30b194834574c4,
         type: 3}
       propertyPath: gatherAmountScriptPath
