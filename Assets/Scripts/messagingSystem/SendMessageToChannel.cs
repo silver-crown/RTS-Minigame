@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SendMessageToChannel : EventManager
 {
-    [SerializeField] private EventManager.MessageChannel _channel;
+    [SerializeField] private MessageChannel _channel;
     private string _message;
     [SerializeField] bool sending;
 

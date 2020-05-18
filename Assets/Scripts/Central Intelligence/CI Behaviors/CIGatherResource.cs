@@ -62,6 +62,18 @@ namespace ssuai
                         Debug.Log("Assigned worker.");
                         //tell them to gather the resource
                         //TODO This should use the messaging system.
+                        switch (_resourceType) {
+                            case("Metal"):
+                                gameObject.GetComponent<SendMessageToChannel>().Send("Mine Metal", EventManager.MessageChannel.privateChannel, drone.ID);
+                                break;
+                            case ("Crystal"):
+                                gameObject.GetComponent<SendMessageToChannel>().Send("Mine Crystal", EventManager.MessageChannel.privateChannel, drone.ID);
+                                break;
+                            default:
+                                Debug.Log("Not a valid resource sting!");
+                                break;
+
+                        }
                         drone.gameObject.GetComponent<RTS.Miner>().MineOrder(_resourceType);
                         return BbbtBehaviourStatus.Success;
                     } 

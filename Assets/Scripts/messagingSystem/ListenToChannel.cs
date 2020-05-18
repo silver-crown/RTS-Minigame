@@ -8,7 +8,7 @@ using Yeeter;
 public class ListenToChannel : EventManager
 {
     [SerializeField] private Drone _drone;
-    [SerializeField] bool listening;
+    [SerializeField] bool _listening;
     [SerializeField] MessageChannel _channel;
     [SerializeField] private string _message;
 
@@ -60,7 +60,7 @@ public class ListenToChannel : EventManager
     public void ListenToMessage(string message)
     {
         ///<summary>If you haven't gone through this method once, thus not listening for anything</summary>
-        if (!listening)
+        if (!_listening)
         {
             _message = message;
             //if it's a message meant for an individual
@@ -105,7 +105,7 @@ public class ListenToChannel : EventManager
                 }
             }
         }
-        listening = true;
+        _listening = true;
     }
 
     /// <summary>
@@ -139,6 +139,8 @@ public class ListenToChannel : EventManager
         messages[i++] = "Flanking Assault Behind";
         messages[i++] = "Flanking Assault Right";
         messages[i++] = "Flanking Assault Left";
+        messages[i++] = "Mine Crystal";
+        messages[i++] = "Mine Metal";
         return messages;
     }
     /// <summary>
