@@ -50,10 +50,26 @@
                       "hideFlags": 0
                     },
                     {
-                      "SaveDataType": "BbbtInventoryFullCheck",
+                      "SaveDataType": "BbbtSelector",
+                      "Children": [
+                        {
+                          "SaveDataType": "BbbtCIOutOfResourceCheck",
+                          "Status": 0,
+                          "NodeId": 29,
+                          "name": "CI Out Of Resource Check(Clone)",
+                          "hideFlags": 0
+                        },
+                        {
+                          "SaveDataType": "BbbtInventoryFullCheck",
+                          "Status": 0,
+                          "NodeId": 30,
+                          "name": "Inventory Full Check(Clone)",
+                          "hideFlags": 0
+                        }
+                      ],
                       "Status": 0,
-                      "NodeId": 9,
-                      "name": "Inventory Full Check(Clone)",
+                      "NodeId": 28,
+                      "name": "Selector(Clone)",
                       "hideFlags": 0
                     }
                   ],

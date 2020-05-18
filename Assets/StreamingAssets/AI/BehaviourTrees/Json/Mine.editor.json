@@ -1,26 +1,9 @@
 {
   "Nodes": [
     {
-      "Id": 18,
-      "BaseBehaviour": "Behaviour Tree Caller",
-      "BaseBehaviourInstanceId": 8216,
-      "Behaviour": {
-        "_behaviourTreeName": "DumpInventory",
-        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
-        "BehaviourTree": null,
-        "Status": 0,
-        "NodeId": 18,
-        "name": "Behaviour Tree Caller(Clone)",
-        "hideFlags": 0
-      },
-      "X": 1048.0,
-      "Y": 60.0,
-      "IsSelected": false
-    },
-    {
       "Id": 24,
       "BaseBehaviour": "Selector",
-      "BaseBehaviourInstanceId": 11186,
+      "BaseBehaviourInstanceId": 19346,
       "Behaviour": {
         "SaveDataType": "BbbtSelector",
         "Children": [
@@ -63,10 +46,26 @@
                 "hideFlags": 0
               },
               {
-                "SaveDataType": "BbbtInventoryFullCheck",
+                "SaveDataType": "BbbtSelector",
+                "Children": [
+                  {
+                    "SaveDataType": "BbbtCIOutOfResourceCheck",
+                    "Status": 0,
+                    "NodeId": 29,
+                    "name": "CI Out Of Resource Check(Clone)",
+                    "hideFlags": 0
+                  },
+                  {
+                    "SaveDataType": "BbbtInventoryFullCheck",
+                    "Status": 0,
+                    "NodeId": 30,
+                    "name": "Inventory Full Check(Clone)",
+                    "hideFlags": 0
+                  }
+                ],
                 "Status": 0,
-                "NodeId": 9,
-                "name": "Inventory Full Check(Clone)",
+                "NodeId": 28,
+                "name": "Selector(Clone)",
                 "hideFlags": 0
               }
             ],
@@ -81,14 +80,14 @@
         "name": "Selector(Clone)",
         "hideFlags": 0
       },
-      "X": 456.0,
-      "Y": 202.0,
+      "X": 271.0,
+      "Y": 728.0,
       "IsSelected": false
     },
     {
       "Id": 12,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 9768,
+      "BaseBehaviourInstanceId": 17928,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -114,10 +113,26 @@
             "hideFlags": 0
           },
           {
-            "SaveDataType": "BbbtInventoryFullCheck",
+            "SaveDataType": "BbbtSelector",
+            "Children": [
+              {
+                "SaveDataType": "BbbtCIOutOfResourceCheck",
+                "Status": 0,
+                "NodeId": 29,
+                "name": "CI Out Of Resource Check(Clone)",
+                "hideFlags": 0
+              },
+              {
+                "SaveDataType": "BbbtInventoryFullCheck",
+                "Status": 0,
+                "NodeId": 30,
+                "name": "Inventory Full Check(Clone)",
+                "hideFlags": 0
+              }
+            ],
             "Status": 0,
-            "NodeId": 9,
-            "name": "Inventory Full Check(Clone)",
+            "NodeId": 28,
+            "name": "Selector(Clone)",
             "hideFlags": 0
           }
         ],
@@ -126,14 +141,14 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 602.0,
-      "Y": 314.0,
+      "X": 417.0,
+      "Y": 840.0,
       "IsSelected": false
     },
     {
       "Id": 6,
       "BaseBehaviour": "Move In Range Of Resource",
-      "BaseBehaviourInstanceId": 9764,
+      "BaseBehaviourInstanceId": 17924,
       "Behaviour": {
         "SaveDataType": "BbbtMoveInRangeOfResourceBehaviour",
         "Status": 0,
@@ -141,14 +156,14 @@
         "name": "Move In Range Of Resource(Clone)",
         "hideFlags": 0
       },
-      "X": 458.0,
-      "Y": 536.0,
+      "X": 273.0,
+      "Y": 1062.0,
       "IsSelected": false
     },
     {
       "Id": 7,
       "BaseBehaviour": "Repeat Until Fail",
-      "BaseBehaviourInstanceId": 14796,
+      "BaseBehaviourInstanceId": 22956,
       "Behaviour": {
         "SaveDataType": "BbbtRepeatUntilFail",
         "Child": {
@@ -163,29 +178,14 @@
         "name": "Repeat Until Fail(Clone)",
         "hideFlags": 0
       },
-      "X": 641.0,
-      "Y": 495.0,
-      "IsSelected": false
-    },
-    {
-      "Id": 9,
-      "BaseBehaviour": "Inventory Full Check",
-      "BaseBehaviourInstanceId": 8298,
-      "Behaviour": {
-        "SaveDataType": "BbbtInventoryFullCheck",
-        "Status": 0,
-        "NodeId": 9,
-        "name": "Inventory Full Check(Clone)",
-        "hideFlags": 0
-      },
-      "X": 828.0,
-      "Y": 492.0,
+      "X": 456.0,
+      "Y": 1021.0,
       "IsSelected": false
     },
     {
       "Id": 8,
       "BaseBehaviour": "Mine",
-      "BaseBehaviourInstanceId": 11500,
+      "BaseBehaviourInstanceId": 19660,
       "Behaviour": {
         "SaveDataType": "BbbtMineBehaviour",
         "Status": 0,
@@ -193,14 +193,14 @@
         "name": "Mine(Clone)",
         "hideFlags": 0
       },
-      "X": 695.0,
-      "Y": 703.0,
+      "X": 510.0,
+      "Y": 1229.0,
       "IsSelected": false
     },
     {
       "Id": 23,
       "BaseBehaviour": "Inverter",
-      "BaseBehaviourInstanceId": 13850,
+      "BaseBehaviourInstanceId": 22010,
       "Behaviour": {
         "SaveDataType": "BbbtInverter",
         "Child": {
@@ -245,10 +245,26 @@
                   "hideFlags": 0
                 },
                 {
-                  "SaveDataType": "BbbtInventoryFullCheck",
+                  "SaveDataType": "BbbtSelector",
+                  "Children": [
+                    {
+                      "SaveDataType": "BbbtCIOutOfResourceCheck",
+                      "Status": 0,
+                      "NodeId": 29,
+                      "name": "CI Out Of Resource Check(Clone)",
+                      "hideFlags": 0
+                    },
+                    {
+                      "SaveDataType": "BbbtInventoryFullCheck",
+                      "Status": 0,
+                      "NodeId": 30,
+                      "name": "Inventory Full Check(Clone)",
+                      "hideFlags": 0
+                    }
+                  ],
                   "Status": 0,
-                  "NodeId": 9,
-                  "name": "Inventory Full Check(Clone)",
+                  "NodeId": 28,
+                  "name": "Selector(Clone)",
                   "hideFlags": 0
                 }
               ],
@@ -268,14 +284,14 @@
         "name": "Inverter(Clone)",
         "hideFlags": 0
       },
-      "X": 422.0,
-      "Y": 44.0,
+      "X": 237.0,
+      "Y": 570.0,
       "IsSelected": false
     },
     {
       "Id": 3,
       "BaseBehaviour": "Repeat Until Fail",
-      "BaseBehaviourInstanceId": 14796,
+      "BaseBehaviourInstanceId": 22956,
       "Behaviour": {
         "SaveDataType": "BbbtRepeatUntilFail",
         "Child": {
@@ -322,10 +338,26 @@
                     "hideFlags": 0
                   },
                   {
-                    "SaveDataType": "BbbtInventoryFullCheck",
+                    "SaveDataType": "BbbtSelector",
+                    "Children": [
+                      {
+                        "SaveDataType": "BbbtCIOutOfResourceCheck",
+                        "Status": 0,
+                        "NodeId": 29,
+                        "name": "CI Out Of Resource Check(Clone)",
+                        "hideFlags": 0
+                      },
+                      {
+                        "SaveDataType": "BbbtInventoryFullCheck",
+                        "Status": 0,
+                        "NodeId": 30,
+                        "name": "Inventory Full Check(Clone)",
+                        "hideFlags": 0
+                      }
+                    ],
                     "Status": 0,
-                    "NodeId": 9,
-                    "name": "Inventory Full Check(Clone)",
+                    "NodeId": 28,
+                    "name": "Selector(Clone)",
                     "hideFlags": 0
                   }
                 ],
@@ -350,14 +382,14 @@
         "name": "Repeat Until Fail(Clone)",
         "hideFlags": 0
       },
-      "X": 547.0,
-      "Y": -107.0,
+      "X": 362.0,
+      "Y": 419.0,
       "IsSelected": false
     },
     {
       "Id": 1,
       "BaseBehaviour": "Root",
-      "BaseBehaviourInstanceId": 10564,
+      "BaseBehaviourInstanceId": 18724,
       "Behaviour": {
         "SaveDataType": "BbbtRoot",
         "Child": {
@@ -409,10 +441,26 @@
                           "hideFlags": 0
                         },
                         {
-                          "SaveDataType": "BbbtInventoryFullCheck",
+                          "SaveDataType": "BbbtSelector",
+                          "Children": [
+                            {
+                              "SaveDataType": "BbbtCIOutOfResourceCheck",
+                              "Status": 0,
+                              "NodeId": 29,
+                              "name": "CI Out Of Resource Check(Clone)",
+                              "hideFlags": 0
+                            },
+                            {
+                              "SaveDataType": "BbbtInventoryFullCheck",
+                              "Status": 0,
+                              "NodeId": 30,
+                              "name": "Inventory Full Check(Clone)",
+                              "hideFlags": 0
+                            }
+                          ],
                           "Status": 0,
-                          "NodeId": 9,
-                          "name": "Inventory Full Check(Clone)",
+                          "NodeId": 28,
+                          "name": "Selector(Clone)",
                           "hideFlags": 0
                         }
                       ],
@@ -457,14 +505,14 @@
         "name": "Root(Clone)",
         "hideFlags": 0
       },
-      "X": 794.0,
-      "Y": -404.0,
+      "X": 609.0,
+      "Y": 122.0,
       "IsSelected": false
     },
     {
       "Id": 2,
       "BaseBehaviour": "Sequencer",
-      "BaseBehaviourInstanceId": 9768,
+      "BaseBehaviourInstanceId": 17928,
       "Behaviour": {
         "SaveDataType": "BbbtSequencer",
         "Children": [
@@ -514,10 +562,26 @@
                         "hideFlags": 0
                       },
                       {
-                        "SaveDataType": "BbbtInventoryFullCheck",
+                        "SaveDataType": "BbbtSelector",
+                        "Children": [
+                          {
+                            "SaveDataType": "BbbtCIOutOfResourceCheck",
+                            "Status": 0,
+                            "NodeId": 29,
+                            "name": "CI Out Of Resource Check(Clone)",
+                            "hideFlags": 0
+                          },
+                          {
+                            "SaveDataType": "BbbtInventoryFullCheck",
+                            "Status": 0,
+                            "NodeId": 30,
+                            "name": "Inventory Full Check(Clone)",
+                            "hideFlags": 0
+                          }
+                        ],
                         "Status": 0,
-                        "NodeId": 9,
-                        "name": "Inventory Full Check(Clone)",
+                        "NodeId": 28,
+                        "name": "Selector(Clone)",
                         "hideFlags": 0
                       }
                     ],
@@ -557,14 +621,14 @@
         "name": "Sequencer(Clone)",
         "hideFlags": 0
       },
-      "X": 794.0,
-      "Y": -232.0,
+      "X": 609.0,
+      "Y": 294.0,
       "IsSelected": false
     },
     {
       "Id": 26,
       "BaseBehaviour": "Inverter",
-      "BaseBehaviourInstanceId": 12414,
+      "BaseBehaviourInstanceId": 22010,
       "Behaviour": {
         "SaveDataType": "BbbtInverter",
         "Child": {
@@ -579,14 +643,14 @@
         "name": "Inverter(Clone)",
         "hideFlags": 0
       },
-      "X": 306.0,
-      "Y": 320.0,
+      "X": 121.0,
+      "Y": 846.0,
       "IsSelected": false
     },
     {
       "Id": 27,
       "BaseBehaviour": "Find Nearest Resource",
-      "BaseBehaviourInstanceId": 11184,
+      "BaseBehaviourInstanceId": 19344,
       "Behaviour": {
         "SaveDataType": "BbbtFindNearestResource",
         "Status": 0,
@@ -594,9 +658,87 @@
         "name": "Find Nearest Resource(Clone)",
         "hideFlags": 0
       },
-      "X": 193.0,
-      "Y": 502.0,
-      "IsSelected": true
+      "X": 8.0,
+      "Y": 1028.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 28,
+      "BaseBehaviour": "Selector",
+      "BaseBehaviourInstanceId": 19346,
+      "Behaviour": {
+        "SaveDataType": "BbbtSelector",
+        "Children": [
+          {
+            "SaveDataType": "BbbtCIOutOfResourceCheck",
+            "Status": 0,
+            "NodeId": 29,
+            "name": "CI Out Of Resource Check(Clone)",
+            "hideFlags": 0
+          },
+          {
+            "SaveDataType": "BbbtInventoryFullCheck",
+            "Status": 0,
+            "NodeId": 30,
+            "name": "Inventory Full Check(Clone)",
+            "hideFlags": 0
+          }
+        ],
+        "Status": 0,
+        "NodeId": 28,
+        "name": "Selector(Clone)",
+        "hideFlags": 0
+      },
+      "X": 686.0,
+      "Y": 1020.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 29,
+      "BaseBehaviour": "CI Out Of Resource Check",
+      "BaseBehaviourInstanceId": -217580,
+      "Behaviour": {
+        "SaveDataType": "BbbtCIOutOfResourceCheck",
+        "Status": 0,
+        "NodeId": 29,
+        "name": "CI Out Of Resource Check(Clone)",
+        "hideFlags": 0
+      },
+      "X": 664.0,
+      "Y": 1213.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 30,
+      "BaseBehaviour": "Inventory Full Check",
+      "BaseBehaviourInstanceId": 16460,
+      "Behaviour": {
+        "SaveDataType": "BbbtInventoryFullCheck",
+        "Status": 0,
+        "NodeId": 30,
+        "name": "Inventory Full Check(Clone)",
+        "hideFlags": 0
+      },
+      "X": 817.0,
+      "Y": 1213.0,
+      "IsSelected": false
+    },
+    {
+      "Id": 18,
+      "BaseBehaviour": "Behaviour Tree Caller",
+      "BaseBehaviourInstanceId": 16378,
+      "Behaviour": {
+        "_behaviourTreeName": "DumpInventory",
+        "SaveDataType": "BbbtBehaviourTreeCallerBehaviour",
+        "BehaviourTree": null,
+        "Status": 0,
+        "NodeId": 18,
+        "name": "Behaviour Tree Caller(Clone)",
+        "hideFlags": 0
+      },
+      "X": 855.0,
+      "Y": 597.0,
+      "IsSelected": false
     }
   ],
   "Connections": [
@@ -618,10 +760,6 @@
     },
     {
       "InNodeId": 7,
-      "OutNodeId": 12
-    },
-    {
-      "InNodeId": 9,
       "OutNodeId": 12
     },
     {
@@ -647,8 +785,20 @@
     {
       "InNodeId": 27,
       "OutNodeId": 26
+    },
+    {
+      "InNodeId": 28,
+      "OutNodeId": 12
+    },
+    {
+      "InNodeId": 29,
+      "OutNodeId": 28
+    },
+    {
+      "InNodeId": 30,
+      "OutNodeId": 28
     }
   ],
-  "WindowOffsetX": 244.0,
-  "WindowOffsetY": -521.0
+  "WindowOffsetX": 50.0,
+  "WindowOffsetY": 660.0
 }

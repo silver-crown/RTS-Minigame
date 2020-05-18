@@ -23,9 +23,9 @@ public class CentralIntelligence : MonoBehaviour
     [SerializeField] GameObject _dronePrefab = null;
 
     [Tooltip("file path for the Lua file that gives the utility function for gatherResourceAmount")]
-    [SerializeField] string gatherAmountScriptPath;
+    [SerializeField] string _gatherAmountPath;
     [Tooltip("equivalent for buildWorkerNumber")]
-    [SerializeField] string buildDroneNumberPath;
+    [SerializeField] string _buildDroneNumberPath;
     [SerializeField] string _constructGroupPath;
     [SerializeField] string _buildFactoryNumber;
 
@@ -90,16 +90,14 @@ public class CentralIntelligence : MonoBehaviour
     void Awake() {
         DroneTypeCount = new Dictionary<string, int>();
         LastTimeChunkWasScouted = new Dictionary<Vector2Int, float>();
-        // SetUpTreeFromCode();
-        //_behaviorTree.SetTimer();
 
         //Contains the types of resources and the amounts the CI has of them
         Inventory = GetComponent<Inventory>();
-
-        var gatherMetal = ScriptableObject.CreateInstance<CIGatherMetal>();
-        var gatherCrystal = ScriptableObject.CreateInstance<CIGatherCrystal>();
+        var gatherMetal = ScriptableObject.CreateInstance<CIGatherResource>();
+        gatherMetal.Init("Metal");
+        var gatherCrystal = ScriptableObject.CreateInstance<CIGatherResource>();
+        gatherCrystal.Init("Crystal");
         var buildDrone = ScriptableObject.CreateInstance<CIBuildWorker>();
-        var constructGroup = ScriptableObject.CreateInstance<CIConstructGroup>();
         var buildFactory = ScriptableObject.CreateInstance<CIBuildFactory>();
 
         _actions = new List<UtilityAction>();
@@ -107,33 +105,20 @@ public class CentralIntelligence : MonoBehaviour
         //set up actions
         ///<summary>Gathering Metal</summary>
         _actions.Add(new UtilityAction(
-            new List<Factor> { new ResourceAmount(this, "Metal", ReadUtilityFunctionFromFile(gatherAmountScriptPath)) },
-            () => { gatherMetal.Tick(gameObject); }));
+            new List<Factor> { new ResourceAmount(this, "Metal", ReadUtilityFunctionFromFile(_gatherAmountPath)) },
+            () => { gatherMetal.Tick(gameObject); }, "GatherMetal"));
         ///<summary>Gathering Crystal</summary>
         _actions.Add(new UtilityAction(
-            new List<Factor> { new ResourceAmount(this, "Crystal", ReadUtilityFunctionFromFile(gatherAmountScriptPath)) },
-            () => { gatherCrystal.Tick(gameObject); }));
+            new List<Factor> { new ResourceAmount(this, "Crystal", ReadUtilityFunctionFromFile(_gatherAmountPath)) },
+            () => { gatherCrystal.Tick(gameObject); }, "GatherCrystal"));
         ///<summary>Drone building </summary>
         _actions.Add(new UtilityAction(
-            new List<Factor> { new DroneNumber(this, ReadUtilityFunctionFromFile(buildDroneNumberPath)) },
-            () => { buildDrone.Tick(gameObject); }));
-        
-        ///<summary> Need a fighter group </summary>
-        _actions.Add(new UtilityAction(
-            new List<Factor> { new NeedFighterGroup(this, ReadUtilityFunctionFromFile(_constructGroupPath)) },
-            () => { constructGroup.Tick(gameObject);}));
-        ///<summary> Need a worker group </summary>
-        _actions.Add(new UtilityAction(
-            new List<Factor> { new NeedWorkerGroup(this, ReadUtilityFunctionFromFile(_constructGroupPath)) },
-            () => { constructGroup.Tick(gameObject); }));
-        ///<summary>Need a scout group </summary>
-        _actions.Add(new UtilityAction(
-            new List<Factor> { new NeedScoutGroup(this, ReadUtilityFunctionFromFile(_constructGroupPath)) },
-            () => { constructGroup.Tick(gameObject); }));
+            new List<Factor> { new DroneNumber(this, ReadUtilityFunctionFromFile(_buildDroneNumberPath)) },
+            () => { buildDrone.Tick(gameObject); },"BuildDrone"));
         ///<summary>Need Factory</summary>
         _actions.Add(new UtilityAction(
             new List<Factor> { new FactoryNumber(this, ReadUtilityFunctionFromFile(_buildFactoryNumber)) },
-            () => { buildFactory.Tick(gameObject); }));
+            () => { buildFactory.Tick(gameObject); }, "BuildFactory"));
     }
 
     private void Start()
@@ -179,6 +164,7 @@ public class CentralIntelligence : MonoBehaviour
 
             //tick selected action
             _selectedAction.MyAction.Invoke();
+            Debug.Log("CI Does: " + _selectedAction.Name + ", Utility was " + _selectedAction.GetUtility());
 
             _timeOfLastAction = Time.time;
         }
@@ -242,22 +228,6 @@ public class CentralIntelligence : MonoBehaviour
         }
 
         _selectedAction = chosenAction;
-    }
-
-    public void TestBuildDrone()
-    {
-        Inventory.Withdraw("Metal", 10);
-        Inventory.Withdraw("Crystal", 8);
-    }
-
-    public void TestGatherMetal()
-    {
-        Inventory.Deposit("Metal", 10);
-    }
-
-    public void TestGatherCrystal()
-    {
-        Inventory.Deposit("Crystal", 10);
     }
 
     /// <summary>

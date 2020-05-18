@@ -162,7 +162,7 @@ namespace Bbbt
                 }
                 _behaviourTreesLoaded = true;
             }
-            Debug.Log("Query: " + query.ToLower());
+            //Debug.Log("Query: " + query.ToLower());
             return _behaviourTrees[query.ToLower()];
         }
     }

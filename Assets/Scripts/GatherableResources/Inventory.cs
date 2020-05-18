@@ -125,8 +125,20 @@ public class Inventory : MonoBehaviour
         return str;
     }
 
-    public void SetCapacityFromFile(string filename)
+    /// <summary>
+    /// Gets the amount of a given resource in the inventory
+    /// </summary>
+    /// <param name="resourceType"></param>
+    /// <returns></returns>
+    public int GetAmountOfResource(string resourceType)
     {
-
+        if (Contents.ContainsKey(resourceType))
+        {
+            return Contents[resourceType];
+        } else
+        {
+            return 0;
+        }
     }
+
 }

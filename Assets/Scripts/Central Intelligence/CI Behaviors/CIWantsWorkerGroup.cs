@@ -32,7 +32,7 @@ namespace ssuai
             //TODO make this not a placeholder function
             CentralIntelligence CI = gameObject.GetComponent<CentralIntelligence>();
 
-            CI.TestBuildDrone();
+            //CI.TestBuildDrone();
 
             return BbbtBehaviourStatus.Success;
         }

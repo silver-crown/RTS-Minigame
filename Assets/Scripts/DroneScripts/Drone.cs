@@ -29,7 +29,7 @@ public class Drone : Actor
     [System.NonSerialized] public bool leaderStatus = false;
     [SerializeField] GroupLeader group;
 
-    [SerializeField] public string TargetResourceType { get; private set; } = "Metal";
+    [SerializeField] public string TargetResourceType = "Metal";
 
     /// <summary>
     /// The depot the drone is currently delivering resources to
@@ -72,6 +72,7 @@ public class Drone : Actor
         base.Awake();
 
         CentralIntelligence = GameObject.Find("CI").GetComponent<CentralIntelligence>();
+        CentralIntelligence.Drones.Add(this);
 
         ID = _nextId++;
     }
@@ -83,18 +84,15 @@ public class Drone : Actor
 
     public void Update()
     {
-        /* This code is here until some prerequsities get done, pls no touchy
         string status = GetValue("_status").String;
 
-        //check if we recently switched into Idle mode
-        //TODO replace with an Event once Benjamin implements that
-        if (status != GetValue("_behaviourTree").String)
+        //check if we recently switched to idling
+        if (status == "Idle")
         {
             //if so set up the proper status tree
-            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree(status);
+            GetComponent<BbbtBehaviourTreeComponent>().SetBehaviourTree("Idle");
         }
 
-        */
 
 
         //Debug.Log(_script.Call(_script.Globals["Update"]));
@@ -144,32 +142,6 @@ public class Drone : Actor
         base.Attack();
     }
 
-
-    /// <summary>
-    /// Reads the drone's stats from lua.
-    /// </summary>
-    /// <param name="type">The drone type to set </param>
-    /// <param name="id">The drone's id.</param>
-    //public void Initialize(string type, int id)
-    //{
-        // Why does this method exist? I'll just reroute it to SetType. Did I create this? I don't even know.
-        // It doesn't even load behaviour trees properly?
-        // - Tired and confused Benjamin
-        //SetType(type);
-        /*
-        //GetComponent<NavMeshAgent>().
-        Type = type;
-        _luaObject = GetComponent<LuaObjectComponent>();
-        if (_luaObject == null)
-        {
-            _luaObject = gameObject.AddComponent<LuaObjectComponent>();
-            InGameDebug.Log(name + ": No LuaObjectComponent. Created one.");
-        }
-        _luaObject.Load("Actors.Drones." + type);
-        string tree = GetValue("_behaviourTree").String;
-        */
-    //}
-
     /// <summary>
     /// Reads the drone's stats from lua.
     /// </summary>
@@ -199,7 +171,7 @@ public class Drone : Actor
     }
 
 
-    protected void SetStatus(string status)
+    public void SetStatus(string status)
     {
         SetValue("_status", DynValue.NewString(status));
     }

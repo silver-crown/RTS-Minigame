@@ -46,7 +46,7 @@ namespace ssuai
             //generate a random direction
             Vector2 direction = Random.insideUnitCircle.normalized;
 
-            float distance = Random.Range(5, 10);
+            float distance = 12;
 
             Vector3 factoryLocation = _ci.transform.position + ((Vector3)direction * distance);
 

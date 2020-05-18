@@ -40,16 +40,6 @@ namespace RTS
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                Script droneScript = new Script();
-                Table table;
-                table = droneScript.DoFile("Actors.Drones.WorkerDrone").Table;
-
-                Debug.Log(table.Get("_name"));
-                //build a drone of the ordered type
-                _orderDrone("WorkerDrone", (float)table.Get("_buildTime").Number);
-            }
             //if there is something in the queue 
             if (BuildQueue.Count != 0)
             {
@@ -81,7 +71,7 @@ namespace RTS
         }
 
         /// <summary>
-        /// When an order is received, build a drone of that type
+        /// When an order is received, see if it's a build order, if so build a drone of that type
         /// </summary>
         /// <param name="message"></param>
         public void OnOrderReceived()
@@ -90,13 +80,14 @@ namespace RTS
             string[] splitMessage = _listenToChannel.GetLastMessage().Split(' ');
             string droneType = splitMessage[splitMessage.Length - 1];
 
+            if (splitMessage[0] == "Build")
+            {
             Script droneScript = new Script();
-            Table table;
-            table = droneScript.DoFile("Actors.Drones."+droneType).Table;
+            var table = droneScript.DoFile("Actors.Drones."+droneType).Table;
 
-            Debug.Log(table.Get("_name"));
             //build a drone of the ordered type
             _orderDrone(droneType, (float)table.Get("_buildTime").Number);
+            }
         }
 
         /// <summary>
@@ -122,6 +113,15 @@ namespace RTS
                 Type = name;
                 BuildTime = buildTime;
             }
+        }
+
+        /// <summary>
+        /// returns whether the queue is empty or not
+        /// </summary>
+        /// <returns></returns>
+        public int GetQueueCount()
+        {
+            return BuildQueue.Count;
         }
     }
 }

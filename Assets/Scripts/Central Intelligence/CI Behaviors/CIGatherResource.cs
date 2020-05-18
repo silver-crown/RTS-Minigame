@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bbbt;
+using MoonSharp.Interpreter;
 
 
 namespace ssuai
@@ -50,11 +51,40 @@ namespace ssuai
 
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            //find an idle worker
-            //tell them to mine
-            //_ci.SendMessage
+            //Debug.Log("Dronecount: " + _ci.Drones.Count);
+            //go through drones, look for an idle worker
+            foreach (Drone drone in _ci.Drones)
+            {
+                if (drone.GetValue("_name").String == "Worker Drone")
+                {
+                    if (drone.GetValue("_status").String == "Idle")
+                    {
+                        Debug.Log("Assigned worker.");
+                        //tell them to gather the resource
+                        //TODO This should use the messaging system.
+                        drone.gameObject.GetComponent<RTS.Miner>().MineOrder(_resourceType);
+                        return BbbtBehaviourStatus.Success;
+                    } 
+                }
+            }
 
-            return BbbtBehaviourStatus.Success;
+            //If we couldn't find an idle worker, find one that isn't doing this
+            foreach (Drone drone in _ci.Drones)
+            {
+                if (drone.GetValue("_name").String == "Worker Drone")
+                {
+                    if (drone.GetValue("_status").String == "Mining " + _resourceType)
+                    {
+                        //tell them to gather the resource
+                        //TODO This should still use the messaging system.
+                        drone.gameObject.GetComponent<RTS.Miner>().MineOrder(_resourceType);
+                        return BbbtBehaviourStatus.Success;
+                    }
+                }
+            }
+
+            //if we couldn't do either, we've failed.
+            return BbbtBehaviourStatus.Failure;
         }
     }
 }

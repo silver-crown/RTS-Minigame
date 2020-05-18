@@ -1,7 +1,7 @@
 local WorkerDrone = 
 {
     _name               = "Worker Drone",
-    _behaviourTree      = "Mine",
+    _behaviourTree      = "Idle",
     _status				= "Idle",
     _maxHP              = 20,
     _attackRange        = 30.0,
@@ -12,7 +12,8 @@ local WorkerDrone =
     _miningDamage		= 5,
     _inventorySpace     = 50,
     _metalCost 			= 20,
-    _crystalCost 		= 5
+    _crystalCost 		= 5,
+    _buildTime  		= 2.0
 }
 
 function WorkerDrone:Start(id)

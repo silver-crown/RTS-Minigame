@@ -43,8 +43,6 @@ public class ListenToChannel : EventManager
     {
         _personalChannels = new Dictionary<string, UnityEvent>();
 
-        Debug.Log(_privateChannels);
-        Debug.Log(_personalChannels);
         ///<summary>if the entity's channel isn't in the list, add it there</summary>
         if (!_privateChannels.Contains(_personalChannels))
         {

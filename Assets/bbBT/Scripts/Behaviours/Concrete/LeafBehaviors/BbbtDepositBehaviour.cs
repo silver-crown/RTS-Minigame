@@ -37,7 +37,7 @@ namespace Bbbt
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
             //Debug.Log("Henlo");
-            Debug.Log(_drone.TargetResourceType);
+            //Debug.Log(_drone.TargetResourceType);
             string typeToDeposit = _drone.TargetResourceType;
             //Withdraw all items in our inventory of our current target resource type, and put them in the depot's inventory.
 

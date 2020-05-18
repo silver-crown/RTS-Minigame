@@ -39,6 +39,18 @@ namespace RTS
         }
 
         /// <summary>
+        /// Tells the miner to mine a certain type of resource
+        /// </summary>
+        /// <param name="resourceType"></param>
+        public void MineOrder(string resourceType)
+        {
+            _worker.SetValue("_behaviourTree", DynValue.NewString("Mine"));
+            _worker.TargetResourceType = resourceType;
+            _worker.SetStatus("Mining " + resourceType);
+            _worker.GetComponent<Bbbt.BbbtBehaviourTreeComponent>().SetBehaviourTree("Mine");
+        }
+
+        /// <summary>
         /// Mines target, adds resources to inventory.
         /// </summary>
         /// <returns>true if it succeeded in mining anything, false otherwise</returns>

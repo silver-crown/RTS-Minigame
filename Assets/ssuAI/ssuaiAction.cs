@@ -10,14 +10,16 @@ namespace ssuai
         protected List<Factor> _factors;
         public Action MyAction { get; protected set; }
         private float _utility = 0.0f;
-
+        public string Name;
+        //debug value for figuring out what action was called
 
         /// <summary>
         /// Initializes the Utility action with the factors that affect its utility and the behavior it executes
         /// </summary>
         /// <param name="factors"></param>
         /// <param name="action"></param>
-        public UtilityAction(List<Factor> factors, Action action)
+        /// <param name="name">name for debug purposes</param>
+        public UtilityAction(List<Factor> factors, Action action, string name=null)
         {
             foreach (Factor factor in factors)
             {
@@ -29,6 +31,7 @@ namespace ssuai
             }
             _factors = factors;
             MyAction = action;
+            Name = name;
         }
 
         //Updates utility to be the average of all its factors utilities
@@ -49,5 +52,7 @@ namespace ssuai
             UpdateUtility(); //update the action's utility value
             return _utility; //return it
         }
+
+
     }
 }

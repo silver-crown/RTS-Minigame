@@ -112,11 +112,12 @@ MonoBehaviour:
   maxGroups: 20
   _dronePrefab: {fileID: 5531117861107271381, guid: 46a90bc59f4f82b47bc2c144d12ec054,
     type: 3}
-  gatherAmountScriptPath: CI/Factors/GatherResourceAmount
-  buildDroneNumberPath: CI/Factors/BuildDroneNumber
-  _constructGroupPath: CI/Factors/NeedGroupPercentage
-  _buildFactoryNumber: CI/Factors/NeedGroupPercentage
-  FactoryPrefab: {fileID: 0}
+  _gatherAmountPath: CI.Factors.GatherResourceAmount
+  _buildDroneNumberPath: CI.Factors.BuildDroneNumber
+  _constructGroupPath: CI.Factors.NeedGroupPercentage
+  _buildFactoryNumber: CI.Factors.NeedGroupPercentage
+  FactoryPrefab: {fileID: 8371903478471958757, guid: 32493dd0a626e6b4ebceb2e5f657ff3c,
+    type: 3}
 --- !u!114 &280911422433814950
 MonoBehaviour:
   m_ObjectHideFlags: 0
