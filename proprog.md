@@ -3,7 +3,7 @@
 ## Team Members
 - Benjamin Bergseth (benjabe)
 - Sigurd
-- Stig
+- Stig Thomas Gulbrandsen (stigtg)
 - Victor Sebastian Standal Clusen (vsclause)
 
 ## Programming Languages
