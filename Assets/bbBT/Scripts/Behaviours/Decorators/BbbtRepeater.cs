@@ -40,7 +40,7 @@ namespace Bbbt
         }
 
         /// <summary>
-        /// Executes the repeaters child node untill it has succsessfully executed a set number of times (Count variable).
+        ///  Executes the repeaters child node until it has successfully executed a set number of times (Count variable).
         /// </summary>
         /// <param name="gameObject">Game object that owns the behaviour.</param>
         /// <returns>
