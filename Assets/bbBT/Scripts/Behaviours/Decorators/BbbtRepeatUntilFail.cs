@@ -34,7 +34,6 @@ namespace Bbbt
         /// <returns></returns>
         protected override BbbtBehaviourStatus UpdateBehaviour(GameObject gameObject)
         {
-            //Debug.Log("Mordi");
             BbbtBehaviourStatus childStatus;
             childStatus = Child.Tick(gameObject);
 
