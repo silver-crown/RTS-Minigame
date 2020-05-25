@@ -124,4 +124,5 @@ We used two trello boards during this project, one Trello board that had a produ
 We didn't use a code review for our system, except for LaTeX content and syntax later on in the project. The only time code was reviewed was when Simon reviewed a part of the behaviour tree system, and discovered some inefficiencies in the way the code was rewritten. This would merit a refactor, but priority had to be given to other aspects of the thesis, and, as such, the refactoring wasn't actually performed as a result of the code review.
 
 We did some code reveiws after the thesis was done, this resulted in finding some comments that could be removed that was left over from debugging, also 
-methods that requierd more documentation was found. Suggestions to refactoring the code so it would detect more error cases.
+methods that requierd more documentation was found. Suggestions to refactoring the code so it would detect more error cases. Also a few grammer erros were discoerd,
+also some comments that needed to be updated since they informed wrong information.
