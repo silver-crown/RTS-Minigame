@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Bbbt
 {
-    // Creates the menu option in the unity engine
+    // Creates the menu option in the Unity Engine
     [CreateAssetMenu(
         fileName = "Repeater",
         menuName = "bbBT/Behaviour/Decorator/Repeater",
@@ -18,7 +18,7 @@ namespace Bbbt
     public class BbbtRepeater : BbbtDecoratorBehaviour
     {
         /// <summary>
-        /// Number of times to repeat the child succsessfully
+        /// Number of times to repeat the child successfully
         /// </summary>
         [JsonProperty, SerializeField] private int Count;
 
