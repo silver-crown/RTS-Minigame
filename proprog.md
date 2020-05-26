@@ -30,7 +30,7 @@ Garbage collection is used in C#. This is an advantage for ease of programming s
 
 C# is a general-purpose programming language, this means it can be used to develop several different types of systems, and is not very focused on a single area of use like a database language. This means one can use the same language to do networking, AI scripts, and game logic.
 
-C# is a strongly typed language, which prevents certain type errors from occuring, since it will perform type checking on variables when actions are performed on them. In a strongly typed language variables are mapped to a data type so finding these kinds of type errors is doable at compile time, and some IDE’s will also detect them.
+C# is a strongly typed language, which prevents certain type errors from occurring, since it will perform type checking on variables when actions are performed on them. In a strongly typed language variables are mapped to a data type so finding these kinds of type errors is doable at compile time, and some IDE’s will also detect them.
 
 C# allows the use of namespaces, this allows for code to be organized in a structured manner, one can think of namespaces almost like a folder structure. C#’s namespaces is similar to java package system, or if one is familiar with the namespaces in C++. A namespace is kind of a region where one can use variable names without them coming into conflict with the same variable names in another namespace, also a good way to structure code. In our project we used namespaces for modular components such as the behaviour tree editor and utility AI system.
 
