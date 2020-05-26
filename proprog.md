@@ -11,24 +11,24 @@
 ### Lua
 [MoonSharp](https://www.moonsharp.org/) is an open-source library that lets Lua scripts interface with C# using developer-defined bindings. This sort of interfacing means that you can easily open support for modding the game---the developer can control what parts of the game logic are exposed to modders through the C# bindings. 
 
-The way Moonsharp loads files means you can also load variables for entities in the game from files during runtime, or even load scripts from lua files. This is excellent for games that do most of their logic on the server end, because you can issue balance updates or do testing without having to recompile the server---all that needs to change are the Lua files being read, and that can be done without any recompilation.
+The way Moonsharp loads files means you can also load variables for entities in the game from files during runtime, or even load scripts from Lua files. This is excellent for games that do most of their logic on the server end, because you can issue balance updates or do testing without having to recompile the server---all that needs to change are the Lua files being read, and that can be done without any recompilation.
 
 Lua can be very fast as a scripting language since it is so small and simple, though it does produce some overhead when compared to using compiled C# code since the code needs to be interpreted.
 
-Another advange of using Lua was the ability to easily create a debug console which interpreted Lua. Since the interpretation had already been implemented, all that was needed was to add the actual input field, plus some other convenience features such as function suggestions and a command history.
+Another advantage of using Lua was the ability to easily create a debug console which interpreted Lua. Since the interpretation had already been implemented, all that was needed was to add the actual input field, plus some other convenience features such as function suggestions and a command history.
 
-Lua is free and is distributed under the MIT license, and can therefor be used for whatever the user wants to use it for.
+Lua is free and is distributed under the MIT license, and can therefore be used for whatever the user wants to use it for.
 
 
 ### C#
 
-C# is the scripting languaged used for Unity, so most guides, tutorials, questions, and help pages talk about C#, unless the tutorials specifically cover integrating another scripting language with Unity. Access to this knowledge base is very useful. 
+C# is the scripting language used for Unity, so most guides, tutorials, questions, and help pages talk about C#, unless the tutorials specifically cover integrating another scripting language with Unity. Access to this knowledge base is very useful. 
 
 C# uses a C-style syntax for its language rules, which makes it easier for the group to use since it is familiar with this type of language structure. The group also has a lot of direct experience with C#.
 
-Garbage collection is used in C#. This is an advantage for ease of programming since the game developers don’t have to spend time and effort on manually managing memory, preventing certain types of memory leaks. One downside of using garbage collection is that one has less ability to manually optimize the code. However it is possible to do some manual memory management in C# in specific memory blocks that are marked as unsafe.
+Garbage collection is used in C#. This is an advantage for ease of programming since the game developers don’t have to spend time and effort on manually managing memory, preventing certain types of memory leaks. One downside of using garbage collection is that one has less ability to manually optimize the code. However, it is possible to do some manual memory management in C# in specific memory blocks that are marked as unsafe.
 
-C# is a general purpose programming language, this means it can be used to develop several different types of systems, and is not very focused on a single area of use like a database language. This means one can use the same language to do networking, AI scripts, and game logic.
+C# is a general-purpose programming language, this means it can be used to develop several different types of systems, and is not very focused on a single area of use like a database language. This means one can use the same language to do networking, AI scripts, and game logic.
 
 C# is a strongly typed language, which prevents certain type errors from occuring, since it will perform type checking on variables when actions are performed on them. In a strongly typed language variables are mapped to a data type so finding these kinds of type errors is doable at compile time, and some IDE’s will also detect them.
 
