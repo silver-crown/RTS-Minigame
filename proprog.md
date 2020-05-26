@@ -38,9 +38,9 @@ C# is a compiled language, which means that any time a change occurs there is a 
 
 
 ## Process and Communication Systems
-We communicated primarily over Discord throughout the whole project, and all meetings happened over Discord after the COVID-19 lockdown. We held meetings almost-daily at 10 am, which worked much like daily standing meetings where everyone said what they had worked on since last time, which problems they encountered, and what they would work on next. Every Monday at 10 am was dedicated to meeting with our supervisors where we took up problems we had in terms of process and project organisation, as well as style and content guidance for the report.
+We communicated primarily over Discord throughout the whole project, and all meetings happened over Discord after the COVID-19 lockdown. We held meetings almost daily at 10 am, which worked much like daily standing meetings where everyone said what they had worked on since last time, which problems they encountered, and what they would work on next. Every Monday at 10 am was dedicated to meeting with our supervisors where we took up problems we had in terms of process and project organisation, as well as style and content guidance for the report.
 
-Trello was used for delegating tasks. This helped keep people accountable, but the board wasn't maintaned well enough, and the tasks on the board ended up not corresponding to the actual tasks needing to be developed. This resulted in the board being more or less abandoned after a while. We later used Trello for the thesis writing, with a review system included. We has less tasks and lists on the board, which made it a lot easier to maintain and navigate.
+Trello was used for delegating tasks. This helped keep people accountable, but the board wasn't maintained well enough, and the tasks on the board ended up not corresponding to the actual tasks needing to be developed. This resulted in the board being more or less abandoned after a while. We later used Trello for the thesis writing, with a review system included. We have less tasks and lists on the board, which made it a lot easier to maintain and navigate.
 
 The group set up a Google Sheet where time worked by each member was tracked.
 
@@ -48,7 +48,10 @@ The group set up a Google Sheet where time worked by each member was tracked.
 Git was used for version control, which is the most used version control system for programming projects these days. The git repo was divided into two branches: a DevelopedBranch, and a master branch. We ended up not using the master branch much. We had a rule to not push code that would break the build or not compile, and this rule was followed, barring a few exceptions.
 
 ### Ticket Tracking
-We used issues to some extent in our bitbucket repo, sometimes to different people. Mostly this was trying out something that was mentioned in the lectures, using issues for documentation and tying commits to specific issues. However, we found that this form of documentation was quite out-of-the-way compared to just writing relevant documentation in the file, or---our favored method---just asking the person developing the system what we need to know. Obviously this solution does not scale well for larger teams or longer term projects seeing as it is basically the communication equivalent of Code-and-Fix,  but for such a small team and such a short project time horizon, we found this a very low-overhead solution.
+We used issues to some extent in our bitbucket repo, sometimes to different people. Mostly this was trying out something that was mentioned in the lectures, 
+using issues for documentation and tying commits to specific issues. However, we found that this form of documentation was quite out-of-the-way compared to just writing relevant documentation in the file,
+or---our favoured method---just asking the person developing the system what we need to know. Obviously this solution does not scale well for larger teams or longer term projects seeing as it is basically the
+communication equivalent of Code-and-Fix,  but for such a small team and such a short project time horizon, we found this a very low-overhead solution.
 
 Here is an example showing how messaging works.
 https://bitbucket.org/Arthurial/rts-minigame/issues/8/drone-messaging-system
@@ -115,16 +118,21 @@ We made sure not to use any works we did not have the rights to. All libraries a
 ## Tools
 
 ### The Internet
-When we needed to learn code to implement algortihms or learn how to solve some specific problems releated to git, we often had to resort to using one of various search engines to find solutions on sites such as StackOverflow and YouTube. It goes without saying that this was massively helpful.
+When we needed to learn code to implement algorithms or learn how to solve some specific problems related to git, 
+we often had to resort to using one of various search engines to find solutions on sites such as StackOverflow and YouTube.
+It goes without saying that this was massively helpful.
 
 ### Trello
-We used two trello boards during this project, one Trello board that had a product backlog and another board was used when we were writing the thesis to assign topics to certain people, assign the person who would review the section. In the trello board for writing, if the user had enabled email notifcation then tehy would recive an email notification when they were added to a trello card.
+We used two trello boards during this project, one Trello board that had a product backlog and another board was used when we were writing the thesis to assign topics to certain people,
+assign the person who would review the section. In the trello board for writing, if the user had enabled email notifcation then they would receive an email notification when they were added to a trello card.
 
 ## Code Review
 
-We did some code reveiws after the thesis was done, this resulted in finding some comments that could be removed that was left over from debugging, also 
-methods that requierd more documentation was found. Suggestions to refactoring the code so it would detect more error cases. Also a few grammer erros were discovered,
+We did some code reviews after the thesis was done, this resulted in finding some comments that could be removed that was left over from debugging, also 
+methods that required more documentation was found. Suggestions to refactoring the code so it would detect more error cases. Also a few grammar errors were discovered,
 also some comments that needed to be updated since they informed wrong information.
 
 
-except for LaTeX content and syntax later on in the project. The only time code was reviewed was when Simon reviewed a part of the behaviour tree system, and discovered some inefficiencies in the way the code was rewritten. This would merit a refactor, but priority had to be given to other aspects of the thesis, and, as such, the refactoring wasn't actually performed as a result of the code review.
+except for LaTeX content and syntax later on in the project. The only time code was reviewed was when Simon reviewed a part of the behaviour tree system, and discovered 
+some inefficiencies in the way the code was rewritten. This would merit a refactor, but priority had to be given to other aspects of the thesis, and, as such, the refactoring wasn't actually performed '
+as a result of the code review.
