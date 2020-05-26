@@ -136,3 +136,6 @@ also some comments that needed to be updated since they informed wrong informati
 except for LaTeX content and syntax later on in the project. The only time code was reviewed was when Simon reviewed a part of the behaviour tree system, and discovered 
 some inefficiencies in the way the code was rewritten. This would merit a refactor, but priority had to be given to other aspects of the thesis, and, as such, the refactoring wasn't actually performed '
 as a result of the code review.
+
+
+### Links to Individual Writings
